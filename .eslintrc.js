@@ -34,6 +34,7 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': 0,
     'react/jsx-one-expression-per-line': 0,
+    'react/jsx-indent': 0,
     'linebreak-style': 0,
     'import/no-unresolved': 0,
     'import/no-extraneous-dependencies': 0,
@@ -45,11 +46,7 @@ module.exports = {
     'import/no-duplicates': 0,
     'no-param-reassign': 0,
     'no-return-assign': 0,
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
-    ],
+    'no-unused-vars': 1,
+    'prettier/prettier': [2, { endOfLine: 'auto' }],
   },
 };
