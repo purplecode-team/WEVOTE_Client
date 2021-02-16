@@ -43,6 +43,8 @@ module.exports = {
     'operator-linebreak': 0,
     'comma-dangle': 0,
     'object-curly-newline': 0,
+    'function-call-argument-newline': 0,
+    'function-paren-newline': 0,
     'import/no-duplicates': 0,
     'no-param-reassign': 0,
     'no-return-assign': 0,
