@@ -19,7 +19,7 @@ module.exports = {
         // style태그가 아닌 css파일로 번들링하고 싶을 때는 MiniCssExtractPlugin.loader 사용
       },
       {
-        test: /\.(ttf|gif|jpe?g|png)$/,
+        test: /\.(ttf|gif|jpe?g|png|svg)$/,
         loader: 'file-loader',
       },
     ],
