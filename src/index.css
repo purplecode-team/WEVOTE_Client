@@ -1,3 +1,6 @@
-html{
-  font-size: 10px;
+@font-face {
+  font-family: 'paybooc';
+  src: url(../public/font/paybooc.ttf);
 }
+
+
