@@ -20,9 +20,9 @@ module.exports = {
   // 추가한 플러그인에서 사용할 규칙. 역순으로 우선
   extends: [
     'eslint:recommended',
+    'airbnb',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
-    'airbnb',
     'prettier',
   ],
   settings: {
@@ -35,6 +35,7 @@ module.exports = {
     'react/jsx-filename-extension': 0,
     'react/jsx-one-expression-per-line': 0,
     'react/jsx-indent': 0,
+    'react/jsx-wrap-multilines': 0,
     'linebreak-style': 0,
     'import/no-unresolved': 0,
     'import/no-extraneous-dependencies': 0,
@@ -43,6 +44,8 @@ module.exports = {
     'operator-linebreak': 0,
     'comma-dangle': 0,
     'object-curly-newline': 0,
+    'array-callback-return': 0,
+    'arrow-body-style': 0,
     'function-call-argument-newline': 0,
     'function-paren-newline': 0,
     'import/no-duplicates': 0,
