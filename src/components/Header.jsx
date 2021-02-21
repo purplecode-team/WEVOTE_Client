@@ -43,7 +43,9 @@ const Header = () => {
 };
 
 const HeaderVar = styled.header`
-  width: 100%;
+  @media (max-width: ${media.laptopM - 1}px) {
+    width: ${media.laptopM}px;
+  }
   height: 60px;
   background-color: #252c44;
 `;
@@ -62,7 +64,7 @@ const Menu = styled.div`
 const activeClassName = 'active';
 
 const ImgLink = styled(NavLink)`
-  flex: 1 1 100px;
+  flex: 1 1;
   &:hover {
     cursor: pointer;
   }
@@ -77,7 +79,7 @@ const TextLink = styled(NavLink).attrs({
     }
     color: #5d3fe8;
   }
-  flex: 1 1 100px;
+  flex: 1 1;
   color: white;
   text-decoration: none;
   &:hover {
@@ -98,8 +100,8 @@ const MenuItem = styled.div`
   }
 `;
 
-const MenuSpace = styled.span`
-  flex: 4 4 500px;
+const MenuSpace = styled.div`
+  flex: 5 5;
 `;
 
 const LogoImg = styled.img.attrs({
