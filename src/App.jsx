@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import GlobalStyle from './lib/styles/GlobalStyle';
-import { Main, Info, Login } from './pages';
+import { Home, Info, Login } from './pages';
 import Layout from './components/Layout';
 
 const Board = lazy(() => import('./pages/Board'));
@@ -19,7 +19,7 @@ const App = () => {
       <Suspense fallback={<div>Loading.....</div>}>
         <Layout>
           <Switch>
-            <Route exact path="/" component={Main} />
+            <Route exact path="/" component={Home} />
             <Route path="/info" component={Info} />
             <Route path="/board" component={Board} />
             <Route path="/admin" component={Admin} />
