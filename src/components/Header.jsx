@@ -43,15 +43,15 @@ const Header = () => {
 };
 
 const HeaderVar = styled.header`
-  @media (max-width: ${media.laptopM - 1}px) {
-    width: ${media.laptopM}px;
+  @media (max-width: ${media.laptop - 1}px) {
+    width: ${media.laptop}px;
   }
   height: 60px;
   background-color: #252c44;
 `;
 
 const Menu = styled.div`
-  width: ${media.laptopM}px;
+  width: ${media.laptop}px;
   height: 100%;
   margin: 0 auto;
   display: flex;
