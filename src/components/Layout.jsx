@@ -7,15 +7,13 @@ import Header from './Header';
 const Layout = ({ children }) => (
   <>
     <Header />
-    <Section>{children}</Section>
+    <Main>{children}</Main>
   </>
 );
 
-const Section = styled.section`
-  width: ${media.laptopM}px;
-  height: 100vh;
+const Main = styled.main`
+  width: ${media.laptop}px;
   margin: 0 auto;
-  background-color: #fcfcfc;
 `;
 
 Layout.propTypes = {
