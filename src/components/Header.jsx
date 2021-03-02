@@ -1,122 +1,197 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import * as FaIcons from 'react-icons/fa';
+import * as AiIcons from 'react-icons/ai';
+import { MenuData } from './MenuData';
 import media from '../lib/styles/media';
-import loginIcon from '../../public/img/login.svg';
+import theme from '../lib/styles/theme';
 import logoIcon from '../../public/img/logo.png';
+import loginIcon from '../../public/img/login.svg';
+import logoutIcon from '../../public/img/logout.svg';
 
 const Header = () => {
-  const MenuList = ['Main', '선거정보', '공약게시판', '관리자페이지', 'Login'];
-  const MenuRoute = ['/', '/info', '/board', '/admin', '/login'];
+  const [active, setActive] = useState(false);
+  const [login, setLogin] = useState(false);
+
+  const changeSidebar = () => setActive(!active);
+  const hideSidebar = () => setActive(false);
+  const changeLog = () => setLogin(!login);
+
   return (
-    <HeaderVar>
-      <Menu>
-        <ImgLink exact to={MenuRoute[0]}>
-          <MenuItem>
-            <LogoImg />
-          </MenuItem>
+    <HeaderBar>
+      <MenuBar>
+        <ImgLink exact to="/" onClick={hideSidebar}>
+          <LogoImg />
         </ImgLink>
-        <TextLink exact to={MenuRoute[1]}>
-          <MenuItem>
-            <p>{MenuList[1]}</p>
+        {/* MenuData.js의 item.type 설정에 따라 다르게 return함 */}
+        <MenuBox isActive={active}>
+          {MenuData.map((item) => {
+            if (item.type === 'space') {
+              return <MenuSpace key={item.id} />;
+            }
+            return (
+              <MenuItem key={item.id} onClick={changeSidebar}>
+                <TextLink to={item.path}>
+                  <p>{item.title}</p>
+                </TextLink>
+              </MenuItem>
+            );
+          })}
+          <MenuItem
+            onClick={() => {
+              changeSidebar();
+              changeLog();
+            }}
+          >
+            <ImgLink exact to="/login">
+              {login ? <LoginImg /> : <LogoutImg />}
+            </ImgLink>
           </MenuItem>
-        </TextLink>
-        <TextLink exact to={MenuRoute[2]}>
-          <MenuItem>
-            <p>{MenuList[2]}</p>
-          </MenuItem>
-        </TextLink>
-        <MenuSpace />
-        <TextLink exact to={MenuRoute[3]}>
-          <MenuItem>
-            <p>{MenuList[3]}</p>
-          </MenuItem>
-        </TextLink>
-        <ImgLink exact to={MenuRoute[4]}>
-          <MenuItem>
-            <LoginImg />
-          </MenuItem>
-        </ImgLink>
-      </Menu>
-    </HeaderVar>
+        </MenuBox>
+        <IconBox onClick={changeSidebar}>
+          {active ? <AiIcons.AiOutlineClose /> : <FaIcons.FaBars />}
+        </IconBox>
+      </MenuBar>
+    </HeaderBar>
   );
 };
 
-const HeaderVar = styled.header`
-  @media (max-width: ${media.laptop - 1}px) {
-    width: ${media.laptop}px;
-  }
+const HeaderBar = styled.header`
+  width: 100%;
   height: 60px;
-  background-color: #252c44;
+  background-color: ${theme.DarkBlue};
 `;
 
-const Menu = styled.div`
-  width: ${media.laptop}px;
+const MenuBar = styled.nav`
+  font-size: 3rem;
+  color: white;
   height: 100%;
   margin: 0 auto;
   display: flex;
-  flex-basis: 100px;
+  flex-direction: row;
+  align-items: center;
+  @media (min-width: ${media.mobileL + 1}px) {
+    max-width: ${media.laptop}px;
+    padding: 0 10px;
+  }
+  @media (max-width: ${media.mobileL}px) {
+    width: 100%;
+  }
+`;
+
+const MenuBox = styled.ul`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
   color: #ffffff;
   font-weight: 500;
   text-align: center;
+  @media (max-width: ${media.mobileL}px) {
+    right: ${(props) => (props.isActive ? '0%' : '-200px')};
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    width: 200px;
+    height: 100vh;
+    padding-top: 60px;
+    background-color: ${theme.DarkBlue};
+    transition: all 500ms;
+  }
+`;
+
+const MenuItem = styled.li`
+  flex: 1 1;
+  width: 100px;
+  @media (max-width: ${media.mobileL}px) {
+    margin: 0 auto;
+    height: 50px;
+    flex: none;
+  }
 `;
 
 const activeClassName = 'active';
-
-const ImgLink = styled(NavLink)`
-  flex: 1 1;
-  &:hover {
-    cursor: pointer;
-  }
-`;
 
 const TextLink = styled(NavLink).attrs({
   activeClassName,
 })`
   &.${activeClassName} {
-    div {
-      background-color: white;
-    }
-    color: #5d3fe8;
+    background-color: white;
+    color: ${theme.Blue};
   }
-  flex: 1 1;
-  color: white;
-  text-decoration: none;
-  &:hover {
-    cursor: pointer;
-    color: #5d3fe8;
-  }
-`;
-
-const MenuItem = styled.div`
   display: inline-block;
   width: 100px;
   height: 32px;
   border-radius: 15px;
-  margin-top: 1.4rem;
+  margin-top: 14px;
+  color: white;
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
+    color: ${theme.Blue};
+  }
   p {
-    padding-top: 0.8rem;
+    padding-top: 9px;
     font-size: 1.4rem;
   }
 `;
 
 const MenuSpace = styled.div`
-  flex: 5 5;
+  @media (min-width: ${media.mobileL + 1}px) {
+    flex: 8 8;
+  }
+`;
+
+const ImgLink = styled(NavLink)`
+  width: 120px;
+  height: 35px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const LogoImg = styled.img.attrs({
   src: logoIcon,
   alt: 'main logo',
 })`
-  width: 100%;
+  width: 120px;
+  @media (max-width: ${media.mobileL}px) {
+    margin: 0 10px;
+  }
 `;
 
 const LoginImg = styled.img.attrs({
   src: loginIcon,
   alt: 'login icon',
 })`
-  width: 100%;
-  margin-top: -0.5rem;
+  width: 80px;
+  height: 32px;
+  margin-top: 13px;
+`;
+
+const LogoutImg = styled.img.attrs({
+  src: logoutIcon,
+  alt: 'logout icon',
+})`
+  width: 80px;
+  height: 32px;
+  margin-top: 13px;
+`;
+
+const IconBox = styled.div`
+  position: fixed;
+  right: 10px;
+  top: 15px;
+  @media (min-width: ${media.mobileL + 1}px) {
+    display: none;
+  }
+  @media (max-width: ${media.mobileL}px) {
+    display: inline-block;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default Header;
