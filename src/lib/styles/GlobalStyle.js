@@ -8,6 +8,10 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     font-family: 'paybooc';
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  * {
+    -webkit-tap-highlight-color: inherit;
   }
 `;
 
