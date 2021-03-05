@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import GlobalStyle from './lib/styles/GlobalStyle';
 import { Home, Info, Login } from './pages';
-import Layout from './components/Layout';
+import Layout from './components/Global/Layout';
 
 const Board = lazy(() => import('./pages/Board'));
 const Admin = lazy(() => import('./pages/Admin'));
