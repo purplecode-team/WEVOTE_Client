@@ -16,16 +16,13 @@ const Layout = ({ children }) => (
 );
 
 const Main = styled.main`
-  @media (min-width: ${media.mobileL + 1}px) {
-    max-width: ${media.laptop}px;
-  }
-  @media (max-width: ${media.mobileL}px) {
-    width: 100%;
-  }
-  margin: 0 auto;
+  width: 100%;
+  margin-top: 60px;
+  overflow-x: hidden;
 `;
 
 const BackgroundBig = styled.img`
+  display: none;
   position: fixed;
   z-index: -1;
   top: -384px;
@@ -40,6 +37,7 @@ const BackgroundBig = styled.img`
 `;
 
 const BackgroundSmall = styled.img`
+  display: none;
   position: fixed;
   z-index: -1;
   width: 563px;
