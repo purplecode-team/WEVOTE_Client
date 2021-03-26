@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import MiddleCategory from './MiddleCategory';
+import SlideCategory from './SlideCategory';
 import CategoryItem from './CategoryItem';
 import media from '../../../lib/styles/media';
 
-const ClassificationMenu = ({
+const ClassificationCategory = ({
   onClick,
   topList,
   middleList,
@@ -14,7 +14,7 @@ const ClassificationMenu = ({
   return (
     <>
       <BackgroundBar color="#F6F3FD">
-        <Category>
+        <SlideCategory current={current}>
           {topList.map((item, index) => (
             <CategoryItem
               key={index}
@@ -26,14 +26,10 @@ const ClassificationMenu = ({
               isTopActive={item === current.top}
             />
           ))}
-        </Category>
+        </SlideCategory>
       </BackgroundBar>
       <BackgroundBar color="#EAE3FF">
-        <MiddleCategory
-          current={current}
-          onClick={onClick}
-          middleList={middleList}
-        >
+        <SlideCategory current={current}>
           {middleList.map((item, index) => (
             <CategoryItem
               key={index}
@@ -44,8 +40,9 @@ const ClassificationMenu = ({
               isActive={item === current.middle}
             />
           ))}
-        </MiddleCategory>
+        </SlideCategory>
       </BackgroundBar>
+      {/* bottomList의  */}
       {/* parseInt의 두번째 파라미터는 radix 즉, 변환할 진수 값 의미함 */}
       {parseInt(bottomList[1], 10) ? null : (
         <BackgroundBar color="#F1ECFF">
@@ -84,4 +81,4 @@ const Category = styled.ul`
   }
 `;
 
-export default ClassificationMenu;
+export default ClassificationCategory;

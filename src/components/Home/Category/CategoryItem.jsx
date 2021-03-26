@@ -21,8 +21,6 @@ const Item = styled.li`
   align-items: center;
   max-width: 170px;
   height: 60px;
-  left: 320px;
-  top: 923px;
   padding: 0 20px;
   background-color: Transparent;
   -webkit-appearance: none;
