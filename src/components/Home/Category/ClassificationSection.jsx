@@ -1,44 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import CandidateArticle from '../Candidate/CandidateArticle';
-import ClassificationMenu from './ClassificationMenu';
+import ClassificationCategory from './ClassificationCategory';
 import ClassificationData from '../../../api/ClassificationData.json';
 import { useClassificate } from '../../../lib/hooks/useClassificate';
 
-const data = ClassificationData;
+const initialData = { 중앙자치기구: { 총학생회: [] } };
+// api 데이터 없을 시, initialData로 기본 설정됨
+const data = ClassificationData || initialData;
 
 const ClassificationSection = () => {
-  const [state, dispatch] = useClassificate();
-  const [topList, setTopList] = useState(['중앙자치기구', '총학생회']);
+  const [current, dispatch] = useClassificate();
+  const [topList, setTopList] = useState([]);
   const [middleList, setMiddleList] = useState([]);
   const [bottomList, setBottomList] = useState([]);
 
   useEffect(() => {
     setTopList(Object.keys(data));
-    setMiddleList(Object.keys(data[state.top]));
-    setBottomList(Object.keys(data[state.top][state.middle]));
-  }, [state]);
+    setMiddleList(Object.keys(data[current.top]));
+    setBottomList(Object.keys(data[current.top][current.middle]));
+  }, [current.middle]);
 
   const onClick = (position, e) => {
     dispatch({ type: position, current: e.target.innerText });
   };
+
   return (
     <section>
-      <ClassificationMenu
+      <ClassificationCategory
         onClick={onClick}
         topList={topList}
         middleList={middleList}
         bottomList={bottomList}
-        current={state}
+        current={current}
       />
-      {state.top === '학과' ? (
+      {/* category bottom이 없을 때, array 유무로 판단하여 후보자 데이터 구분 */}
+      {Array.isArray(data[current.top][current.middle]) ? (
         <CandidateArticle
-          title={state.bottom}
-          data={data[state.top][state.middle][state.bottom]}
+          title={current.middle}
+          candidateData={data[current.top][current.middle]}
         />
       ) : (
         <CandidateArticle
-          title={state.middle}
-          data={data[state.top][state.middle]}
+          title={current.bottom}
+          candidateData={data[current.top][current.middle][current.bottom]}
         />
       )}
     </section>
