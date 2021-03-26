@@ -1,16 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
+import media from '../../../lib/styles/media';
 
 const CardInnerBlock = ({ data, type }) => {
   const role = type ? '정' : '부';
   return (
     <Block>
-      <Profile src={data.url} alt="profile" />
+      <ImgBlock>
+        <Profile src={data.url} alt="profile" />
+      </ImgBlock>
       <RoleText>{role}학생회장 후보</RoleText>
-      <NameText>
+      <NameBlock>
         <p>{data.name}</p>
-      </NameText>
+      </NameBlock>
       <MajorText>{data.major}</MajorText>
       <StudentNumberText>{data.studentNumber}학번</StudentNumberText>
     </Block>
@@ -22,11 +25,32 @@ const Block = styled.div`
   width: 160px;
 `;
 
+const ImgBlock = styled.div`
+  @media (max-width: ${media.mobileL}px) {
+    width: 90%;
+    position: relative;
+    &:after {
+      content: '';
+      display: block;
+      padding-bottom: 100%;
+    }
+  }
+`;
+
 const Profile = styled.img`
-  width: 70%;
   display: block;
-  border-radius: 8px;
   margin: 0 auto;
+  border-radius: 8px;
+  object-fit: cover;
+  @media (min-width: ${media.mobileL + 1}px) {
+    width: 150px;
+    height: 200px;
+  }
+  @media (max-width: ${media.mobileL}px) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const RoleText = styled.p`
@@ -36,11 +60,11 @@ const RoleText = styled.p`
   margin: 15px auto;
 `;
 
-const NameText = styled.div`
+const NameBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
+  width: 100px;
   height: 30px;
   background: ${theme.Blue};
   border-radius: 20px;
