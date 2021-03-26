@@ -1,55 +1,52 @@
-import React, { Children } from 'react';
-import { useSwipeable } from 'react-swipeable';
+import React, { useState, useEffect, Children } from 'react';
 import styled from 'styled-components';
-import { useSlide, NEXT, PREV } from '../../../lib/hooks/useSlide';
+import media from '../../../lib/styles/media';
 
-const getOrder = ({ index, pos, numItems }) => {
-  return index - pos < 0 ? numItems - Math.abs(index - pos) : index - pos;
-};
+let start = 0;
+let diff = 0;
+let now = 0;
+
 const Carousel = ({ children }) => {
-  const [state, dispatch] = useSlide();
-  const numItems = Children.count(children);
+  const [locationX, setLocationX] = useState(0);
+  const [count, setCount] = useState(0);
 
-  const cardWidth = '322px';
+  const itemNums = Children.count(children) - 1;
 
-  const slide = (dir) => {
-    // 처음, 마지막 후보 카드에서 이전, 다음 스와이프 막기
-    // if (state.pos === 0 && dir === PREV) {
-    //   return true;
-    // }
-    // if (state.pos === numItems - 1 && dir === NEXT) {
-    //   return false;
-    // }
-    dispatch({ type: dir, numItems });
-    setTimeout(() => {
-      dispatch({ type: 'stopSliding' });
-    }, 50);
-    // return true;
+  useEffect(() => {
+    setLocationX(0);
+    setCount(0);
+  }, [children]);
+
+  const touchStart = (e) => {
+    start = e.changedTouches[0].clientX;
   };
 
-  const handlers = useSwipeable({
-    onSwipedLeft: () => slide(NEXT),
-    onSwipedRight: () => slide(PREV),
-    preventDefaultTouchmoveEvent: true,
-    trackMouse: true,
-  });
+  const touchMove = (e) => {
+    now = e.touches[0].clientX;
+    diff = now - start;
+  };
 
+  const touchEnd = () => {
+    if (diff < -50) {
+      // 왼쪽으로 swipe
+      if (count === itemNums) return;
+      setLocationX(-85 * (count + 1));
+      setCount(count + 1);
+    } else if (diff > 50) {
+      // 오른쪽으로 swipe
+      if (count === 0) return;
+      setLocationX(-85 * (count - 1));
+      setCount(count - 1);
+    }
+  };
   return (
-    <Wrapper {...handlers} Width={cardWidth}>
-      <CarouselContainer
-        dir={state.dir}
-        sliding={state.sliding}
-        Width={cardWidth}
-      >
-        {Children.map(children, (child, index) => (
-          <CarouselSlot
-            key={index}
-            order={getOrder({ index, pos: state.pos, numItems })}
-          >
-            {child}
-          </CarouselSlot>
-        ))}
-      </CarouselContainer>
+    <Wrapper
+      onTouchMove={touchMove}
+      onTouchStart={touchStart}
+      onTouchEnd={touchEnd}
+      locationX={locationX}
+    >
+      {children}
     </Wrapper>
   );
 };
@@ -57,25 +54,12 @@ const Carousel = ({ children }) => {
 export default Carousel;
 
 const Wrapper = styled.div`
-  width: 420px;
-  transform: ${(props) => {
-    return `translateX(calc(${props.Width}))`;
-  }};
-`;
-
-const CarouselContainer = styled.div`
-  margin: 0 20px;
+  width: 100%;
   display: flex;
-  transition: ${(props) => (props.sliding ? 'none' : 'transform 500ms ease')};
-  transform: ${(props) => {
-    if (!props.sliding) return `translateX(calc(-${props.Width}))`;
-    if (props.dir === PREV)
-      return `translateX(calc(2 * (-${props.Width} - 20px)))`;
-    return 'translateX(0%)';
-  }};
-`;
-
-const CarouselSlot = styled.div`
-  flex: 1 0;
-  order: ${(props) => props.order};
+  flex-wrap: wrap;
+  transition: transform 300ms;
+  @media (max-width: ${media.mobileL}px) {
+    flex-wrap: nowrap;
+    transform: translateX(${(props) => props.locationX}%);
+  }
 `;
