@@ -21,9 +21,9 @@ const CandidateArticle = ({ title, candidateData }) => {
   };
   const showCandidateCard = () => {
     return candidateData.map((cardData) => (
-      <LinkBox to={`/pledge?id=${cardData.query}`} key={cardData.id}>
+      <LinkBlock to={`/pledge?id=${cardData.query}`} key={cardData.id}>
         <CandidateCard cardData={cardData} />
-      </LinkBox>
+      </LinkBlock>
     ));
   };
   return (
@@ -47,6 +47,9 @@ const CandidateTitle = styled.h2`
   font-size: 2.4rem;
   font-weight: bold;
   margin: 20px 0px 40px 20px;
+  @media (max-width: ${media.mobileL}px) {
+    font-size: 1.6rem;
+  }
 `;
 
 const Article = styled.article`
@@ -64,18 +67,18 @@ const InnerArticle = styled.article`
   color: ${theme.darkBlue};
 `;
 
-const LinkBox = styled(Link)`
+const LinkBlock = styled(Link)`
   text-decoration: none;
   color: black;
   @media (max-width: ${media.mobileL}px) {
-    width: 85%;
+    width: 90%;
   }
 `;
 
 const EmptyBlock = styled.div`
-  width: 392px;
+  width: 426px;
   @media (max-width: ${media.mobileL}px) {
-    min-width: 85%;
+    min-width: 90%;
   }
 `;
 

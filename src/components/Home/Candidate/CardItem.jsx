@@ -28,11 +28,12 @@ const Block = styled.div`
 const ImgBlock = styled.div`
   @media (max-width: ${media.mobileL}px) {
     width: 90%;
+    margin: 0 auto;
     position: relative;
     &:after {
       content: '';
       display: block;
-      padding-bottom: 100%;
+      padding-bottom: 130%;
     }
   }
 `;
@@ -58,6 +59,9 @@ const RoleText = styled.p`
   color: ${theme.darkBlue};
   text-align: center;
   margin: 15px auto;
+  @media (max-width: ${media.mobileL}px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const NameBlock = styled.div`
@@ -68,7 +72,7 @@ const NameBlock = styled.div`
   height: 30px;
   background: ${theme.Blue};
   border-radius: 20px;
-  margin: 18px auto;
+  margin: 10px auto;
   p {
     font-size: 1.4rem;
     font-weight: bold;
@@ -81,6 +85,7 @@ const MajorText = styled.p`
   font-size: 1.2rem;
   color: ${theme.darkBlue};
   text-align: center;
+  font-family: 'paybooc-medium', 'sans-serif';
 `;
 
 const StudentNumberText = styled.p`

@@ -33,13 +33,13 @@ const Box = styled.div`
 `;
 
 const NumberBlock = styled.p`
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: ${theme.DarkBlue};
 `;
 
 const SloganBlock = styled.p`
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: ${theme.Blue};
   text-align: center;

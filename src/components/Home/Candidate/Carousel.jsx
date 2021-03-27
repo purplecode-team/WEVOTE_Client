@@ -30,12 +30,12 @@ const Carousel = ({ children }) => {
     if (diff < -50) {
       // 왼쪽으로 swipe
       if (count === itemNums) return;
-      setLocationX(-85 * (count + 1));
+      setLocationX(-90 * (count + 1));
       setCount(count + 1);
     } else if (diff > 50) {
       // 오른쪽으로 swipe
       if (count === 0) return;
-      setLocationX(-85 * (count - 1));
+      setLocationX(-90 * (count - 1));
       setCount(count - 1);
     }
   };

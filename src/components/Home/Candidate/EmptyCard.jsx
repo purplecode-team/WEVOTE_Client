@@ -15,14 +15,16 @@ const EmptyCard = ({ url }) => {
 const Box = styled.div`
   flex: 1 0;
   max-width: 360px;
-  padding: 22px 18px;
-  padding-bottom: 5%;
+  padding: 22% 10px;
   margin: 20px 35px 20px 35px;
   background: #ffffff;
   box-shadow: 0px 0px 20px ${theme.CardShadow}4d;
   border: 4px dashed ${theme.CardDash};
   border-radius: 25px;
   box-sizing: border-box;
+  @media (min-width: ${media.mobileL + 1}px) {
+    width: 356px;
+  }
   @media (max-width: ${media.mobileL}px) {
     margin: 20px 0px 20px 20px;
   }
