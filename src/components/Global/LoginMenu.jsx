@@ -34,6 +34,9 @@ const MenuItem = styled.li`
   order: 4;
   flex: 1;
   width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media (max-width: ${media.mobileL}px) {
     margin-bottom: 2rem;
     height: 70px;
@@ -46,7 +49,6 @@ const MenuItem = styled.li`
 const ImgLink = styled(NavLink)`
   width: 120px;
   height: 35px;
-  margin: 0 10px;
   &:hover {
     cursor: pointer;
   }
@@ -56,8 +58,6 @@ const LoginImg = styled.img.attrs({
   src: loginIcon,
   alt: 'login icon',
 })`
-  height: 32px;
-  margin-top: 13px;
   border-radius: 30px;
   box-shadow: 0px 2px 4px ${theme.Blue};
   @media (max-width: ${media.mobileL}px) {
@@ -69,8 +69,6 @@ const LogoutImg = styled.img.attrs({
   src: logoutIcon,
   alt: 'logout icon',
 })`
-  height: 32px;
-  margin-top: 13px;
   border-radius: 30px;
   box-shadow: 0px 2px 4px ${theme.DarkBlue};
   @media (max-width: ${media.mobileL}px) {
