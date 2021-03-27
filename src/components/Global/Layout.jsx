@@ -22,6 +22,7 @@ const Main = styled.main`
 `;
 
 const BackgroundBig = styled.img`
+  display: none;
   position: fixed;
   z-index: -1;
   top: -384px;
@@ -36,6 +37,7 @@ const BackgroundBig = styled.img`
 `;
 
 const BackgroundSmall = styled.img`
+  display: none;
   position: fixed;
   z-index: -1;
   width: 563px;
