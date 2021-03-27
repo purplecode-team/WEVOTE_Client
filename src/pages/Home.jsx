@@ -1,9 +1,11 @@
 import React from 'react';
+import styled from 'styled-components';
+import ClassificationSection from '../components/Home/Category/ClassificationSection';
 
 const Home = () => {
   return (
     <>
-      <h1>Home page</h1>
+      <ClassificationSection />
     </>
   );
 };

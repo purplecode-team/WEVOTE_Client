@@ -16,7 +16,7 @@ const Layout = ({ children }) => (
 );
 
 const Main = styled.main`
-  width: 100vw;
+  width: 100%;
   margin-top: 60px;
   overflow-x: hidden;
 `;
