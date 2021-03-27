@@ -16,13 +16,9 @@ const Layout = ({ children }) => (
 );
 
 const Main = styled.main`
-  @media (min-width: ${media.mobileL + 1}px) {
-    max-width: ${media.laptop}px;
-  }
-  @media (max-width: ${media.mobileL}px) {
-    width: 100%;
-  }
-  margin: 0 auto;
+  width: 100vw;
+  margin-top: 60px;
+  overflow-x: hidden;
 `;
 
 const BackgroundBig = styled.img`
