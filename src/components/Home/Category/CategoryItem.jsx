@@ -3,12 +3,13 @@ import styled, { css } from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import media from '../../../lib/styles/media';
 
-const CategoryItem = ({ title, onClick, isActive, isTopActive }) => {
+const CategoryItem = ({ title, onClick, isActive, isTopActive, isTop }) => {
   return (
     <Item
       onClick={onClick}
       isActive={isActive ? 1 : 0}
       isTopActive={isTopActive ? 1 : 0}
+      isTop={isTop}
     >
       <p>{title}</p>
     </Item>
@@ -19,7 +20,6 @@ const Item = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 170px;
   height: 60px;
   padding: 0 20px;
   background-color: Transparent;
@@ -39,6 +39,12 @@ const Item = styled.li`
       color: ${theme.Blue};
     }
   }
+  @media (max-width: ${media.mobileL}px) {
+    p {
+      font-size: 1.2rem;
+    }
+  }
+
   ${(props) =>
     props.isActive &&
     css`
@@ -53,10 +59,18 @@ const Item = styled.li`
     css`
       border-bottom: 6px solid ${theme.Blue};
     `};
-  @media (max-width: ${media.mobileL}px) {
-    /* min-width: 33.3%; */
-    font-size: 1.4rem;
-  }
+  ${(props) =>
+    props.isTop &&
+    css`
+      width: 33.3%;
+      padding: 0;
+      p {
+        font-family: 'paybooc-medium', 'sans-serif';
+      }
+      @media (max-width: ${media.mobileL}px) {
+        font-size: 1.4rem;
+      }
+    `};
 `;
 
 export default CategoryItem;

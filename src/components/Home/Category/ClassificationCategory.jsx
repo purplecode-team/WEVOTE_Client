@@ -14,7 +14,7 @@ const ClassificationCategory = ({
   return (
     <>
       <BackgroundBar color="#F6F3FD">
-        <SlideCategory current={current}>
+        <Category current={current}>
           {topList.map((item, index) => (
             <CategoryItem
               key={index}
@@ -24,9 +24,10 @@ const ClassificationCategory = ({
               }}
               isActive={item === current.top}
               isTopActive={item === current.top}
+              isTop
             />
           ))}
-        </SlideCategory>
+        </Category>
       </BackgroundBar>
       <BackgroundBar color="#EAE3FF">
         <SlideCategory current={current}>
