@@ -13,6 +13,7 @@
   "author": "PurpleCode",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "3",
     "http-proxy-middleware": "^1.0.6",
     "path": "^0.12.7",

@@ -3,4 +3,17 @@
   src: url(../public/font/paybooc.ttf);
 }
 
+@font-face {
+  font-family: 'paybooc-medium';
+  src: url(../public/font/payboocMedium.ttf);
+}
 
+@font-face {
+  font-family: 'paybooc-bold';
+  src: url(../public/font/payboocBold.ttf);
+}
+
+@font-face {
+  font-family: 'paybooc-extrabold';
+  src: url(../public/font/payboocExtraBold.ttf);
+}
