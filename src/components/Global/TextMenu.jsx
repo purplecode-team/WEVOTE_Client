@@ -57,7 +57,6 @@ const TextLink = styled(NavLink).attrs({
   width: 100px;
   height: 32px;
   border-radius: 30px;
-  margin-top: 14px;
   color: white;
   text-decoration: none;
   &:hover {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import media from '../../lib/styles/media';
 import theme from '../../lib/styles/theme';
 import { TextMenu } from './TextMenu';
-import logoIcon from '../../../public/img/logo.png';
+import logoIcon from '../../../public/img/logo.svg';
 import menuBackground from '../../../public/img/menu_background.svg';
 import { LoginMenu } from './LoginMenu';
 
@@ -22,7 +22,7 @@ const Header = () => {
   const logoutText = '더 많은 이용을 위해 로그인/회원가입을 진행해주세요';
 
   return (
-    <HeaderBar>
+    <HeaderBar isActive={active}>
       <MenuBar>
         <ImgLink exact to="/" onClick={hideSidebar}>
           <LogoImg />
@@ -45,9 +45,18 @@ const Header = () => {
 };
 
 const HeaderBar = styled.header`
-  width: 100%;
+  width: 100vw;
   height: 60px;
   background-color: ${theme.DarkBlue};
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  overflow-x: hidden;
+  ${(props) =>
+    props.isActive &&
+    css`
+      position: fixed;
+    `};
 `;
 
 const MenuBar = styled.nav`
@@ -71,6 +80,8 @@ const MenuBox = styled.ul`
   width: 100%;
   height: 100%;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: row;
   color: #ffffff;
   font-weight: 500;
@@ -80,7 +91,7 @@ const MenuBox = styled.ul`
     flex-direction: column;
     position: fixed;
     top: 60px;
-    z-index: 99;
+    z-index: 10;
     width: 100%;
     height: 100%;
     padding-top: calc(100% - 300px);
@@ -110,8 +121,9 @@ const TextMenuBlock = styled(TextMenu)`
 
 const ImgLink = styled(NavLink)`
   width: 120px;
-  height: 35px;
-  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     cursor: pointer;
   }
@@ -133,7 +145,7 @@ const IconBox = styled.button`
   }
   @media (max-width: ${media.mobileL}px) {
     display: inline-block;
-    position: fixed;
+    position: absolute;
     right: 10px;
     top: 16px;
     color: white;
