@@ -54,5 +54,15 @@ module.exports = {
     'no-unused-vars': 1,
     'prettier/prettier': [2, { endOfLine: 'auto' }],
     'react/jsx-props-no-spreading': 0,
+    'import/extensions': [
+      0,
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
   },
 };
