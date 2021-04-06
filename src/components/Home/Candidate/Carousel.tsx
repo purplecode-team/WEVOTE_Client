@@ -1,4 +1,5 @@
-import React, { useState, useEffect, Children } from 'react';
+import * as React from 'react';
+import { useState, useEffect, Children } from 'react';
 import styled from 'styled-components';
 import media from '../../../lib/styles/media';
 
@@ -6,7 +7,15 @@ let start = 0;
 let diff = 0;
 let now = 0;
 
-const Carousel = ({ children }) => {
+type CarouselProps = {
+  children: React.ReactNode;
+};
+
+type styleProps = {
+  locationX: number;
+};
+
+const Carousel = ({ children }: CarouselProps) => {
   const [locationX, setLocationX] = useState(0);
   const [count, setCount] = useState(0);
 
@@ -17,11 +26,11 @@ const Carousel = ({ children }) => {
     setCount(0);
   }, [children]);
 
-  const touchStart = (e) => {
+  const touchStart = (e: React.TouchEvent) => {
     start = e.changedTouches[0].clientX;
   };
 
-  const touchMove = (e) => {
+  const touchMove = (e: React.TouchEvent) => {
     now = e.touches[0].clientX;
     diff = now - start;
   };
@@ -60,6 +69,6 @@ const Wrapper = styled.div`
   transition: transform 300ms;
   @media (max-width: ${media.mobileL}px) {
     flex-wrap: nowrap;
-    transform: translateX(${(props) => props.locationX}%);
+    transform: translateX(${(props: styleProps) => props.locationX}%);
   }
 `;

@@ -1,17 +1,38 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import media from '../../../lib/styles/media';
 import CardItem from './CardItem';
 
-const CandidateCard = ({ cardData }) => {
+type Runner = {
+  id: number;
+  name: string;
+  major: string;
+  studentNum: number;
+  position: string;
+  picture: string;
+  teamId: number;
+};
+
+type Team = {
+  id: number;
+  order: number;
+  slogan: string;
+  Runners: Runner[];
+};
+
+type TeamProps = {
+  teamData: Team;
+};
+
+const CandidateCard = ({ teamData }: TeamProps) => {
   return (
     <Box>
-      <NumberBlock>기호 {cardData.id}번</NumberBlock>
-      <SloganBlock>"{cardData.slogan}"</SloganBlock>
+      <NumberBlock>기호 {teamData.order}번</NumberBlock>
+      <SloganBlock>"{teamData.slogan}"</SloganBlock>
       <InnerBox>
-        <CardItem data={cardData.main} type />
-        <CardItem data={cardData.sub} type={false} />
+        <CardItem Runner={teamData.Runners[0]} type />
+        <CardItem Runner={teamData.Runners[1]} type={false} />
       </InnerBox>
     </Box>
   );
