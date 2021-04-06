@@ -1,16 +1,19 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import media from '../../lib/styles/media';
 import Header from './Header';
-import round from '../../../public/img/round.svg';
-import round2 from '../../../public/img/round2.svg';
+import backgroundIcon from '../../../public/img/backgroundIcon.svg';
+import backgroundIcon2 from '../../../public/img/backgroundIcon2.svg';
 
-const Layout = ({ children }) => (
+type LayoutProps = {
+  children: React.ReactNode;
+};
+
+const Layout = ({ children }: LayoutProps) => (
   <>
     <Header />
-    <BackgroundBig src={round} alt="background image" />
-    <BackgroundSmall src={round2} alt="background image" />
+    <BackgroundBig src={backgroundIcon} alt="background image" />
+    <BackgroundSmall src={backgroundIcon2} alt="background image" />
     <Main>{children}</Main>
   </>
 );
@@ -51,9 +54,5 @@ const BackgroundSmall = styled.img`
     top: 496px;
   }
 `;
-
-Layout.propTypes = {
-  children: PropTypes.element.isRequired,
-};
 
 export default Layout;

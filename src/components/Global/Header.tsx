@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import * as FaIcons from 'react-icons/fa';
@@ -6,28 +7,32 @@ import * as AiIcons from 'react-icons/ai';
 import media from '../../lib/styles/media';
 import theme from '../../lib/styles/theme';
 import { TextMenu } from './TextMenu';
+import { LoginMenu } from './LoginMenu';
 import logoIcon from '../../../public/img/logo.svg';
 import menuBackground from '../../../public/img/menu_background.svg';
-import { LoginMenu } from './LoginMenu';
+
+type HeaderProps = {
+  isActive: boolean;
+};
 
 const Header = () => {
-  const [active, setActive] = useState(false);
+  const [isActive, setActive] = useState(false);
   const [login, setLogin] = useState(false);
 
   const changeLog = () => setLogin(!login);
-  const changeSidebar = () => setActive(!active);
+  const changeSidebar = () => setActive(!isActive);
   const hideSidebar = () => setActive(false);
 
   const loginText = '반갑습니다. OO님';
   const logoutText = '더 많은 이용을 위해 로그인/회원가입을 진행해주세요';
 
   return (
-    <HeaderBar isActive={active}>
+    <HeaderBar isActive={isActive}>
       <MenuBar>
         <ImgLink exact to="/" onClick={hideSidebar}>
           <LogoImg />
         </ImgLink>
-        <MenuBox isActive={active}>
+        <MenuBox isActive={isActive}>
           <LoginMenu
             changeLog={changeLog}
             login={login}
@@ -37,7 +42,7 @@ const Header = () => {
           <TextMenuBlock changeSidebar={changeSidebar} />
         </MenuBox>
         <IconBox onClick={changeSidebar}>
-          {active ? <AiIcons.AiOutlineClose /> : <FaIcons.FaBars />}
+          {isActive ? <AiIcons.AiOutlineClose /> : <FaIcons.FaBars />}
         </IconBox>
       </MenuBar>
     </HeaderBar>
@@ -52,7 +57,7 @@ const HeaderBar = styled.header`
   position: absolute;
   top: 0;
   overflow-x: hidden;
-  ${(props) =>
+  ${(props: HeaderProps) =>
     props.isActive &&
     css`
       position: fixed;
@@ -87,7 +92,7 @@ const MenuBox = styled.ul`
   font-weight: 500;
   text-align: center;
   @media (max-width: ${media.mobileL}px) {
-    display: ${(props) => (props.isActive ? 'block' : 'none')};
+    display: ${(props: HeaderProps) => (props.isActive ? 'block' : 'none')};
     flex-direction: column;
     position: fixed;
     top: 60px;

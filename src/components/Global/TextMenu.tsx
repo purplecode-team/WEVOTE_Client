@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,7 +6,11 @@ import { MenuData } from './MenuData';
 import media from '../../lib/styles/media';
 import theme from '../../lib/styles/theme';
 
-export const TextMenu = ({ changeSidebar }) => {
+type TextMenuProps = {
+  changeSidebar: () => void;
+};
+
+export const TextMenu = ({ changeSidebar }: TextMenuProps) => {
   return (
     <>
       {/* MenuDate.js의 데이터에 따라 자동 추가 */}

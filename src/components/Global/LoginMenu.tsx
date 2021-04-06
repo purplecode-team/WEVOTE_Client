@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,7 +7,17 @@ import theme from '../../lib/styles/theme';
 import loginIcon from '../../../public/img/login.svg';
 import logoutIcon from '../../../public/img/logout.svg';
 
-export const LoginMenu = ({ changeSidebar, changeLog, login }) => {
+type LoginMenuProps = {
+  changeSidebar: () => void;
+  changeLog: () => void;
+  login: boolean;
+};
+
+export const LoginMenu = ({
+  changeSidebar,
+  changeLog,
+  login,
+}: LoginMenuProps) => {
   return (
     <>
       <MenuItem
