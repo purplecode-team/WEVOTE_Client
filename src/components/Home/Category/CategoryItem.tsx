@@ -1,19 +1,44 @@
-import React from 'react';
+import * as React from 'react';
 import styled, { css } from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import media from '../../../lib/styles/media';
 
-const CategoryItem = ({ title, onClick, isActive, isTopActive, isTop }) => {
+type CategoryItemProps = {
+  title: string;
+  onClick: any;
+  isActive: boolean;
+  isTopActive?: boolean;
+  isTop?: boolean;
+};
+
+type styleProps = {
+  isActive: boolean;
+  isTopActive?: boolean;
+  isTop?: boolean;
+};
+
+const CategoryItem = ({
+  title,
+  onClick,
+  isActive,
+  isTopActive,
+  isTop,
+}: CategoryItemProps) => {
   return (
     <Item
-      onClick={onClick}
-      isActive={isActive ? 1 : 0}
-      isTopActive={isTopActive ? 1 : 0}
+      isActive={isActive}
+      isTopActive={isTopActive}
       isTop={isTop}
+      onClick={onClick}
     >
       <p>{title}</p>
     </Item>
   );
+};
+
+CategoryItem.defaultProps = {
+  isTopActive: false,
+  isTop: false,
 };
 
 const Item = styled.li`
@@ -29,6 +54,7 @@ const Item = styled.li`
   cursor: pointer;
   p {
     font-size: 1.6rem;
+    font-family: 'paybooc-medium', 'sans-serif';
     line-height: 22px;
     text-align: center;
     color: black;
@@ -45,30 +71,30 @@ const Item = styled.li`
     }
   }
 
-  ${(props) =>
+  ${(props: styleProps) =>
     props.isActive &&
     css`
       background-color: white;
-      font-family: 'paybooc-medium', 'sans-serif';
       p {
         color: ${theme.Blue};
       }
     `};
-  ${(props) =>
+
+  ${(props: styleProps) =>
     props.isTopActive &&
     css`
       border-bottom: 6px solid ${theme.Blue};
     `};
-  ${(props) =>
+
+  ${(props: styleProps) =>
     props.isTop &&
     css`
       width: 33.3%;
       padding: 0;
-      p {
-        font-family: 'paybooc-medium', 'sans-serif';
-      }
       @media (max-width: ${media.mobileL}px) {
-        font-size: 1.4rem;
+        p {
+          font-size: 1.4rem;
+        }
       }
     `};
 `;

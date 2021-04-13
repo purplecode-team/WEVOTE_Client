@@ -1,46 +1,57 @@
-import React, { useState, Children, useEffect } from 'react';
+import * as React from 'react';
+import { useState, Children, useEffect } from 'react';
 import styled from 'styled-components';
 import media from '../../../lib/styles/media';
+
+type SlideCategoryProps = {
+  children: React.ReactNode;
+  isChange: string;
+};
+
+type styleProps = {
+  locationX: number;
+};
 
 let start = 0;
 let now = 0;
 let diff = 0;
-const touchSpeed = 12;
 const aveWidth = 140;
 const aveView = 360;
+let beforeLocation = 0;
 
-const SlideCategory = ({ children, current }) => {
+const SlideCategory = ({ children, isChange }: SlideCategoryProps) => {
   const [locationX, setLocationX] = useState(0);
 
   useEffect(() => {
     setLocationX(0);
-  }, [current.top]);
+  }, [isChange]);
 
   const number = Children.count(children);
 
-  const touchStart = (e) => {
+  const touchStart = (e: React.TouchEvent) => {
     start = e.changedTouches[0].clientX;
   };
 
-  const touchMove = (e) => {
+  // touchMove 이벤트 발생할 때마다 바로 직전 move 이벤트 x값과의 차이 만큼만 이동하게 구현
+  const touchMove = (e: React.TouchEvent) => {
     now = e.touches[0].clientX;
     diff = now - start;
-    if (diff < 0) {
-      // left
-      setLocationX(locationX - touchSpeed);
-    } else if (diff > 0) {
-      // right
-      setLocationX(locationX + touchSpeed);
-    }
+    setLocationX(beforeLocation + diff);
+    start = now;
+    beforeLocation += diff;
   };
 
   const touchEnd = () => {
     if (locationX > 0 || number < 3) {
       setLocationX(0);
+      beforeLocation = 0;
       return;
     }
-    if (locationX < -number * aveWidth + aveView) {
-      setLocationX(-number * aveWidth + aveView);
+    // Category Item의 평균 크기와 평균 View Width 값으로 유동적인 Max값 예측
+    const maxLocation = -number * aveWidth + aveView;
+    if (locationX < maxLocation) {
+      setLocationX(maxLocation);
+      beforeLocation = maxLocation;
     }
   };
 
@@ -66,7 +77,7 @@ const Category = styled.ul`
     flex-wrap: nowrap;
     width: max-content;
     margin: 0;
-    transform: translateX(${(props) => props.locationX}px);
+    transform: translateX(${(props: styleProps) => props.locationX}px);
   }
 `;
 

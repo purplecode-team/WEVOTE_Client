@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
   }
   body{
+    width: 100vw;
     font-family: 'paybooc';
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     &::-webkit-scrollbar {

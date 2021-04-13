@@ -1,9 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import media from '../../../lib/styles/media';
 
-const EmptyCard = ({ url }) => {
+type EmptyCardProps = {
+  url: string;
+};
+
+const EmptyCard = ({ url }: EmptyCardProps) => {
   return (
     <Box>
       <BackgroundImg src={url} alt="empty card" />

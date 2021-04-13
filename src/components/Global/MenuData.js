@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import * as AiIcons from 'react-icons/ai';
 
 export const MenuData = [

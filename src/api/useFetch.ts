@@ -1,10 +1,14 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-const useFetch = (url) => {
+type fetchProps = {
+  url: string;
+};
+
+const useFetch = ({ url }: fetchProps) => {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState([]);
+  const [error, setError] = useState('initial error');
 
   useEffect(() => {
     const fetchUsers = async () => {

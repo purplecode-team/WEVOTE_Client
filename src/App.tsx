@@ -1,4 +1,5 @@
-import React, { lazy, Suspense } from 'react';
+import * as React from 'react';
+import { lazy, Suspense } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,7 +25,6 @@ const App = () => {
             <Route path="/board" component={Board} />
             <Route path="/admin" component={Admin} />
             <Route path="/login" component={Login} />
-            <Redirect from="*" to="/" />
           </Switch>
         </Layout>
       </Suspense>

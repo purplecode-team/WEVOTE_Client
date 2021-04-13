@@ -1,21 +1,34 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import media from '../../../lib/styles/media';
 
-const CardInnerBlock = ({ data, type }) => {
+type CardInnerProps = {
+  Runner: {
+    id: number;
+    name: string;
+    major: string;
+    studentNum: number;
+    position: string;
+    picture: string;
+    teamId: number;
+  };
+  type: boolean;
+};
+
+const CardInnerBlock = ({ Runner, type }: CardInnerProps) => {
   const role = type ? '정' : '부';
   return (
     <Block>
       <ImgBlock>
-        <Profile src={data.url} alt="profile" />
+        <Profile src={Runner.picture} alt="profile" />
       </ImgBlock>
       <RoleText>{role}학생회장 후보</RoleText>
       <NameBlock>
-        <p>{data.name}</p>
+        <p>{Runner.name}</p>
       </NameBlock>
-      <MajorText>{data.major}</MajorText>
-      <StudentNumberText>{data.studentNumber}학번</StudentNumberText>
+      <MajorText>{Runner.major}</MajorText>
+      <StudentNumberText>{Runner.studentNum}학번</StudentNumberText>
     </Block>
   );
 };
@@ -56,7 +69,7 @@ const Profile = styled.img`
 
 const RoleText = styled.p`
   font-size: 1.3rem;
-  color: ${theme.darkBlue};
+  color: ${theme.DarkBlue};
   text-align: center;
   margin: 15px auto;
   @media (max-width: ${media.mobileL}px) {
@@ -83,14 +96,14 @@ const NameBlock = styled.div`
 
 const MajorText = styled.p`
   font-size: 1.2rem;
-  color: ${theme.darkBlue};
+  color: ${theme.DarkBlue};
   text-align: center;
   font-family: 'paybooc-medium', 'sans-serif';
 `;
 
 const StudentNumberText = styled.p`
   font-size: 1.2rem;
-  color: ${theme.darkBlue};
+  color: ${theme.DarkBlue};
   text-align: center;
   margin: 10px auto;
 `;

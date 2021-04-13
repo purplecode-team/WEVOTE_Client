@@ -1,8 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import SlideCategory from './SlideCategory';
 import CategoryItem from './CategoryItem';
 import media from '../../../lib/styles/media';
+
+type ClassificationProps = {
+  onClick: (position: string, e: React.ChangeEvent<HTMLInputElement>) => void;
+  topList: string[];
+  middleList: string[];
+  bottomList: string[];
+  current: { top: string; middle: string; bottom: string };
+};
 
 const ClassificationCategory = ({
   onClick,
@@ -10,16 +18,16 @@ const ClassificationCategory = ({
   middleList,
   bottomList,
   current,
-}) => {
+}: ClassificationProps) => {
   return (
     <>
       <BackgroundBar color="#F6F3FD">
-        <Category current={current}>
+        <Category>
           {topList.map((item, index) => (
             <CategoryItem
               key={index}
               title={item}
-              onClick={(e) => {
+              onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
                 onClick('top', e);
               }}
               isActive={item === current.top}
@@ -30,37 +38,37 @@ const ClassificationCategory = ({
         </Category>
       </BackgroundBar>
       <BackgroundBar color="#EAE3FF">
-        <SlideCategory current={current}>
-          {middleList.map((item, index) => (
-            <CategoryItem
-              key={index}
-              title={item}
-              onClick={(e) => {
-                onClick('middle', e);
-              }}
-              isActive={item === current.middle}
-            />
-          ))}
+        <SlideCategory isChange={current.top}>
+          {middleList.map((item: string, index: number) => {
+            return (
+              <CategoryItem
+                key={index}
+                title={item}
+                onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  onClick('middle', e);
+                }}
+                isActive={item === current.middle}
+              />
+            );
+          })}
         </SlideCategory>
       </BackgroundBar>
-      {/* bottomList의  */}
-      {/* parseInt의 두번째 파라미터는 radix 즉, 변환할 진수 값 의미함 */}
-      {parseInt(bottomList[1], 10) ? null : (
+      {current.bottom ? (
         <BackgroundBar color="#F1ECFF">
-          <Category>
+          <SlideCategory isChange={current.middle}>
             {bottomList.map((item, index) => (
               <CategoryItem
                 key={index}
                 title={item}
-                onClick={(e) => {
+                onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
                   onClick('bottom', e);
                 }}
                 isActive={item === current.bottom}
               />
             ))}
-          </Category>
+          </SlideCategory>
         </BackgroundBar>
-      )}
+      ) : null}
     </>
   );
 };
