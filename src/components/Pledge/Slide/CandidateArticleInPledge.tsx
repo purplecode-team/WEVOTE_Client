@@ -1,14 +1,10 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { useCallback } from 'react';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
-import CandidateCard from '../../Common/CandidateCard/CandidateCard';
-import EmptyCard from './EmptyCard';
-import Carousel from '../../../utils/Carousel';
-import img1 from '../../../../public/img/CardImg.svg';
-import img2 from '../../../../public/img/CardImg2.svg';
-import img3 from '../../../../public/img/CardImg3.svg';
 import media from '../../../lib/styles/media';
+import CandidateCard from '../../Common/CandidateCard/CandidateCard';
+import Carousel from '../../../utils/Carousel';
 
 type Runner = {
   id: number;
@@ -53,35 +49,23 @@ type CandidateArticleProps = {
   teamArray: Team[];
 };
 
-const CandidateArticle = ({ title, teamArray }: CandidateArticleProps) => {
-  const images = [img1, img2, img3];
-  const showEmptyCard = () => {
-    return images.map((image, index) => (
-      <EmptyBlock key={index}>
-        <EmptyCard url={image} />
-      </EmptyBlock>
-    ));
-  };
-  const showTeamCard = (teamArr: Team[]) => {
+const CandidateArticleInPledge = ({
+  title,
+  teamArray,
+}: CandidateArticleProps) => {
+  const showTeamCard = useCallback((teamArr: Team[]) => {
     return teamArr.map((team: Team) => (
-      // <LinkBlock to={`/pledge?id=${team.id}`} key={team.id}>
-      <LinkBlock to="/pledge?id=1" key={team.id}>
+      <CardBlock key={team.id}>
         <CandidateCard teamData={team} />
-      </LinkBlock>
+      </CardBlock>
     ));
-  };
+  }, []);
+
   return (
     <Article>
       <CandidateTitle>{title} 후보</CandidateTitle>
       <InnerArticle>
-        <Carousel isLineBreak>
-          {/* props로 받은 후보자 데이터의 존재 유무에 따라 출력 Card 바뀜 */}
-          {typeof teamArray === 'undefined' ||
-          teamArray === null ||
-          teamArray.length === 0
-            ? showEmptyCard()
-            : showTeamCard(teamArray)}
-        </Carousel>
+        <Carousel isLineBreak={false}>{showTeamCard(teamArray)}</Carousel>
       </InnerArticle>
     </Article>
   );
@@ -90,7 +74,8 @@ const CandidateArticle = ({ title, teamArray }: CandidateArticleProps) => {
 const CandidateTitle = styled.h2`
   font-size: 2.4rem;
   font-weight: bold;
-  margin: 20px 0px 40px 20px;
+  color: white;
+  margin: 20px 0px 20px 20px;
   @media (max-width: ${media.mobileL}px) {
     font-size: 1.6rem;
   }
@@ -109,23 +94,13 @@ const Article = styled.article`
 const InnerArticle = styled.article`
   overflow: hidden;
   color: ${theme.DarkBlue};
-  color: ${theme.DarkBlue};
   padding-left: 20px;
 `;
 
-const LinkBlock = styled(Link)`
-  text-decoration: none;
-  color: black;
+const CardBlock = styled.div`
   @media (max-width: ${media.mobileL}px) {
     width: 90%;
   }
 `;
 
-const EmptyBlock = styled.div`
-  width: 420px;
-  @media (max-width: ${media.mobileL}px) {
-    min-width: 90%;
-  }
-`;
-
-export default CandidateArticle;
+export default CandidateArticleInPledge;

@@ -8,8 +8,9 @@ import {
 } from 'react-router-dom';
 import GlobalStyle from './lib/styles/GlobalStyle';
 import { Home, Info, Login } from './pages';
-import Layout from './components/Global/Layout';
+import Layout from './components/Common/Layout';
 
+const Pledge = lazy(() => import('./pages/Pledge'));
 const Board = lazy(() => import('./pages/Board'));
 const Admin = lazy(() => import('./pages/Admin'));
 
@@ -22,6 +23,7 @@ const App = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/info" component={Info} />
+            <Route path="/pledge" component={Pledge} />
             <Route path="/board" component={Board} />
             <Route path="/admin" component={Admin} />
             <Route path="/login" component={Login} />
