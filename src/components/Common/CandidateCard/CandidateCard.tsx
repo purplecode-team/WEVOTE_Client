@@ -10,7 +10,7 @@ type Runner = {
   major: string;
   studentNum: number;
   position: string;
-  picture: string;
+  picture?: string;
   teamId: number;
 };
 
@@ -43,13 +43,13 @@ const Box = styled.div`
   max-width: 360px;
   padding: 22px 18px;
   padding-bottom: 5%;
-  margin: 20px 35px 20px 35px;
+  margin: 20px 30px 20px 30px;
   background: #ffffff;
   box-shadow: 0px 0px 20px ${theme.CardShadow};
   border-radius: 25px;
   box-sizing: border-box;
   @media (max-width: ${media.mobileL}px) {
-    margin: 20px 0px 20px 20px;
+    margin: 20px 10px 20px 20px;
   }
 `;
 
