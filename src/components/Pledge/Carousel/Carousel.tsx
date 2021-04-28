@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect, Children } from 'react';
 import styled, { css } from 'styled-components';
-import media from '../lib/styles/media';
+import media from '../../../lib/styles/media';
 
 let start = 0;
 let diff = 0;
@@ -10,23 +10,26 @@ let now = 0;
 type CarouselProps = {
   children: React.ReactNode;
   isLineBreak: boolean;
+  handleCurrent: (id: number) => void;
 };
 
 type styleProps = {
   locationX: number;
-  isLineBreak?: Boolean;
+  isLineBreak?: boolean;
+  smallLength: boolean;
 };
 
-const Carousel = ({ children, isLineBreak }: CarouselProps) => {
+const Carousel = ({ children, isLineBreak, handleCurrent }: CarouselProps) => {
   const [locationX, setLocationX] = useState(0);
   const [count, setCount] = useState(0);
 
   const itemNums = Children.count(children) - 1;
+  let smallLength = false;
+  if (itemNums < 2) smallLength = true;
 
   useEffect(() => {
-    setLocationX(0);
-    setCount(0);
-  }, [children]);
+    handleCurrent(count + 1);
+  }, [count]);
 
   const touchStart = (e: React.TouchEvent) => {
     start = e.changedTouches[0].clientX;
@@ -49,6 +52,7 @@ const Carousel = ({ children, isLineBreak }: CarouselProps) => {
       setLocationX(-90 * (count - 1));
       setCount(count - 1);
     }
+    diff = 0;
   };
   return (
     <Wrapper
@@ -57,6 +61,7 @@ const Carousel = ({ children, isLineBreak }: CarouselProps) => {
       onTouchEnd={touchEnd}
       locationX={locationX}
       isLineBreak={isLineBreak}
+      smallLength={smallLength}
     >
       {children}
     </Wrapper>
@@ -78,5 +83,10 @@ const Wrapper = styled.div`
     props.isLineBreak &&
     css`
       flex-wrap: wrap;
+    `};
+  ${(props: styleProps) =>
+    props.smallLength &&
+    css`
+      justify-content: center;
     `};
 `;

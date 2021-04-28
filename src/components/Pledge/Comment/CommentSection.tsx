@@ -1,6 +1,5 @@
 import * as React from 'react';
-import styled, { css } from 'styled-components';
-import theme from '../../../lib/styles/theme';
+import styled from 'styled-components';
 import media from '../../../lib/styles/media';
 
 const CommentSection = () => {
@@ -23,15 +22,17 @@ const Article = styled.article`
 `;
 
 const CommentBlock = styled.div`
-  width: 1200px;
+  width: 90%;
   height: 600px;
   margin: 75px auto;
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
-  border-radius: 25px;
-  background-color: white;
+  box-sizing: border-box;
+  border: 1px solid #a5a5a5;
   @media (max-width: ${media.mobileL}px) {
+    padding: 20px;
     width: 90%;
-    min-width: 310px;
+    min-width: 250px;
+    height: 400px;
+    overflow-y: scroll;
   }
 `;
 

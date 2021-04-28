@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { lazy, Suspense } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import GlobalStyle from './lib/styles/GlobalStyle';
 import { Home, Info, Login } from './pages';
 import Layout from './components/Common/Layout';

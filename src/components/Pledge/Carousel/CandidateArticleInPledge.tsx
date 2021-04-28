@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { useCallback } from 'react';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import media from '../../../lib/styles/media';
-import CandidateCard from '../../Common/CandidateCard/CandidateCard';
-import Carousel from '../../../utils/Carousel';
+import CandidateCard from './CandidateCard';
+import Carousel from './Carousel';
 
 type Runner = {
   id: number;
@@ -47,25 +46,30 @@ type Team = {
 type CandidateArticleProps = {
   title: string;
   teamArray: Team[];
+  current: number;
+  handleCurrent: (id: number) => void;
 };
 
 const CandidateArticleInPledge = ({
   title,
   teamArray,
+  current,
+  handleCurrent,
 }: CandidateArticleProps) => {
-  const showTeamCard = useCallback((teamArr: Team[]) => {
+  const showTeamCard = (teamArr: Team[]) => {
     return teamArr.map((team: Team) => (
-      <CardBlock key={team.id}>
-        <CandidateCard teamData={team} />
+      <CardBlock key={team.id} onClick={() => handleCurrent(team.order)}>
+        <CandidateCard teamData={team} current={current} />
       </CardBlock>
     ));
-  }, []);
-
+  };
   return (
     <Article>
       <CandidateTitle>{title} 후보</CandidateTitle>
       <InnerArticle>
-        <Carousel isLineBreak={false}>{showTeamCard(teamArray)}</Carousel>
+        <Carousel isLineBreak={false} handleCurrent={handleCurrent}>
+          {showTeamCard(teamArray)}
+        </Carousel>
       </InnerArticle>
     </Article>
   );

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import media from '../../../lib/styles/media';
 import CandidateArticleInPledge from './CandidateArticleInPledge';
@@ -45,12 +45,24 @@ type Team = {
 type CandidateArticleProps = {
   title: string;
   teamArray: Team[];
+  current: number;
+  handleCurrent: (id: number) => void;
 };
 
-const CarouselSection = ({ title, teamArray }: CandidateArticleProps) => {
+const CarouselSection = ({
+  title,
+  teamArray,
+  current,
+  handleCurrent,
+}: CandidateArticleProps) => {
   return (
     <Background>
-      <CandidateArticleInPledge title={title} teamArray={teamArray} />
+      <CandidateArticleInPledge
+        title={title}
+        teamArray={teamArray}
+        current={current}
+        handleCurrent={handleCurrent}
+      />
     </Background>
   );
 };
