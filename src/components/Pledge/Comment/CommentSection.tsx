@@ -1,18 +1,32 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import media from '../../../lib/styles/media';
+import CommentInput from './CommentInput';
+import CommentArticle from './CommentArticle';
 
-const CommentSection = () => {
+type qnaInfo = {
+  id: number;
+  type: string;
+  comment: string;
+  time: number;
+};
+
+type qnaArrayType = {
+  qnaArray: qnaInfo[];
+};
+
+const CommentSection = ({ qnaArray }: qnaArrayType) => {
   return (
-    <Article>
+    <Section>
       <CommentBlock>
-        <p>hi</p>
+        <CommentInput />
+        <CommentArticle qnaArray={qnaArray} />
       </CommentBlock>
-    </Article>
+    </Section>
   );
 };
 
-const Article = styled.article`
+const Section = styled.section`
   width: ${media.laptop}px;
   height: 100%;
   margin: 0 auto;
@@ -22,17 +36,17 @@ const Article = styled.article`
 `;
 
 const CommentBlock = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 90%;
-  height: 600px;
   margin: 75px auto;
   box-sizing: border-box;
-  border: 1px solid #a5a5a5;
+  @media (min-width: ${media.mobileL + 1}px) {
+    min-height: 600px;
+  }
   @media (max-width: ${media.mobileL}px) {
-    padding: 20px;
-    width: 90%;
     min-width: 250px;
-    height: 400px;
-    overflow-y: scroll;
+    min-height: 300px;
   }
 `;
 

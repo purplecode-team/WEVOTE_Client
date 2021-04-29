@@ -18,6 +18,7 @@ const Pledge = ({ match }: RouteComponentProps<MatchParams>) => {
   const teamArray = data.Teams;
   const pledgeArray = data.Teams[current - 1].Promises;
   const { slogan } = data.Teams[current - 1];
+  const { Qna } = data.Teams[current - 1];
 
   const handleCurrent = (id) => {
     setCurrent(id);
@@ -32,7 +33,7 @@ const Pledge = ({ match }: RouteComponentProps<MatchParams>) => {
         handleCurrent={handleCurrent}
       />
       <PledgeSection pledgeArray={pledgeArray} slogan={slogan} />
-      <CommentSection />
+      <CommentSection qnaArray={Qna} />
     </>
   );
 };
