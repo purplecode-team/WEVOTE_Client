@@ -1,8 +1,8 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import media from '../../../lib/styles/media';
-import CardItem from './CardItem';
+import CardItem from '../../Common/CandidateCard/CardItem';
 
 type Runner = {
   id: number;
@@ -10,7 +10,7 @@ type Runner = {
   major: string;
   studentNum: number;
   position: string;
-  picture: string;
+  picture?: string;
   teamId: number;
 };
 
@@ -23,11 +23,16 @@ type Team = {
 
 type TeamProps = {
   teamData: Team;
+  current: number;
 };
 
-const CandidateCard = ({ teamData }: TeamProps) => {
+type styleProps = {
+  current: boolean;
+};
+
+const CandidateCard = ({ teamData, current }: TeamProps) => {
   return (
-    <Box>
+    <Box current={current !== teamData.order}>
       <NumberBlock>기호 {teamData.order}번</NumberBlock>
       <SloganBlock>"{teamData.slogan}"</SloganBlock>
       <InnerBox>
@@ -43,14 +48,19 @@ const Box = styled.div`
   max-width: 360px;
   padding: 22px 18px;
   padding-bottom: 5%;
-  margin: 20px 35px 20px 35px;
+  margin: 20px 30px 20px 30px;
   background: #ffffff;
   box-shadow: 0px 0px 20px ${theme.CardShadow};
   border-radius: 25px;
   box-sizing: border-box;
   @media (max-width: ${media.mobileL}px) {
-    margin: 20px 0px 20px 20px;
+    margin: 20px 10px 20px 20px;
   }
+  ${(props: styleProps) =>
+    props.current &&
+    css`
+      opacity: 0.5;
+    `};
 `;
 
 const NumberBlock = styled.p`

@@ -5,6 +5,7 @@ const theme = {
   SoftPurple: '#AE9EFF',
   CardShadow: '#2a408b',
   CardDash: '#e0daff',
+  BackgroundWhite: '#FAFAFA',
 };
 
 export default theme;
