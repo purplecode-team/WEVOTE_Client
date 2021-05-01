@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import GlobalStyle from './lib/styles/GlobalStyle';
-import { Home, Info, Login } from './pages';
+import { Home, Info, Login} from './pages';
 import Layout from './components/Global/Layout';
 
 const Board = lazy(() => import('./pages/Board'));
