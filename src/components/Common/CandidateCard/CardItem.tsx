@@ -10,7 +10,7 @@ type CardInnerProps = {
     major: string;
     studentNum: number;
     position: string;
-    picture: string;
+    picture?: string;
     teamId: number;
   };
   type: boolean;

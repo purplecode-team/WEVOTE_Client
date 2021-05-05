@@ -2,10 +2,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import media from '../../lib/styles/media';
-import theme from '../../lib/styles/theme';
-import loginIcon from '../../../public/img/login.svg';
-import logoutIcon from '../../../public/img/logout.svg';
+import media from '../../../lib/styles/media';
+import theme from '../../../lib/styles/theme';
+import loginIcon from '../../../../public/img/login.svg';
+import logoutIcon from '../../../../public/img/logout.svg';
 
 type LoginMenuProps = {
   changeSidebar: () => void;
