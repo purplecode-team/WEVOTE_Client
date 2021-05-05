@@ -41,6 +41,18 @@ const BarIcon = styled.span`
   margin-right: 10px;
 `;
 
+const TypeText = styled.h3`
+  color: ${theme.Blue};
+  display: inline-block;
+  font-size: 2rem;
+  font-family: 'paybooc-extrabold', sans-serif;
+  margin-bottom: 10px;
+  @media (max-width: ${media.mobileL}px) {
+    font-size: 1.6rem;
+    font-family: 'paybooc-bold', sans-serif;
+  }
+`;
+
 const TextBlock = styled.div`
   /* padding-left: 20px; */
 `;
@@ -63,18 +75,6 @@ const DetailText = styled.p`
   line-height: 30px;
   @media (max-width: ${media.mobileL}px) {
     font-size: 1.4rem;
-  }
-`;
-
-const TypeText = styled.h3`
-  color: ${theme.Blue};
-  display: inline-block;
-  font-size: 2.2rem;
-  font-family: 'paybooc-extrabold', sans-serif;
-  margin-bottom: 10px;
-  @media (max-width: ${media.mobileL}px) {
-    font-size: 1.6rem;
-    font-family: 'paybooc-bold', sans-serif;
   }
 `;
 

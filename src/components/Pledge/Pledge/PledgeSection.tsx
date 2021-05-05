@@ -20,19 +20,21 @@ const PledgeSection = ({ pledgeArray, slogan }: PledgeArray) => {
   return (
     <Article>
       <PledgeBlock>
-        <SloganText>"{slogan}"</SloganText>
-        <PledgeTable>
-          {pledgeArray.map((pledge, index) => {
-            return (
-              <PledgeCard
-                key={index}
-                promiseType={pledge.promiseType}
-                promiseTitle={pledge.promiseTitle}
-                promiseDetail={pledge.promiseDetail}
-              />
-            );
-          })}
-        </PledgeTable>
+        <InnerBox>
+          <SloganText>"{slogan}"</SloganText>
+          <PledgeTable>
+            {pledgeArray.map((pledge, index) => {
+              return (
+                <PledgeCard
+                  key={index}
+                  promiseType={pledge.promiseType}
+                  promiseTitle={pledge.promiseTitle}
+                  promiseDetail={pledge.promiseDetail}
+                />
+              );
+            })}
+          </PledgeTable>
+        </InnerBox>
       </PledgeBlock>
     </Article>
   );
@@ -61,14 +63,25 @@ const PledgeBlock = styled.div`
     width: 90%;
     min-width: 250px;
     height: 400px;
-    overflow-y: scroll;
+  }
+`;
+
+const InnerBox = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    display: none;
   }
 `;
 
 const SloganText = styled.h2`
   margin-bottom: 40px;
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.4rem;
   font-family: 'paybooc-extrabold', sans-serif;
   word-break: keep-all;
   color: ${theme.Blue};
