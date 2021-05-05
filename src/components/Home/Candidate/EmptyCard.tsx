@@ -19,7 +19,7 @@ const EmptyCard = ({ url }: EmptyCardProps) => {
 const Box = styled.div`
   flex: 1 0;
   max-width: 360px;
-  padding: 22% 10px;
+  padding: 19% 10px;
   margin: 20px 35px 20px 35px;
   background: #ffffff;
   box-shadow: 0px 0px 20px ${theme.CardShadow}4d;
