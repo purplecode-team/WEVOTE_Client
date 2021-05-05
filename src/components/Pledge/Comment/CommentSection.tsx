@@ -29,9 +29,12 @@ const CommentSection = ({ qnaArray }: qnaArrayType) => {
 const Section = styled.section`
   width: ${media.laptop}px;
   height: 100%;
-  margin: 0 auto;
+  margin: 75px auto;
+  margin-bottom: 100px;
   @media (max-width: ${media.mobileL}px) {
     width: 100%;
+    margin: 40px auto;
+    margin-bottom: 100px;
   }
 `;
 
@@ -39,7 +42,7 @@ const CommentBlock = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
-  margin: 75px auto;
+  margin: 0px auto;
   box-sizing: border-box;
   @media (min-width: ${media.mobileL + 1}px) {
     min-height: 600px;

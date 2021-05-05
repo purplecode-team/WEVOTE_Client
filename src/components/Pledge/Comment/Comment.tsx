@@ -59,8 +59,8 @@ const QuestionBlock = styled.div`
 `;
 
 const ProfileImg = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   @media (max-width: ${media.mobileL}px) {
     width: 50px;
     height: 50px;
@@ -76,6 +76,7 @@ const User = styled.div`
     props.answer &&
     css`
       align-items: flex-end;
+      color: ${theme.Blue};
     `};
   @media (max-width: ${media.mobileL}px) {
     padding: 0 5px;
@@ -84,6 +85,8 @@ const User = styled.div`
 
 const UserName = styled.p`
   font-size: 1.5rem;
+  font-family: 'paybooc-medium', sans-serif;
+  font-weight: bold;
   margin-bottom: 10px;
   @media (max-width: ${media.mobileL}px) {
     font-size: 1.2rem;
@@ -96,7 +99,7 @@ const CommentDate = styled.p`
   margin-bottom: 15px;
   color: ${theme.Gray};
   @media (max-width: ${media.mobileL}px) {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 5px;
   }
 `;
@@ -105,28 +108,28 @@ const CommentTextBlock = styled.div`
   max-width: 800px;
   line-height: 25px;
   height: 100%;
-  padding: 20px 50px;
+  padding: 20px 30px;
   width: max-content;
   border-radius: 30px;
   background-color: ${theme.LightGray};
-  text-align: center;
   display: flex;
   align-items: center;
   ${(props: styleProps) =>
     props.answer &&
     css`
       background-color: ${theme.AnswerBackground};
+      color: black;
     `};
   @media (max-width: ${media.mobileL}px) {
-    padding: 5px 25px;
-    max-width: 200px;
+    padding: 10px 25px;
+    max-width: 180px;
   }
 `;
 
 const CommentText = styled.p`
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   @media (max-width: ${media.mobileL}px) {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 `;
 

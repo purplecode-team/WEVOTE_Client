@@ -14,7 +14,7 @@ const CommentInput = () => {
       <InputText
         type="text"
         value={text}
-        placeholder="후보자에게 질문을 자유롭게 남겨주세요. 비난이나 욕설은 삭제됩니다."
+        placeholder="공약에 대한 질문을 남겨주세요."
         onChange={handleInputChange}
       />
       <InputButton type="submit" value="등록" />
@@ -23,19 +23,21 @@ const CommentInput = () => {
 };
 
 const InputBlock = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   margin: 60px auto;
-  text-align: center;
 `;
 
 const InputText = styled.input`
-  height: 58px;
+  height: 50px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid gray;
+  border-radius: 15px;
   border-style: none;
-  font-size: 1.8rem;
-  font-family: 'paybooc-bold', sans-serif;
-  padding-left: 15px;
+  font-size: 1.5rem;
+  padding-left: 20px;
   &:focus {
     outline: none;
   }
@@ -45,25 +47,25 @@ const InputText = styled.input`
   @media (max-width: ${media.mobileL}px) {
     width: 70%;
     min-width: 200px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 `;
 
 const InputButton = styled.input`
-  width: 138px;
-  height: 58px;
+  width: 100px;
+  height: 50px;
   margin-left: 10px;
   background: ${theme.Blue};
   border-radius: 25px;
   border-style: none;
   color: white;
-  font-size: 2rem;
+  font-size: 1.5rem;
   &:hover {
     cursor: pointer;
   }
   @media (max-width: ${media.mobileL}px) {
     width: 64px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     border-radius: 15px;
   }
 `;
