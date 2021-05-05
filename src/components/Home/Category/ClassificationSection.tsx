@@ -120,7 +120,7 @@ const ClassificationSection = () => {
     });
   }, [current]);
 
-  const onClick = (
+  const changeCurrent = (
     position: string,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -130,7 +130,7 @@ const ClassificationSection = () => {
   return (
     <section>
       <ClassificationCategory
-        onClick={onClick}
+        changeCurrent={changeCurrent}
         topList={topList}
         middleList={middleList}
         bottomList={bottomList}
