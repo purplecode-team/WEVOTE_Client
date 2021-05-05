@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import CarouselSection from '../components/Pledge/Carousel/CarouselSection';
+import CarouselSection from '../components/Pledge/Candidate/CandidateSection';
 import PledgeSection from '../components/Pledge/Pledge/PledgeSection';
 import CommentSection from '../components/Pledge/Comment/CommentSection';
 import PledgeData from '../api/PledgeData.json';
@@ -20,9 +20,9 @@ const Pledge = ({ match }: RouteComponentProps<MatchParams>) => {
   const { slogan } = data.Teams[current - 1];
   const { Qna } = data.Teams[current - 1];
 
-  const handleCurrent = (id) => {
+  const handleCurrent = useCallback((id) => {
     setCurrent(id);
-  };
+  }, []);
 
   return (
     <>
