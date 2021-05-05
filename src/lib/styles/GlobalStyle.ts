@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     width: 100vw;
+    overflow-x: hidden;
     font-family: 'paybooc';
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     &::-webkit-scrollbar {
