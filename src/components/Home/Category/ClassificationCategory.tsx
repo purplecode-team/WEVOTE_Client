@@ -5,7 +5,10 @@ import CategoryItem from './CategoryItem';
 import media from '../../../lib/styles/media';
 
 type ClassificationProps = {
-  onClick: (position: string, e: React.ChangeEvent<HTMLInputElement>) => void;
+  changeCurrent: (
+    position: string,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => void;
   topList: string[];
   middleList: string[];
   bottomList: string[];
@@ -13,7 +16,7 @@ type ClassificationProps = {
 };
 
 const ClassificationCategory = ({
-  onClick,
+  changeCurrent,
   topList,
   middleList,
   bottomList,
@@ -28,7 +31,7 @@ const ClassificationCategory = ({
               key={index}
               title={item}
               onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
-                onClick('top', e);
+                changeCurrent('top', e);
               }}
               isActive={item === current.top}
               isTopActive={item === current.top}
@@ -39,13 +42,13 @@ const ClassificationCategory = ({
       </BackgroundBar>
       <BackgroundBar color="#EAE3FF">
         <SlideCategory isChange={current.top}>
-          {middleList.map((item: string, index: number) => {
+          {middleList.map((item, index) => {
             return (
               <CategoryItem
                 key={index}
                 title={item}
                 onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  onClick('middle', e);
+                  changeCurrent('middle', e);
                 }}
                 isActive={item === current.middle}
               />
@@ -61,7 +64,7 @@ const ClassificationCategory = ({
                 key={index}
                 title={item}
                 onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  onClick('bottom', e);
+                  changeCurrent('bottom', e);
                 }}
                 isActive={item === current.bottom}
               />
@@ -77,6 +80,7 @@ const BackgroundBar = styled.div`
   background-color: ${(props) => props.color};
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
 `;
 
 const Category = styled.ul`

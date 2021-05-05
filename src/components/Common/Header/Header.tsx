@@ -4,12 +4,12 @@ import { NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import media from '../../lib/styles/media';
-import theme from '../../lib/styles/theme';
+import media from '../../../lib/styles/media';
+import theme from '../../../lib/styles/theme';
 import { TextMenu } from './TextMenu';
 import { LoginMenu } from './LoginMenu';
-import logoIcon from '../../../public/img/logo.svg';
-import menuBackground from '../../../public/img/menu_background.svg';
+import logoIcon from '../../../../public/img/logo.svg';
+import menuBackground from '../../../../public/img/menuBackground.svg';
 
 type HeaderProps = {
   isActive: boolean;

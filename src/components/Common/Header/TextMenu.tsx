@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { MenuData } from './MenuData';
-import media from '../../lib/styles/media';
-import theme from '../../lib/styles/theme';
+import media from '../../../lib/styles/media';
+import theme from '../../../lib/styles/theme';
 
 type TextMenuProps = {
   changeSidebar: () => void;
