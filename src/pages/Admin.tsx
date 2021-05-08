@@ -1,11 +1,8 @@
 import * as React from 'react';
+import AdminLayout from '../components/Admin/AdminLayout';
 
 const Admin = () => {
-  return (
-    <>
-      <h1>Admin page</h1>
-    </>
-  );
+  return <AdminLayout />;
 };
 
 export default Admin;
