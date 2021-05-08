@@ -2,5 +2,8 @@
   font-family: 'paybooc';
   src: url(../public/font/paybooc.ttf);
 }
-
+@font-face {
+  font-family: 'paybooc-extrabold';
+  src: url(../public/font/payboocExtraBold.ttf)
+}
 
