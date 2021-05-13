@@ -8,34 +8,42 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import SmallMenu from './SmallMenu';
 
 function Navigator (props) {
-  const { classes, categories, handleCategory, ...other } = props;
+  const { classes, menus, handleMenus, ...other } = props;
 
   return (
     <Drawer variant='permanent' {...other}>
-      <List disablePadding>
+      <List className={classes.paper} disablePadding>
         <ListItem className={clsx(classes.firebase, classes.itemCategory)}>
           안녕하세요
         </ListItem>
         <React.Fragment>
-          {categories &&
-            categories.map(({ id, name, icon, active }) => (
-              <ListItem
-                key={id}
-                button
-                className={clsx(classes.item, active && classes.itemActiveItem)}
-                onClick={e => handleCategory(e)}
-              >
-                <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
-                <ListItemText
-                  classes={{
-                    primary: classes.itemPrimary,
-                  }}
+          {menus &&
+            menus.map(({ id, name, icon, active, detail }) => (
+              <div key={id}>
+                <ListItem
+                  button
+                  className={clsx(
+                    classes.item,
+                    active && classes.itemActiveItem
+                  )}
+                  onClick={e => handleMenus(e)}
                 >
-                  {name}
-                </ListItemText>
-              </ListItem>
+                  <ListItemIcon className={classes.itemIcon}>
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    classes={{
+                      primary: classes.itemPrimary,
+                    }}
+                  >
+                    {name}
+                  </ListItemText>
+                </ListItem>
+                {detail && active && <SmallMenu data={detail} />}
+              </div>
             ))}
           <Divider className={classes.divider} />
         </React.Fragment>
@@ -45,6 +53,9 @@ function Navigator (props) {
 }
 
 const styles = theme => ({
+  paper: {
+    zIndex: 1,
+  },
   categoryHeader: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
@@ -86,6 +97,15 @@ const styles = theme => ({
   },
   divider: {
     marginTop: theme.spacing(2),
+  },
+  smallMenu: {
+    height: '50px',
+    paddingLeft: '65px',
+  },
+  MuiTypography: {
+    root: {
+      fontSize: '16px',
+    },
   },
 });
 

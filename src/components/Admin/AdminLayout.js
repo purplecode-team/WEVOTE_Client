@@ -23,16 +23,27 @@ import Candidate from './Candidate';
 import PledgeBoard from './PledgeBoard';
 import media from '../../lib/styles/media';
 
-const initialCategories = [
-  { id: 1, name: '공지사항 관리', icon: <PeopleIcon />, active: true },
+const initialMenus = [
+  { id: 1, name: '공지사항 관리', icon: <PeopleIcon />, active: false },
   { id: 2, name: '캘린더 관리', icon: <DnsRoundedIcon />, active: false },
   {
     id: 3,
-    name: '선거 정보 관리',
+    name: '메인 선거 정보 관리',
     icon: <PermMediaOutlinedIcon />,
     active: false,
   },
-  { id: 4, name: '후보자 관리', icon: <PublicIcon />, active: false },
+  {
+    id: 4,
+    name: '후보자 관리',
+    icon: <PublicIcon />,
+    active: true,
+    detail: [
+      { id: 6, name: '세부 조직 등록', active: false },
+      { id: 7, name: '중앙자치기구', active: true },
+      { id: 8, name: '단과대', active: false },
+      { id: 9, name: '학과', active: false },
+    ],
+  },
   {
     id: 5,
     name: '공약 게시판 관리',
@@ -49,13 +60,16 @@ const Content = [
   { id: 5, component: <PledgeBoard /> },
 ];
 
+const initialCurrentId = () => {
+  return initialMenus.filter(obj => obj.active)[0].id;
+};
 function AdminLayout (props) {
   const { classes } = props;
-  const [currentId, setCurrentId] = useState(1);
-  const [categories, setCategories] = useState(initialCategories);
+  const [currentId, setCurrentId] = useState(initialCurrentId);
+  const [menus, setMenus] = useState(initialMenus);
 
-  const handleCategory = e => {
-    const newCategories = categories.map(obj => {
+  const handleMenus = e => {
+    const newMenus = menus.map(obj => {
       if (e.target.innerText === obj.name) {
         obj.active = true;
         setCurrentId(obj.id);
@@ -64,7 +78,7 @@ function AdminLayout (props) {
       }
       return obj;
     });
-    setCategories(newCategories);
+    setMenus(newMenus);
   };
 
   return (
@@ -75,8 +89,8 @@ function AdminLayout (props) {
           <Hidden xsDown implementation='css'>
             <Navigator
               PaperProps={{ style: { width: drawerWidth } }}
-              categories={categories}
-              handleCategory={handleCategory}
+              menus={menus}
+              handleMenus={handleMenus}
             />
           </Hidden>
         </nav>
