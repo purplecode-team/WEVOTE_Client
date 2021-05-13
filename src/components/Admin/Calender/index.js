@@ -1,15 +1,10 @@
 import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
+import Calender from './Calender';
+import ImageUploader from 'react-images-upload';
 
 const styles = theme => ({
   paper: {
@@ -30,19 +25,38 @@ const styles = theme => ({
     marginRight: theme.spacing(1),
   },
   contentWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
     margin: '40px 16px',
+  },
+  uploader: {
+    width: '45%',
   },
 });
 
 function Canlender (props) {
   const { classes } = props;
+  const [pictures, setPictures] = useState([]);
+
+  const onDrop = picture => {
+    setPictures([...pictures, picture]);
+    console.log(picture);
+  };
 
   return (
     <Paper className={classes.paper}>
       <div className={classes.contentWrapper}>
-        <Typography color='textSecondary' align='center'>
-          Calander
-        </Typography>
+        <Calender />
+        <ImageUploader
+          {...props}
+          className={classes.uploader}
+          withIcon={true}
+          buttonText='Choose images'
+          onChange={onDrop}
+          imgExtension={['.jpg', '.gif', '.png', '.gif']}
+          maxFileSize={5242880}
+        />
       </div>
     </Paper>
   );
