@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import GlobalStyle from './lib/styles/GlobalStyle';
-import { Home, Info, Login } from './pages';
+import { Home, Info, Login, Register } from './pages';
 import Layout from './components/Global/Layout';
 
 const Board = lazy(() => import('./pages/Board'));
@@ -24,6 +24,7 @@ const App = () => {
             <Route path="/board" component={Board} />
             <Route path="/admin" component={Admin} />
             <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
             <Redirect from="*" to="/" />
           </Switch>
         </Layout>
