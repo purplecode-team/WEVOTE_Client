@@ -1,11 +1,11 @@
 import React from 'react';
-import Notice from './Notice';
+import NoticeForm from './NoticeForm';
 import NoticeList from './NoticeList';
 
 const NoticeArticle = () => {
   return (
     <>
-      <Notice />
+      <NoticeForm />
       <NoticeList />
     </>
   );

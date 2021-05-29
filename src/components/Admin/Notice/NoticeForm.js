@@ -68,7 +68,7 @@ const ButtonBlock = styled.div`
   justify-content: flex-end;
 `;
 
-function Notice (props) {
+function NoticeForm (props) {
   const { classes } = props;
   const [notice, setNotice] = useState('');
   const [startDate, setStartDate] = useState(new Date('2021-11-14T21:11:54'));
@@ -186,8 +186,8 @@ function Notice (props) {
   );
 }
 
-Notice.propTypes = {
+NoticeForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Notice);
+export default withStyles(styles)(NoticeForm);

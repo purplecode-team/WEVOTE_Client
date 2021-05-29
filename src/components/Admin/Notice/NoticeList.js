@@ -11,7 +11,83 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import NoticeData from '../../../api/NoticeData.json';
-import useFetch from '../../../api/useFetch';
+import useFetch from '../../../lib/hooks/useFetch';
+import client from '../../../utils/api/client';
+
+export default function NoticeList () {
+  const classes = useStyles();
+  // const [data, setData] = useState(NoticeData);
+  let { loading, data, error } = useFetch('/admin/notice');
+
+  const getFormatDate = date => {
+    const year = date.getFullYear(); //yyyy
+    let month = 1 + date.getMonth(); //M
+    month = month >= 10 ? month : '0' + month; //month 두자리로 저장
+    let day = date.getDate(); //d
+    day = day >= 10 ? day : '0' + day; //day 두자리로 저장
+    return year + '/' + month + '/' + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+  };
+  useEffect(() => {
+    if (!data) {
+      data = NoticeData;
+    }
+  }, [data]);
+  const onDelete = id => {
+    // setData(data.filter(obj => obj.id !== id));
+    data = data.filter(obj => obj.id !== id);
+    try {
+      client
+        .post('/admin/post', data)
+        .then(response => console.log(response.data))
+        .catch(error => console.log('error:', error));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const rows = data.map(obj => {
+    return createData(obj.id, obj.content, obj.startDate, obj.endDate);
+  });
+  return (
+    <TableContainer className={classes.root} component={Paper}>
+      <Table className={classes.table} aria-label='customized table'>
+        <TableHead>
+          <TableRow>
+            <StyledTableCell className={classes.notice}>
+              공지사항
+            </StyledTableCell>
+            <StyledTableCell className={classes.start}>시작일</StyledTableCell>
+            <StyledTableCell className={classes.end}>종료일</StyledTableCell>
+            <StyledTableCell className={classes.delete}></StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map(row => (
+            <StyledTableRow key={row.id}>
+              <StyledTableCell component='th' scope='row'>
+                {row.content}
+              </StyledTableCell>
+              <StyledTableCell>
+                {getFormatDate(new Date(row.startDate))}
+              </StyledTableCell>
+              <StyledTableCell>
+                {getFormatDate(new Date(row.endDate))}
+              </StyledTableCell>
+              <StyledTableCell>
+                <IconButton
+                  aria-label='delete'
+                  onClick={() => onDelete(row.id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -58,80 +134,3 @@ const useStyles = makeStyles({
     minWidth: 50,
   },
 });
-
-export default function NoticeList () {
-  const classes = useStyles();
-  const [data, setData] = useState(NoticeData);
-  // const { loading, data, error } = useFetch(
-  //     'https://localhost:8080/admin/notice'
-  // );
-
-  const getFormatDate = date => {
-    var year = date.getFullYear(); //yyyy
-    var month = 1 + date.getMonth(); //M
-    month = month >= 10 ? month : '0' + month; //month 두자리로 저장
-    var day = date.getDate(); //d
-    day = day >= 10 ? day : '0' + day; //day 두자리로 저장
-    return year + '/' + month + '/' + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
-  };
-
-  const onDelete = id => {
-    console.log('실행');
-    setData(data.filter(obj => obj.id !== id));
-    // data = data.filter(obj => obj.id !== id);
-    // fetch('https://localhost:8080/admin/post', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => console.log(data))
-    //   .catch(error => console.log('error:', error));
-  };
-
-  const rows = data.map(obj => {
-    return createData(obj.id, obj.content, obj.startDate, obj.endDate);
-  });
-  return (
-    <TableContainer className={classes.root} component={Paper}>
-      <Table className={classes.table} aria-label='customized table'>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell className={classes.notice}>
-              공지사항
-            </StyledTableCell>
-            <StyledTableCell className={classes.start}>시작일</StyledTableCell>
-            <StyledTableCell className={classes.end}>종료일</StyledTableCell>
-            <StyledTableCell className={classes.delete}></StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {/* {!loading && */}
-          {rows.map(row => (
-            <StyledTableRow key={row.id}>
-              <StyledTableCell component='th' scope='row'>
-                {row.content}
-              </StyledTableCell>
-              <StyledTableCell>
-                {getFormatDate(new Date(row.startDate))}
-              </StyledTableCell>
-              <StyledTableCell>
-                {getFormatDate(new Date(row.endDate))}
-              </StyledTableCell>
-              <StyledTableCell>
-                <IconButton
-                  aria-label='delete'
-                  onClick={() => onDelete(row.id)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-}
