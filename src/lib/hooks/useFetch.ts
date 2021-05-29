@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import client from '../../utils/api/client';
 
 type fetchProps = {
   url: string;
@@ -13,8 +13,8 @@ const useFetch = ({ url }: fetchProps) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(url);
-        setData(response.data); // 데이터는 response.data 안에 들어있습니다.
+        const response = await client.get(url);
+        setData(response.data);
       } catch (e) {
         setError(e);
       }
