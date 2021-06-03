@@ -5,20 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 const SmallMenu = props => {
-  const { classes, data } = props;
-  const [smallMenu, setSmallMenu] = useState(data);
-
-  const handleCurrent = e => {
-    const newMenu = smallMenu.map(obj => {
-      if (e.target.innerText === obj.name) {
-        obj.active = true;
-      } else {
-        obj.active = false;
-      }
-      return obj;
-    });
-    setSmallMenu(newMenu);
-  };
+  const { classes, smallMenu, handleCurrentSmallMenu } = props;
 
   return (
     <>
@@ -31,7 +18,7 @@ const SmallMenu = props => {
               obj.active && classes.activeItem
             )}
             button
-            onClick={handleCurrent}
+            onClick={handleCurrentSmallMenu}
           >
             <ListItemText primary={obj.name} />
           </ListItem>

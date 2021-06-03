@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
@@ -11,7 +11,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SmallMenu from './SmallMenu';
 
 function Navigator (props) {
-  const { classes, menus, handleMenus, ...other } = props;
+  const {
+    classes,
+    menus,
+    handleMenus,
+    handleCurrentSmallMenu,
+    ...other
+  } = props;
 
   return (
     <Drawer variant='permanent' {...other}>
@@ -21,7 +27,7 @@ function Navigator (props) {
         </ListItem>
         <React.Fragment>
           {menus &&
-            menus.map(({ id, name, icon, active, detail }) => (
+            menus.map(({ id, name, icon, active, smallMenu }) => (
               <div key={id}>
                 <ListItem
                   button
@@ -42,7 +48,12 @@ function Navigator (props) {
                     {name}
                   </ListItemText>
                 </ListItem>
-                {detail && active && <SmallMenu data={detail} />}
+                {smallMenu && active && (
+                  <SmallMenu
+                    handleCurrentSmallMenu={handleCurrentSmallMenu}
+                    smallMenu={smallMenu}
+                  />
+                )}
               </div>
             ))}
           <Divider className={classes.divider} />

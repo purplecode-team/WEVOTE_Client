@@ -14,71 +14,110 @@ import PublicIcon from '@material-ui/icons/Public';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
-import Link from '@material-ui/core/Link';
 import Navigator from './Navigator';
 import Notice from './Notice';
-import Information from './Information';
+import MainEject from './MainElection';
 import Calender from './Calender';
 import Candidate from './Candidate';
 import PledgeBoard from './PledgeBoard';
+import Information from './Information';
 import media from '../../lib/styles/media';
 
 const initialMenus = [
-  { id: 1, name: '공지사항 관리', icon: <PeopleIcon />, active: false },
-  { id: 2, name: '캘린더 관리', icon: <DnsRoundedIcon />, active: false },
+  {
+    id: 1,
+    name: '공지사항 관리',
+    icon: <PeopleIcon />,
+    active: true,
+    smallMenu: [],
+  },
+  {
+    id: 2,
+    name: '캘린더 관리',
+    icon: <DnsRoundedIcon />,
+    active: false,
+    smallMenu: [],
+  },
   {
     id: 3,
     name: '메인 선거 정보 관리',
     icon: <PermMediaOutlinedIcon />,
     active: false,
+    smallMenu: [],
   },
   {
     id: 4,
     name: '후보자 관리',
     icon: <PublicIcon />,
-    active: true,
-    detail: [
-      { id: 6, name: '세부 조직 등록', active: false },
-      { id: 7, name: '중앙자치기구', active: true },
-      { id: 8, name: '단과대', active: false },
-      { id: 9, name: '학과', active: false },
+    active: false,
+    smallMenu: [
+      { id: 1, name: '세부 조직 등록', active: true },
+      { id: 2, name: '중앙자치기구', active: false },
+      { id: 3, name: '단과대', active: false },
+      { id: 4, name: '학과', active: false },
     ],
   },
   {
     id: 5,
+    name: '선거 안내 관리',
+    icon: <SettingsEthernetIcon />,
+    active: false,
+    smallMenu: [],
+  },
+  {
+    id: 6,
     name: '공약 게시판 관리',
     icon: <SettingsEthernetIcon />,
     active: false,
+    smallMenu: [],
   },
 ];
 
-const Content = [
-  { id: 1, component: <Notice /> },
-  { id: 2, component: <Calender /> },
-  { id: 3, component: <Information /> },
-  { id: 4, component: <Candidate /> },
-  { id: 5, component: <PledgeBoard /> },
-];
-
-const initialCurrentId = () => {
-  return initialMenus.filter(obj => obj.active)[0].id;
-};
 function AdminLayout (props) {
   const { classes } = props;
-  const [currentId, setCurrentId] = useState(initialCurrentId);
   const [menus, setMenus] = useState(initialMenus);
+  const [currentMenuId, setCurrentMenuId] = useState(1);
+  const [smallMenu, setSmallMenu] = useState(
+    menus[currentMenuId - 1].smallMenu
+  );
+  const [currentSmallMenuId, setCurrentSmallMenuId] = useState(1);
 
+  const Contents = [
+    { id: 1, component: <Notice /> },
+    { id: 2, component: <Calender /> },
+    { id: 3, component: <MainEject /> },
+    { id: 4, component: <Candidate currentSmallMenuId={currentSmallMenuId} /> },
+    { id: 5, component: <Information /> },
+    { id: 6, component: <PledgeBoard /> },
+  ];
+
+  // 클릭한 메뉴를 active true로 변경, 나머지는 false
+  // active 상태의 소메뉴 id 세팅
   const handleMenus = e => {
     const newMenus = menus.map(obj => {
       if (e.target.innerText === obj.name) {
         obj.active = true;
-        setCurrentId(obj.id);
+        setCurrentMenuId(obj.id);
+        setSmallMenu(menus[obj.id - 1].smallMenu);
       } else {
         obj.active = false;
       }
       return obj;
     });
     setMenus(newMenus);
+  };
+
+  const handleCurrentSmallMenu = e => {
+    const newSmallMenu = smallMenu.map(obj => {
+      if (e.target.innerText === obj.name) {
+        obj.active = true;
+        setCurrentSmallMenuId(obj.id);
+      } else {
+        obj.active = false;
+      }
+      return obj;
+    });
+    setSmallMenu(newSmallMenu);
   };
 
   return (
@@ -91,13 +130,14 @@ function AdminLayout (props) {
               PaperProps={{ style: { width: drawerWidth } }}
               menus={menus}
               handleMenus={handleMenus}
+              handleCurrentSmallMenu={handleCurrentSmallMenu}
             />
           </Hidden>
         </nav>
         <div className={classes.app}>
           <main className={classes.main}>
             {
-              Content.filter(component => component.id === currentId)[0]
+              Contents.filter(component => component.id === currentMenuId)[0]
                 .component
             }
           </main>
@@ -123,19 +163,6 @@ let theme = createMuiTheme({
       letterSpacing: 0.5,
     },
   },
-  shape: {
-    borderRadius: 8,
-  },
-  props: {
-    MuiTab: {
-      disableRipple: true,
-    },
-  },
-  mixins: {
-    toolbar: {
-      minHeight: 48,
-    },
-  },
 });
 
 theme = {
@@ -145,75 +172,6 @@ theme = {
       paper: {
         position: 'absolute',
         backgroundColor: '#F6F3FD',
-      },
-    },
-    MuiButton: {
-      label: {
-        textTransform: 'none',
-      },
-      contained: {
-        boxShadow: 'none',
-        '&:active': {
-          boxShadow: 'none',
-        },
-      },
-    },
-    MuiTabs: {
-      root: {
-        marginLeft: theme.spacing(1),
-      },
-      indicator: {
-        height: 3,
-        borderTopLeftRadius: 3,
-        borderTopRightRadius: 3,
-        backgroundColor: theme.palette.common.white,
-      },
-    },
-    MuiTab: {
-      root: {
-        textTransform: 'none',
-        margin: '0 16px',
-        minWidth: 0,
-        padding: 0,
-        [theme.breakpoints.up('md')]: {
-          padding: 0,
-          minWidth: 0,
-        },
-      },
-    },
-    MuiIconButton: {
-      root: {
-        padding: theme.spacing(1),
-      },
-    },
-    MuiTooltip: {
-      tooltip: {
-        borderRadius: 4,
-      },
-    },
-    MuiDivider: {
-      root: {
-        backgroundColor: '#F6F3FD',
-      },
-    },
-    MuiListItemText: {
-      primary: {
-        fontWeight: theme.typography.fontWeightMedium,
-      },
-    },
-    MuiListItemIcon: {
-      root: {
-        color: theme.palette.primary.white,
-        marginRight: 0,
-        '& svg': {
-          fontSize: 20,
-        },
-      },
-    },
-    MuiAvatar: {
-      root: {
-        width: 32,
-        height: 32,
       },
     },
   },
@@ -234,6 +192,7 @@ const styles = createStyles({
       width: drawerWidth,
       flexShrink: 0,
     },
+    zIndex: 1,
   },
   app: {
     flex: 1,
