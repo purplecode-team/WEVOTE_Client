@@ -15,6 +15,56 @@ const classificationData = {
   공과대학: ['기계자동차공학과', '건축공학과', '전자정보공학과'],
 };
 
+const category = [
+  {
+    id: 1,
+    top: '중앙자치기구',
+    middle: [
+      { id: 1, organization: '총학생회' },
+      { id: 2, organization: '학생복지위원회' },
+      { id: 3, organization: '동아리연합회' },
+    ],
+  },
+  {
+    id: 2,
+    top: '단과대',
+    middle: [
+      { id: 1, organization: '인문대' },
+      { id: 2, organization: '공과대' },
+      { id: 3, organization: '정통대' },
+      { id: 4, organization: '조형대' },
+    ],
+  },
+  {
+    id: 3,
+    top: '학과',
+    middle: [
+      { id: 1, organization: '인문대' },
+      { id: 2, organization: '공과대' },
+      { id: 3, organization: '정통대' },
+      { id: 4, organization: '조형대' },
+      { id: 5, organization: '기경대' },
+    ],
+    bottom: [
+      {
+        id: 1,
+        organization: '인문대',
+        major: ['문예창작학과', '행정학과', '영어영문학과'],
+      },
+      {
+        id: 2,
+        organization: '공과대',
+        major: ['기계공학과', '전자정보공학과', '건축공학과'],
+      },
+      {
+        id: 3,
+        organization: '정통대',
+        major: ['컴퓨터공학과', '전자미디어공학과'],
+      },
+    ],
+  },
+];
+
 const TeamForm = props => {
   const { classes, getTeamData } = props;
   const [middleArr, setMiddleArr] = useState(Object.keys(classificationData));
@@ -22,8 +72,8 @@ const TeamForm = props => {
 
   // input 상태 관리
   const [slogan, setSlogan] = useState('');
-  const [ejectMiddle, setEjectMiddle] = useState('');
-  const [ejectBottom, setEjectBottom] = useState('');
+  const [currentMiddle, setCurrentMiddle] = useState('');
+  const [currentBottom, setCurrentBottom] = useState('');
   const [teamNumber, setTeamNumber] = useState(1);
 
   // 후보 팀 공통 정보 등록
@@ -31,31 +81,32 @@ const TeamForm = props => {
     setSlogan(event.target.value);
   };
   const handleEjectMiddle = event => {
-    setEjectMiddle(event.target.value);
+    setCurrentMiddle(event.target.value);
+    if (!classificationData[event.target.value]) return;
     setBottomArr(classificationData[event.target.value]);
   };
   const handleEjectBottom = event => {
-    setEjectBottom(event.target.value);
+    setCurrentBottom(event.target.value);
   };
   const handleTeamNumber = event => {
     setTeamNumber(event.target.value);
   };
 
   useEffect(() => {
-    if (slogan && ejectMiddle && ejectBottom && teamNumber) {
+    if (slogan && currentMiddle && currentBottom && teamNumber) {
       const teamData = {
         slogan: slogan,
-        ejectMiddle: ejectMiddle,
-        ejectBottom: ejectBottom,
+        currentMiddle: currentMiddle,
+        currentBottom: currentBottom,
         teamNumber: teamNumber,
       };
       getTeamData(teamData);
     }
-  }, [slogan, ejectMiddle, ejectBottom, teamNumber]);
+  }, [slogan, currentMiddle, currentBottom, teamNumber]);
 
   //중분류 선택 시, Middle 변경됨. 소분류 데이터 배열 변경되면, 첫 요소로 선택
   useEffect(() => {
-    setEjectBottom('');
+    setCurrentBottom('');
   }, [bottomArr]);
 
   return (
@@ -112,7 +163,7 @@ const TeamForm = props => {
             <Select
               labelId='demo-simple-select-required-label'
               id='demo-simple-select-required'
-              value={ejectMiddle}
+              value={currentMiddle}
               onChange={handleEjectMiddle}
               className={classes.selectEmpty}
             >
@@ -125,31 +176,37 @@ const TeamForm = props => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item className={classes.item} xs={12}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
-            {TextData.titleText.candidate.classificationBottom}
-          </Typography>
-          <FormControl
-            required
-            variant='outlined'
-            className={classes.formControl}
-          >
-            <Select
-              labelId='demo-simple-select-required-label'
-              id='demo-simple-select-required'
-              value={ejectBottom}
-              onChange={handleEjectBottom}
-              className={classes.selectEmpty}
+        {bottomArr && (
+          <Grid item className={classes.item} xs={12}>
+            <Typography
+              className={classes.titleText}
+              variant='h4'
+              component='h4'
             >
-              {bottomArr &&
-                bottomArr.map((data, i) => (
-                  <MenuItem key={i} value={data}>
-                    {data}
-                  </MenuItem>
-                ))}
-            </Select>
-          </FormControl>
-        </Grid>
+              {TextData.titleText.candidate.classificationBottom}
+            </Typography>
+            <FormControl
+              required
+              variant='outlined'
+              className={classes.formControl}
+            >
+              <Select
+                labelId='demo-simple-select-required-label'
+                id='demo-simple-select-required'
+                value={currentBottom}
+                onChange={handleEjectBottom}
+                className={classes.selectEmpty}
+              >
+                {bottomArr &&
+                  bottomArr.map((data, i) => (
+                    <MenuItem key={i} value={data}>
+                      {data}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );
