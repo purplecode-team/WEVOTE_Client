@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Select, { components } from 'react-select';
+import { Router, Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import deptData from '../../../api/SearchDept.json';
 import info from '../../../pages/Info';
 import searchIcon from '../../../../public/img/search.svg';
+import media from '../../../lib/styles/media';
 
 const SelectBox = () => {
   const department = [];
@@ -28,8 +30,9 @@ const SelectBox = () => {
       paddingLeft: '2.6rem',
       fontSize: '1.4rem',
       filter: 'drop-shadow(0px 0px 0.4rem #8981b0)',
+      opacity: '0.5',
       display: 'flex',
-      borderRadius: '30rem',
+      borderRadius: '300px',
       backgroundColor: '#FFFFFF',
     }),
     valueContainer: (provided) => ({
@@ -47,7 +50,6 @@ const SelectBox = () => {
   const goLink = () => {
     if (selectedDept !== null) {
       const link = `info/${selectedDept.value}`;
-      console.log(link);
       window.location.href = link;
     }
   };
@@ -70,6 +72,9 @@ export default SelectBox;
 const BoxContainer = styled.div`
   margin-top: 5.2rem;
   postion: relative;
+  @media (max-width: ${media.mobileL}px) {
+    display: none;
+  }
 `;
 const CustomSelect = styled(Select)`
   z-index: 1;

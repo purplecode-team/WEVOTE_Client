@@ -1,39 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import searchIcon from '../../../../public/img/search.svg';
-import SelectBox from './SelectBox';
+import Fab from '@material-ui/core/Fab';
+import media from '../../../lib/styles/media';
+import AutoBox from './SearchBox';
+import Modal from './FloatingActionButtonSize';
 
 const TitleSearch = () => {
-  const handleChange = (e) => {
-    console.log(e.target.value);
-  };
-  const handleclick = () => {
-    console.log('클릭');
-  };
-
   return (
     <Contain>
       <Title>00대학교 선거소식</Title>
-      {/* <SearchWrapper> */}
-      {/*  <Search */}
-      {/*    type="text" */}
-      {/*    placeholder="선거명을 검색하세요" */}
-      {/*    onChange={handleChange} */}
-      {/*  /> */}
-      {/*  <Button type="submit" onClick={handleclick}> */}
-      {/*    <ButtonIcon /> */}
-      {/*  </Button> */}
-      {/* </SearchWrapper> */}
-      <SelectBox />
+      <SearchWrapper>
+        <AutoBox />
+      </SearchWrapper>
+      <MobileArea>
+        <MobileSearch />
+      </MobileArea>
     </Contain>
   );
 };
 
 export default TitleSearch;
 
-const Contain = styled.div`
-  height: 15.2rem;
-`;
+const Contain = styled.div``;
 
 const Title = styled.p`
   font-family: 'paybooc-extrabold';
@@ -41,46 +29,33 @@ const Title = styled.p`
   font-weight: 800;
   line-height: 49.36px;
   color: #252c44;
-  margin-top: 104px;
-  margin-left: 16px;
+  margin-top: 10.4rem;
+  margin-left: 1.6rem;
+  @media (max-width: ${media.mobileL}px) {
+    font-size: 2.1rem;
+    margin-top: 3.7rem;
+    margin-left: 1.7rem;
+  }
 `;
 const SearchWrapper = styled.div`
-  margin-top: 5.2rem;
   postion: relative;
-`;
-
-const Search = styled.input`
-  font-size: 1.4rem;
-  border-radius: 3rem;
-  width: 43.6rem;
-  height: 4.6rem;
-  padding-left: 2.6rem;
-  position: absolute;
-  filter: drop-shadow(0px 0px 0.4rem #8981b0);
-  border: none;
-  ::placeholder {
-    color: #5d3fe8;
-    opacity: 0.5;
-  }
-  :focus {
-    outline: none;
+  @media (max-width: ${media.mobileL}px) {
+    display: none;
   }
 `;
 
-const Button = styled.button`
-  position: absolute;
-  margin-top: 1.3rem;
-  margin-left: 41.3rem;
-  background-color: transparent;
-  border: none;
-  :focus {
-    outline: none;
-  }
+const SearchIcon = styled(Fab)`
+  display: none;
 `;
 
-const ButtonIcon = styled.img.attrs({
-  src: searchIcon,
-  alt: 'search icon',
-})`
-  width: 100%;
-`;
+const MobileArea = styled.div`
+  display: none;
+    @media (max-width: ${media.mobileL}px) {
+    display: inline; 
+  }
+`
+const MobileSearch = styled(Modal)`
+  @media (max-width: ${media.mobileL}px) {
+    
+  }
+`

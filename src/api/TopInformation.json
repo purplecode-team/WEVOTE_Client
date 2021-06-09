@@ -1,34 +1,34 @@
-{
-  "총학생회": {
+[
+  {
     "id": 1,
     "name": "총학생회",
-    "type": "단선",
-    "numOfTeam": 1,
-    "startDate": "2/16",
-    "endDate": "2/24"
+    "numOfTeam": 3,
+    "type": "경선",
+    "startDate": "2020-03-01T00:00:00.000Z",
+    "endDate": "2020-03-10T00:00:00.000Z"
   },
-  "학생복지위원회": {
+  {
     "id": 2,
-    "name": "학생복지위원회",
-    "type": "단선",
-    "numOfTeam": 1,
-    "startDate": "2/16",
-    "endDate": "2/24"
+    "name": "동아리어쩌구",
+    "numOfTeam": 2,
+    "type": "경선",
+    "startDate": "2020-03-02T00:00:00.000Z",
+    "endDate": "2020-03-13T00:00:00.000Z"
   },
-  "동아리연합회": {
+  {
     "id": 3,
-    "name": "동아리연합회",
-    "type": "경선",
+    "name": "총어쩌구",
     "numOfTeam": 2,
-    "startDate": "2/16",
-    "endDate": "2/24"
+    "type": "경선",
+    "startDate": "2020-03-02T00:00:00.000Z",
+    "endDate": "2020-03-13T00:00:00.000Z"
   },
-  "단과대학생회": {
+  {
     "id": 4,
-    "name": "단과대학생회",
-    "type": "경선",
+    "name": "학생복지어쩌구",
     "numOfTeam": 2,
-    "startDate": "2/15",
-    "endDate": "2/25"
+    "type": "경선",
+    "startDate": "2020-03-02T00:00:00.000Z",
+    "endDate": "2020-03-13T00:00:00.000Z"
   }
-}
+]

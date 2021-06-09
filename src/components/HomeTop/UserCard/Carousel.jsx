@@ -37,16 +37,16 @@ const Carousel = () => {
     <Container>
       <SliderContainer ref={slideRef}>
         <Link to="info">
-          <Slide data={data.총학생회} />
+          <Slide data={data[0]} />
         </Link>
         <Link to="info">
-          <Slide data={data.학생복지위원회} />
+          <Slide data={data[1]} />
         </Link>
         <Link to="info">
-          <Slide data={data.동아리연합회} />
+          <Slide data={data[2]} />
         </Link>
         <Link to="info/">
-          <Slide data={data.단과대학생회} />
+          <Slide data={data[3]} />
         </Link>
       </SliderContainer>
       <ButtonContainer>

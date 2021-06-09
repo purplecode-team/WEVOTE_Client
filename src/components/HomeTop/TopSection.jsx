@@ -11,12 +11,14 @@ const TopSection = () => {
     <>
       <Top>
         <Container>
-          <LeftTop>
-            <TitleSearch />
-            <UserCard />
-            <Notice />
-          </LeftTop>
-          <ImgBoard />
+           {/*<LeftTop>*/}
+          <TitleArea />
+          <User />
+          <NoticeBoard />
+          <ImgArea>
+            <Img />
+          </ImgArea>
+           {/*</LeftTop>*/}
         </Container>
       </Top>
     </>
@@ -25,20 +27,45 @@ const TopSection = () => {
 
 const Top = styled.div`
   width: 100%;
-  background-color: #fafafa;
 `;
 
 const Container = styled.div`
-  width: ${media.laptop}px;
+  width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(2, auto);
   grid-template-areas:
-    'TitleSearch ImgBoard'
-    'UserCard ImgBoard'
-    'Notice ImgBoard';
+    'TitleArea ImgBoardArea'
+    'UserArea ImgBoardArea'
+    'NoticeArea ImgBoardArea';
+  @media (max-width: ${media.mobileL}px) {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas:
+      'TitleArea'
+      'ImgBoardArea'
+      'NoticeArea';
+  }
 `;
 
 const LeftTop = styled.div``;
+const TitleArea = styled(TitleSearch)`
+  grid-area: TitleArea;
+`;
 
+const User = styled(UserCard)`
+  grid-area: UserArea;
+`;
+
+const NoticeBoard = styled(Notice)`
+  grid-area: NoticeArea;
+`;
+
+const Img = styled(ImgBoard)`
+`;
+
+const ImgArea = styled.div`
+  grid-area: ImgBoardArea;
+`;
 export default TopSection;
