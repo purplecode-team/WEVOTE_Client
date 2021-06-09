@@ -23,9 +23,9 @@ const Calendar = styled.div`
 const CalenderImg = styled.img.attrs({
   src: Image.image,
   alt: 'img icon',
-})`  
+})`
   @media (max-width: ${media.mobileL}px) {
-    min-width:312px;
+    min-width: 312px;
     width: 100%;
   }
 `;
