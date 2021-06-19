@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Fab from '@material-ui/core/Fab';
 import media from '../../../lib/styles/media';
-import AutoBox from './SearchBox';
+import SearchBox from './SearchBox';
 import Modal from './FloatingActionButtonSize';
 
 const TitleSearch = () => {
@@ -10,7 +10,7 @@ const TitleSearch = () => {
     <Contain>
       <Title>00대학교 선거소식</Title>
       <SearchWrapper>
-        <AutoBox />
+        <SearchBox />
       </SearchWrapper>
       <MobileArea>
         <MobileSearch />
@@ -38,7 +38,7 @@ const Title = styled.p`
   }
 `;
 const SearchWrapper = styled.div`
-  postion: relative;
+  position: relative;
   @media (max-width: ${media.mobileL}px) {
     display: none;
   }

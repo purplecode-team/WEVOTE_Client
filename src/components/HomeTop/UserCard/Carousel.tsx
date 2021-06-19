@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Slide from './Slide';
 import data from '../../../api/TopInformation.json';
 
@@ -8,8 +8,8 @@ const SLIDES_NUM = 4;
 const TOTAL_SLIDES = SLIDES_NUM - 3;
 
 const Carousel = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slideRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const slideRef = useRef<any>();
   const slideSize = 204;
 
   const nextSlide = () => {
@@ -35,7 +35,7 @@ const Carousel = () => {
 
   return (
     <Container>
-      <SliderContainer ref={slideRef}>
+      <SliderContainer ref={slideRef} >
         <Link to="info">
           <Slide data={data[0]} />
         </Link>
@@ -66,6 +66,11 @@ const Container = styled.div`
   width: 60rem;
 `;
 
+const SliderContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 const ButtonContainer = styled.div`
   margin-top: 2rem;
   display: flex;
@@ -86,9 +91,6 @@ const Button = styled.button`
     color: #fff;
   }
 `;
-const SliderContainer = styled.div`
-  width: 100%;
-  display: flex;
-`;
+
 
 const StyleLink = styled(Link)``;

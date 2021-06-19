@@ -9,7 +9,7 @@ const Notice = () => {
     <NoticeBoard>
       <Container>
         <NoticeArticle />
-        <bIcon />
+        <BIcon />
       </Container>
     </NoticeBoard>
   );
@@ -24,6 +24,7 @@ const NoticeBoard = styled.div`
   }
 `;
 const Container = styled.div`
+  position: relative;
   margin-left: 1.6rem;
   width: 57.8rem;
   height: 13.6rem;
@@ -38,9 +39,17 @@ const Container = styled.div`
   }
 `;
 
-const bIcon = styled.img.attrs({
+const BIcon = styled.img.attrs({
   src: bannerIcon,
   alt: 'banner icon',
 })`
-  width: 100%;
+    width: 165px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0.5;
+    @media (max-width: ${media.mobileL}px) {
+      width: 130px;
+      top: -15px;
+    }
 `;
