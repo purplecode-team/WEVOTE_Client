@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import client from '../../../utils/api/client';
+import client from '../../../api/client';
 import useFetch from '../../../lib/hooks/useFetch';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
@@ -15,9 +15,16 @@ import Typography from '@material-ui/core/Typography';
 
 function Canlender (props) {
   const { classes } = props;
-  const { loading, data, error } = useFetch('/api/v1//main/calender');
+  const [data, setData] = useState({ image: '/' });
+  // const { loading, data, error } = useFetch('/api/v1//main/calender');
   const [file, setFile] = useState(null);
   const [fileUrl, setFileUrl] = useState(null);
+
+  useEffect(() => {
+    const response = client.get('http://34.64.235.182/api/v1//main/calender');
+    if (!response.data) return;
+    setData(response.data);
+  }, []);
 
   function processImage (event) {
     const imageFile = event.target.files[0];
@@ -40,7 +47,7 @@ function Canlender (props) {
     };
     try {
       client
-        .post('/calender', formData, config)
+        .post('/api/v1/register-calendar', formData, config)
         .then(response => {
           if (response.status !== 200) {
             alert('이미지 등록 실패');
@@ -79,17 +86,17 @@ function Canlender (props) {
             />
           </ButtonBlock>
         </div>
+        <Grid item xs={12} className={classes.buttonWrap}>
+          <Button
+            className={classes.submit}
+            variant='contained'
+            color='primary'
+            type='submit'
+          >
+            {'등록'}
+          </Button>
+        </Grid>
       </form>
-      <Grid item xs={12} className={classes.buttonWrap}>
-        <Button
-          className={classes.submit}
-          variant='contained'
-          color='primary'
-          type='submit'
-        >
-          {'등록'}
-        </Button>
-      </Grid>
     </Paper>
   );
 }
