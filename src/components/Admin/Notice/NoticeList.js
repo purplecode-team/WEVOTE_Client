@@ -9,15 +9,20 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import NoticeData from '../../../api/NoticeData.json';
+import NoticeData from '../../../api/dummyData/NoticeData.json';
+import NoticeForm from './NoticeForm';
 import useFetch from '../../../lib/hooks/useFetch';
-import client from '../../../utils/api/client';
+import client from '../../../api/client';
 
 export default function NoticeList () {
   const classes = useStyles();
-  // const [data, setData] = useState(NoticeData);
-  let { loading, data, error } = useFetch('/admin/notice');
+  const [data, setData] = useState();
+  const [rows, setRows] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [updateData, setUpdateData] = useState({});
+  // let { loading, data, error } = useFetch('/api/v1/main/banner');
 
   const getFormatDate = date => {
     const year = date.getFullYear(); //yyyy
@@ -27,14 +32,25 @@ export default function NoticeList () {
     day = day >= 10 ? day : '0' + day; //day 두자리로 저장
     return year + '/' + month + '/' + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
   };
+
   useEffect(() => {
-    if (!data) {
-      data = NoticeData;
-    }
-  }, [data]);
+    const response = client.get('http://34.64.235.182/api/v1/main/banner');
+    setData(response.data);
+  }, []);
+
+  // useEffect(() => {
+  //   if (!data || data.length === 0) {
+  //     setData(NoticeData);
+  //   }
+  // }, [data]);
+
+  const onUpdate = id => {
+    setUpdateData(data.filter(obj => obj.id === id)[0]);
+    setModal(true);
+  };
+
   const onDelete = id => {
-    // setData(data.filter(obj => obj.id !== id));
-    data = data.filter(obj => obj.id !== id);
+    setData(data.filter(obj => obj.id !== id));
     try {
       client
         .post('/admin/post', data)
@@ -45,9 +61,21 @@ export default function NoticeList () {
     }
   };
 
-  const rows = data.map(obj => {
-    return createData(obj.id, obj.content, obj.startDate, obj.endDate);
-  });
+  useEffect(() => {
+    if (!data || data.length === 0) return;
+    console.log(data);
+    setRows(
+      data.map(obj => {
+        return {
+          id: obj.id,
+          content: obj.content,
+          startDate: obj.startDate,
+          endDate: obj.endDate,
+        };
+      })
+    );
+  }, [data]);
+
   return (
     <TableContainer className={classes.root} component={Paper}>
       <Table className={classes.table} aria-label='customized table'>
@@ -58,6 +86,7 @@ export default function NoticeList () {
             </StyledTableCell>
             <StyledTableCell className={classes.start}>시작일</StyledTableCell>
             <StyledTableCell className={classes.end}>종료일</StyledTableCell>
+            <StyledTableCell className={classes.delete}></StyledTableCell>
             <StyledTableCell className={classes.delete}></StyledTableCell>
           </TableRow>
         </TableHead>
@@ -75,6 +104,14 @@ export default function NoticeList () {
               </StyledTableCell>
               <StyledTableCell>
                 <IconButton
+                  aria-label='update'
+                  onClick={() => onUpdate(row.id)}
+                >
+                  <EditIcon />
+                </IconButton>
+              </StyledTableCell>
+              <StyledTableCell>
+                <IconButton
                   aria-label='delete'
                   onClick={() => onDelete(row.id)}
                 >
@@ -85,6 +122,7 @@ export default function NoticeList () {
           ))}
         </TableBody>
       </Table>
+      {modal && <NoticeForm updateData={updateData} />}
     </TableContainer>
   );
 }
@@ -107,10 +145,6 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow);
 
-function createData (id, content, startDate, endDate) {
-  return { id, content, startDate, endDate };
-}
-
 const useStyles = makeStyles({
   root: {
     width: '98%',
@@ -125,10 +159,10 @@ const useStyles = makeStyles({
     minWidth: 400,
   },
   start: {
-    minWidth: 200,
+    minWidth: 150,
   },
   end: {
-    minWidth: 200,
+    minWidth: 150,
   },
   delete: {
     minWidth: 50,

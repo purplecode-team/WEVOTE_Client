@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -23,59 +23,26 @@ import {
   ThemeProvider,
   withStyles,
 } from '@material-ui/core/styles';
-
-const styles = createStyles({
-  paper: {
-    maxWidth: 936,
-    margin: '20px auto',
-    overflow: 'hidden',
-    boxShadow: `0px 2px 13px rgba(42, 64, 139, 0.3)`,
-    borderRadius: `15px`,
-  },
-  contentWrapper: {
-    margin: '40px 16px',
-  },
-  title: {
-    marginTop: '20px',
-    marginBottom: '10px',
-    marginLeft: '10px',
-    fontSize: '15px',
-    fontWeight: 'bold',
-  },
-  dateGrid: {
-    marginLeft: '20px',
-  },
-  dateSelector: {
-    marginRight: '20px',
-  },
-  resize: {
-    fontSize: '14px',
-  },
-});
-
-const ColorButton = withStyles(theme => ({
-  root: {
-    color: theme.palette.common.white,
-    backgroundColor: theme.palette.primary.main,
-    '&:hover': {
-      backgroundColor: theme.palette.primary.dark,
-    },
-  },
-}))(Button);
-
-const ButtonBlock = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
+import client from '../../../api/client';
 
 function NoticeForm (props) {
-  const { classes } = props;
-  const [notice, setNotice] = useState('');
+  const { classes, updateData } = props;
+  const [id, setId] = useState();
+  const [content, setContent] = useState('');
   const [startDate, setStartDate] = useState(new Date('2021-11-14T21:11:54'));
   const [endDate, setEndDate] = useState(new Date('2021-11-19T21:11:54'));
 
+  useEffect(() => {
+    if (updateData) {
+      setId(updateData.id);
+      setContent(updateData.content);
+      setStartDate(updateData.startDate);
+      setEndDate(updateData.endDate);
+    }
+  }, [updateData]);
+
   const handleInputText = e => {
-    setNotice(e.target.value);
+    setContent(e.target.value);
   };
 
   const handleStartDateChange = date => {
@@ -85,26 +52,37 @@ function NoticeForm (props) {
     setEndDate(date);
   };
 
-  const submitForm = () => {
-    console.log(notice, startDate, endDate);
-    fetch('https://localhost:8080/admin/post', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        text: notice,
-        startDate: startDate,
-        endDate: endDate,
-      }),
-    })
-      .then(response => response.json())
+  const onUpdate = () => {
+    const result = {
+      id: id,
+      content: content,
+      startDate: startDate,
+      endDate: endDate,
+    };
+    client
+      .patch('/api/v1/admin/register-banner', result)
       .then(data => {
-        setNotice('');
+        setContent('');
         console.log(data);
       })
       .catch(error => {
-        setNotice('');
+        console.log('error:', error);
+      });
+  };
+
+  const submitForm = () => {
+    const result = {
+      content: content,
+      startDate: startDate,
+      endDate: endDate,
+    };
+    client
+      .post('/api/v1/admin/register-banner', result)
+      .then(data => {
+        setContent('');
+        console.log(data);
+      })
+      .catch(error => {
         console.log('error:', error);
       });
   };
@@ -128,7 +106,7 @@ function NoticeForm (props) {
               }}
               InputProps={{ classes: { input: classes.resize } }}
               variant='outlined'
-              value={notice}
+              value={content}
               onChange={handleInputText}
             />
             <Typography className={classes.title} variant='h4' component='h4'>
@@ -174,9 +152,9 @@ function NoticeForm (props) {
                 variant='contained'
                 color='primary'
                 className={classes.margin}
-                onClick={submitForm}
+                onClick={updateData ? onUpdate : submitForm}
               >
-                등록하기
+                {updateData ? '수정' : '등록'}
               </ColorButton>
             </ButtonBlock>
           </form>
@@ -185,6 +163,50 @@ function NoticeForm (props) {
     </>
   );
 }
+
+const styles = createStyles({
+  paper: {
+    maxWidth: 936,
+    margin: '20px auto',
+    overflow: 'hidden',
+    boxShadow: `0px 2px 13px rgba(42, 64, 139, 0.3)`,
+    borderRadius: `15px`,
+  },
+  contentWrapper: {
+    margin: '40px 16px',
+  },
+  title: {
+    marginTop: '20px',
+    marginBottom: '10px',
+    marginLeft: '10px',
+    fontSize: '15px',
+    fontWeight: 'bold',
+  },
+  dateGrid: {
+    marginLeft: '20px',
+  },
+  dateSelector: {
+    marginRight: '20px',
+  },
+  resize: {
+    fontSize: '14px',
+  },
+});
+
+const ColorButton = withStyles(theme => ({
+  root: {
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.primary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
+}))(Button);
+
+const ButtonBlock = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 
 NoticeForm.propTypes = {
   classes: PropTypes.object.isRequired,
