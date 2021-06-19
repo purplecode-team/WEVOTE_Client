@@ -4,9 +4,9 @@ const client = axios.create();
 
 // 글로벌 설정 예시:
 
-client.defaults.baseURL = 'https://localhost:8080';
+client.defaults.baseURL = 'http://34.64.235.182';
 // client.defaults.baseURL =
-client.defaults.withCredentials = false;
+client.defaults.withCredentials = true;
 
 axios.interceptors.request.use(
   request => {
