@@ -21,25 +21,6 @@ import TextField from '@material-ui/core/TextField';
 
 const category = [
   {
-    id: 1,
-    top: '중앙자치기구',
-    middle: [
-      { id: 1, organization: '총학생회' },
-      { id: 2, organization: '학생복지위원회' },
-      { id: 3, organization: '동아리연합회' },
-    ],
-  },
-  {
-    id: 2,
-    top: '단과대',
-    middle: [
-      { id: 1, organization: '인문대' },
-      { id: 2, organization: '공과대' },
-      { id: 3, organization: '정통대' },
-      { id: 4, organization: '조형대' },
-    ],
-  },
-  {
     id: 3,
     top: '학과',
     middle: [
@@ -198,70 +179,66 @@ export default function TransferList () {
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <Paper className={classes.paper}>
-        <form className={classes.contentWrapper} onSubmit={submitData}>
-          <Grid container spacing={2} justify='center' className={classes.root}>
-            <Grid item className={classes.card}>
-              {customList('top', '대분류', topList)(onClickTop)}
-            </Grid>
-            <Grid item className={classes.card}>
-              {customList('middle', '중분류', middleList)(onClickMiddle)}
-              <Grid item className={classes.item} xs={12}>
-                <TextField
-                  id='outlined-basic'
-                  className={classes.inputText}
-                  placeholder='입력하세요.'
-                  variant='outlined'
-                  value={middleValue}
-                  onChange={handleMiddleInputValue}
-                />
-                <Button
-                  variant='contained'
-                  color='primary'
-                  className={classes.button}
-                  onClick={addMiddleCategory}
-                >
-                  입력
-                </Button>
-              </Grid>
-            </Grid>
-            <Grid item className={classes.card}>
-              {customList('bottom', '소분류', bottomList)(onClickBottom)}
-              <Divider />
-              <Grid item className={classes.item} xs={12}>
-                <TextField
-                  id='outlined-basic'
-                  className={classes.inputText}
-                  placeholder='입력하세요.'
-                  variant='outlined'
-                  value={bottomValue}
-                  onChange={handleBottomInputValue}
-                />
-                <Button
-                  variant='contained'
-                  color='primary'
-                  className={classes.button}
-                  onClick={addBottomCategory}
-                >
-                  입력
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} className={classes.buttonWrap}>
+    <form className={classes.contentWrapper} onSubmit={submitData}>
+      <Grid container spacing={2} justify='center' className={classes.root}>
+        <Grid item className={classes.card}>
+          {customList('top', '대분류', topList)(onClickTop)}
+        </Grid>
+        <Grid item className={classes.card}>
+          {customList('middle', '중분류', middleList)(onClickMiddle)}
+          <Grid item className={classes.item} xs={12}>
+            <TextField
+              id='outlined-basic'
+              className={classes.inputText}
+              placeholder='입력하세요.'
+              variant='outlined'
+              value={middleValue}
+              onChange={handleMiddleInputValue}
+            />
             <Button
-              className={classes.submit}
               variant='contained'
               color='primary'
-              type='submit'
+              className={classes.button}
+              onClick={addMiddleCategory}
             >
-              {'등록'}
+              입력
             </Button>
           </Grid>
-        </form>
-      </Paper>
-    </ThemeProvider>
+        </Grid>
+        <Grid item className={classes.card}>
+          {customList('bottom', '소분류', bottomList)(onClickBottom)}
+          <Divider />
+          <Grid item className={classes.item} xs={12}>
+            <TextField
+              id='outlined-basic'
+              className={classes.inputText}
+              placeholder='입력하세요.'
+              variant='outlined'
+              value={bottomValue}
+              onChange={handleBottomInputValue}
+            />
+            <Button
+              variant='contained'
+              color='primary'
+              className={classes.button}
+              onClick={addBottomCategory}
+            >
+              입력
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} className={classes.buttonWrap}>
+        <Button
+          className={classes.submit}
+          variant='contained'
+          color='primary'
+          type='submit'
+        >
+          {'등록'}
+        </Button>
+      </Grid>
+    </form>
   );
 }
 
