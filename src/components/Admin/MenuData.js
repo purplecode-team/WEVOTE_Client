@@ -22,13 +22,6 @@ export const Menu = [
   },
   {
     id: 3,
-    name: '메인 선거 정보 관리',
-    icon: <PermMediaOutlinedIcon />,
-    active: false,
-    smallMenu: [],
-  },
-  {
-    id: 4,
     name: '후보자 관리',
     icon: <PublicIcon />,
     active: false,
@@ -40,14 +33,14 @@ export const Menu = [
     ],
   },
   {
-    id: 5,
+    id: 4,
     name: '선거 안내 관리',
     icon: <SettingsEthernetIcon />,
     active: false,
     smallMenu: [],
   },
   {
-    id: 6,
+    id: 5,
     name: '공약 게시판 관리',
     icon: <SettingsEthernetIcon />,
     active: false,

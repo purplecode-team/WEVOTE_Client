@@ -40,13 +40,6 @@ const initialMenus = [
   },
   {
     id: 3,
-    name: '메인 선거 정보 관리',
-    icon: <PermMediaOutlinedIcon />,
-    active: false,
-    smallMenu: [],
-  },
-  {
-    id: 4,
     name: '후보자 관리',
     icon: <PublicIcon />,
     active: false,
@@ -58,14 +51,14 @@ const initialMenus = [
     ],
   },
   {
-    id: 5,
+    id: 4,
     name: '선거 안내 관리',
     icon: <SettingsEthernetIcon />,
     active: false,
     smallMenu: [],
   },
   {
-    id: 6,
+    id: 5,
     name: '공약 게시판 관리',
     icon: <SettingsEthernetIcon />,
     active: false,
@@ -85,11 +78,16 @@ function AdminLayout (props) {
   const Contents = [
     { id: 1, component: <Notice /> },
     { id: 2, component: <Calender /> },
-    { id: 3, component: <MainEject /> },
-    { id: 4, component: <Candidate currentSmallMenuId={currentSmallMenuId} /> },
-    { id: 5, component: <Information /> },
-    { id: 6, component: <PledgeBoard /> },
+    { id: 3, component: <Candidate currentSmallMenuId={currentSmallMenuId} /> },
+    { id: 4, component: <Information /> },
+    { id: 5, component: <PledgeBoard /> },
   ];
+
+  useEffect(() => {
+    setMenus(initialMenus);
+    setCurrentMenuId(1);
+    // setSmallMenu()
+  }, []);
 
   // 클릭한 메뉴를 active true로 변경, 나머지는 false
   // active 상태의 소메뉴 id 세팅
