@@ -19,24 +19,8 @@ module.exports = {
         // style태그가 아닌 css파일로 번들링하고 싶을 때는 MiniCssExtractPlugin.loader 사용
       },
       {
-        test: /\.(ttf|gif|jpe?g|png)$/,
+        test: /\.(ttf|gif|jpe?g|png|svg)$/,
         loader: 'file-loader',
-      },
-      {
-        test: /\.(svg)$/,
-        use: [
-          '@svgr/webpack',
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'images/[name].[ext]?[hash]',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.ts|tsx?$/,
-        loader: 'ts-loader',
       },
     ],
   },
@@ -60,7 +44,7 @@ module.exports = {
   },
   resolve: {
     // 확장자를 생략해도 인식하게 함
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
+    extensions: ['.js', '.jsx'],
   },
   devtool: 'eval-cheap-source-map', // 번들링된 파일에서 에러 위치 확인
   devServer: {
