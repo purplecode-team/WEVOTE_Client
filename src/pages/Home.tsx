@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import TopSection from '../components/HomeTop/TopSection';
+// import { setConstantValue } from 'typescript';
 import ClassificationSection from '../components/Home/Category/ClassificationSection';
 // import useFetch from '../api/useFetch';
 
@@ -17,7 +19,7 @@ const Home = () => {
   // console.log(users);
   return (
     <>
-      {/* <Search /> */}
+      <TopSection />
       <ClassificationSection />
     </>
   );
