@@ -1,4 +1,3 @@
-/*
 import React from 'react';
 import AuthTemplate from '../components/auth/AuthTemplate';
 import AuthForm from '../components/auth/AuthForm';
@@ -11,14 +10,14 @@ const Login = () => {
   );
 };
 
-export default Login;*/
+export default Login;
 
+/*
 import React from 'react';
 import AuthTemplate from '../components/auth/AuthTemplate';
-//import AuthForm from '../components/auth/AuthForm';
+import AuthForm from '../components/auth/AuthForm';
 import LoginForm from '../containers/auth/LoginForm';
 
-//원래는 return -> AuthTemplate 괄호 안에 <AuthForm type="login" />만 있었음=><LoginForm />
 const Login = () => {
   return (
     <AuthTemplate>
@@ -28,7 +27,7 @@ const Login = () => {
 };
 
 export default Login;
-
+*/
 
 /*
 * import React from 'react';
