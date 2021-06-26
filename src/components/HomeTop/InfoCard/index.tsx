@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Carousel from './Carousel';
 import media from '../../../lib/styles/media';
 
-const UserCard = () => {
+const InfoCard = () => {
   return (
     <Candidate>
       <Carousel />
@@ -11,7 +11,7 @@ const UserCard = () => {
   );
 };
 
-export default UserCard;
+export default InfoCard;
 
 const Candidate = styled.div`
   @media (max-width: ${media.mobileL}px) {

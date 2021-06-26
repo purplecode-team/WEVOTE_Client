@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Slide from './Slide';
 import data from '../../../api/TopInformation.json';
 
-const SLIDES_NUM = 4;
+const SLIDES_NUM = 6;
 const TOTAL_SLIDES = SLIDES_NUM - 3;
 
 const Carousel = () => {
@@ -36,16 +36,22 @@ const Carousel = () => {
   return (
     <Container>
       <SliderContainer ref={slideRef} >
-        <Link to="info">
+        <Link to="pledge?id=1">
           <Slide data={data[0]} />
         </Link>
-        <Link to="info">
+        <Link to="pledge?id=2">
           <Slide data={data[1]} />
         </Link>
-        <Link to="info">
+        <Link to="pledge?id=3">
           <Slide data={data[2]} />
         </Link>
-        <Link to="info/">
+        <Link to="pledge?id=4">
+          <Slide data={data[3]} />
+        </Link>
+        <Link to="pledge?id=4">
+          <Slide data={data[3]} />
+        </Link>
+        <Link to="pledge?id=4">
           <Slide data={data[3]} />
         </Link>
       </SliderContainer>

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import media from '../../lib/styles/media';
 import TitleSearch from './Search/TitleSearch';
-import UserCard from './UserCard/UserCard';
+import InfoCard from './InfoCard';
 import Notice from './NoticeBoard/Notice';
-import ImgBoard from './ImgBoard';
+import ImgBoard from './CalenderBoard';
 
 const TopSection = () => {
   return (
@@ -12,7 +12,7 @@ const TopSection = () => {
       <Container>
          {/*<LeftTop>*/}
         <TitleArea />
-        <User />
+        <InfoCard />
         <NoticeBoard />
         <ImgArea>
           <Img />
@@ -56,7 +56,7 @@ const TitleArea = styled(TitleSearch)`
   grid-area: TitleArea;
 `;
 
-const User = styled(UserCard)`
+const User = styled(InfoCard)`
   grid-area: UserArea;
 `;
 

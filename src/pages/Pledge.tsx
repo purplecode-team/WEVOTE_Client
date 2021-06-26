@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import CarouselSection from '../components/Pledge/Candidate/CandidateSection';
 import PledgeSection from '../components/Pledge/Pledge/PledgeSection';
 import CommentSection from '../components/Pledge/Comment/CommentSection';
-import PledgeData from '../api/PledgeData.json';
+import PledgeData from '../api/dummyData/PledgeData.json';
 
 type MatchParams = {
   id: string;

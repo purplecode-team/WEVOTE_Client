@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import media from '../../lib/styles/media';
-import Image from '../../api/ImageImport.json';
+import media from '../../../lib/styles/media';
+import Image from '../../../api/ImageImport.json';
 
 const ImgBoard = () => {
   return (

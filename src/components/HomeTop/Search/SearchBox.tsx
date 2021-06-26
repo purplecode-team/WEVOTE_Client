@@ -66,7 +66,7 @@ function AutoBox({history}:any) {
   const goLink = () => {
     const searchData = department.filter(obj => obj.name == searchValue)[0]
     if (searchData) {
-      history.push(`info/${searchData.id}`);  
+      history.push(`pledge?id=${searchData.id}`);  
     }
     else {
       alert('검색된 선거 정보가 없습니다')

@@ -1,9 +1,10 @@
 import * as React from 'react';
+import InformationSection from '../components/Info/InformationSection';
 
 const Info = () => {
   return (
     <>
-      <h1>Info page</h1>
+      <InformationSection/>
     </>
   );
 };
