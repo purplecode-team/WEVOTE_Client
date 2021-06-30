@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import TopSection from '../components/HomeTop/TopSection';
+import HomeBoard from '../components/Home/HomeBoard';
 // import { setConstantValue } from 'typescript';
-import ClassificationSection from '../components/Home/Category/ClassificationSection';
+import Classification from '../components/Home/Classification';
 // import useFetch from '../api/useFetch';
 
 const Home = () => {
@@ -19,22 +19,10 @@ const Home = () => {
   // console.log(users);
   return (
     <>
-      <TopSection />
-      <ClassificationSection />
+      <HomeBoard />
+      <Classification />
     </>
   );
 };
-
-const Div = styled.div`
-  width: 100%;
-  height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Text = styled.h2`
-  font-size: 3rem;
-`;
 
 export default Home;
