@@ -1,139 +1,139 @@
 [
   {
-      "id": 1,
-      "organizationName": "총학생회",
-      "Teams": [
+    "id": 1,
+    "organizationName": "총학생회",
+    "Teams": [
+      {
+        "id": 1,
+        "order": 1,
+        "slogan": "총학짱",
+        "Runners": [
           {
-              "id": 1,
-              "order": 1,
-              "slogan": "총학짱",
-              "Runners": [
-                  {
-                      "id": 15,
-                      "name": "이총학",
-                      "major": "사회학과",
-                      "studentNum": 2314223,
-                      "position": "정학생회장",
-                      "picture": "../../../../public/img/candidate/candidate1.png",
-                      "teamId": 1
-                  },
-                  {
-                      "id": 16,
-                      "name": "박총학",
-                      "major": "통계학과",
-                      "studentNum": 2313241,
-                      "position": "부학생회장",
-                      "picture": "../../../../public/img/candidate/candidate2.png",
-                      "teamId": 1
-                  }
-              ]
+            "id": 15,
+            "name": "이총학",
+            "major": "사회학과",
+            "studentNum": 2314223,
+            "position": "정학생회장",
+            "picture": "../../../../public/img/candidate/candidate1.png",
+            "teamId": 8
+          },
+          {
+            "id": 16,
+            "name": "박총학",
+            "major": "통계학과",
+            "studentNum": 2313241,
+            "position": "부학생회장",
+            "picture": "../../../../public/img/candidate/candidate2.png",
+            "teamId": 8
           }
-      ]
+        ]
+      }
+    ]
   },
   {
-      "id": 2,
-      "organizationName": "동아리연합회",
-      "Teams": [
-        {
-            "id": 2,
-            "order": 1,
-            "slogan": "동연짱",
-            "Runners": [
-                {
-                    "id": 15,
-                    "name": "이총학",
-                    "major": "사회학과",
-                    "studentNum": 2314223,
-                    "position": "정학생회장",
-                    "picture": "../../../../public/img/candidate/candidate1.png",
-                    "teamId": 1
-                },
-                {
-                    "id": 16,
-                    "name": "박총학",
-                    "major": "통계학과",
-                    "studentNum": 2313241,
-                    "position": "부학생회장",
-                    "picture": "../../../../public/img/candidate/candidate2.png",
-                    "teamId": 1
-                }
-            ]
-        },
-        {
-            "id": 3,
-            "order": 2,
-            "slogan": "동연짱",
-            "Runners": [
-                {
-                    "id": 15,
-                    "name": "이총학",
-                    "major": "사회학과",
-                    "studentNum": 2314223,
-                    "position": "정학생회장",
-                    "picture": "../../../../public/img/candidate/candidate1.png",
-                    "teamId": 2
-                },
-                {
-                    "id": 16,
-                    "name": "박총학",
-                    "major": "통계학과",
-                    "studentNum": 2313241,
-                    "position": "부학생회장",
-                    "picture": "../../../../public/img/candidate/candidate2.png",
-                    "teamId": 2
-                }
-            ]
-        },
-        {
-            "id": 4,
-            "order": 3,
-            "slogan": "동연짱",
-            "Runners": [
-                {
-                    "id": 15,
-                    "name": "이총학",
-                    "major": "사회학과",
-                    "studentNum": 2314223,
-                    "position": "정학생회장",
-                    "picture": "../../../../public/img/candidate/candidate1.png",
-                    "teamId": 3
-                },
-                {
-                    "id": 16,
-                    "name": "박총학",
-                    "major": "통계학과",
-                    "studentNum": 2313241,
-                    "position": "부학생회장",
-                    "picture": "../../../../public/img/candidate/candidate2.png",
-                    "teamId": 3
-                }
-            ]
-        },
-        {
-            "id": 5,
-            "order": 4,
-            "slogan": "동연짱",
-            "Runners": [
-                {
-                    "id": 15,
-                    "name": "이총학",
-                    "major": "사회학과",
-                    "studentNum": 2314223,
-                    "position": "정학생회장",
-                    "picture": "../../../../public/img/candidate/candidate1.png",
-                    "teamId": 4
-                },
-                {
-                    "id": 16,
-                    "name": "박총학",
-                    "major": "통계학과",
-                    "studentNum": 2313241,
-                    "position": "부학생회장",
-                    "picture": "../../../../public/img/candidate/candidate2.png",
-                    "teamId": 4
-                }
-            ]
-        }
+    "id": 2,
+    "organizationName": "동아리연합회",
+    "Teams": [
+      {
+        "id": 2,
+        "order": 1,
+        "slogan": "동연짱",
+        "Runners": [
+          {
+            "id": 15,
+            "name": "이총학",
+            "major": "사회학과",
+            "studentNum": 2314223,
+            "position": "정학생회장",
+            "picture": "../../../../public/img/candidate/candidate1.png",
+            "teamId": 8
+          },
+          {
+            "id": 16,
+            "name": "박총학",
+            "major": "통계학과",
+            "studentNum": 2313241,
+            "position": "부학생회장",
+            "picture": "../../../../public/img/candidate/candidate2.png",
+            "teamId": 8
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "order": 2,
+        "slogan": "동연짱",
+        "Runners": [
+          {
+            "id": 15,
+            "name": "이총학",
+            "major": "사회학과",
+            "studentNum": 2314223,
+            "position": "정학생회장",
+            "picture": "../../../../public/img/candidate/candidate1.png",
+            "teamId": 8
+          },
+          {
+            "id": 16,
+            "name": "박총학",
+            "major": "통계학과",
+            "studentNum": 2313241,
+            "position": "부학생회장",
+            "picture": "../../../../public/img/candidate/candidate2.png",
+            "teamId": 8
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "order": 3,
+        "slogan": "동연짱",
+        "Runners": [
+          {
+            "id": 15,
+            "name": "이총학",
+            "major": "사회학과",
+            "studentNum": 2314223,
+            "position": "정학생회장",
+            "picture": "../../../../public/img/candidate/candidate1.png",
+            "teamId": 8
+          },
+          {
+            "id": 16,
+            "name": "박총학",
+            "major": "통계학과",
+            "studentNum": 2313241,
+            "position": "부학생회장",
+            "picture": "../../../../public/img/candidate/candidate2.png",
+            "teamId": 8
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "order": 4,
+        "slogan": "동연짱",
+        "Runners": [
+          {
+            "id": 15,
+            "name": "이총학",
+            "major": "사회학과",
+            "studentNum": 2314223,
+            "position": "정학생회장",
+            "picture": "../../../../public/img/candidate/candidate1.png",
+            "teamId": 8
+          },
+          {
+            "id": 16,
+            "name": "박총학",
+            "major": "통계학과",
+            "studentNum": 2313241,
+            "position": "부학생회장",
+            "picture": "../../../../public/img/candidate/candidate2.png",
+            "teamId": 8
+          }
+        ]
+      }
     ]
   }
 ]
