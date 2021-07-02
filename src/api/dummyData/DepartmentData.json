@@ -1,0 +1,218 @@
+[
+    {
+        "id": 2,
+        "organizationName": "공과대학",
+        "Majors": [
+            {
+                "id": 3,
+                "majorName": "기계공학과",
+                "Teams": []
+            },
+            {
+                "id": 2,
+                "majorName": "전자전기공학부",
+                "Teams": []
+            },
+            {
+                "id": 4,
+                "majorName": "기계공학과2",
+                "Teams": []
+            },
+            {
+                "id": 5,
+                "majorName": "전자전기공학부2",
+                "Teams": []
+            },
+            {
+                "id": 1,
+                "majorName": "컴퓨터공학과",
+                "Teams": [
+                    {
+                        "id": 2,
+                        "order": 2,
+                        "slogan": "유캔두잇!",
+                        "Runners": [
+                            {
+                                "id": 3,
+                                "name": "홍삼동",
+                                "major": "컴퓨터공학과",
+                                "studentNum": 1234123,
+                                "position": "정학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 2
+                            },
+                            {
+                                "id": 4,
+                                "name": "홍사동",
+                                "major": "컴퓨터공학과",
+                                "studentNum": 1234122,
+                                "position": "정학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 2
+                            }
+                        ]
+                    },
+                    {
+                        "id": 1,
+                        "order": 1,
+                        "slogan": "할수있다!",
+                        "Runners": [
+                            {
+                                "id": 1,
+                                "name": "홍길동",
+                                "major": "컴퓨터공학과",
+                                "studentNum": 1929132,
+                                "position": "정학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 1
+                            },
+                            {
+                                "id": 2,
+                                "name": "홍이동",
+                                "major": "컴퓨터공학과",
+                                "studentNum": 1234123,
+                                "position": "부학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "organizationName": "인문대학",
+        "Majors": [
+            {
+                "id": 2,
+                "majorName": "영어영문학과",
+                "Teams": []
+            },
+            {
+                "id": 1,
+                "majorName": "국어국문학과",
+                "Teams": [
+                    {
+                        "id": 4,
+                        "order": 4,
+                        "slogan": "가가가ㅏ악",
+                        "Runners": [
+                            {
+                                "id": 7,
+                                "name": "홍칠동",
+                                "major": "국어국문학과",
+                                "studentNum": 2222223,
+                                "position": "정학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 4
+                            },
+                            {
+                                "id": 8,
+                                "name": "홍팔동",
+                                "major": "국어국문학과",
+                                "studentNum": 22122223,
+                                "position": "부학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 4
+                            }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "order": 3,
+                        "slogan": "아아악",
+                        "Runners": [
+                            {
+                                "id": 5,
+                                "name": "홍오동",
+                                "major": "국어국문학과",
+                                "studentNum": 11111111,
+                                "position": "정학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 3
+                            },
+                            {
+                                "id": 6,
+                                "name": "홍육동",
+                                "major": "국어국문학과",
+                                "studentNum": 222222,
+                                "position": "정학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 3
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "organizationName": "자연대학",
+        "Majors": [
+            {
+                "id": 2,
+                "majorName": "영어영문학과",
+                "Teams": []
+            },
+            {
+                "id": 1,
+                "majorName": "국어국문학과",
+                "Teams": [
+                    {
+                        "id": 4,
+                        "order": 4,
+                        "slogan": "가가가ㅏ악",
+                        "Runners": [
+                            {
+                                "id": 7,
+                                "name": "홍칠동",
+                                "major": "국어국문학과",
+                                "studentNum": 2222223,
+                                "position": "정학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 4
+                            },
+                            {
+                                "id": 8,
+                                "name": "홍팔동",
+                                "major": "국어국문학과",
+                                "studentNum": 22122223,
+                                "position": "부학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 4
+                            }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "order": 3,
+                        "slogan": "아아악",
+                        "Runners": [
+                            {
+                                "id": 5,
+                                "name": "홍오동",
+                                "major": "국어국문학과",
+                                "studentNum": 11111111,
+                                "position": "정학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 3
+                            },
+                            {
+                                "id": 6,
+                                "name": "홍육동",
+                                "major": "국어국문학과",
+                                "studentNum": 222222,
+                                "position": "정학생회장",
+                                "picture": "../../../../public/img/candidate/profile.png",
+                                "teamId": 3
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
