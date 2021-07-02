@@ -11,7 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     maxWidth: 936,
     margin: 'auto',
@@ -34,13 +34,13 @@ const styles = theme => ({
   },
 });
 
-function PledgeBoard (props) {
+function PledgeBoard(props) {
   const { classes } = props;
 
   return (
     <Paper className={classes.paper}>
       <div className={classes.contentWrapper}>
-        <Typography color='textSecondary' align='center'>
+        <Typography color="textSecondary" align="center">
           PledgeBoard
         </Typography>
       </div>

@@ -19,7 +19,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
-const styles = theme => ({
+const styles = (theme) => ({
   secondaryBar: {
     zIndex: 0,
   },
@@ -41,22 +41,22 @@ const styles = theme => ({
   },
 });
 
-function Header (props) {
+function Header(props) {
   const { classes, onDrawerToggle } = props;
 
   return (
     <>
       <AppBar
-        component='div'
+        component="div"
         className={classes.secondaryBar}
-        color='primary'
-        position='static'
+        color="primary"
+        position="static"
         elevation={0}
       >
         <Toolbar>
-          <Grid container alignItems='center' spacing={1}>
+          <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
-              <Typography color='inherit' variant='h5' component='h1'>
+              <Typography color="inherit" variant="h5" component="h1">
                 Wevote Admin Page
               </Typography>
             </Grid>
@@ -64,17 +64,17 @@ function Header (props) {
         </Toolbar>
       </AppBar>
       <AppBar
-        component='div'
+        component="div"
         className={classes.secondaryBar}
-        color='primary'
-        position='static'
+        color="primary"
+        position="static"
         elevation={0}
       >
-        <Tabs value={0} textColor='inherit'>
-          <Tab textColor='inherit' label='Users' />
-          <Tab textColor='inherit' label='Sign-in method' />
-          <Tab textColor='inherit' label='Templates' />
-          <Tab textColor='inherit' label='Usage' />
+        <Tabs value={0} textColor="inherit">
+          <Tab textColor="inherit" label="Users" />
+          <Tab textColor="inherit" label="Sign-in method" />
+          <Tab textColor="inherit" label="Templates" />
+          <Tab textColor="inherit" label="Usage" />
         </Tabs>
       </AppBar>
     </>

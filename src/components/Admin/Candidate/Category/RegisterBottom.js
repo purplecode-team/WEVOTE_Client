@@ -63,7 +63,7 @@ const category = [
 //   return result;
 // };
 
-export default function TransferList () {
+export default function TransferList() {
   const classes = useStyles();
   const [current, setCurrent] = useState({ top: 0, middle: 0, bottom: 0 });
   const [topList, setTopList] = useState([]);
@@ -73,11 +73,11 @@ export default function TransferList () {
   const [middleValue, setMiddleValue] = useState('');
   const [bottomValue, setBottomValue] = useState('');
 
-  const handleMiddleInputValue = e => {
+  const handleMiddleInputValue = (e) => {
     setMiddleValue(e.target.value);
   };
 
-  const handleBottomInputValue = e => {
+  const handleBottomInputValue = (e) => {
     setBottomValue(e.target.value);
   };
 
@@ -91,7 +91,7 @@ export default function TransferList () {
     setBottomValue('');
   };
 
-  const onClickTop = value => () => {
+  const onClickTop = (value) => () => {
     const currentTopIndex = topList.indexOf(value);
     const newMiddle = category[currentTopIndex].middle;
     const result = newMiddle.reduce((acc, cur) => {
@@ -102,11 +102,11 @@ export default function TransferList () {
     setMiddleList(result);
   };
 
-  const onClickMiddle = value => () => {
+  const onClickMiddle = (value) => () => {
     const currentMiddleIndex = middleList.indexOf(value);
     setCurrent({ ...current, middle: currentMiddleIndex, bottom: 0 });
     const bottomArr = category[current.top].bottom || [];
-    const currentObj = bottomArr.filter(cur => cur.organization === value)[0];
+    const currentObj = bottomArr.filter((cur) => cur.organization === value)[0];
     if (!currentObj) {
       setBottomList(new Array(0));
       return;
@@ -114,12 +114,12 @@ export default function TransferList () {
     setBottomList(currentObj.major);
   };
 
-  const onClickBottom = value => () => {
+  const onClickBottom = (value) => () => {
     const currentBottomIndex = bottomList.indexOf(value);
     setCurrent({ ...current, bottom: currentBottomIndex });
   };
 
-  const submitData = e => {
+  const submitData = (e) => {
     e.preventDefault();
     const data = {};
 
@@ -130,11 +130,11 @@ export default function TransferList () {
       },
       body: JSON.stringify(data),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         console.log(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('error:', error);
       });
   };
@@ -153,18 +153,18 @@ export default function TransferList () {
     setCurrent({ ...current, bottom: 0 });
   }, [topList, middleList]);
 
-  const customList = (section, title, items) => handle => (
+  const customList = (section, title, items) => (handle) => (
     <Card>
       <CardHeader className={classes.cardHeader} title={title} />
       <Divider />
-      <List className={classes.list} dense component='div' role='list'>
+      <List className={classes.list} dense component="div" role="list">
         {items &&
           items.map((value, index) => {
             const labelId = `label-${index}`;
             return (
               <ListItem
                 key={index}
-                role='listitem'
+                role="listitem"
                 button
                 onClick={handle(value)}
                 className={current[section] === index ? classes.active : 'none'}
@@ -180,7 +180,7 @@ export default function TransferList () {
 
   return (
     <form className={classes.contentWrapper} onSubmit={submitData}>
-      <Grid container spacing={2} justify='center' className={classes.root}>
+      <Grid container spacing={2} justify="center" className={classes.root}>
         <Grid item className={classes.card}>
           {customList('top', '대분류', topList)(onClickTop)}
         </Grid>
@@ -188,16 +188,16 @@ export default function TransferList () {
           {customList('middle', '중분류', middleList)(onClickMiddle)}
           <Grid item className={classes.item} xs={12}>
             <TextField
-              id='outlined-basic'
+              id="outlined-basic"
               className={classes.inputText}
-              placeholder='입력하세요.'
-              variant='outlined'
+              placeholder="입력하세요."
+              variant="outlined"
               value={middleValue}
               onChange={handleMiddleInputValue}
             />
             <Button
-              variant='contained'
-              color='primary'
+              variant="contained"
+              color="primary"
               className={classes.button}
               onClick={addMiddleCategory}
             >
@@ -210,16 +210,16 @@ export default function TransferList () {
           <Divider />
           <Grid item className={classes.item} xs={12}>
             <TextField
-              id='outlined-basic'
+              id="outlined-basic"
               className={classes.inputText}
-              placeholder='입력하세요.'
-              variant='outlined'
+              placeholder="입력하세요."
+              variant="outlined"
               value={bottomValue}
               onChange={handleBottomInputValue}
             />
             <Button
-              variant='contained'
-              color='primary'
+              variant="contained"
+              color="primary"
               className={classes.button}
               onClick={addBottomCategory}
             >
@@ -231,11 +231,11 @@ export default function TransferList () {
       <Grid item xs={12} className={classes.buttonWrap}>
         <Button
           className={classes.submit}
-          variant='contained'
-          color='primary'
-          type='submit'
+          variant="contained"
+          color="primary"
+          type="submit"
         >
-          {'등록'}
+          등록
         </Button>
       </Grid>
     </form>
@@ -271,7 +271,7 @@ theme = {
   },
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     margin: 'auto',
   },

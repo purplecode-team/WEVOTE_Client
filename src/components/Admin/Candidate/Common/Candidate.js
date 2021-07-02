@@ -8,7 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import ImageUploader from 'react-images-upload';
 
-const Candidate = props => {
+const Candidate = (props) => {
   const {
     id,
     classes,
@@ -26,41 +26,41 @@ const Candidate = props => {
   const [individualStudentNumber, setIndividualStudentNumber] = useState('');
   const [individualPosition, setIndividualPosition] = useState('');
 
-  const handlePicture = picture => {
+  const handlePicture = (picture) => {
     setPictures(picture[0]);
     handlePictrueArr(id, picture[0]);
   };
 
-  const handleName = e => {
+  const handleName = (e) => {
     setIndividualName(e.target.value);
     handleNameArr(id, e.target.value);
   };
 
-  const handleStudentNumber = e => {
+  const handleStudentNumber = (e) => {
     setIndividualStudentNumber(e.target.value);
     handleStudentNumberArr(id, e.target.value);
   };
 
-  const handleMajor = e => {
+  const handleMajor = (e) => {
     setIndividualMajor(e.target.value);
     handleMajorArr(id, e.target.value);
   };
 
-  const handlePosition = e => {
+  const handlePosition = (e) => {
     setIndividualPosition(e.target.value);
     handlePositionArr(id, e.target.value);
   };
 
   return (
-    <Grid container wrap='nowrap'>
+    <Grid container wrap="nowrap">
       <Grid item className={classes.item} xs={12}>
-        <Typography className={classes.titleText} variant='h4' component='h4'>
+        <Typography className={classes.titleText} variant="h4" component="h4">
           {titleText.candidate.image}
         </Typography>
         <ImageUploader
           className={classes.uploader}
-          withIcon={true}
-          buttonText='사진 업로드'
+          withIcon
+          buttonText="사진 업로드"
           onChange={handlePicture}
           imgExtension={['.jpg', '.gif', '.png', '.gif']}
           maxFileSize={5242880}
@@ -68,25 +68,25 @@ const Candidate = props => {
       </Grid>
       <Grid container>
         <Grid item className={classes.item} xs={12}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {titleText.candidate.name}
           </Typography>
           <TextField
-            id='outlined-basic'
-            placeholder='ex) 홍길동'
-            variant='outlined'
+            id="outlined-basic"
+            placeholder="ex) 홍길동"
+            variant="outlined"
             value={individualName}
             onChange={handleName}
           />
         </Grid>
         <Grid item className={classes.item} xs={12}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {titleText.candidate.studentNumber}
           </Typography>
           <TextField
-            id='outlined-basic'
-            placeholder='ex) 21'
-            variant='outlined'
+            id="outlined-basic"
+            placeholder="ex) 21"
+            variant="outlined"
             value={individualStudentNumber}
             onChange={handleStudentNumber}
           />
@@ -94,17 +94,17 @@ const Candidate = props => {
       </Grid>
       <Grid container>
         <Grid item className={classes.item} xs={12}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {titleText.candidate.major}
           </Typography>
           <FormControl
-            variant='outlined'
+            variant="outlined"
             required
             className={classes.formControl}
           >
             <Select
-              labelId='demo-simple-select-outlined-label'
-              id='demo-simple-select-outlined'
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
               value={individualMajor}
               onChange={handleMajor}
               className={classes.selectEmpty}
@@ -119,13 +119,13 @@ const Candidate = props => {
           </FormControl>
         </Grid>
         <Grid item className={classes.item} xs={12}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {titleText.candidate.position}
           </Typography>
           <TextField
-            id='outlined-basic'
-            placeholder='ex) 정학생회장'
-            variant='outlined'
+            id="outlined-basic"
+            placeholder="ex) 정학생회장"
+            variant="outlined"
             value={individualPosition}
             onChange={handlePosition}
           />
@@ -135,7 +135,7 @@ const Candidate = props => {
   );
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   item: {
     marginBottom: '20px',
   },

@@ -18,7 +18,7 @@ const majorData = [
 
 const candidateCount = 2;
 
-const CandidateForm = props => {
+const CandidateForm = (props) => {
   const { classes, getCandidateData } = props;
   // input 상태 관리
   const [pictureArr, setPictureArr] = useState([Array(candidateCount)]);
@@ -30,7 +30,7 @@ const CandidateForm = props => {
   const [positionArr, setPositionArr] = useState(Array(candidateCount));
 
   const numberArr = Array(candidateCount);
-  for (var i = 0; i < numberArr.length; i++) {
+  for (let i = 0; i < numberArr.length; i++) {
     numberArr[i] = i;
   }
 
@@ -68,7 +68,7 @@ const CandidateForm = props => {
   // //개별 input data를 pledgeData Array로 모으기
   useEffect(() => {
     if (nameArr && majorArr && studentNumberArr && positionArr && pictureArr) {
-      let CandidateData = numberArr.map(i => ({
+      const CandidateData = numberArr.map((i) => ({
         name: nameArr[i],
         major: majorArr[i],
         studentNum: studentNumberArr[i],
@@ -79,7 +79,7 @@ const CandidateForm = props => {
     }
   }, [nameArr, majorArr, studentNumberArr, positionArr, pictureArr]);
 
-  const IndividualCandidate = id => {
+  const IndividualCandidate = (id) => {
     return (
       <Candidate
         key={id}
@@ -100,9 +100,9 @@ const CandidateForm = props => {
   };
 
   return (
-    <Grid container>{numberArr.map(num => IndividualCandidate(num))}</Grid>
+    <Grid container>{numberArr.map((num) => IndividualCandidate(num))}</Grid>
   );
 };
 
-const styles = theme => ({});
+const styles = (theme) => ({});
 export default withStyles(styles)(CandidateForm);

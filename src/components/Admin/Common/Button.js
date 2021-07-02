@@ -2,15 +2,15 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-const StyledButton = props => {
+const StyledButton = (props) => {
   const { type } = props;
 
   return (
     <Grid item xs={12} className={classes.button}>
       <Button
         className={classes.submit}
-        variant='contained'
-        color='primary'
+        variant="contained"
+        color="primary"
         type={type}
       >
         {children}
@@ -19,7 +19,7 @@ const StyledButton = props => {
   );
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   button: {
     textAlign: 'right',
   },

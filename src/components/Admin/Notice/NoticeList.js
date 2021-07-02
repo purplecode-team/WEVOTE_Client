@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import NoticeData from '../../../api/dummyData/NoticeData.json';
 import NoticeForm from './NoticeForm';
 import useFetch from '../../../lib/hooks/useFetch';
-import client from '../../../api/client';
+import client from '../../../lib/api/client';
 
 export default function NoticeList () {
   const classes = useStyles();
@@ -25,12 +25,12 @@ export default function NoticeList () {
   // let { loading, data, error } = useFetch('/api/v1/main/banner');
 
   const getFormatDate = date => {
-    const year = date.getFullYear(); //yyyy
-    let month = 1 + date.getMonth(); //M
-    month = month >= 10 ? month : '0' + month; //month 두자리로 저장
-    let day = date.getDate(); //d
-    day = day >= 10 ? day : '0' + day; //day 두자리로 저장
-    return year + '/' + month + '/' + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+    const year = date.getFullYear(); // yyyy
+    let month = 1 + date.getMonth(); // M
+    month = month >= 10 ? month : `0${month}`; // month 두자리로 저장
+    let day = date.getDate(); // d
+    day = day >= 10 ? day : `0${day}`; // day 두자리로 저장
+    return `${year}/${month}/${day}`; // '-' 추가하여 yyyy-mm-dd 형태 생성 가능
   };
 
   useEffect(() => {
@@ -86,8 +86,8 @@ export default function NoticeList () {
             </StyledTableCell>
             <StyledTableCell className={classes.start}>시작일</StyledTableCell>
             <StyledTableCell className={classes.end}>종료일</StyledTableCell>
-            <StyledTableCell className={classes.delete}></StyledTableCell>
-            <StyledTableCell className={classes.delete}></StyledTableCell>
+            <StyledTableCell className={classes.delete} />
+            <StyledTableCell className={classes.delete} />
           </TableRow>
         </TableHead>
         <TableBody>

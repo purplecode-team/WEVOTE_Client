@@ -66,7 +66,7 @@ const initialMenus = [
   },
 ];
 
-function AdminLayout (props) {
+function AdminLayout(props) {
   const { classes } = props;
   const [menus, setMenus] = useState(initialMenus);
   const [currentMenuId, setCurrentMenuId] = useState(1);
@@ -91,8 +91,8 @@ function AdminLayout (props) {
 
   // 클릭한 메뉴를 active true로 변경, 나머지는 false
   // active 상태의 소메뉴 id 세팅
-  const handleMenus = e => {
-    const newMenus = menus.map(obj => {
+  const handleMenus = (e) => {
+    const newMenus = menus.map((obj) => {
       if (e.target.innerText === obj.name) {
         obj.active = true;
         setCurrentMenuId(obj.id);
@@ -105,8 +105,8 @@ function AdminLayout (props) {
     setMenus(newMenus);
   };
 
-  const handleCurrentSmallMenu = e => {
-    const newSmallMenu = smallMenu.map(obj => {
+  const handleCurrentSmallMenu = (e) => {
+    const newSmallMenu = smallMenu.map((obj) => {
       if (e.target.innerText === obj.name) {
         obj.active = true;
         setCurrentSmallMenuId(obj.id);
@@ -123,7 +123,7 @@ function AdminLayout (props) {
       <div className={classes.root}>
         <CssBaseline />
         <nav className={classes.drawer}>
-          <Hidden xsDown implementation='css'>
+          <Hidden xsDown implementation="css">
             <Navigator
               PaperProps={{ style: { width: drawerWidth } }}
               menus={menus}
@@ -135,7 +135,7 @@ function AdminLayout (props) {
         <div className={classes.app}>
           <main className={classes.main}>
             {
-              Contents.filter(component => component.id === currentMenuId)[0]
+              Contents.filter((component) => component.id === currentMenuId)[0]
                 .component
             }
           </main>

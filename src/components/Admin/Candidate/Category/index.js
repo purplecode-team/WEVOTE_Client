@@ -14,10 +14,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
+import CloseIcon from '@material-ui/icons/Close';
 import RegisterMiddle from './RegisterMiddle';
 import RegisterBottom from './RegisterBottom';
-import CloseIcon from '@material-ui/icons/Close';
-import client from '../../../../api/client';
+import client from '../../../../lib/api/client';
 
 // 고정 분류 [중앙자치기구, 단과대, 학과] 선택창
 // 고정 분류마다 중분류 입력 => [총학생회, 동아리연합회 등]

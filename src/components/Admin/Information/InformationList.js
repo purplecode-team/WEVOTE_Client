@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
-import media from '../../../lib/styles/media';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,11 +8,13 @@ import ImageUploader from 'react-images-upload';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import media from '../../../lib/styles/media';
+import theme from '../../../lib/styles/theme';
 import img1 from '../../../../public/img/information.png';
 import img2 from '../../../../public/img/information.png';
 import img3 from '../../../../public/img/information.png';
 
-function InformationForm (props) {
+function InformationForm(props) {
   const { classes } = props;
   const [pictures, setPictures] = useState([]);
   const [images, setImages] = useState([img1, img2, img3, img1, img2, img3]);
@@ -24,7 +24,7 @@ function InformationForm (props) {
       <FlexBlock key={index}>
         <HighlightOffIcon className={classes.icon} />
         <Box>
-          <Img src={image} alt='information' />
+          <Img src={image} alt="information" />
         </Box>
       </FlexBlock>
     ));

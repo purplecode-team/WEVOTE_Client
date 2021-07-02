@@ -10,14 +10,14 @@ const TopSection = () => {
   return (
     <Top>
       <Container>
-         {/*<LeftTop>*/}
+        {/* <LeftTop> */}
         <TitleArea />
         <InfoCard />
         <NoticeBoard />
         <ImgArea>
           <Img />
         </ImgArea>
-         {/*</LeftTop>*/}
+        {/* </LeftTop> */}
       </Container>
     </Top>
   );
@@ -64,8 +64,7 @@ const NoticeBoard = styled(Notice)`
   grid-area: NoticeArea;
 `;
 
-const Img = styled(ImgBoard)`
-`;
+const Img = styled(ImgBoard)``;
 
 const ImgArea = styled.div`
   grid-area: ImgBoardArea;

@@ -8,11 +8,11 @@ import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-function InformationForm (props) {
+function InformationForm(props) {
   const { classes } = props;
   const [pictures, setPictures] = useState([]);
 
-  const onDrop = picture => {
+  const onDrop = (picture) => {
     setPictures(picture);
     console.log(picture);
   };
@@ -28,7 +28,7 @@ function InformationForm (props) {
     try {
       client
         .post('/api/v1/register-info', formData, config)
-        .then(response => {
+        .then((response) => {
           if (response.status !== 200) {
             alert('이미지 등록 실패');
             return;
@@ -36,7 +36,7 @@ function InformationForm (props) {
           setFile(null);
           alert('이미지가 등록되었습니다');
         })
-        .catch(error => {
+        .catch((error) => {
           alert('이미지 등록 실패');
         });
     } catch (e) {
@@ -52,21 +52,21 @@ function InformationForm (props) {
           <ImageUploader
             {...props}
             className={classes.uploader}
-            withIcon={true}
-            buttonText='Choose images'
+            withIcon
+            buttonText="Choose images"
             onChange={onDrop}
             imgExtension={['.jpg', '.gif', '.png', '.gif']}
             maxFileSize={5242880}
-            withPreview={true}
+            withPreview
           />
           <Grid item xs={12} className={classes.buttonWrap}>
             <Button
               className={classes.submit}
-              variant='contained'
-              color='primary'
-              type='submit'
+              variant="contained"
+              color="primary"
+              type="submit"
             >
-              {'등록'}
+              등록
             </Button>
           </Grid>
         </form>
@@ -75,7 +75,7 @@ function InformationForm (props) {
   );
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     maxWidth: 936,
     margin: 'auto',

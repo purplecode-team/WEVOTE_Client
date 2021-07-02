@@ -1,17 +1,16 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import client from '../../../api/client';
-import useFetch from '../../../lib/hooks/useFetch';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import CalenderPreview from './CalenderPreview';
 import ImageUploader from 'react-images-upload';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import Typography from '@material-ui/core/Typography';
+import CalenderPreview from './CalenderPreview';
+import client from '../../../lib/api/client';
 
 function Canlender (props) {
   const { classes } = props;
@@ -68,7 +67,7 @@ function Canlender (props) {
   return (
     <Paper className={classes.paper}>
       <Typography className={classes.title} variant='h4' component='h4'>
-        {'캘린더 등록'}
+        캘린더 등록
       </Typography>
       <form onSubmit={submitForm}>
         <div className={classes.contentWrapper}>
@@ -76,7 +75,7 @@ function Canlender (props) {
           <ButtonBlock>
             <Label className='input-file-button' htmlFor='input-file'>
               <PhotoCameraIcon />
-              <span>{'이미지 업로드'}</span>
+              <span>이미지 업로드</span>
             </Label>
             <Input
               id='input-file'
@@ -93,7 +92,7 @@ function Canlender (props) {
             color='primary'
             type='submit'
           >
-            {'등록'}
+            등록
           </Button>
         </Grid>
       </form>

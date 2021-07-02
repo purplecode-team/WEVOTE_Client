@@ -4,7 +4,7 @@ import InformationSection from '../components/Info/InformationSection';
 const Info = () => {
   return (
     <>
-      <InformationSection/>
+      <InformationSection />
     </>
   );
 };

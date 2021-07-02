@@ -35,7 +35,6 @@ const Container = styled.div`
     width: 95%;
     height: 9.2rem;
     margin-left: 11px;
-
   }
 `;
 
@@ -43,13 +42,13 @@ const BIcon = styled.img.attrs({
   src: bannerIcon,
   alt: 'banner icon',
 })`
-    width: 165px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    opacity: 0.5;
-    @media (max-width: ${media.mobileL}px) {
-      width: 130px;
-      top: -15px;
-    }
+  width: 165px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0.5;
+  @media (max-width: ${media.mobileL}px) {
+    width: 130px;
+    top: -15px;
+  }
 `;

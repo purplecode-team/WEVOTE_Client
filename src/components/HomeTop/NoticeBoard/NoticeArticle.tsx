@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import bannerData from '../../../api/BannerInfo.json';
+import bannerData from '../../../api/dummyData/BannerInfo.json';
 // import bannerIcon from '../../../../public/img/bannerIcon.svg';
 import media from '../../../lib/styles/media';
 
 type dataType = {
-  id: number,
-  content: string,
-  startDate: string,
-  endDate: string,
-}
+  id: number;
+  content: string;
+  startDate: string;
+  endDate: string;
+};
 
 const NoticeArticle = () => {
   const [banner, setBanner] = useState<dataType[]>(bannerData);
@@ -26,16 +26,20 @@ const NoticeArticle = () => {
     return `${year}/${month}/${day}`;
   };
 
-  useEffect(()=>{
-    const temp:dataType[] = [];
+  useEffect(() => {
+    const temp: dataType[] = [];
     bannerData.map((data) => {
       const sdate = dateFormat(new Date(data.startDate));
       const edate = dateFormat(new Date(data.endDate));
-      temp.push({ id: data.id, content: data.content, startDate: sdate, endDate: edate });
+      temp.push({
+        id: data.id,
+        content: data.content,
+        startDate: sdate,
+        endDate: edate,
+      });
     });
     setBanner(temp);
-  },[bannerData])
-
+  }, [bannerData]);
 
   useEffect(() => {
     const lastIndex = banner.length - 1;
@@ -50,7 +54,7 @@ const NoticeArticle = () => {
       }, 5000);
     }
     return () => clearInterval(interval);
-  },[index]);
+  }, [index]);
 
   return (
     <Container>
@@ -79,10 +83,10 @@ const TitleBox = styled.div`
   font-size: 14px;
 
   @media (max-width: ${media.mobileL}px) {
-    margin-top: 1.0rem;
-    margin-left: 1.0rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
     width: 6.2rem;
-    height: 2.0rem;
+    height: 2rem;
     background-color: #5d3fe8;
     border-radius: 2rem;
     color: #ffffff;

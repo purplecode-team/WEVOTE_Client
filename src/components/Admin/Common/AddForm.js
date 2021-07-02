@@ -3,15 +3,15 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { createStyles, withStyles } from '@material-ui/core/styles';
 import theme from '../../../lib/styles/theme';
-import NoticeForm from './NoticeForm';
 
 function AddBox(props) {
-  const { classes } = props;
+  const { classes, component } = props;
   const [modal, setModal] = useState(false);
 
-  const showNoticeForm = () => {
+  const showForm = () => {
     setModal(!modal);
   };
 
@@ -19,15 +19,23 @@ function AddBox(props) {
     <>
       <Paper className={classes.paper}>
         <div className={classes.contentWrapper}>
-          <AddCircleIcon className={classes.addIcon} onClick={showNoticeForm} />
           {modal ? (
-            <h2 className={classes.title}>닫기</h2>
+            <>
+              <RemoveCircleIcon
+                className={classes.addIcon}
+                onClick={showForm}
+              />
+              <h2 className={classes.title}>닫기</h2>
+            </>
           ) : (
-            <h2 className={classes.title}>추가하기</h2>
+            <>
+              <AddCircleIcon className={classes.addIcon} onClick={showForm} />
+              <h2 className={classes.title}>추가하기</h2>
+            </>
           )}
         </div>
       </Paper>
-      {modal && <NoticeForm />}
+      {modal && component}
     </>
   );
 }

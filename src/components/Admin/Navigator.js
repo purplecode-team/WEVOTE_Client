@@ -10,7 +10,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SmallMenu from './SmallMenu';
 
-function Navigator (props) {
+function Navigator(props) {
   const {
     classes,
     menus,
@@ -20,12 +20,12 @@ function Navigator (props) {
   } = props;
 
   return (
-    <Drawer variant='permanent' {...other}>
+    <Drawer variant="permanent" {...other}>
       <List className={classes.paper} disablePadding>
         <ListItem className={clsx(classes.firebase, classes.itemCategory)}>
           안녕하세요
         </ListItem>
-        <React.Fragment>
+        <>
           {menus &&
             menus.map(({ id, name, icon, active, smallMenu }) => (
               <div key={id}>
@@ -35,7 +35,7 @@ function Navigator (props) {
                     classes.item,
                     active && classes.itemActiveItem
                   )}
-                  onClick={e => handleMenus(e)}
+                  onClick={(e) => handleMenus(e)}
                 >
                   <ListItemIcon className={classes.itemIcon}>
                     {icon}
@@ -57,13 +57,13 @@ function Navigator (props) {
               </div>
             ))}
           <Divider className={classes.divider} />
-        </React.Fragment>
+        </>
       </List>
     </Drawer>
   );
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     zIndex: 1,
   },

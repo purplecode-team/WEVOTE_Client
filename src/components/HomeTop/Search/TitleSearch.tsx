@@ -50,12 +50,11 @@ const SearchIcon = styled(Fab)`
 
 const MobileArea = styled.div`
   display: none;
-    @media (max-width: ${media.mobileL}px) {
-    display: inline; 
+  @media (max-width: ${media.mobileL}px) {
+    display: inline;
   }
-`
+`;
 const MobileSearch = styled(Modal)`
   @media (max-width: ${media.mobileL}px) {
-    
   }
-`
+`;

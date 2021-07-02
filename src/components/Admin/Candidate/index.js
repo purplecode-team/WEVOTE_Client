@@ -11,13 +11,13 @@ const Content = [
   { id: 4, component: <Department /> },
 ];
 
-const Candidate = props => {
+const Candidate = (props) => {
   const { classes, currentSmallMenuId } = props;
 
   return (
     <>
       {
-        Content.filter(component => component.id === currentSmallMenuId)[0]
+        Content.filter((component) => component.id === currentSmallMenuId)[0]
           .component
       }
     </>

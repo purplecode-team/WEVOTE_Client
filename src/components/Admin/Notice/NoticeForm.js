@@ -23,7 +23,7 @@ import {
   ThemeProvider,
   withStyles,
 } from '@material-ui/core/styles';
-import client from '../../../api/client';
+import client from '../../../lib/api/client';
 
 function NoticeForm (props) {
   const { classes, updateData } = props;
@@ -54,10 +54,10 @@ function NoticeForm (props) {
 
   const onUpdate = () => {
     const result = {
-      id: id,
-      content: content,
-      startDate: startDate,
-      endDate: endDate,
+      id,
+      content,
+      startDate,
+      endDate,
     };
     client
       .patch('/api/v1/admin/register-banner', result)
@@ -72,9 +72,9 @@ function NoticeForm (props) {
 
   const submitForm = () => {
     const result = {
-      content: content,
-      startDate: startDate,
-      endDate: endDate,
+      content,
+      startDate,
+      endDate,
     };
     client
       .post('/api/v1/admin/register-banner', result)

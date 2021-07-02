@@ -1,88 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import Paper from '@material-ui/core/Paper';
-import {
-  makeStyles,
-  createMuiTheme,
-  ThemeProvider,
-} from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
-// 고정 분류 [중앙자치기구, 단과대, 학과] 선택창
-// 고정 분류마다 중분류 입력 => [총학생회, 동아리연합회 등]
-// 중분류마다 소분류 입력 => [문예창작학과 등] (미입력 가능)
-
-const category = [
-  {
-    id: 1,
-    top: '중앙자치기구',
-    middle: [
-      { id: 1, organization: '총학생회' },
-      { id: 2, organization: '학생복지위원회' },
-      { id: 3, organization: '동아리연합회' },
-    ],
-  },
-  {
-    id: 2,
-    top: '단과대',
-    middle: [
-      { id: 1, organization: '인문대' },
-      { id: 2, organization: '공과대' },
-      { id: 3, organization: '정통대' },
-      { id: 4, organization: '조형대' },
-    ],
-  },
-];
-
-const top = category.reduce((acc, cur) => {
-  acc.push(cur.top);
-  return acc;
-}, []);
-
-const initialMiddleArr = (arr) => {
-  const result = arr.reduce((acc, cur) => {
-    acc.push(cur.organization);
-    return acc;
-  }, []);
-  return result;
-};
-
 export default function TransferList({
   submitData,
   category,
-  setCategory,
+  setData,
+  currentIndex,
+  setCurrentIndex,
   onClickTop,
   onClickMiddle,
+  onClickBottom,
   topList,
   middleList,
+  bottomList,
   customList,
   setTopList,
   setMiddleList,
+  setBottomList,
+  middleValue,
+  bottomValue,
+  setMiddleValue,
+  setBottomValue,
+  hasBottom,
 }) {
   const classes = useStyles();
-  const [current, setCurrent] = useState({ top: 0, middle: 0, bottom: 0 });
-  // const [topList, setTopList] = useState([]);
-  // const [middleList, setMiddleList] = useState([]);
-  const [middleValue, setMiddleValue] = useState('');
 
   const handleMiddleInputValue = (e) => {
     setMiddleValue(e.target.value);
   };
 
-  const addMiddleCategory = () => {
-    setMiddleList([...middleList, middleValue]);
-    setCategory({ id: middleList.length + 1, organization: middleValue });
-    setMiddleValue('');
+  const handleBottomInputValue = (e) => {
+    setBottomValue(e.target.value);
   };
 
-  // category data에서 top list 뽑아서 TopList 셋팅
+  // const addMiddleCategory = () => {
+  //   setMiddleList([...middleList, middleValue]);
+  //   setMiddleValue('');
+  // };
+
+  // const addBottomCategory = () => {
+  //   setBottomList([...bottomList, bottomValue]);
+  //   setBottomValue('');
+  // };
+
   useEffect(() => {
     setTopList(
       category.reduce((acc, cur) => {
@@ -94,8 +58,23 @@ export default function TransferList({
 
   useEffect(() => {
     onClickMiddle(middleList[0])();
-    setCurrent({ ...current, bottom: 0 });
+    setCurrentIndex({ ...currentIndex, bottom: 0 });
   }, [topList, middleList]);
+
+  useEffect(() => {
+    const currentTop = category[currentIndex.top].top;
+    let currentMiddle = middleValue;
+    const currentBottom = bottomValue;
+    if (!middleValue)
+      currentMiddle =
+        category[currentIndex.top].middle[currentIndex.middle].organization;
+    setData({ top: currentTop, middle: currentMiddle, bottom: currentBottom });
+    // console.log({
+    //   top: currentTop,
+    //   middle: currentMiddle,
+    //   bottom: currentBottom,
+    // });
+  }, [middleValue, bottomValue]);
 
   return (
     <form className={classes.contentWrapper} onSubmit={submitData}>
@@ -105,25 +84,52 @@ export default function TransferList({
         </Grid>
         <Grid item className={classes.card}>
           {customList('middle', '중분류', middleList)(onClickMiddle)}
-          <Grid item className={classes.item} xs={12}>
-            <TextField
-              id="outlined-basic"
-              className={classes.inputText}
-              placeholder="입력하세요."
-              variant="outlined"
-              value={middleValue}
-              onChange={handleMiddleInputValue}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              onClick={addMiddleCategory}
-            >
-              입력
-            </Button>
-          </Grid>
+          {!hasBottom && (
+            <Grid item className={classes.item} xs={12}>
+              <TextField
+                id="outlined-basic"
+                className={classes.inputText}
+                placeholder="입력하세요."
+                variant="outlined"
+                value={middleValue}
+                onChange={handleMiddleInputValue}
+              />
+
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={submitData}
+              >
+                입력
+              </Button>
+            </Grid>
+          )}
         </Grid>
+        {hasBottom && (
+          <Grid item className={classes.card}>
+            {customList('bottom', '소분류', bottomList)(onClickBottom)}
+            <Divider />
+            <Grid item className={classes.item} xs={12}>
+              <TextField
+                id="outlined-basic"
+                className={classes.inputText}
+                placeholder="입력하세요."
+                variant="outlined"
+                value={bottomValue}
+                onChange={handleBottomInputValue}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={submitData}
+              >
+                입력
+              </Button>
+            </Grid>
+          </Grid>
+        )}
       </Grid>
     </form>
   );

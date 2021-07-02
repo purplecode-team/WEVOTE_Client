@@ -13,15 +13,15 @@ import {
 } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import media from '../../../lib/styles/media';
-import deptData from '../../../api/SearchDept.json';
+import deptData from '../../../api/dummyData/SearchDept.json';
 
 type searchDataType = {
-  id: number,
-  name: string,
-}
+  id: number;
+  name: string;
+};
 
-function AutoBox({history}:any) {
-  const [department,setDepartment] = useState<searchDataType[]>([]);
+function AutoBox({ history }: any) {
+  const [department, setDepartment] = useState<searchDataType[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
 
   // fetch('https://api.google.com/user/3')
@@ -34,14 +34,14 @@ function AutoBox({history}:any) {
   //     }
   //   });
 
-  useEffect(()=>{
+  useEffect(() => {
     const temp: searchDataType[] = [];
     deptData.map((data) => {
       const departmentData = { id: data.id, name: data.name };
       temp.push(departmentData);
-    },[]);
+    }, []);
     setDepartment(temp);
-  },[]);
+  }, []);
 
   // AutoComplete의 onChange 매개변수는 event, value, reason, detail 등으로 구성되어있음
   const selectSearchValue = (e, value) => {
@@ -57,19 +57,18 @@ function AutoBox({history}:any) {
     return 436;
   };
 
-  const enterKey = e => {
-    if (e.key === "Enter") {
+  const enterKey = (e) => {
+    if (e.key === 'Enter') {
       goLink();
     }
-  }
+  };
 
   const goLink = () => {
-    const searchData = department.filter(obj => obj.name == searchValue)[0]
+    const searchData = department.filter((obj) => obj.name == searchValue)[0];
     if (searchData) {
-      history.push(`pledge?id=${searchData.id}`);  
-    }
-    else {
-      alert('검색된 선거 정보가 없습니다')
+      history.push(`pledge?id=${searchData.id}`);
+    } else {
+      alert('검색된 선거 정보가 없습니다');
     }
   };
 
@@ -94,7 +93,9 @@ function AutoBox({history}:any) {
             );
           }}
           renderOption={(option) => {
-            return <h4 onClick={()=>setSearchValue(option)}>{`${option}`}</h4>; // display value
+            return (
+              <h4 onClick={() => setSearchValue(option)}>{`${option}`}</h4>
+            ); // display value
           }}
           PopperComponent={CustomPopper} // required (as far as I can tell) in order to target popper elements for custom styling
         />

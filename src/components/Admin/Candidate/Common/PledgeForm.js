@@ -10,7 +10,7 @@ import * as TextData from './TextData';
 
 const MaxPledgeCount = 10;
 
-const PledgeForm = props => {
+const PledgeForm = (props) => {
   const { classes, getPledgeData } = props;
   const [pledgeCount, setPledgeCount] = React.useState(1);
   const [titleArr, setTitleArr] = useState(Array(pledgeCount));
@@ -26,11 +26,11 @@ const PledgeForm = props => {
     pledgeCountArr[i] = i;
   }
 
-  const handlePledgeCount = event => {
+  const handlePledgeCount = (event) => {
     setPledgeCount(event.target.value);
   };
 
-  const pledgeCountMenu = num => (
+  const pledgeCountMenu = (num) => (
     <MenuItem key={num} value={num}>
       {num}
     </MenuItem>
@@ -52,10 +52,10 @@ const PledgeForm = props => {
     setDescriptionArr(newDescriptionArr);
   };
 
-  //개별 input data를 pledgeData Array로 모으기
+  // 개별 input data를 pledgeData Array로 모으기
   useEffect(() => {
     if (titleArr && subTitleArr && descriptionArr) {
-      let pledgeData = pledgeCountArr.map(i => ({
+      const pledgeData = pledgeCountArr.map((i) => ({
         promiseType: titleArr[i],
         promiseTitle: subTitleArr[i],
         promiseDetail: descriptionArr[i],
@@ -64,7 +64,7 @@ const PledgeForm = props => {
     }
   }, [titleArr, subTitleArr, descriptionArr]);
 
-  const individualPledge = num => {
+  const individualPledge = (num) => {
     return (
       <Pledge
         key={num}
@@ -73,7 +73,7 @@ const PledgeForm = props => {
         handleTitleArr={handleTitleArr}
         handleSubTitleArr={handleSubTitleArr}
         handleDescriptionArr={handleDescriptionArr}
-      ></Pledge>
+      />
     );
   };
 
@@ -81,32 +81,32 @@ const PledgeForm = props => {
     <>
       <Grid container>
         <Grid item className={classes.item} xs={12}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.pledge.Number}
           </Typography>
           <FormControl
             required
-            variant='outlined'
+            variant="outlined"
             className={classes.formControl}
           >
             <Select
-              labelId='demo-simple-select-required-label'
-              id='demo-simple-select-required'
+              labelId="demo-simple-select-required-label"
+              id="demo-simple-select-required"
               value={pledgeCount}
               onChange={handlePledgeCount}
               className={classes.selectEmpty}
             >
-              {maxCountArr.map(num => pledgeCountMenu(num))}
+              {maxCountArr.map((num) => pledgeCountMenu(num))}
             </Select>
           </FormControl>
         </Grid>
-        {pledgeCountArr.map(num => individualPledge(num))}
+        {pledgeCountArr.map((num) => individualPledge(num))}
       </Grid>
     </>
   );
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   item: {
     marginBottom: '20px',
   },
