@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import theme from '../../../lib/styles/theme';
 import media from '../../../lib/styles/media';
-import CandidateCard from '../../common/CandidateCard/CandidateCard';
+import CandidateCard from '../../Common/CandidateCard';
 import Carousel from '../../../utils/Carousel';
-
+ 
 type Runner = {
   id: number;
   name: string;

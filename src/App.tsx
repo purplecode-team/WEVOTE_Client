@@ -3,7 +3,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import GlobalStyle from './lib/styles/GlobalStyle';
 import { Home, Info, Login, Register } from './pages';
-import Layout from './components/common/Layout';
+import Layout from './components/Common/Layout';
 
 const Pledge = lazy(() => import('./pages/Pledge'));
 const Board = lazy(() => import('./pages/Board'));

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
-import CandidateCard from '../../common/CandidateCard/CandidateCard';
+import CandidateCard from '../../Common/CandidateCard';
 import EmptyCard from './EmptyCard';
 import Carousel from '../../../utils/Carousel';
 import img1 from '../../../../public/img/CardImg.svg';
