@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, Children, useEffect } from 'react';
 import styled from 'styled-components';
-import media from '../../../lib/styles/media';
+import media from '../../../../lib/styles/media';
 
 type SlideCategoryProps = {
   children: React.ReactNode;

@@ -12,29 +12,22 @@ import {
   makeStyles,
 } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
-import media from '../../../lib/styles/media';
-import deptData from '../../../api/dummyData/SearchDept.json';
+import media from '../../../../lib/styles/media';
+import deptData from '../../../../api/dummyData/SearchDept.json';
 
 type searchDataType = {
   id: number;
   name: string;
 };
 
-function AutoBox({ history }: any) {
-  const [department, setDepartment] = useState<searchDataType[]>([]);
+const defaultText = '선거명을 입력하세요'
+
+function AutoBox({history}:any) {
+  const classes = useStyles();
+  const [department,setDepartment] = useState<searchDataType[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
 
-  // fetch('https://api.google.com/user/3')
-  //   .then((res) => res.json())
-  //   .then((res) => {
-  //     if (res.success) {
-  //       res.map((data) => {
-  //         department.push({ value: data.id, name: data.name });
-  //       });
-  //     }
-  //   });
-
-  useEffect(() => {
+  useEffect(()=>{
     const temp: searchDataType[] = [];
     deptData.map((data) => {
       const departmentData = { id: data.id, name: data.name };
@@ -72,6 +65,10 @@ function AutoBox({ history }: any) {
     }
   };
 
+  const CustomPopper = function (props) {
+    return <Popper {...props} className={classes.root} placement="bottom" />;
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <SearchBlock style={{ width: selectWidth() }}>
@@ -85,6 +82,7 @@ function AutoBox({ history }: any) {
               <TextField
                 {...params}
                 variant="outlined"
+                placeholder={defaultText}
                 value={searchValue}
                 onChange={handleSearchValue}
                 onKeyPress={enterKey}
@@ -115,14 +113,10 @@ const useStyles = makeStyles((theme) =>
       '& .MuiAutocomplete-listbox': {
         fontSize: '1.4rem',
       },
+      zIndex: 10,
     },
   })
 );
-
-const CustomPopper = function (props) {
-  const classes = useStyles();
-  return <Popper {...props} className={classes.root} placement="bottom" />;
-};
 
 let theme = createMuiTheme({
   overrides: {
@@ -156,8 +150,10 @@ let theme = createMuiTheme({
 
 const SearchBlock = styled.div`
   position: relative;
-  margin-top: 52px;
-  margin-left: 16px;
+  margin-top: 20px;
+  @media (max-width: ${media.mobileL}px) {
+    margin: 20px auto;
+  }
 `;
 
 const IconBlock = styled.div`
