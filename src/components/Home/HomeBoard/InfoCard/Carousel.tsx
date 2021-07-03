@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Slide from './Slide';
-import data from '../../../api/TopInformation.json';
+import data from '../../../../api/TopInformation.json';
 
 const SLIDES_NUM = 6;
 const TOTAL_SLIDES = SLIDES_NUM - 3;
@@ -66,8 +66,7 @@ const Carousel = () => {
 export default Carousel;
 
 const Container = styled.div`
-  margin-top: 8.9rem;
-  margin-left: 1.6rem;
+  margin: 0 auto;
   overflow: hidden;
   width: 60rem;
 `;

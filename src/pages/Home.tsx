@@ -1,40 +1,27 @@
-import React from 'react';
-import styled from 'styled-components';
-import TopSection from '../components/HomeTop/TopSection';
-// import { setConstantValue } from 'typescript';
-import ClassificationSection from '../components/Home/Category/ClassificationSection';
-// import useFetch from '../api/useFetch';
+import * as React from 'react';
+import { useState } from 'react';
+import client from '../api/client';
+import HomeBoard from '../components/Home/HomeBoard';
+import Classification from '../components/Home/Classification';
+import { useEffect } from 'react';
 
 const Home = () => {
-  //  useFetch 적용 예제
-  // const { loading, data, error } = useFetch('http://localhost:8001/api');
-  // const [users, setUsers] = useState([]);
-  // useEffect(() => {
-  // const result = data.reduce((arr, cur) => {
-  // arr.push(cur.username);
-  // return arr;
-  // }, []);
-  // setUsers(result);
-  // }, [data]);
-  // console.log(users);
+  const [searchData, setSearchData] = useState([]);
+
+  useEffect(()=>{
+    client.get('/api/v1/main/search')
+      .then(response => {
+        setSearchData(response.data);
+      })
+      .catch(e => console.log(e));
+  },[])
+
   return (
     <>
-      <TopSection />
-      <ClassificationSection />
+      <HomeBoard />
+      <Classification />
     </>
   );
 };
-
-const Div = styled.div`
-  width: 100%;
-  height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Text = styled.h2`
-  font-size: 3rem;
-`;
 
 export default Home;

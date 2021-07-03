@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import NoticeArticle from './NoticeArticle';
-import bannerIcon from '../../../../public/img/bannerIcon.svg';
-import media from '../../../lib/styles/media';
+import bannerIcon from '../../../../../public/img/bannerIcon.svg';
+import media from '../../../../lib/styles/media';
 
 const Notice = () => {
   return (

@@ -1,36 +1,16 @@
 import React, { useState } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import styled from 'styled-components';
+import Button from '../../../Common/Button';
 import SearchIcon from '@material-ui/icons/Search';
-import Button from '@material-ui/core/Button';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import SearchBox from './SearchBox';
-import closeIcon from '../../../../public/img/close.svg';
+import closeIcon from '../../../../../public/img/close.svg';
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    onButton: {
-      display: 'none',
-    },
-    offButton: {
-      position: 'fixed',
-      top: '94px',
-      right: '14px',
-      zIndex: 1000,
-      margin: theme.spacing(1),
-    },
-    onModal: {
-      display: 'block',
-    },
-    offModal: {
-      display: 'none',
-    },
-  })
-);
+const modalTitle = '검색하기';
 
-export default function FloatingActionButtonSize() {
+export default function ModalSearchBox() {
   const classes = useStyles();
   const [active, setActive] = useState(false);
 
@@ -45,7 +25,11 @@ export default function FloatingActionButtonSize() {
           <IconArea onClick={handleActive}>
             <CloseIcon />
           </IconArea>
+          <ModalTitle>{modalTitle}</ModalTitle>
           <SearchBox />
+          <Recommendation>
+            <Button color={theme.palette.primary.main}>총학</Button>
+          </Recommendation>
         </ModalBox>
         <Fab
           onClick={handleActive}
@@ -61,6 +45,26 @@ export default function FloatingActionButtonSize() {
   );
 }
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    onButton: {
+      display: 'none',
+    },
+    offButton: {
+      position: 'fixed',
+      top: '94px',
+      right: '14px',
+      zIndex: 1000,
+      margin: theme.spacing(1),
+    },
+    onModal: {
+      display: 'flex',
+    },
+    offModal: {
+      display: 'none',
+    },
+  })
+);
 const theme = createMuiTheme({
   overrides: {
     MuiFab: {
@@ -82,15 +86,29 @@ const theme = createMuiTheme({
   },
 });
 
+const Recommendation = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #fafafa;
+`;
+
+const ModalTitle = styled.h2`
+  font-size: 1.5rem;
+`;
+
 const ModalBox = styled.div`
+  padding-top: 25px;
+  flex-direction: column;
+  align-items: center;
   position: fixed;
+  z-index: 1;
   top: 30%;
   left: 10%;
   width: 80%;
   height: 300px;
   background-color: #e8e2ff;
   border-radius: 20px;
-  border: 2px solid #2d2f7e;
+  overflow: hidden;
 `;
 
 const IconArea = styled.div`

@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Fab from '@material-ui/core/Fab';
-import media from '../../../lib/styles/media';
+import media from '../../../../lib/styles/media';
 import SearchBox from './SearchBox';
-import Modal from './FloatingActionButtonSize';
+import ModalSearchBox from './ModalSearchBox';
 
-const TitleSearch = () => {
+const Search = () => {
   return (
     <Contain>
       <Title>00대학교 선거소식</Title>
@@ -13,17 +12,17 @@ const TitleSearch = () => {
         <SearchBox />
       </SearchWrapper>
       <MobileArea>
-        <MobileSearch />
+        <ModalSearchBox />
       </MobileArea>
     </Contain>
   );
 };
 
-export default TitleSearch;
+export default Search;
 
 const Contain = styled.div``;
 
-const Title = styled.p`
+const Title = styled.h1`
   font-family: 'paybooc-extrabold';
   font-size: 4rem;
   font-weight: 800;
@@ -44,18 +43,13 @@ const SearchWrapper = styled.div`
   }
 `;
 
-const SearchIcon = styled(Fab)`
-  display: none;
-`;
-
 const MobileArea = styled.div`
   display: none;
     @media (max-width: ${media.mobileL}px) {
-    display: inline; 
-  }
-`
-const MobileSearch = styled(Modal)`
-  @media (max-width: ${media.mobileL}px) {
-    
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: grey;
   }
 `

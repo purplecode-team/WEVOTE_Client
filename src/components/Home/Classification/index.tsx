@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import CandidateArticle from '../../Home/Candidate/CandidateArticle';
-import ClassificationCategory from './ClassificationCategory';
+import Candidate from './Candidate';
+import Category from './Category';
 import useFetch from '../../../lib/hooks/useFetch';
 import { useChangeCurrentCategory } from '../../../lib/hooks/useChangeCurrentCategory';
 import CentralData from '../../../api/dummyData/CentralData.json';
@@ -166,14 +166,14 @@ const ClassificationSection = () => {
 
   return (
     <section>
-      <ClassificationCategory
+      <Category
         changeCurrent={changeCurrent}
         topList={topList}
         middleList={middleList}
         bottomList={bottomList}
         current={current}
       />
-      <CandidateArticle title={current.top === topCategory.Department ? current.bottom : current.middle} teamArray={teamData} />
+      <Candidate title={current.top === topCategory.Department ? current.bottom : current.middle} teamArray={teamData} />
     </section>
   );
 };
