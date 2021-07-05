@@ -9,7 +9,7 @@ const RegisterForm = () => {
     form: auth.register,
   }));
   // 인풋 변경 이벤트 핸들러
-  const onChange = (e) => {
+  const onChange = e => {
     const { value, name } = e.target;
     dispatch(
       changeField({
@@ -21,7 +21,7 @@ const RegisterForm = () => {
   };
 
   // 폼 등록 이벤트 핸들러
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
     // 구현 예정
   };
@@ -33,7 +33,7 @@ const RegisterForm = () => {
 
   return (
     <AuthForm
-      type="register"
+      type='register'
       form={form}
       onChange={onChange}
       onSubmit={onSubmit}

@@ -1,10 +1,10 @@
 import client from './client';
 
 // 로그인
-export const login = ({ id, password }) => {
+export const login = ({email, password }) => {
   try {
     client
-      .post('/auth/login', { id, password })
+      .post('/api/v1/auth/login', { email, password })
       .then(response => {
         if (response.status !== 200) {
           alert('아이디 또는 비밀번호가 일치하지 않습니다.');
@@ -12,7 +12,7 @@ export const login = ({ id, password }) => {
         }
         localStorage.setItem('x-access-token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data));
-        if (response.data.user_type === 'admin') {
+        if (response.data.status === 'admin') {
           document.location.replace('/admin');
         } else {
           document.location.replace('/');
@@ -28,9 +28,9 @@ export const login = ({ id, password }) => {
 };
 
 // 회원가입
-export const register = ({ name, id, email, password }) => {
+export const register = ({ name, email, password }) => {
   client
-    .post('/auth/join', { name, id, email, password })
+    .post('/api/v1/auth/join', { name,email, password })
     .then(response => {
       if (response.status === 200) {
         localStorage.setItem('x-access-token', response.data.token);
@@ -50,6 +50,7 @@ export const check = () => client.get('/api/auth/check');
 
 // 로그아웃
 // export const logout = () => client.post('/api/auth/logout');
+
 export const logout = () => {
   localStorage.removeItem('user');
   localStorage.removeItem('x-access-token');
@@ -57,10 +58,10 @@ export const logout = () => {
 };
 
 // 중복체크
-export const checkId = ({ id }) => {
+export const checkId = ({ email }) => {
   try {
     client
-      .post('/auth/join/checkId', { id })
+      .post('/auth/join/checkId', { email })
       .then(response => {
         if (response.status === 400) {
           alert('이미 존재하는 ID입니다.');

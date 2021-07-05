@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import media from '../../lib/styles/media';
 import theme from '../../lib/styles/theme';
-// import LoginButton from '../../../public/img/btn_login.svg';
-// import RegisterButton from '../../../public/img/btn_register.svg';
-import klogin from '../../../public/img/kakao_login.png';
-import glogin from '../../../public/img/google_login.svg';
-
+import klogin from '../../../public/img/login/kakaoLogin.png';
+import glogin from '../../../public/img/login/googleLogin.png';
+import KakaoLogin from 'react-kakao-login';
+import GoogleLogin from 'react-google-login';
+import client from '../../lib/api/client';
 
 const textMap = {
   login: '로그인',
@@ -17,6 +17,16 @@ const textMap = {
 const AuthForm = ({ type, form, onChange, onSubmit }) => {
   const text = textMap[type];
   const isRegister = type === 'register';
+
+  const responseSuccess = res => {
+    // token id 포함한 post request로 사용자 정보 가져오기
+    if (res.id_token){
+      client.post(`/outh/v1/login`, {tokenId : res.id_token})
+      .then(response => console.log(response.data))
+      .catch(e => console.error(e))
+    }
+  }
+
   return (
     <AuthFormBlock>
       <Title className="header">{text}</Title>
@@ -34,6 +44,8 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
             onChange={onChange}
             value={form.name}
           />
+        </>
+      )}
           <StyledLabel>{'이메일'}</StyledLabel>
           <StyledInput
             autoComplete="username"
@@ -42,16 +54,6 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
             onChange={onChange}
             value={form.email}
           />
-        </>
-      )}
-        <StyledLabel>{'아이디'}</StyledLabel>
-        <StyledInput
-          autoComplete="id"
-          name="id"
-          placeholder="아이디"
-          onChange={onChange}
-          value={form.id}
-        />
         <StyledLabel>{'비밀번호'}</StyledLabel>
         <StyledInput
           autoComplete="password"
@@ -79,10 +81,33 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
         <ButtonBlock>
           <Button>{text}</Button>
         </ButtonBlock>
+        { !isRegister &&
         <APILoginBlock>
-          <APIImg src={glogin} alt="glogin" />
-          <APIImg src={klogin} alt="klogin" />
+        <KakaoLogin
+          token={'JAVASCRIPT KEY를 입력하세요.!!!'}
+          onSuccess={console.log}
+          onFail={console.error}
+          onLogout={console.info}
+          style={{
+            border: 'none',
+            backgroundColor: 'inherit',
+            cursor: 'pointer',
+          }}
+        >
+          <KakaoImg src={klogin} alt="klogin" />
+        </KakaoLogin>
+        <GoogleLogin
+          clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+          render={renderProps => (
+            <GoogleImg src={glogin} alt="glogin" onClick={renderProps.onClick} disabled={renderProps.disabled} />
+          )}
+          buttonText="Login"
+          onSuccess={console.log('success')}
+          onFailure={console.log('success')}
+          cookiePolicy={'single_host_origin'}
+        />
         </APILoginBlock>
+        }
       </Form>
 
       <Footer>
@@ -98,19 +123,33 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
 
 export default AuthForm;
 
+
 const APILoginBlock = styled.div`
   display:flex;
-  flex-direction:row;
+  flex-direction:column;
   justify-content: space-around;
   margin: 10px 0;
 `;
 
-const APIImg = styled.img`
-  width: 170px;
-  height: 44px;
+const KakaoImg = styled.img`
+  &:hover{
+    cursor: pointer;
+  }
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   @media (max-width: ${media.mobileL}px){
-    width: 120px;
-    height: 35px;
+    width: 90%;
+  }
+`;
+
+const GoogleImg = styled.img`
+  width: 300px;
+  margin: 20px auto;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  &:hover{
+    cursor: pointer;
+  }
+  @media (max-width: ${media.mobileL}px){
+    width: 90%;
   }
 `;
 
@@ -129,6 +168,7 @@ const Form = styled.form`
   @media (max-width: ${media.mobileL}px){
     width:100%;
   }
+  width: 100%;
   display:flex;
   flex-direction: column;
   justify-content: space-around;
@@ -142,7 +182,7 @@ const StyledLabel = styled.label`
 `;
 
 const StyledInput = styled.input`
-  width: 534px;
+  width: 97%;
   height: 54px;
   padding-left: 10px;
   border: 1px solid ${theme.Blue};
@@ -155,7 +195,7 @@ const StyledInput = styled.input`
     margin-top: 1rem;
   }
   @media (max-width: ${media.mobileL}px){
-    width:95%;
+    width:94%;
     height: 40px;
   }
 `;
@@ -187,7 +227,7 @@ const ButtonBlock = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  margin: 20px 0;
+  margin: 20px 15px 20px 0px;
 `;
 
 const Button = styled.button`
@@ -204,6 +244,8 @@ const Button = styled.button`
   }
   @media (max-width: ${media.mobileL}px){
     font-size: 1.2rem;
+    width: 80px;
+    height: 40px;
   }
 `;
 

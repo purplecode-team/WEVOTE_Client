@@ -17,19 +17,19 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
-// function loadUser () {
-//   try {
-//     const user = localStorage.getItem('user');
-//     if (!user) return;
-//     const parsedUser = JSON.parse(user);
-//     store.dispatch(tempSetUser(parsedUser));
-//   } catch (e) {
-//     console.log('localStorage is not working');
-//   }
-// }
+function loadUser () {
+  try {
+    const user = localStorage.getItem('user');
+    if (!user) return;
+    const parsedUser = JSON.parse(user);
+    store.dispatch(tempSetUser(parsedUser));
+  } catch (e) {
+    console.log('localStorage is not working');
+  }
+}
 
 sagaMiddleware.run(rootSaga);
-// loadUser();
+loadUser();
 
 ReactDOM.render(
   <Provider store={store}>

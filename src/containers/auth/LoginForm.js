@@ -25,7 +25,7 @@ const LoginForm = () => {
   const onSubmit = e => {
     e.preventDefault();
     console.log(form);
-    login({ id: form.id, password: form.password });
+    login({ email: form.email, password: form.password });
     // 구현 예정
   };
 

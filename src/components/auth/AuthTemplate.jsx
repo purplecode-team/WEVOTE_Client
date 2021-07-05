@@ -16,7 +16,7 @@ const AuthTemplate = ({ children }) => {
 export default AuthTemplate;
 
 const AuthTemplateBlock = styled.div`
-  width: 600px;
+  width: 500px;
   height: 100%;
   display: flex;
   flex-direction: column;
