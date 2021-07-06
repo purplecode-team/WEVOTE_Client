@@ -1,4 +1,4 @@
-import client from '../../api/client'
+import client from '../api/client'
 import { useState, useEffect } from 'react';
 
 type fetchProps = {

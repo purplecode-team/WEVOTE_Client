@@ -4,10 +4,10 @@ import Candidate from './Candidate';
 import Category from './Category';
 import useFetch from '../../../lib/hooks/useFetch';
 import { useChangeCurrentCategory } from '../../../lib/hooks/useChangeCurrentCategory';
-import CentralData from '../../../api/dummyData/CentralData.json';
-import CollegeData from '../../../api/dummyData/CollegeData.json';
-import DepartmentData from '../../../api/dummyData/DepartmentData.json';
-import client from '../../../api/client';
+import CentralData from '../../../lib/api/dummyData/CentralData.json';
+import CollegeData from '../../../lib/api/dummyData/CollegeData.json';
+import DepartmentData from '../../../lib/api/dummyData/DepartmentData.json';
+import client from '../../../lib/api/client';
 
 type Runner = {
   id: number;

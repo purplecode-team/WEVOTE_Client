@@ -16,7 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import NoticeForm from './NoticeForm';
-import client from '../../../api/client';
+import client from '../../../lib/api/client';
 import Loader from '../../Common/Loader';
 import { getFormatDate } from '../../../utils/getFormatDate';
 

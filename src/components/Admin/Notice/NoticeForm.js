@@ -14,7 +14,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { createStyles, withStyles } from '@material-ui/core/styles';
-import client from '../../../api/client';
+import client from '../../../lib/api/client';
 
 function NoticeForm (props) {
   const { classes, editData, setOpen, fetchData } = props;

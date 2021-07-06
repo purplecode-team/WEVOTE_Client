@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import bannerData from '../../../../api/BannerInfo.json';
+import bannerData from '../../../../lib/api/dummyData/BannerInfo.json';
 import media from '../../../../lib/styles/media';
 
 type dataType = {

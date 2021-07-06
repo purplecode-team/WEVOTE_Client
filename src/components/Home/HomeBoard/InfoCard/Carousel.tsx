@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Slide from './Slide';
-import data from '../../../../api/TopInformation.json';
+import data from '../../../../lib/api/dummyData/TopInformation.json';
 
 const SLIDES_NUM = 6;
 const TOTAL_SLIDES = SLIDES_NUM - 3;

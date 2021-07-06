@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import media from '../../../../lib/styles/media';
-import deptData from '../../../../api/SearchDept.json';
+import deptData from '../../../../lib/api/dummyData/SearchDept.json';
 
 type searchDataType = {
   id: number,

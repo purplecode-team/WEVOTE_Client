@@ -1,12 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import client from '../../../api/client';
+import client from '../../../lib/api/client';
 import useFetch from '../../../lib/hooks/useFetch';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import CalenderPreview from './CalenderPreview';
-import ImageUploader from 'react-images-upload';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';

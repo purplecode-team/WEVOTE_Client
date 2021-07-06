@@ -5,19 +5,16 @@ import {
   createMuiTheme,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
 import RegisterMiddle from './RegisterMiddle';
 import RegisterBottom from './RegisterBottom';
 import CloseIcon from '@material-ui/icons/Close';
-import client from '../../../../api/client';
+import client from '../../../../lib/api/client';
 
 // 고정 분류 [중앙자치기구, 단과대, 학과] 선택창
 // 고정 분류마다 중분류 입력 => [총학생회, 동아리연합회 등]

@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import defaultImg from '../../../../public/img/noimg.jpg';
 import styled from 'styled-components';
-import Department from '../Candidate/Department';
 
 const useStyles = makeStyles({
   root: {
