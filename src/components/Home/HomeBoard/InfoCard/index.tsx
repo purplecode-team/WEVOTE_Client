@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Carousel from './Carousel';
-import media from '../../../lib/styles/media';
+import media from '../../../../lib/styles/media';
 
 const InfoCard = () => {
   return (
