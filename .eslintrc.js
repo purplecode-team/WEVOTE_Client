@@ -64,5 +64,15 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'sort-imports': [
+      'error',
+      {
+        ignoreCase: true,
+        ignoreDeclarationSort: false,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ['all', 'multiple', 'single', 'none'],
+        allowSeparatedGroups: false,
+      },
+    ],
   },
 };
