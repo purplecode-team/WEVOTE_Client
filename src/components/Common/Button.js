@@ -1,29 +1,32 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 const StyledButton = props => {
-  const { classes, children, color } = props;
+  const { type } = props;
 
   return (
-    <Button
-      className={classes.button}
-      variant='contained'
-      style={{ backgroundColor: color }}
-    >
-      {children}
-    </Button>
+    <Grid item xs={12} className={classes.button}>
+      <Button
+        className={classes.submit}
+        variant='contained'
+        color='primary'
+        type={type}
+      >
+        {children}
+      </Button>
+    </Grid>
   );
 };
 
 const styles = theme => ({
   button: {
-    width: '50px',
-    height: '50px',
+    textAlign: 'right',
+  },
+  submit: {
+    width: '100px',
+    height: '40px',
     borderRadius: '15px',
-    fontSize: '1.2rem',
-    margin: '15px',
-    color: 'white',
   },
 });
 export default withStyles(styles)(StyledButton);
