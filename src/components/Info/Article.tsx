@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
+
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import theme from '../../lib/styles/theme';
-import media from '../../lib/styles/media';
+
 import CandidateCard from '../Common/CandidateCard';
 import Carousel from '../Common/Carousel';
+import media from '../../lib/styles/media';
+import styled from 'styled-components';
+import theme from '../../lib/styles/theme';
+import { useState } from 'react';
 
 type Runner = {
   id: number;

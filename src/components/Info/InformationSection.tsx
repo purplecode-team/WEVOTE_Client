@@ -1,32 +1,31 @@
 import * as React from 'react';
-import {useState} from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import theme from '../../lib/styles/theme';
-import Carousel from '../../utils/Carousel';
+
+import Carousel from '../Common/Carousel';
 import Icon from '../../../public/img/InformationIcon.svg';
 import img1 from '../../../public/img/information.png';
 import img2 from '../../../public/img/information.png';
 import img3 from '../../../public/img/information.png';
 import media from '../../lib/styles/media';
-
+import styled from 'styled-components';
+import theme from '../../lib/styles/theme';
+import { useState } from 'react';
 
 const InformationSection = () => {
-  const [images, setImages] = useState([img1,img2,img3,img1,img2,img3]);
+  const [images, setImages] = useState([img1, img2, img3, img1, img2, img3]);
 
   const showTeamCard = () => {
-    return images.map((image,index) => (
-        <Box key={index}>
-          <Img src={image} alt='information' />
-        </Box>
+    return images.map((image, index) => (
+      <Box key={index}>
+        <Img src={image} alt="information" />
+      </Box>
     ));
   };
   return (
     <Article>
       <IconBlock>
-        <InformationIcon src={Icon} alt='information icon'/>
+        <InformationIcon src={Icon} alt="information icon" />
       </IconBlock>
-      <CandidateTitle>{'선거 안내'}</CandidateTitle>
+      <CandidateTitle>선거 안내</CandidateTitle>
       <InnerArticle>
         <Carousel isLineBreak isCentralize>
           {showTeamCard()}
@@ -37,13 +36,13 @@ const InformationSection = () => {
 };
 
 const IconBlock = styled.div`
-  display:flex;
-  justify-content : center;
+  display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
 const InformationIcon = styled.img`
-  width:50px;
+  width: 50px;
   height: 50px;
   margin: 0 auto;
 `;
@@ -101,7 +100,5 @@ const InnerArticle = styled.article`
   color: ${theme.DarkBlue};
   padding-left: 20px;
 `;
-
-
 
 export default InformationSection;

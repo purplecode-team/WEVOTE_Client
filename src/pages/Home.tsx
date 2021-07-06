@@ -1,20 +1,22 @@
 import * as React from 'react';
-import { useState } from 'react';
+
+import Classification from '../components/Home/Classification';
 import client from '../lib/api/client';
 import HomeBoard from '../components/Home/HomeBoard';
-import Classification from '../components/Home/Classification';
 import { useEffect } from 'react';
+import { useState } from 'react';
 
 const Home = () => {
   const [searchData, setSearchData] = useState([]);
 
-  useEffect(()=>{
-    client.get('/api/v1/main/search')
-      .then(response => {
+  useEffect(() => {
+    client
+      .get('/api/v1/main/search')
+      .then((response) => {
         setSearchData(response.data);
       })
-      .catch(e => console.log(e));
-  },[])
+      .catch((e) => console.log(e));
+  }, []);
 
   return (
     <>

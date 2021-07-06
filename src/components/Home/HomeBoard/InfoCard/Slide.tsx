@@ -2,30 +2,36 @@ import React from 'react';
 import styled from 'styled-components';
 
 type Data = {
-  name : String,
-  numOfTeam: Number,
-  type: String,
-  startDate: String,
-  endDate: String,
-}
+  name: String;
+  numOfTeam: Number;
+  type: String;
+  startDate: String;
+  endDate: String;
+};
 
 type DataProps = {
-  data: Data,
-} 
+  data: Data;
+};
 
-const Slide = ({ data }:DataProps) => {
-  const dateFormat = date =>{
-    var n_date;
-    n_date = date.slice(3,5)<10 ? date.replace(date.slice(3,5),date.slice(4,5)): date;
-    n_date = n_date.slice(0,2)<10 ? n_date.replace(n_date.slice(0,2), n_date.slice(1,2)) : n_date;
+const Slide = ({ data }: DataProps) => {
+  const dateFormat = (date) => {
+    let n_date;
+    n_date =
+      date.slice(3, 5) < 10
+        ? date.replace(date.slice(3, 5), date.slice(4, 5))
+        : date;
+    n_date =
+      n_date.slice(0, 2) < 10
+        ? n_date.replace(n_date.slice(0, 2), n_date.slice(1, 2))
+        : n_date;
     return n_date;
   };
-  const name = data.name;
-  const numOfTeam = data.numOfTeam;
-  const type = data.type;
+  const { name } = data;
+  const { numOfTeam } = data;
+  const { type } = data;
 
-  const sdate_bformat = (data.startDate.slice(5,10)).replace('-','/');
-  const edate_bformat = (data.endDate.slice(5,10)).replace('-','/');
+  const sdate_bformat = data.startDate.slice(5, 10).replace('-', '/');
+  const edate_bformat = data.endDate.slice(5, 10).replace('-', '/');
 
   const sdate = dateFormat(sdate_bformat);
   const edate = dateFormat(edate_bformat);

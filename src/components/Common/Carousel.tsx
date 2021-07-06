@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { useState, useEffect, Children } from 'react';
+
+import { Children, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+
 import media from '../../lib/styles/media';
 
 let start = 0;

@@ -1,12 +1,12 @@
-import React from 'react';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-import ImageUploader from 'react-images-upload';
-import styled from 'styled-components';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import ImageUploader from 'react-images-upload';
+import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import { useState } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 
 function InformationForm (props) {
   const { classes } = props;
@@ -52,12 +52,12 @@ function InformationForm (props) {
           <ImageUploader
             {...props}
             className={classes.uploader}
-            withIcon={true}
+            withIcon
             buttonText='Choose images'
             onChange={onDrop}
             imgExtension={['.jpg', '.gif', '.png', '.gif']}
             maxFileSize={5242880}
-            withPreview={true}
+            withPreview
           />
           <Grid item xs={12} className={classes.buttonWrap}>
             <Button
@@ -66,7 +66,7 @@ function InformationForm (props) {
               color='primary'
               type='submit'
             >
-              {'등록'}
+              등록
             </Button>
           </Grid>
         </form>

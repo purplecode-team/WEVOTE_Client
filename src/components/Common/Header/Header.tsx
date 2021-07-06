@@ -1,15 +1,17 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import styled, { css } from 'styled-components';
-import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import media from '../../../lib/styles/media';
-import theme from '../../../lib/styles/theme';
-import { TextMenu } from './TextMenu';
+import * as FaIcons from 'react-icons/fa';
+import * as React from 'react';
+
+import styled, { css } from 'styled-components';
+
 import { LoginMenu } from './LoginMenu';
 import logoIcon from '../../../../public/img/logo.svg';
+import media from '../../../lib/styles/media';
 import menuBackground from '../../../../public/img/menuBackground.svg';
+import { NavLink } from 'react-router-dom';
+import { TextMenu } from './TextMenu';
+import theme from '../../../lib/styles/theme';
+import { useState } from 'react';
 
 type HeaderProps = {
   isActive: boolean;

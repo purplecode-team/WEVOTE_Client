@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+
 import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import PropTypes from 'prop-types';
 import SmallMenu from './SmallMenu';
+import { withStyles } from '@material-ui/core/styles';
 
 function Navigator (props) {
   const {
@@ -25,7 +26,7 @@ function Navigator (props) {
         <ListItem className={clsx(classes.firebase, classes.itemCategory)}>
           안녕하세요
         </ListItem>
-        <React.Fragment>
+        <>
           {menus &&
             menus.map(({ id, name, icon, active, smallMenu }) => (
               <div key={id}>
@@ -57,7 +58,7 @@ function Navigator (props) {
               </div>
             ))}
           <Divider className={classes.divider} />
-        </React.Fragment>
+        </>
       </List>
     </Drawer>
   );

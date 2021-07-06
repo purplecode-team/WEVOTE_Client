@@ -1,11 +1,12 @@
-import React from 'react';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { createStyles, withStyles } from '@material-ui/core/styles';
+
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import React from 'react';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import theme from '../../../lib/styles/theme';
+import { useState } from 'react';
 
 function AddBox (props) {
   const { classes, component } = props;

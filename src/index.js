@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { render } from 'react-dom';
-import './index.css';
-import App from './App.tsx';
-import { transitions, positions, Provider as AlertProvider } from 'react-alert';
+
+import { Provider as AlertProvider, positions, transitions } from 'react-alert';
+
 import AlertTemplate from 'react-alert-template-basic';
+import App from './App.tsx';
 import { grey } from '@material-ui/core/colors';
+import { render } from 'react-dom';
+
+import './index.css';
 
 const options = {
   position: positions.BOTTOM_CENTER,

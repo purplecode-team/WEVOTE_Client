@@ -1,7 +1,9 @@
 import * as React from 'react';
+
 import styled, { css } from 'styled-components';
-import theme from '../../../../lib/styles/theme';
+
 import media from '../../../../lib/styles/media';
+import theme from '../../../../lib/styles/theme';
 
 type CategoryItemProps = {
   title: string;

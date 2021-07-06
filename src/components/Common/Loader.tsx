@@ -1,18 +1,19 @@
 import * as React from 'react';
+
+import { css } from '@emotion/react';
+import RingLoader from 'react-spinners/RingLoader';
 import styled from 'styled-components';
-import { css } from "@emotion/react";
-import RingLoader from "react-spinners/RingLoader";
 import theme from '../../lib/styles/theme';
 
 type loaderType = {
-  size?: number
-}
+  size?: number;
+};
 
 const color = theme.Blue;
 const loadingMessage = 'loading...';
 
-function Loader(props:loaderType) {
-  const {size} = props;
+function Loader(props: loaderType) {
+  const { size } = props;
   return (
     <div>
       <RingLoader color={color} css={override} size={size} />
@@ -21,8 +22,8 @@ function Loader(props:loaderType) {
   );
 }
 
-Loader.defaultProps ={
-  size: 50
+Loader.defaultProps = {
+  size: 50,
 };
 
 const override = css`

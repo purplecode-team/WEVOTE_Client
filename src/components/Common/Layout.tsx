@@ -1,10 +1,11 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import media from '../../lib/styles/media';
-import Header from './Header/Header';
-import Footer from './Footer';
+
 import backgroundIcon from '../../../public/img/backgroundIcon.svg';
 import backgroundIcon2 from '../../../public/img/backgroundIcon2.svg';
+import Footer from './Footer';
+import Header from './Header/Header';
+import media from '../../lib/styles/media';
+import styled from 'styled-components';
 
 type LayoutProps = {
   children: React.ReactNode;

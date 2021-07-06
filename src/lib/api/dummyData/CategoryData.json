@@ -1,97 +1,85 @@
 [
   {
-    "id":1,
-    "top":"중앙자치기구",
-    "middle":[
+    "id": 1,
+    "top": "중앙자치기구",
+    "middle": [
       {
-        "id":1,
-        "organization":"총학생회"
+        "id": 1,
+        "organization": "총학생회"
       },
       {
-        "id":2,
-        "organization":"학생복지위원회"
+        "id": 2,
+        "organization": "학생복지위원회"
       },
       {
-        "id":3,
-        "organization":"동아리연합회"
+        "id": 3,
+        "organization": "동아리연합회"
       }
     ]
   },
   {
-    "id":2,
-    "top":"단과대",
-    "middle":[
+    "id": 2,
+    "top": "단과대",
+    "middle": [
       {
-        "id":10,
-        "organization":"인문대"
+        "id": 10,
+        "organization": "인문대"
       },
       {
-        "id":11,
-        "organization":"공과대"
+        "id": 11,
+        "organization": "공과대"
       },
       {
-        "id":12,
-        "organization":"정통대"
+        "id": 12,
+        "organization": "정통대"
       },
       {
-        "id":13,
-        "organization":"조형대"
+        "id": 13,
+        "organization": "조형대"
       }
     ]
   },
   {
-    "id":3,
-    "top":"학과",
-    "middle":[
+    "id": 3,
+    "top": "학과",
+    "middle": [
       {
-        "id":1,
-        "organization":"인문대"
+        "id": 1,
+        "organization": "인문대"
       },
       {
-        "id":2,
-        "organization":"공과대"
+        "id": 2,
+        "organization": "공과대"
       },
       {
-        "id":3,
-        "organization":"정통대"
+        "id": 3,
+        "organization": "정통대"
       },
       {
-        "id":4,
-        "organization":"조형대"
+        "id": 4,
+        "organization": "조형대"
       }
     ],
-    "bottom":[
+    "bottom": [
       {
-        "id":1,
-        "organization":"인문대",
-        "major":[
-          "문예창작학과",
-          "행정학과",
-          "영어영문학과"
-        ]
+        "id": 1,
+        "organization": "인문대",
+        "major": ["문예창작학과", "행정학과", "영어영문학과"]
       },
       {
-        "id":2,
-        "organization":"공과대",
-        "major":[
-          "기계공학과",
-          "전자정보공학과",
-          "건축공학과"
-        ]
+        "id": 2,
+        "organization": "공과대",
+        "major": ["기계공학과", "전자정보공학과", "건축공학과"]
       },
       {
-        "id":3,
-        "organization":"정통대",
-        "major":[
-          "컴퓨터공학과",
-          "전자미디어공학과"
-        ]
+        "id": 3,
+        "organization": "정통대",
+        "major": ["컴퓨터공학과", "전자미디어공학과"]
       },
       {
-        "id":4,
-        "organization":"조형대",
-        "major":[
-        ]
+        "id": 4,
+        "organization": "조형대",
+        "major": []
       }
     ]
   }

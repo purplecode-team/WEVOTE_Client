@@ -1,7 +1,7 @@
-import React from 'react';
 import AddForm from '../Common/AddForm';
-import NoticeList from './NoticeList';
 import NoticeForm from './NoticeForm';
+import NoticeList from './NoticeList';
+import React from 'react';
 
 const NoticeArticle = () => {
   return (

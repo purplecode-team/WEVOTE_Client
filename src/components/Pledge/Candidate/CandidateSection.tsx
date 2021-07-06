@@ -1,8 +1,9 @@
 import * as React from 'react';
+
+import CandidateArticleInPledge from './CandidateArticleInPledge';
+import media from '../../../lib/styles/media';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
-import media from '../../../lib/styles/media';
-import CandidateArticleInPledge from './CandidateArticleInPledge';
 
 type Runner = {
   id: number;

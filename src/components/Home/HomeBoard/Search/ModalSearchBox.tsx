@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import styled from 'styled-components';
-import Button from '../../../Common/Button';
-import SearchIcon from '@material-ui/icons/Search';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import SearchBox from './SearchBox';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+
+import Button from '../../../Common/Button';
 import closeIcon from '../../../../../public/img/close.svg';
+import Fab from '@material-ui/core/Fab';
+import SearchBox from './SearchBox';
+import SearchIcon from '@material-ui/icons/Search';
+import styled from 'styled-components';
 
 const modalTitle = '검색하기';
 

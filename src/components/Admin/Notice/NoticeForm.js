@@ -1,20 +1,21 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { useAlert } from 'react-alert';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 import { createStyles, withStyles } from '@material-ui/core/styles';
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import React, { useEffect } from 'react';
+
+import Button from '@material-ui/core/Button';
 import client from '../../../lib/api/client';
+import DateFnsUtils from '@date-io/date-fns';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { useAlert } from 'react-alert';
+import { useState } from 'react';
 
 function NoticeForm (props) {
   const { classes, editData, setOpen, fetchData } = props;
@@ -48,10 +49,10 @@ function NoticeForm (props) {
   const onUpdate = () => {
     setDisabled(true);
     const result = {
-      id: id,
-      content: content,
-      startDate: startDate,
-      endDate: endDate,
+      id,
+      content,
+      startDate,
+      endDate,
     };
     client
       .patch('/api/v1/admin/register-banner', result)
@@ -68,9 +69,9 @@ function NoticeForm (props) {
   const submitForm = () => {
     setDisabled(true);
     const result = {
-      content: content,
-      startDate: startDate,
-      endDate: endDate,
+      content,
+      startDate,
+      endDate,
     };
     client
       .post('/api/v1/admin/register-banner', result)

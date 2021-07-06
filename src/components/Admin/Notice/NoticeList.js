@@ -1,24 +1,26 @@
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import React, { useEffect } from 'react';
-import { useState } from 'react';
+
+import client from '../../../lib/api/client';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import { getFormatDate } from '../../../utils/getFormatDate';
+import IconButton from '@material-ui/core/IconButton';
+import Loader from '../../Common/Loader';
 import { Modal } from 'react-responsive-modal';
-import 'react-responsive-modal/styles.css';
-import './Notice.css';
-import { useAlert } from 'react-alert';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import NoticeForm from './NoticeForm';
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import NoticeForm from './NoticeForm';
-import client from '../../../lib/api/client';
-import Loader from '../../Common/Loader';
-import { getFormatDate } from '../../../utils/getFormatDate';
+import { useAlert } from 'react-alert';
+import { useState } from 'react';
+
+import 'react-responsive-modal/styles.css';
+import './Notice.css';
 
 const defaultData = [
   {
@@ -68,7 +70,7 @@ export default function NoticeList () {
     await client
       .get('/api/v1/main/banner')
       .then(response => {
-        const data = response.data;
+        const { data } = response;
         if (data) {
           Array.isArray(data) ? setData(data) : setData([data]);
         }
@@ -147,8 +149,8 @@ export default function NoticeList () {
                 <StyledTableCell className={classes.end}>
                   종료일
                 </StyledTableCell>
-                <StyledTableCell className={classes.button}></StyledTableCell>
-                <StyledTableCell className={classes.button}></StyledTableCell>
+                <StyledTableCell className={classes.button} />
+                <StyledTableCell className={classes.button} />
               </TableRow>
             </TableHead>
             <TableBody>{rows && showNoticeList(rows)}</TableBody>

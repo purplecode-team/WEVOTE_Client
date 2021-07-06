@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Pledge from './Pledge';
 import * as TextData from './TextData';
+
+import React, { useEffect, useState } from 'react';
+
+import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
+import Pledge from './Pledge';
+import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 const MaxPledgeCount = 10;
 
@@ -52,10 +54,10 @@ const PledgeForm = props => {
     setDescriptionArr(newDescriptionArr);
   };
 
-  //개별 input data를 pledgeData Array로 모으기
+  // 개별 input data를 pledgeData Array로 모으기
   useEffect(() => {
     if (titleArr && subTitleArr && descriptionArr) {
-      let pledgeData = pledgeCountArr.map(i => ({
+      const pledgeData = pledgeCountArr.map(i => ({
         promiseType: titleArr[i],
         promiseTitle: subTitleArr[i],
         promiseDetail: descriptionArr[i],
@@ -73,7 +75,7 @@ const PledgeForm = props => {
         handleTitleArr={handleTitleArr}
         handleSubTitleArr={handleSubTitleArr}
         handleDescriptionArr={handleDescriptionArr}
-      ></Pledge>
+      />
     );
   };
 

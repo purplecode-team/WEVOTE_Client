@@ -1,14 +1,15 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import theme from '../../../../lib/styles/theme';
+
 import CandidateCard from '../../../Common/CandidateCard';
+import Carousel from '../../../Common/Carousel';
 import EmptyCard from './EmptyCard';
-import Carousel from '../../../../utils/Carousel';
 import img1 from '../../../../../public/img/CardImg.svg';
 import img2 from '../../../../../public/img/CardImg2.svg';
 import img3 from '../../../../../public/img/CardImg3.svg';
+import { Link } from 'react-router-dom';
 import media from '../../../../lib/styles/media';
+import styled from 'styled-components';
+import theme from '../../../../lib/styles/theme';
 
 type Runner = {
   id: number;

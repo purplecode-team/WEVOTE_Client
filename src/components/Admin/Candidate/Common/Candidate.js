@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
 import ImageUploader from 'react-images-upload';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 const Candidate = props => {
   const {
@@ -59,7 +60,7 @@ const Candidate = props => {
         </Typography>
         <ImageUploader
           className={classes.uploader}
-          withIcon={true}
+          withIcon
           buttonText='사진 업로드'
           onChange={handlePicture}
           imgExtension={['.jpg', '.gif', '.png', '.gif']}

@@ -1,7 +1,7 @@
-import React from 'react';
-import PeopleIcon from '@material-ui/icons/People';
 import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
+import PeopleIcon from '@material-ui/icons/People';
 import PublicIcon from '@material-ui/icons/Public';
+import React from 'react';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 
 export const Menu = [

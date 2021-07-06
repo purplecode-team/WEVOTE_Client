@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import AdminLayout from '../components/Admin/AdminLayout';
 
 const Admin = () => {

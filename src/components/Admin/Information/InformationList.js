@@ -1,15 +1,15 @@
-import React from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
-import media from '../../../lib/styles/media';
-import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import img1 from '../../../../public/img/information.png';
 import img2 from '../../../../public/img/information.png';
 import img3 from '../../../../public/img/information.png';
+import media from '../../../lib/styles/media';
+import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import theme from '../../../lib/styles/theme';
+import { useState } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 
 function InformationForm (props) {
   const { classes } = props;

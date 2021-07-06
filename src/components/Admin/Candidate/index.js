@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import Category from './Category';
 import Central from './Central';
 import College from './College';

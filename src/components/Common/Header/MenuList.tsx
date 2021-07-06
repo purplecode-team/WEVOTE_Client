@@ -1,5 +1,5 @@
-import * as React from 'react';
 import * as AiIcons from 'react-icons/ai';
+import * as React from 'react';
 
 export const MenuList = [
   {

@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import Paper from '@material-ui/core/Paper';
 import {
-  makeStyles,
   createMuiTheme,
+  makeStyles,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
+import React, { useEffect, useState } from 'react';
+
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
 // 고정 분류 [중앙자치기구, 단과대, 학과] 선택창
@@ -235,7 +236,7 @@ export default function TransferList () {
           color='primary'
           type='submit'
         >
-          {'등록'}
+          등록
         </Button>
       </Grid>
     </form>

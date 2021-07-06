@@ -1,8 +1,9 @@
 import * as React from 'react';
+
+import logo from '../../../public/img/logoWhite.svg';
+import media from '../../lib/styles/media';
 import styled from 'styled-components';
 import theme from '../../lib/styles/theme';
-import media from '../../lib/styles/media';
-import logo from '../../../public/img/logoWhite.svg';
 
 const Footer = () => {
   return (

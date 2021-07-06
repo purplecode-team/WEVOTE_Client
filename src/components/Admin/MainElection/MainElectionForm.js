@@ -1,31 +1,22 @@
-import React from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { createStyles, withStyles } from '@material-ui/core/styles';
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import DateFnsUtils from '@date-io/date-fns';
 import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Select from '@material-ui/core/Select';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import {
-  createMuiTheme,
-  createStyles,
-  ThemeProvider,
-  withStyles,
-} from '@material-ui/core/styles';
+import styled from 'styled-components';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { useState } from 'react';
 
 function MainEject (props) {
   const { classes } = props;
@@ -49,7 +40,7 @@ function MainEject (props) {
   };
 
   const submitForm = () => {
-    const result = { text: notice, startDate: startDate, endDate: endDate };
+    const result = { text: notice, startDate, endDate };
     try {
       client
         .post('api/v1/admin/register-info', result)
@@ -77,7 +68,7 @@ function MainEject (props) {
           <form className={classes.root} noValidate autoComplete='off'>
             <Grid item className={classes.item} xs={12}>
               <Typography className={classes.title} variant='h4' component='h4'>
-                {'선거명'}
+                선거명
               </Typography>
               <TextField
                 id='outlined-full-width'
@@ -96,7 +87,7 @@ function MainEject (props) {
 
             <Grid item className={classes.item} xs={12}>
               <Typography className={classes.title} variant='h4' component='h4'>
-                {'선거명'}
+                선거명
               </Typography>
               <FormControl
                 required
@@ -110,14 +101,14 @@ function MainEject (props) {
                   onChange={handleType}
                   className={classes.selectEmpty}
                 >
-                  <MenuItem value={'단선'}>단선</MenuItem>
-                  <MenuItem value={'경선'}>경선</MenuItem>
+                  <MenuItem value='단선'>단선</MenuItem>
+                  <MenuItem value='경선'>경선</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item className={classes.item} xs={12}>
               <Typography className={classes.title} variant='h4' component='h4'>
-                {'후보 팀'}
+                후보 팀
               </Typography>
               <TextField
                 id='outlined-full-width'

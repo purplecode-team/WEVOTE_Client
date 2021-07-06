@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+
+import { useEffect, useState } from 'react';
+
 import Candidate from './Candidate';
 import Category from './Category';
-import useFetch from '../../../lib/hooks/useFetch';
-import { useChangeCurrentCategory } from '../../../lib/hooks/useChangeCurrentCategory';
 import CentralData from '../../../lib/api/dummyData/CentralData.json';
+import client from '../../../lib/api/client';
 import CollegeData from '../../../lib/api/dummyData/CollegeData.json';
 import DepartmentData from '../../../lib/api/dummyData/DepartmentData.json';
-import client from '../../../lib/api/client';
+import { useChangeCurrentCategory } from '../../../lib/hooks/useChangeCurrentCategory';
+import useFetch from '../../../lib/hooks/useFetch';
 
 type Runner = {
   id: number;
@@ -46,9 +48,9 @@ type DataType = {
 };
 
 const initialData = {
-  중앙자치기구: CentralData || [{ id: 1, organizationName: '총학', Teams:[] }],
-  단과대: CollegeData || [{ id: 1, organizationName: '인문대학' , Teams:[]}],
-  학과: DepartmentData || [{ id: 1, organizationName: '인문대학', Teams:[] }],
+  중앙자치기구: CentralData || [{ id: 1, organizationName: '총학', Teams: [] }],
+  단과대: CollegeData || [{ id: 1, organizationName: '인문대학', Teams: [] }],
+  학과: DepartmentData || [{ id: 1, organizationName: '인문대학', Teams: [] }],
 };
 
 const topCategory = {
@@ -58,13 +60,15 @@ const topCategory = {
 };
 const topList = Object.values(topCategory);
 
-const initialState = [{  id: 0, organizationName: '', Teams: []}];
+const initialState = [{ id: 0, organizationName: '', Teams: [] }];
 
 const ClassificationSection = () => {
   // const { loading, data, error } = useFetch(url);
   const [centralData, setCentralData] = useState(initialState);
   const [collegeData, setCollegeData] = useState(initialState);
-  const [departmentData, setDepartmentData] = useState([{  id: 0, organizationName: '', Majors: []}]);
+  const [departmentData, setDepartmentData] = useState([
+    { id: 0, organizationName: '', Majors: [] },
+  ]);
   const [dataSet, setDataSet] = useState<DataType>(initialData);
   const [current, dispatch] = useChangeCurrentCategory();
   const [teamData, setTeamData] = useState<Team[]>([]);
@@ -79,27 +83,28 @@ const ClassificationSection = () => {
   //   })
   // },[centralData, collegeData,departmentData])
 
-
-  useEffect(()=>{
-    client.get('/api/v1/main/central-organization')
-      .then(response => {
-        setCentralData(response.data)
+  useEffect(() => {
+    client
+      .get('/api/v1/main/central-organization')
+      .then((response) => {
+        setCentralData(response.data);
       })
-      .catch(e => console.log(e));
-    
-      client.get('/api/v1/main/college')
-      .then(response => {
-        setCollegeData(response.data)
-      })
-      .catch(e => console.log(e));
+      .catch((e) => console.log(e));
 
-      client.get('/api/v1/main/department')
-      .then(response => {
-        setDepartmentData(response.data)
+    client
+      .get('/api/v1/main/college')
+      .then((response) => {
+        setCollegeData(response.data);
       })
-      .catch(e => console.log(e));
-  },[])
+      .catch((e) => console.log(e));
 
+    client
+      .get('/api/v1/main/department')
+      .then((response) => {
+        setDepartmentData(response.data);
+      })
+      .catch((e) => console.log(e));
+  }, []);
 
   // top 변경 시, middle list 변경
   useEffect(() => {
@@ -173,7 +178,14 @@ const ClassificationSection = () => {
         bottomList={bottomList}
         current={current}
       />
-      <Candidate title={current.top === topCategory.Department ? current.bottom : current.middle} teamArray={teamData} />
+      <Candidate
+        title={
+          current.top === topCategory.Department
+            ? current.bottom
+            : current.middle
+        }
+        teamArray={teamData}
+      />
     </section>
   );
 };

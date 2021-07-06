@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useRef, useState } from 'react';
+
+import data from '../../../../lib/api/dummyData/TopInformation.json';
 import { Link } from 'react-router-dom';
 import Slide from './Slide';
-import data from '../../../../lib/api/dummyData/TopInformation.json';
+import styled from 'styled-components';
 
 const SLIDES_NUM = 6;
 const TOTAL_SLIDES = SLIDES_NUM - 3;
@@ -35,7 +36,7 @@ const Carousel = () => {
 
   return (
     <Container>
-      <SliderContainer ref={slideRef} >
+      <SliderContainer ref={slideRef}>
         <Link to="pledge?id=1">
           <Slide data={data[0]} />
         </Link>
@@ -96,6 +97,5 @@ const Button = styled.button`
     color: #fff;
   }
 `;
-
 
 const StyleLink = styled(Link)``;

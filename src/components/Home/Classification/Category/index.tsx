@@ -1,8 +1,9 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import SlideCategory from './SlideCategory';
+
 import CategoryItem from './CategoryItem';
 import media from '../../../../lib/styles/media';
+import SlideCategory from './SlideCategory';
+import styled from 'styled-components';
 
 type ClassificationProps = {
   changeCurrent: (

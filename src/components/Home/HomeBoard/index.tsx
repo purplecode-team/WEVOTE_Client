@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import media from '../../../lib/styles/media';
-import Search from './Search';
-import InfoCard from './InfoCard';
-import Notice from './Notice';
 import Calender from './Calender';
+import InfoCard from './InfoCard';
+import media from '../../../lib/styles/media';
+import Notice from './Notice';
+import React from 'react';
+import Search from './Search';
+import styled from 'styled-components';
 
 const HomeBoard = () => {
   return (
@@ -40,15 +40,11 @@ const Board = styled.section`
   }
 `;
 
+const TitleArea = styled.div``;
 
-const TitleArea = styled.div`
-`;
+const UserArea = styled.div``;
 
-const UserArea = styled.div`
-`;
-
-const NoticeBoard = styled.div`
-`;
+const NoticeBoard = styled.div``;
 
 const ImgArea = styled.div`
   grid-column: 2;

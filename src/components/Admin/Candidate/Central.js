@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import TeamForm from './Common/TeamForm';
-import CandidateForm from './Common/CandidateForm';
-import PledgeForm from './Common/PledgeForm';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import * as TextData from './Common/TextData';
+
+import React, { useEffect } from 'react';
+
+import Button from '@material-ui/core/Button';
+import CandidateForm from './Common/CandidateForm';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import PledgeForm from './Common/PledgeForm';
+import TeamForm from './Common/TeamForm';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 let TeamData = {};
 let CandidateData = [];
@@ -107,7 +109,7 @@ const Candidate = props => {
       <GlobalCss />
       <form className={classes.contentWrapper} onSubmit={submitData}>
         <Typography className={classes.sectionText} variant='h4' component='h4'>
-          {'중앙자치기구'}
+          중앙자치기구
         </Typography>
         {componentData &&
           componentData.map((data, i) => {
@@ -133,7 +135,7 @@ const Candidate = props => {
             color='primary'
             type='submit'
           >
-            {'등록'}
+            등록
           </Button>
         </Grid>
       </form>

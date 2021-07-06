@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
+
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
 // 고정 분류 [중앙자치기구, 단과대, 학과] 선택창
@@ -71,7 +72,7 @@ export default function TransferList ({
     setMiddleValue('');
   };
 
-  //category data에서 top list 뽑아서 TopList 셋팅
+  // category data에서 top list 뽑아서 TopList 셋팅
   useEffect(() => {
     setTopList(
       category.reduce((acc, cur) => {
