@@ -54,13 +54,11 @@ export default function NoticeList () {
   };
 
   const onDelete = id => {
-    const remainedData = data.filter(obj => obj.id !== id);
     client
-      .post('/api/v1/admin/register-banner', remainedData)
+      .delete(`/api/v1/admin/register-banner/:${id}`)
       .then(() => {
         alert.SUCCESS('배너 삭제 완료');
         fetchUsers();
-        setOpen(false);
       })
       .catch(e => alert.error('데이터를 삭제할 수 없습니다.'));
   };

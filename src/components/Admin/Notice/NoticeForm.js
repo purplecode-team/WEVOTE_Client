@@ -46,6 +46,7 @@ function NoticeForm (props) {
   }, [editData]);
 
   const onUpdate = () => {
+    setDisabled(true);
     const result = {
       id: id,
       content: content,
@@ -60,7 +61,8 @@ function NoticeForm (props) {
         fetchUsers();
         setOpen(false);
       })
-      .catch(e => alert.error('업데이트 실패'));
+      .catch(e => alert.error('업데이트 실패'))
+      .then(() => setDisabled(false));
   };
 
   const submitForm = () => {
