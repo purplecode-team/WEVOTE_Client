@@ -1,11 +1,12 @@
 import React from 'react';
-import AddBox from './AddBox';
+import AddForm from '../Common/AddForm';
 import NoticeList from './NoticeList';
+import NoticeForm from './NoticeForm';
 
 const NoticeArticle = () => {
   return (
     <>
-      <AddBox />
+      <AddForm component={<NoticeForm />} />
       <NoticeList />
     </>
   );
