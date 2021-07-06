@@ -17,7 +17,7 @@ import { createStyles, withStyles } from '@material-ui/core/styles';
 import client from '../../../api/client';
 
 function NoticeForm (props) {
-  const { classes, editData, setOpen, fetchUsers } = props;
+  const { classes, editData, setOpen, fetchData } = props;
   const [id, setId] = useState();
   const [content, setContent] = useState('');
   const [startDate, setStartDate] = useState(new Date('2021-11-14T21:11:54'));
@@ -58,7 +58,7 @@ function NoticeForm (props) {
       .then(() => {
         alert.SUCCESS('수정 완료');
         setContent('');
-        fetchUsers();
+        fetchData();
         setOpen(false);
       })
       .catch(e => alert.error('업데이트 실패'))

@@ -58,12 +58,12 @@ export default function NoticeList () {
       .delete(`/api/v1/admin/register-banner/:${id}`)
       .then(() => {
         alert.SUCCESS('배너 삭제 완료');
-        fetchUsers();
+        fetchData();
       })
       .catch(e => alert.error('데이터를 삭제할 수 없습니다.'));
   };
 
-  const fetchUsers = async () => {
+  const fetchData = async () => {
     setLoading(true);
     await client
       .get('/api/v1/main/banner')
@@ -78,7 +78,7 @@ export default function NoticeList () {
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -164,7 +164,7 @@ export default function NoticeList () {
             <NoticeForm
               editData={editData}
               setOpen={setOpen}
-              fetchUsers={fetchUsers}
+              fetchData={fetchData}
             />
           </Modal>
         </TableContainer>
