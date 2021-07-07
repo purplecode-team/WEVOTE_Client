@@ -35,6 +35,13 @@ function loadUser () {
 sagaMiddleware.run(rootSaga);
 loadUser();
 
+const options = {
+  position: positions.BOTTOM_CENTER,
+  timeout: 3000,
+  offset: '50px',
+  transition: transitions.SCALE,
+};
+
 const Root = () => (
   <Provider store={store}>
     <AlertProvider template={AlertTemplate} {...options}>
@@ -44,10 +51,3 @@ const Root = () => (
 );
 
 render(<Root />, document.getElementById('root'));
-
-const options = {
-  position: positions.BOTTOM_CENTER,
-  timeout: 3000,
-  offset: '50px',
-  transition: transitions.SCALE,
-};
