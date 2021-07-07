@@ -48,7 +48,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
       ) return false;
       return true
     }
-    if (correctEmail() && correctPassword) return false;
+    if (correctEmail() && correctPassword()) return false;
     return true
   }
 
