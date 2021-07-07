@@ -1,10 +1,10 @@
 import client from './client';
 
 // 로그인
-export const login = ({email, password }) => {
+export const login = ({ userId, password }) => {
   try {
     client
-      .post('/api/v1/auth/login', { email, password })
+      .post('/api/v1/auth/login', { userId, password })
       .then(response => {
         if (response.status !== 200) {
           alert('아이디 또는 비밀번호가 일치하지 않습니다.');
@@ -19,7 +19,7 @@ export const login = ({email, password }) => {
         }
         return response.data;
       })
-      .catch(error => {
+      .catch(e => {
         alert('아이디 또는 비밀번호가 일치하지 않습니다.');
       });
   } catch (e) {
@@ -28,9 +28,9 @@ export const login = ({email, password }) => {
 };
 
 // 회원가입
-export const register = ({ name, email, password }) => {
+export const register = ({ name, userId, password }) => {
   client
-    .post('/api/v1/auth/join', { name,email, password })
+    .post('/api/v1/auth/join', { name, userId, password })
     .then(response => {
       if (response.status === 200) {
         localStorage.setItem('x-access-token', response.data.token);
@@ -40,7 +40,7 @@ export const register = ({ name, email, password }) => {
         alert('이미 존재하는 ID입니다.');
       }
     })
-    .catch(error => {
+    .catch(e => {
       alert('회원가입 post 실패');
     });
 };
@@ -58,41 +58,25 @@ export const logout = () => {
 };
 
 // 중복체크
-export const checkId = ({ email }) => {
+export const checkId = ({ userId }) => {
   try {
     client
-      .post('/auth/join/checkId', { email })
+      .post('/auth/join/checkId', { userId })
       .then(response => {
         if (response.status === 400) {
           alert('이미 존재하는 ID입니다.');
           return false;
-        } else if (response.status === 200) {
+        }
+        if (response.status === 200) {
           alert('사용할 수 있는 ID입니다.');
           return true;
         }
       })
-      .catch(error => {
-        console.log(error);
+      .catch(e => {
+        console.log(e);
         alert('아이디 중복 체크 실패');
       });
   } catch (e) {
     console.error(e);
   }
-};
-
-export const checkEmail = ({ email }) => {
-  client
-    .post('/auth/join/checkEmail', { email })
-    .then(response => {
-      if (response.status === 400) {
-        alert('이미 존재하는 메일입니다.');
-        return false;
-      } else if (response.status === 200) {
-        alert('사용할 수 있는 메일입니다.');
-        return true;
-      }
-    })
-    .catch(error => {
-      alert('이메일 중복 체크 실패');
-    });
 };

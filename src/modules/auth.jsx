@@ -1,10 +1,12 @@
+import * as authAPI from '../lib/api/auth';
+
 import { createAction, handleActions } from 'redux-actions';
-import produce from 'immer';
-import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga, {
   createRequestActionTypes,
-} from '../lib//saga/createRequestSaga';
-import * as authAPI from '../lib/api/auth';
+} from '../lib/saga/createRequestSaga';
+
+import produce from 'immer';
+import { takeLatest } from 'redux-saga/effects';
 
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
@@ -28,21 +30,21 @@ export const changeField = createAction(
 export const initializeForm = createAction(INITIALIZE_FORM, form => form); // register / login
 export const register = createAction(
   REGISTER,
-  ({ name, email, password }) => ({
+  ({ name, userId, password }) => ({
     name,
-    email,
+    userId,
     password,
   })
 );
-export const login = createAction(LOGIN, ({ email, password }) => ({
-  email,
+export const login = createAction(LOGIN, ({ userId, password }) => ({
+  userId,
   password,
 }));
 
 // saga 생성
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
-export function * authSaga () {
+export function* authSaga() {
   yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(LOGIN, loginSaga);
 }
@@ -50,12 +52,12 @@ export function * authSaga () {
 const initialState = {
   register: {
     name: '',
-    email: '',
+    userId: '',
     password: '',
     passwordConfirm: '',
   },
   login: {
-    email: '',
+    userId: '',
     password: '',
   },
   auth: null,
