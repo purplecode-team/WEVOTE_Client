@@ -1,3 +1,7 @@
+import styled, { css } from 'styled-components';
+import { verifyEmail, verifyName, verifyPassword } from '../../utils/getRegExp';
+
+import Button from '../Common/Button';
 import GoogleLogin from 'react-google-login';
 import KakaoLogin from 'react-kakao-login';
 import { Link } from 'react-router-dom';
@@ -6,7 +10,6 @@ import client from '../../lib/api/client';
 import glogin from '../../../public/img/login/googleLogin.png';
 import klogin from '../../../public/img/login/kakaoLogin.png';
 import media from '../../lib/styles/media';
-import styled from 'styled-components';
 import theme from '../../lib/styles/theme';
 
 const textMap = {
@@ -28,6 +31,27 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
     }
   };
 
+  const correctName = () => verifyName(form.name)
+  const correctEmail = () => verifyEmail(form.userId)
+  const correctPassword = () => verifyPassword(form.password)
+  const correctPasswordConfirm = () => (
+    form.password === form.passwordConfirm && form.password !== ''
+  )
+  
+  const preventSubmit = () => {
+    if (isRegister) {
+      if (
+        correctEmail() &&
+        correctPassword() &&
+        correctPasswordConfirm() &&
+        correctName()
+      ) return false;
+      return true
+    }
+    if (correctEmail() && correctPassword) return false;
+    return true
+  }
+
   return (
     <AuthFormBlock>
       <Title className="header">{text}</Title>
@@ -41,9 +65,10 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
           <>
             <StyledLabel>{'이름'}</StyledLabel>
             <StyledInput
+              error={!correctName()}
               autoComplete="name"
               name="name"
-              placeholder="이름"
+              placeholder="2~20자리 한글 또는 영문"
               onChange={onChange}
               value={form.name}
             />
@@ -51,17 +76,19 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
         )}
         <StyledLabel>{'이메일'}</StyledLabel>
         <StyledInput
+          error={!correctEmail()}
           autoComplete="userId"
           name="userId"
-          placeholder="univote@vote.com"
+          placeholder="ex) univote@vote.com"
           onChange={onChange}
           value={form.userId}
         />
         <StyledLabel>{'비밀번호'}</StyledLabel>
-        <StyledInput
+        <StyledInput 
+          error={!correctPassword()}
           autoComplete="password"
           name="password"
-          placeholder="비밀번호를 입력하세요"
+          placeholder="영문,숫자,특수문자를 포함한 6~12자리"
           type="password"
           onChange={onChange}
           value={form.password}
@@ -71,6 +98,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
           <>
             <StyledLabel>{'비밀번호 확인'}</StyledLabel>
             <StyledInput
+              error={!correctPasswordConfirm()}
               autoComplete="new-password"
               name="passwordConfirm"
               placeholder="비밀번호 확인"
@@ -82,7 +110,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
         )}
 
         <ButtonBlock>
-          <Button>{text}</Button>
+          <Button type='submit' disabled={preventSubmit()}>{text}</Button>
         </ButtonBlock>
         {!isRegister && (
           <APILoginBlock>
@@ -202,6 +230,12 @@ const StyledInput = styled.input`
   & + & {
     margin-top: 1rem;
   }
+  ${(props) =>
+    props.error &&
+    css`
+      border: 1px solid #c00404;
+    `
+  }
   @media (max-width: ${media.mobileL}px) {
     width: 94%;
     height: 40px;
@@ -238,24 +272,24 @@ const ButtonBlock = styled.div`
   margin: 20px 15px 20px 0px;
 `;
 
-const Button = styled.button`
-  width: 100px;
-  height: 44px;
-  background-color: ${theme.Blue};
-  color: white;
-  border-style: none;
-  border-radius: 10px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  &:hover {
-    cursor: pointer;
-    background-color: ${theme.DarkBlue};
-  }
-  @media (max-width: ${media.mobileL}px) {
-    font-size: 1.2rem;
-    width: 80px;
-    height: 40px;
-  }
-`;
+// const Button = styled.button`
+//   width: 100px;
+//   height: 44px;
+//   background-color: ${theme.Blue};
+//   color: white;
+//   border-style: none;
+//   border-radius: 10px;
+//   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+//   &:hover {
+//     cursor: pointer;
+//     background-color: ${theme.DarkBlue};
+//   }
+//   @media (max-width: ${media.mobileL}px) {
+//     font-size: 1.2rem;
+//     width: 80px;
+//     height: 40px;
+//   }
+// `;
 
 const Footer = styled.div`
   margin: 40px auto;
