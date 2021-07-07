@@ -8,8 +8,8 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import theme from '../../../lib/styles/theme';
 import { useState } from 'react';
 
-function AddBox (props) {
-  const { classes } = props;
+function AddForm (props) {
+  const { classes, component } = props;
   const [modal, setModal] = useState(false);
 
   const showForm = () => {
@@ -64,8 +64,8 @@ const styles = createStyles({
   },
 });
 
-AddBox.propTypes = {
+AddForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AddBox);
+export default withStyles(styles)(AddForm);

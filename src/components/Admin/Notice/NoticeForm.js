@@ -57,7 +57,7 @@ function NoticeForm (props) {
     client
       .patch('/api/v1/admin/register-banner', result)
       .then(() => {
-        alert.SUCCESS('수정 완료');
+        alert.success('수정 완료');
         setContent('');
         fetchData();
         setOpen(false);
@@ -76,11 +76,14 @@ function NoticeForm (props) {
     client
       .post('/api/v1/admin/register-banner', result)
       .then(() => {
-        alert.SUCCESS('배너 등록 완료');
+        alert.success('배너 등록 완료');
         setContent('');
       })
       .catch(e => alert.error('배너 등록 실패'))
-      .then(() => setDisabled(false));
+      .then(() => {
+        setDisabled(false);
+        fetchData();
+      });
   };
 
   return (
