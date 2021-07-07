@@ -1,13 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+
+import * as React from 'react';
+
+import { Provider as AlertProvider, positions, transitions } from 'react-alert';
+import { applyMiddleware, createStore } from 'redux';
 import rootReducer, { rootSaga } from './modules';
+
+import AlertTemplate from 'react-alert-template-basic';
+import App from './App.tsx';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import { render } from 'react-dom';
 import { tempSetUser } from './modules/user';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -31,9 +35,19 @@ function loadUser () {
 sagaMiddleware.run(rootSaga);
 loadUser();
 
-ReactDOM.render(
+const Root = () => (
   <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
+    <AlertProvider template={AlertTemplate} {...options}>
+      <App />
+    </AlertProvider>
+  </Provider>
 );
+
+render(<Root />, document.getElementById('root'));
+
+const options = {
+  position: positions.BOTTOM_CENTER,
+  timeout: 3000,
+  offset: '50px',
+  transition: transitions.SCALE,
+};

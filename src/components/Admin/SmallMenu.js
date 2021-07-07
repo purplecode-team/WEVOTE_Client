@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import { createStyles, withStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
+
+import clsx from 'clsx';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 

@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import Paper from '@material-ui/core/Paper';
+import React, { useEffect, useState } from 'react';
 import {
-  makeStyles,
-  createMuiTheme,
   ThemeProvider,
+  createMuiTheme,
+  makeStyles,
 } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
+
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import CloseIcon from '@material-ui/icons/Close';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
-import CloseIcon from '@material-ui/icons/Close';
-import RegisterMiddle from './RegisterMiddle';
+import Paper from '@material-ui/core/Paper';
 import RegisterBottom from './RegisterBottom';
+import RegisterMiddle from './RegisterMiddle';
 import client from '../../../../lib/api/client';
 
 // 고정 분류 [중앙자치기구, 단과대, 학과] 선택창

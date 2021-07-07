@@ -13,5 +13,6 @@
       }
     ],
     "@babel/typescript"
-  ]
+  ],
+  "plugins": ["@emotion"]
 }

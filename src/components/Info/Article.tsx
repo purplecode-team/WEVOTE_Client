@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
-import CandidateCard from '../../Common/CandidateCard';
-import Carousel from '../../Common/Carousel';
-import media from '../../../lib/styles/media';
+import CandidateCard from '../Common/CandidateCard';
+import Carousel from '../Common/Carousel';
+import media from '../../lib/styles/media';
 import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
+import theme from '../../lib/styles/theme';
 import { useState } from 'react';
 
 type Runner = {

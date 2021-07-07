@@ -6,7 +6,7 @@ const client = axios.create();
 
 client.defaults.baseURL = 'http://34.64.235.182:8080';
 // client.defaults.baseURL =
-client.defaults.withCredentials = true;
+client.defaults.withCredentials = false;
 
 axios.interceptors.request.use(
   (request) => {

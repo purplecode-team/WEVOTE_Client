@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import TeamForm from './Common/TeamForm';
-import CandidateForm from './Common/CandidateForm';
-import PledgeForm from './Common/PledgeForm';
 import * as TextData from './Common/TextData';
+
+import Button from '@material-ui/core/Button';
+import CandidateForm from './Common/CandidateForm';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import PledgeForm from './Common/PledgeForm';
+import React from 'react';
+import TeamForm from './Common/TeamForm';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 let TeamData = {};
 let CandidateData = [];
@@ -42,22 +43,22 @@ let PledgeData = [];
 //   }
 // }
 
-const Candidate = (props) => {
+const Candidate = props => {
   const { classes } = props;
 
-  const getTeamData = (data) => {
+  const getTeamData = data => {
     TeamData = data;
   };
 
-  const getCandidateData = (data) => {
+  const getCandidateData = data => {
     CandidateData = data;
   };
 
-  const getPledgeData = (data) => {
+  const getPledgeData = data => {
     PledgeData = data;
   };
 
-  const submitData = (e) => {
+  const submitData = e => {
     e.preventDefault();
     const data = {
       organizationName: TeamData.ejectMiddle || TeamData.ejectBottom,
@@ -77,11 +78,11 @@ const Candidate = (props) => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         console.log(data);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log('error:', error);
       });
   };
@@ -106,7 +107,7 @@ const Candidate = (props) => {
     <Paper className={classes.paper}>
       <GlobalCss />
       <form className={classes.contentWrapper} onSubmit={submitData}>
-        <Typography className={classes.sectionText} variant="h4" component="h4">
+        <Typography className={classes.sectionText} variant='h4' component='h4'>
           중앙자치기구
         </Typography>
         {componentData &&
@@ -116,8 +117,8 @@ const Candidate = (props) => {
                 <Grid item className={classes.item} xs={12}>
                   <Typography
                     className={classes.sectionText}
-                    variant="h4"
-                    component="h4"
+                    variant='h4'
+                    component='h4'
                   >
                     {data.section}
                   </Typography>
@@ -129,9 +130,9 @@ const Candidate = (props) => {
         <Grid item xs={12} className={classes.button}>
           <Button
             className={classes.submit}
-            variant="contained"
-            color="primary"
-            type="submit"
+            variant='contained'
+            color='primary'
+            type='submit'
           >
             등록
           </Button>
@@ -153,7 +154,7 @@ const GlobalCss = withStyles({
   },
 })(() => null);
 
-const styles = (theme) => ({
+const styles = theme => ({
   paper: {
     maxWidth: 936,
     margin: '30px auto',

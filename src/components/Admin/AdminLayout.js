@@ -1,27 +1,26 @@
-import React from 'react';
-import { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import {
   createMuiTheme,
   createStyles,
   ThemeProvider,
   withStyles,
 } from '@material-ui/core/styles';
-import PeopleIcon from '@material-ui/icons/People';
-import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
-import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
-import PublicIcon from '@material-ui/icons/Public';
-import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Hidden from '@material-ui/core/Hidden';
-import Navigator from './Navigator';
-import Notice from './Notice';
-import MainEject from './MainElection';
+import { useEffect, useState } from 'react';
+
 import Calender from './Calender';
 import Candidate from './Candidate';
-import PledgeBoard from './PledgeBoard';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
+import Hidden from '@material-ui/core/Hidden';
 import Information from './Information';
 import media from '../../lib/styles/media';
+import Navigator from './Navigator';
+import Notice from './Notice';
+import PeopleIcon from '@material-ui/icons/People';
+import PledgeBoard from './PledgeBoard';
+import PropTypes from 'prop-types';
+import PublicIcon from '@material-ui/icons/Public';
+import React from 'react';
+import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 
 const initialMenus = [
   {

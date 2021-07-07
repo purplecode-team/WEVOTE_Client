@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { useState } from 'react';
+
 import styled, { css } from 'styled-components';
+
+import adminProfile from '../../../../public/img/AdminProfile.svg';
 import media from '../../../lib/styles/media';
 import theme from '../../../lib/styles/theme';
 import userProfile from '../../../../public/img/UserProfile.svg';
-import adminProfile from '../../../../public/img/AdminProfile.svg';
+import { useState } from 'react';
 
 type qnaInfo = {
   id: number;

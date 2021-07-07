@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+
+import { useEffect, useState } from 'react';
+
 import Candidate from './Candidate';
 import Category from './Category';
-import useFetch from '../../../lib/hooks/useFetch';
-import { useChangeCurrentCategory } from '../../../lib/hooks/useChangeCurrentCategory';
-import CentralData from '../../../api/dummyData/CentralData.json';
-import CollegeData from '../../../api/dummyData/CollegeData.json';
-import DepartmentData from '../../../api/dummyData/DepartmentData.json';
+import CentralData from '../../../lib/api/dummyData/CentralData.json';
+import CollegeData from '../../../lib/api/dummyData/CollegeData.json';
+import DepartmentData from '../../../lib/api/dummyData/DepartmentData.json';
 import client from '../../../lib/api/client';
+import { useChangeCurrentCategory } from '../../../lib/hooks/useChangeCurrentCategory';
+import useFetch from '../../../lib/hooks/useFetch';
 
 type Runner = {
   id: number;
@@ -176,7 +178,14 @@ const ClassificationSection = () => {
         bottomList={bottomList}
         current={current}
       />
-      <Candidate title={current.top === topCategory.Department ? current.bottom : current.middle} teamArray={teamData} />
+      <Candidate
+        title={
+          current.top === topCategory.Department
+            ? current.bottom
+            : current.middle
+        }
+        teamArray={teamData}
+      />
     </section>
   );
 };

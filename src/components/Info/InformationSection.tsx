@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import theme from '../../lib/styles/theme';
-import Carousel from '../../utils/Carousel';
+
+import Carousel from '../Common/Carousel';
 import Icon from '../../../public/img/InformationIcon.svg';
 import img1 from '../../../public/img/information.png';
 import img2 from '../../../public/img/information.png';
 import img3 from '../../../public/img/information.png';
 import media from '../../lib/styles/media';
+import styled from 'styled-components';
+import theme from '../../lib/styles/theme';
+import { useState } from 'react';
 
 const InformationSection = () => {
   const [images, setImages] = useState([img1, img2, img3, img1, img2, img3]);

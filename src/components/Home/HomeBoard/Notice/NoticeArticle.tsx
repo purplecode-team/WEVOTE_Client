@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import bannerData from '../../../../api/dummyData/BannerInfo.json';
+import React, { useEffect, useState } from 'react';
+
+import bannerData from '../../../../lib/api/dummyData/BannerInfo.json';
 import media from '../../../../lib/styles/media';
+import styled from 'styled-components';
 
 type dataType = {
   id: number;

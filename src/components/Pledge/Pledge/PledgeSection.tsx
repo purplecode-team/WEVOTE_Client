@@ -1,8 +1,9 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
+
 import media from '../../../lib/styles/media';
 import PledgeCard from './PledgeCard';
+import styled from 'styled-components';
+import theme from '../../../lib/styles/theme';
 
 type Pledge = {
   id: number;

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import * as TextData from './TextData';
+
+import React, { useEffect, useState } from 'react';
+
+import Candidate from './Candidate';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import Candidate from './Candidate';
-import * as TextData from './TextData';
 
 const majorData = [
   '문예창작학과',
@@ -18,7 +20,7 @@ const majorData = [
 
 const candidateCount = 2;
 
-const CandidateForm = (props) => {
+const CandidateForm = props => {
   const { classes, getCandidateData } = props;
   // input 상태 관리
   const [pictureArr, setPictureArr] = useState([Array(candidateCount)]);
@@ -68,7 +70,7 @@ const CandidateForm = (props) => {
   // //개별 input data를 pledgeData Array로 모으기
   useEffect(() => {
     if (nameArr && majorArr && studentNumberArr && positionArr && pictureArr) {
-      const CandidateData = numberArr.map((i) => ({
+      const CandidateData = numberArr.map(i => ({
         name: nameArr[i],
         major: majorArr[i],
         studentNum: studentNumberArr[i],
@@ -79,7 +81,7 @@ const CandidateForm = (props) => {
     }
   }, [nameArr, majorArr, studentNumberArr, positionArr, pictureArr]);
 
-  const IndividualCandidate = (id) => {
+  const IndividualCandidate = id => {
     return (
       <Candidate
         key={id}
@@ -100,9 +102,9 @@ const CandidateForm = (props) => {
   };
 
   return (
-    <Grid container>{numberArr.map((num) => IndividualCandidate(num))}</Grid>
+    <Grid container>{numberArr.map(num => IndividualCandidate(num))}</Grid>
   );
 };
 
-const styles = (theme) => ({});
+const styles = theme => ({});
 export default withStyles(styles)(CandidateForm);

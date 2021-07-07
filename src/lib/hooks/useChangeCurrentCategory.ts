@@ -1,7 +1,7 @@
+import CentralData from '../api/dummyData/CentralData.json';
+import CollegeData from '../api/dummyData/CollegeData.json';
+import DepartmentData from '../api/dummyData/DepartmentData.json';
 import { useReducer } from 'react';
-import CentralData from '../../api/dummyData/CentralData.json';
-import CollegeData from '../../api/dummyData/CollegeData.json';
-import DepartmentData from '../../api/dummyData/DepartmentData.json';
 
 const initialState = { top: '중앙자치기구', middle: '총학생회', bottom: '' };
 

@@ -1,6 +1,6 @@
-import React from 'react';
 import InformationForm from './InformationForm';
 import InformationList from './InformationList';
+import React from 'react';
 
 const InformationArticle = () => {
   return (

@@ -1,50 +1,41 @@
-import React from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import { createStyles, withStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import DateFnsUtils from '@date-io/date-fns';
 import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Select from '@material-ui/core/Select';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import {
-  createMuiTheme,
-  createStyles,
-  ThemeProvider,
-  withStyles,
-} from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import styled from 'styled-components';
+import { useState } from 'react';
 
-function MainEject(props) {
+function MainEject (props) {
   const { classes } = props;
   const [notice, setNotice] = useState('');
   const [type, setType] = useState('단선');
   const [startDate, setStartDate] = useState(new Date('2021-11-14T21:11:54'));
   const [endDate, setEndDate] = useState(new Date('2021-11-19T21:11:54'));
 
-  const handleInputText = (e) => {
+  const handleInputText = e => {
     setNotice(e.target.value);
   };
 
-  const handleType = (e) => {
+  const handleType = e => {
     setType(e.target.value);
   };
-  const handleStartDateChange = (date) => {
+  const handleStartDateChange = date => {
     setStartDate(date);
   };
-  const handleEndDateChange = (date) => {
+  const handleEndDateChange = date => {
     setEndDate(date);
   };
 
@@ -53,7 +44,7 @@ function MainEject(props) {
     try {
       client
         .post('api/v1/admin/register-info', result)
-        .then((response) => {
+        .then(response => {
           if (response.status !== 200) {
             alert('등록 실패');
             return;
@@ -62,7 +53,7 @@ function MainEject(props) {
           alert('등록되었습니다');
           setState(new Number(0));
         })
-        .catch((error) => {
+        .catch(error => {
           alert('등록 실패');
         });
     } catch (e) {
@@ -74,83 +65,83 @@ function MainEject(props) {
     <>
       <Paper className={classes.paper}>
         <div className={classes.contentWrapper}>
-          <form className={classes.root} noValidate autoComplete="off">
+          <form className={classes.root} noValidate autoComplete='off'>
             <Grid item className={classes.item} xs={12}>
-              <Typography className={classes.title} variant="h4" component="h4">
+              <Typography className={classes.title} variant='h4' component='h4'>
                 선거명
               </Typography>
               <TextField
-                id="outlined-full-width"
+                id='outlined-full-width'
                 style={{ margin: 8 }}
-                placeholder="ex. 총학생회 선거"
-                margin="normal"
+                placeholder='ex. 총학생회 선거'
+                margin='normal'
                 InputLabelProps={{
                   shrink: true,
                 }}
                 InputProps={{ classes: { input: classes.resize } }}
-                variant="outlined"
+                variant='outlined'
                 value={notice}
                 onChange={handleInputText}
               />
             </Grid>
 
             <Grid item className={classes.item} xs={12}>
-              <Typography className={classes.title} variant="h4" component="h4">
+              <Typography className={classes.title} variant='h4' component='h4'>
                 선거명
               </Typography>
               <FormControl
                 required
-                variant="outlined"
+                variant='outlined'
                 className={classes.formControl}
               >
                 <Select
-                  labelId="demo-simple-select-required-label"
-                  id="demo-simple-select-required"
+                  labelId='demo-simple-select-required-label'
+                  id='demo-simple-select-required'
                   value={type}
                   onChange={handleType}
                   className={classes.selectEmpty}
                 >
-                  <MenuItem value="단선">단선</MenuItem>
-                  <MenuItem value="경선">경선</MenuItem>
+                  <MenuItem value='단선'>단선</MenuItem>
+                  <MenuItem value='경선'>경선</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item className={classes.item} xs={12}>
-              <Typography className={classes.title} variant="h4" component="h4">
+              <Typography className={classes.title} variant='h4' component='h4'>
                 후보 팀
               </Typography>
               <TextField
-                id="outlined-full-width"
+                id='outlined-full-width'
                 style={{ margin: 8 }}
-                placeholder="ex. 참여 팀 수"
-                margin="normal"
+                placeholder='ex. 참여 팀 수'
+                margin='normal'
                 InputLabelProps={{
                   shrink: true,
                 }}
                 InputProps={{ classes: { input: classes.resize } }}
-                variant="outlined"
+                variant='outlined'
                 value={notice}
                 onChange={handleInputText}
               />
             </Grid>
             <Grid item className={classes.item} xs={12}>
-              <Typography className={classes.title} variant="h4" component="h4">
+              <Typography className={classes.title} variant='h4' component='h4'>
                 선거 날짜
               </Typography>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid
                   container
-                  justify="flex-start"
+                  justify='flex-start'
                   className={classes.dateGrid}
                 >
                   <KeyboardDatePicker
                     className={classes.dateSelector}
                     disableToolbar
-                    variant="inline"
-                    format="MM/dd/yyyy"
-                    margin="normal"
-                    id="date-picker-inline"
-                    label="시작일"
+                    variant='inline'
+                    format='MM/dd/yyyy'
+                    margin='normal'
+                    id='date-picker-inline'
+                    label='시작일'
                     InputProps={{ classes: { input: classes.resize } }}
                     value={startDate}
                     onChange={handleStartDateChange}
@@ -161,12 +152,12 @@ function MainEject(props) {
                   <KeyboardDatePicker
                     className={classes.dateSelector}
                     disableToolbar
-                    variant="inline"
-                    format="MM/dd/yyyy"
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="종료일"
-                    format="MM/dd/yyyy"
+                    variant='inline'
+                    format='MM/dd/yyyy'
+                    margin='normal'
+                    id='date-picker-dialog'
+                    label='종료일'
+                    format='MM/dd/yyyy'
                     InputProps={{ classes: { input: classes.resize } }}
                     value={endDate}
                     onChange={handleEndDateChange}
@@ -179,8 +170,8 @@ function MainEject(props) {
             </Grid>
             <ButtonBlock>
               <ColorButton
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 className={classes.margin}
                 onClick={submitForm}
               >
@@ -226,7 +217,7 @@ const styles = createStyles({
   },
 });
 
-const ColorButton = withStyles((theme) => ({
+const ColorButton = withStyles(theme => ({
   root: {
     color: theme.palette.common.white,
     backgroundColor: theme.palette.primary.main,

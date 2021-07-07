@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Pledge from './Pledge';
 import * as TextData from './TextData';
+
+import React, { useEffect, useState } from 'react';
+
+import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
+import Pledge from './Pledge';
+import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 const MaxPledgeCount = 10;
 
-const PledgeForm = (props) => {
+const PledgeForm = props => {
   const { classes, getPledgeData } = props;
   const [pledgeCount, setPledgeCount] = React.useState(1);
   const [titleArr, setTitleArr] = useState(Array(pledgeCount));
@@ -26,11 +28,11 @@ const PledgeForm = (props) => {
     pledgeCountArr[i] = i;
   }
 
-  const handlePledgeCount = (event) => {
+  const handlePledgeCount = event => {
     setPledgeCount(event.target.value);
   };
 
-  const pledgeCountMenu = (num) => (
+  const pledgeCountMenu = num => (
     <MenuItem key={num} value={num}>
       {num}
     </MenuItem>
@@ -55,7 +57,7 @@ const PledgeForm = (props) => {
   // 개별 input data를 pledgeData Array로 모으기
   useEffect(() => {
     if (titleArr && subTitleArr && descriptionArr) {
-      const pledgeData = pledgeCountArr.map((i) => ({
+      const pledgeData = pledgeCountArr.map(i => ({
         promiseType: titleArr[i],
         promiseTitle: subTitleArr[i],
         promiseDetail: descriptionArr[i],
@@ -64,7 +66,7 @@ const PledgeForm = (props) => {
     }
   }, [titleArr, subTitleArr, descriptionArr]);
 
-  const individualPledge = (num) => {
+  const individualPledge = num => {
     return (
       <Pledge
         key={num}
@@ -81,32 +83,32 @@ const PledgeForm = (props) => {
     <>
       <Grid container>
         <Grid item className={classes.item} xs={12}>
-          <Typography className={classes.titleText} variant="h4" component="h4">
+          <Typography className={classes.titleText} variant='h4' component='h4'>
             {TextData.titleText.pledge.Number}
           </Typography>
           <FormControl
             required
-            variant="outlined"
+            variant='outlined'
             className={classes.formControl}
           >
             <Select
-              labelId="demo-simple-select-required-label"
-              id="demo-simple-select-required"
+              labelId='demo-simple-select-required-label'
+              id='demo-simple-select-required'
               value={pledgeCount}
               onChange={handlePledgeCount}
               className={classes.selectEmpty}
             >
-              {maxCountArr.map((num) => pledgeCountMenu(num))}
+              {maxCountArr.map(num => pledgeCountMenu(num))}
             </Select>
           </FormControl>
         </Grid>
-        {pledgeCountArr.map((num) => individualPledge(num))}
+        {pledgeCountArr.map(num => individualPledge(num))}
       </Grid>
     </>
   );
 };
 
-const styles = (theme) => ({
+const styles = theme => ({
   item: {
     marginBottom: '20px',
   },

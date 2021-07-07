@@ -1,8 +1,9 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import media from '../../../lib/styles/media';
-import CommentInput from './CommentInput';
+
 import CommentArticle from './CommentArticle';
+import CommentInput from './CommentInput';
+import media from '../../../lib/styles/media';
+import styled from 'styled-components';
 
 type qnaInfo = {
   id: number;

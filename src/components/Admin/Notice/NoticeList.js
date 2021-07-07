@@ -1,69 +1,92 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import 'react-responsive-modal/styles.css';
+import './Notice.css';
+
+import React, { useEffect, useState } from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import Loader from '../../Common/Loader';
+import { Modal } from 'react-responsive-modal';
+import NoticeForm from './NoticeForm';
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import NoticeData from '../../../api/dummyData/NoticeData.json';
-import NoticeForm from './NoticeForm';
-import useFetch from '../../../lib/hooks/useFetch';
 import client from '../../../lib/api/client';
+import { getFormatDate } from '../../../utils/getFormatDate';
+import { useAlert } from 'react-alert';
+
+const defaultData = [
+  {
+    id: '',
+    content: '등록된 공지사항이 없습니다',
+    startDate: '',
+    endDate: '',
+  },
+];
 
 export default function NoticeList () {
   const classes = useStyles();
-  const [data, setData] = useState();
-  const [rows, setRows] = useState([]);
-  const [modal, setModal] = useState(false);
-  const [updateData, setUpdateData] = useState({});
-  // let { loading, data, error } = useFetch('/api/v1/main/banner');
+  const [data, setData] = useState(defaultData);
+  const [loading, setLoading] = useState(true);
+  const [rows, setRows] = useState(defaultData);
+  const [editData, setEditData] = useState(null);
+  const [open, setOpen] = useState(false);
+  const alert = useAlert();
 
-  const getFormatDate = date => {
-    const year = date.getFullYear(); // yyyy
-    let month = 1 + date.getMonth(); // M
-    month = month >= 10 ? month : `0${month}`; // month 두자리로 저장
-    let day = date.getDate(); // d
-    day = day >= 10 ? day : `0${day}`; // day 두자리로 저장
-    return `${year}/${month}/${day}`; // '-' 추가하여 yyyy-mm-dd 형태 생성 가능
-  };
+  const onCloseModal = () => setOpen(false);
 
-  useEffect(() => {
-    const response = client.get('http://34.64.235.182/api/v1/main/banner');
-    setData(response.data);
-  }, []);
-
-  // useEffect(() => {
-  //   if (!data || data.length === 0) {
-  //     setData(NoticeData);
-  //   }
-  // }, [data]);
+  const isDefault = id => defaultData[0].id === id;
 
   const onUpdate = id => {
-    setUpdateData(data.filter(obj => obj.id === id)[0]);
-    setModal(true);
+    if (isDefault(id)) return;
+    setEditData(data.filter(obj => obj.id === id)[0]);
+    setOpen(true);
+  };
+
+  const confirmDeletion = id => {
+    if (isDefault(id)) return;
+    if (window.confirm('해당 정보를 삭제하시겠습니까?')) onDelete(id);
   };
 
   const onDelete = id => {
-    setData(data.filter(obj => obj.id !== id));
-    try {
-      client
-        .post('/admin/post', data)
-        .then(response => console.log(response.data))
-        .catch(error => console.log('error:', error));
-    } catch (e) {
-      console.log(e);
-    }
+    client
+      .delete(`/api/v1/admin/register-banner/:${id}`)
+      .then(() => {
+        alert.SUCCESS('배너 삭제 완료');
+        fetchData();
+      })
+      .catch(e => alert.error('데이터를 삭제할 수 없습니다.'));
+  };
+
+  const fetchData = async () => {
+    setLoading(true);
+    await client
+      .get('/api/v1/main/banner')
+      .then(response => {
+        const { data } = response;
+        if (data) {
+          Array.isArray(data) ? setData(data) : setData([data]);
+        }
+      })
+      .catch(e => alert.error('데이터를 불러올 수 없습니다.'))
+      .then(() => setLoading(false));
   };
 
   useEffect(() => {
-    if (!data || data.length === 0) return;
-    console.log(data);
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (!data || data.length === 0) {
+      setRows(defaultData);
+      return;
+    }
     setRows(
       data.map(obj => {
         return {
@@ -76,54 +99,78 @@ export default function NoticeList () {
     );
   }, [data]);
 
+  const showNoticeList = data => {
+    return data.map(row => (
+      <StyledTableRow key={row.id}>
+        <StyledTableCell>{row.content}</StyledTableCell>
+        <StyledTableCell>
+          {row.startDate
+            ? getFormatDate(new Date(row.startDate))
+            : row.startDate}
+        </StyledTableCell>
+        <StyledTableCell>
+          {row.endDate ? getFormatDate(new Date(row.endDate)) : row.endDate}
+        </StyledTableCell>
+        <StyledTableCell>
+          <IconButton aria-label='update' onClick={() => onUpdate(row.id)}>
+            <EditIcon />
+          </IconButton>
+        </StyledTableCell>
+        <StyledTableCell>
+          <IconButton
+            aria-label='delete'
+            onClick={() => confirmDeletion(row.id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </StyledTableCell>
+      </StyledTableRow>
+    ));
+  };
+
   return (
-    <TableContainer className={classes.root} component={Paper}>
-      <Table className={classes.table} aria-label='customized table'>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell className={classes.notice}>
-              공지사항
-            </StyledTableCell>
-            <StyledTableCell className={classes.start}>시작일</StyledTableCell>
-            <StyledTableCell className={classes.end}>종료일</StyledTableCell>
-            <StyledTableCell className={classes.delete} />
-            <StyledTableCell className={classes.delete} />
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <StyledTableRow key={row.id}>
-              <StyledTableCell component='th' scope='row'>
-                {row.content}
-              </StyledTableCell>
-              <StyledTableCell>
-                {getFormatDate(new Date(row.startDate))}
-              </StyledTableCell>
-              <StyledTableCell>
-                {getFormatDate(new Date(row.endDate))}
-              </StyledTableCell>
-              <StyledTableCell>
-                <IconButton
-                  aria-label='update'
-                  onClick={() => onUpdate(row.id)}
-                >
-                  <EditIcon />
-                </IconButton>
-              </StyledTableCell>
-              <StyledTableCell>
-                <IconButton
-                  aria-label='delete'
-                  onClick={() => onDelete(row.id)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-      {modal && <NoticeForm updateData={updateData} />}
-    </TableContainer>
+    <>
+      {loading ? (
+        <>
+          <Loader size={50} />
+        </>
+      ) : (
+        <TableContainer className={classes.root} component={Paper}>
+          <Table className={classes.table} aria-label='customized table'>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell className={classes.notice}>
+                  공지사항
+                </StyledTableCell>
+                <StyledTableCell className={classes.start}>
+                  시작일
+                </StyledTableCell>
+                <StyledTableCell className={classes.end}>
+                  종료일
+                </StyledTableCell>
+                <StyledTableCell className={classes.button} />
+                <StyledTableCell className={classes.button} />
+              </TableRow>
+            </TableHead>
+            <TableBody>{rows && showNoticeList(rows)}</TableBody>
+          </Table>
+          <Modal
+            open={open}
+            onClose={onCloseModal}
+            center
+            classNames={{
+              modal: 'customModal',
+            }}
+          >
+            <NoticeForm
+              editData={editData}
+              setOpen={setOpen}
+              fetchData={fetchData}
+            />
+          </Modal>
+        </TableContainer>
+      )}
+    </>
   );
 }
 
@@ -148,6 +195,7 @@ const StyledTableRow = withStyles(theme => ({
 const useStyles = makeStyles({
   root: {
     width: '98%',
+    maxHeight: '100%',
     margin: '20px auto',
     boxShadow: `0px 2px 13px rgba(42, 64, 139, 0.3)`,
     borderRadius: `15px`,
@@ -164,7 +212,12 @@ const useStyles = makeStyles({
   end: {
     minWidth: 150,
   },
-  delete: {
+  button: {
     minWidth: 50,
+  },
+  loading: {
+    marginTop: '50px',
+    marginLeft: '-100px',
+    textAlign: 'center',
   },
 });

@@ -1,29 +1,34 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
+import React from 'react';
 
 const StyledButton = props => {
-  const { classes, children, color } = props;
+  const classes = useStyles();
+  const { type, children } = props;
 
   return (
     <Button
-      className={classes.button}
+      className={classes.submit}
       variant='contained'
-      style={{ backgroundColor: color }}
+      color='primary'
+      type={type}
     >
       {children}
     </Button>
   );
 };
+const useStyles = makeStyles(theme =>
+  createStyles({
+    button: {
+      textAlign: 'right',
+    },
+    submit: {
+      width: '100px',
+      height: '40px',
+      borderRadius: '15px',
+    },
+  })
+);
 
-const styles = theme => ({
-  button: {
-    width: '50px',
-    height: '50px',
-    borderRadius: '15px',
-    fontSize: '1.2rem',
-    margin: '15px',
-    color: 'white',
-  },
-});
-export default withStyles(styles)(StyledButton);
+export default StyledButton;

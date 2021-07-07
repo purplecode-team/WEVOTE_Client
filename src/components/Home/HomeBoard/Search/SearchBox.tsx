@@ -1,33 +1,35 @@
 /* eslint-disable no-use-before-define */
+
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import SearchIcon from '@material-ui/icons/Search';
-import styled from 'styled-components';
 import {
+  ThemeProvider,
   createMuiTheme,
   createStyles,
-  ThemeProvider,
   makeStyles,
 } from '@material-ui/core/styles';
+
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import Popper from '@material-ui/core/Popper';
+import SearchIcon from '@material-ui/icons/Search';
+import TextField from '@material-ui/core/TextField';
+import deptData from '../../../../lib/api/dummyData/SearchDept.json';
 import media from '../../../../lib/styles/media';
-import deptData from '../../../../api/dummyData/SearchDept.json';
+import styled from 'styled-components';
+import { withRouter } from 'react-router';
 
 type searchDataType = {
   id: number;
   name: string;
 };
 
-const defaultText = '선거명을 입력하세요'
+const defaultText = '선거명을 입력하세요';
 
-function AutoBox({history}:any) {
+function AutoBox({ history }: any) {
   const classes = useStyles();
-  const [department,setDepartment] = useState<searchDataType[]>([]);
+  const [department, setDepartment] = useState<searchDataType[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
 
-  useEffect(()=>{
+  useEffect(() => {
     const temp: searchDataType[] = [];
     deptData.map((data) => {
       const departmentData = { id: data.id, name: data.name };

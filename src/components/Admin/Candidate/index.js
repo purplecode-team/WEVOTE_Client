@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
 import Category from './Category';
 import Central from './Central';
 import College from './College';
 import Department from './Department';
+import React from 'react';
 
 const Content = [
   { id: 1, component: <Category /> },
@@ -11,13 +11,13 @@ const Content = [
   { id: 4, component: <Department /> },
 ];
 
-const Candidate = (props) => {
-  const { classes, currentSmallMenuId } = props;
+const Candidate = props => {
+  const { currentSmallMenuId } = props;
 
   return (
     <>
       {
-        Content.filter((component) => component.id === currentSmallMenuId)[0]
+        Content.filter(component => component.id === currentSmallMenuId)[0]
           .component
       }
     </>

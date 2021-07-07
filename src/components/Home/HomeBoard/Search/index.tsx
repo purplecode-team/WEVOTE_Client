@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
 import media from '../../../../lib/styles/media';
-import SearchBox from './SearchBox';
 import ModalSearchBox from './ModalSearchBox';
+import React from 'react';
+import SearchBox from './SearchBox';
+import styled from 'styled-components';
 
 const Search = () => {
   return (
@@ -45,11 +45,11 @@ const SearchWrapper = styled.div`
 
 const MobileArea = styled.div`
   display: none;
-    @media (max-width: ${media.mobileL}px) {
+  @media (max-width: ${media.mobileL}px) {
     display: block;
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     background-color: grey;
   }
 `;

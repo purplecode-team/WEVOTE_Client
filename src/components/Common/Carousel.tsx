@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { useState, useEffect, Children } from 'react';
+
+import { Children, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import media from '../lib/styles/media';
+
+import media from '../../lib/styles/media';
 
 let start = 0;
 let diff = 0;
@@ -128,7 +130,7 @@ const Carousel = ({
 };
 
 Carousel.defaultProps = {
-  isLineBreak: true,
+  isLineBreak: false,
   isCentralize: false,
   handleCurrent: null,
 };

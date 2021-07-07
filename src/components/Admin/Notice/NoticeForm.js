@@ -1,58 +1,53 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import DateFnsUtils from '@date-io/date-fns';
 import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
+  MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
-import {
-  createMuiTheme,
-  createStyles,
-  ThemeProvider,
-  withStyles,
-} from '@material-ui/core/styles';
+import React, { useEffect } from 'react';
+import { createStyles, withStyles } from '@material-ui/core/styles';
+
+import Button from '@material-ui/core/Button';
+import DateFnsUtils from '@date-io/date-fns';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import client from '../../../lib/api/client';
+import styled from 'styled-components';
+import { useAlert } from 'react-alert';
+import { useState } from 'react';
 
 function NoticeForm (props) {
-  const { classes, updateData } = props;
+  const { classes, editData, setOpen, fetchData } = props;
   const [id, setId] = useState();
   const [content, setContent] = useState('');
   const [startDate, setStartDate] = useState(new Date('2021-11-14T21:11:54'));
   const [endDate, setEndDate] = useState(new Date('2021-11-19T21:11:54'));
+  const [disabled, setDisabled] = useState(false);
+  const alert = useAlert();
 
-  useEffect(() => {
-    if (updateData) {
-      setId(updateData.id);
-      setContent(updateData.content);
-      setStartDate(updateData.startDate);
-      setEndDate(updateData.endDate);
-    }
-  }, [updateData]);
-
-  const handleInputText = e => {
+  const handleContentInput = e => {
     setContent(e.target.value);
   };
 
-  const handleStartDateChange = date => {
+  const handleStartDateInput = date => {
     setStartDate(date);
   };
-  const handleEndDateChange = date => {
+  const handleEndDateInput = date => {
     setEndDate(date);
   };
 
+  useEffect(() => {
+    if (editData) {
+      setId(editData.id);
+      setContent(editData.content);
+      setStartDate(editData.startDate);
+      setEndDate(editData.endDate);
+    }
+  }, [editData]);
+
   const onUpdate = () => {
+    setDisabled(true);
     const result = {
       id,
       content,
@@ -61,16 +56,18 @@ function NoticeForm (props) {
     };
     client
       .patch('/api/v1/admin/register-banner', result)
-      .then(data => {
+      .then(() => {
+        alert.SUCCESS('수정 완료');
         setContent('');
-        console.log(data);
+        fetchData();
+        setOpen(false);
       })
-      .catch(error => {
-        console.log('error:', error);
-      });
+      .catch(e => alert.error('업데이트 실패'))
+      .then(() => setDisabled(false));
   };
 
   const submitForm = () => {
+    setDisabled(true);
     const result = {
       content,
       startDate,
@@ -78,13 +75,12 @@ function NoticeForm (props) {
     };
     client
       .post('/api/v1/admin/register-banner', result)
-      .then(data => {
+      .then(() => {
+        alert.SUCCESS('배너 등록 완료');
         setContent('');
-        console.log(data);
       })
-      .catch(error => {
-        console.log('error:', error);
-      });
+      .catch(e => alert.error('배너 등록 실패'))
+      .then(() => setDisabled(false));
   };
 
   return (
@@ -97,17 +93,15 @@ function NoticeForm (props) {
             </Typography>
             <TextField
               id='outlined-full-width'
-              style={{ margin: 8 }}
+              className={classes.input}
               placeholder='ex. 총학생회 선거 D-day입니다.'
-              fullWidth
-              margin='normal'
               InputLabelProps={{
                 shrink: true,
               }}
               InputProps={{ classes: { input: classes.resize } }}
               variant='outlined'
               value={content}
-              onChange={handleInputText}
+              onChange={handleContentInput}
             />
             <Typography className={classes.title} variant='h4' component='h4'>
               선거 날짜
@@ -124,7 +118,7 @@ function NoticeForm (props) {
                   label='시작일'
                   InputProps={{ classes: { input: classes.resize } }}
                   value={startDate}
-                  onChange={handleStartDateChange}
+                  onChange={handleStartDateInput}
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
                   }}
@@ -140,7 +134,7 @@ function NoticeForm (props) {
                   format='MM/dd/yyyy'
                   InputProps={{ classes: { input: classes.resize } }}
                   value={endDate}
-                  onChange={handleEndDateChange}
+                  onChange={handleEndDateInput}
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
                   }}
@@ -152,9 +146,10 @@ function NoticeForm (props) {
                 variant='contained'
                 color='primary'
                 className={classes.margin}
-                onClick={updateData ? onUpdate : submitForm}
+                onClick={editData ? onUpdate : submitForm}
+                disabled={disabled}
               >
-                {updateData ? '수정' : '등록'}
+                {editData ? '수정' : '등록'}
               </ColorButton>
             </ButtonBlock>
           </form>
@@ -190,6 +185,9 @@ const styles = createStyles({
   },
   resize: {
     fontSize: '14px',
+  },
+  input: {
+    width: '100%',
   },
 });
 

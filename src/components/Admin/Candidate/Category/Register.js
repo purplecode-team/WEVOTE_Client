@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import React, { useEffect, useState } from 'react';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-export default function TransferList({
+export default function TransferList ({
   submitData,
   category,
   setData,
@@ -29,11 +30,11 @@ export default function TransferList({
 }) {
   const classes = useStyles();
 
-  const handleMiddleInputValue = (e) => {
+  const handleMiddleInputValue = e => {
     setMiddleValue(e.target.value);
   };
 
-  const handleBottomInputValue = (e) => {
+  const handleBottomInputValue = e => {
     setBottomValue(e.target.value);
   };
 
@@ -78,7 +79,7 @@ export default function TransferList({
 
   return (
     <form className={classes.contentWrapper} onSubmit={submitData}>
-      <Grid container spacing={2} justify="center" className={classes.root}>
+      <Grid container spacing={2} justify='center' className={classes.root}>
         <Grid item className={classes.card}>
           {customList('top', '대분류', topList)(onClickTop)}
         </Grid>
@@ -87,17 +88,17 @@ export default function TransferList({
           {!hasBottom && (
             <Grid item className={classes.item} xs={12}>
               <TextField
-                id="outlined-basic"
+                id='outlined-basic'
                 className={classes.inputText}
-                placeholder="입력하세요."
-                variant="outlined"
+                placeholder='입력하세요.'
+                variant='outlined'
                 value={middleValue}
                 onChange={handleMiddleInputValue}
               />
 
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 className={classes.button}
                 onClick={submitData}
               >
@@ -112,16 +113,16 @@ export default function TransferList({
             <Divider />
             <Grid item className={classes.item} xs={12}>
               <TextField
-                id="outlined-basic"
+                id='outlined-basic'
                 className={classes.inputText}
-                placeholder="입력하세요."
-                variant="outlined"
+                placeholder='입력하세요.'
+                variant='outlined'
                 value={bottomValue}
                 onChange={handleBottomInputValue}
               />
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 className={classes.button}
                 onClick={submitData}
               >
@@ -164,7 +165,7 @@ theme = {
   },
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     margin: 'auto',
   },

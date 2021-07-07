@@ -1,7 +1,7 @@
 import * as AiIcons from 'react-icons/ai';
 import * as React from 'react';
 
-export const MenuData = [
+export const MenuList = [
   {
     id: 1,
     type: 'text',
