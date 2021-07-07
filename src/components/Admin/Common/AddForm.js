@@ -9,7 +9,7 @@ import theme from '../../../lib/styles/theme';
 import { useState } from 'react';
 
 function AddBox (props) {
-  const { classes, component } = props;
+  const { classes } = props;
   const [modal, setModal] = useState(false);
 
   const showForm = () => {

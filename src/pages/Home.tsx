@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import Classification from '../components/Home/Classification';
-import client from '../lib/api/client';
 import HomeBoard from '../components/Home/HomeBoard';
+import client from '../lib/api/client';
 import { useEffect } from 'react';
 import { useState } from 'react';
 

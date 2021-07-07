@@ -1,12 +1,11 @@
 import * as TextData from './Common/TextData';
 
-import React, { useEffect } from 'react';
-
 import Button from '@material-ui/core/Button';
 import CandidateForm from './Common/CandidateForm';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import PledgeForm from './Common/PledgeForm';
+import React from 'react';
 import TeamForm from './Common/TeamForm';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';

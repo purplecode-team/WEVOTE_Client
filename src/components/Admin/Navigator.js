@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import SmallMenu from './SmallMenu';
 import { withStyles } from '@material-ui/core/styles';
 
-function Navigator (props) {
+function Navigator(props) {
   const {
     classes,
     menus,
@@ -21,7 +21,7 @@ function Navigator (props) {
   } = props;
 
   return (
-    <Drawer variant='permanent' {...other}>
+    <Drawer variant="permanent" {...other}>
       <List className={classes.paper} disablePadding>
         <ListItem className={clsx(classes.firebase, classes.itemCategory)}>
           안녕하세요
@@ -36,7 +36,7 @@ function Navigator (props) {
                     classes.item,
                     active && classes.itemActiveItem
                   )}
-                  onClick={e => handleMenus(e)}
+                  onClick={(e) => handleMenus(e)}
                 >
                   <ListItemIcon className={classes.itemIcon}>
                     {icon}
@@ -64,7 +64,7 @@ function Navigator (props) {
   );
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     zIndex: 1,
   },

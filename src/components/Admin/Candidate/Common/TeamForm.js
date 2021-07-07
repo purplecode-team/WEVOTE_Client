@@ -67,7 +67,7 @@ const category = [
   },
 ];
 
-const TeamForm = props => {
+const TeamForm = (props) => {
   const { classes, getTeamData } = props;
   const [middleArr, setMiddleArr] = useState(Object.keys(classificationData));
   const [bottomArr, setBottomArr] = useState(classificationData[middleArr[0]]);
@@ -79,18 +79,18 @@ const TeamForm = props => {
   const [teamNumber, setTeamNumber] = useState(1);
 
   // 후보 팀 공통 정보 등록
-  const handleSlogan = event => {
+  const handleSlogan = (event) => {
     setSlogan(event.target.value);
   };
-  const handleEjectMiddle = event => {
+  const handleEjectMiddle = (event) => {
     setCurrentMiddle(event.target.value);
     if (!classificationData[event.target.value]) return;
     setBottomArr(classificationData[event.target.value]);
   };
-  const handleEjectBottom = event => {
+  const handleEjectBottom = (event) => {
     setCurrentBottom(event.target.value);
   };
-  const handleTeamNumber = event => {
+  const handleTeamNumber = (event) => {
     setTeamNumber(event.target.value);
   };
 
@@ -113,32 +113,32 @@ const TeamForm = props => {
 
   return (
     <Grid container>
-      <Grid container wrap='nowrap'>
+      <Grid container wrap="nowrap">
         <Grid item className={classes.item} xs={12}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.slogan}
           </Typography>
           <TextField
             className={classes.textField}
-            id='outlined-basic'
-            placeholder='슬로건을 30자 내외로 입력하세요'
-            variant='outlined'
+            id="outlined-basic"
+            placeholder="슬로건을 30자 내외로 입력하세요"
+            variant="outlined"
             value={slogan}
             onChange={handleSlogan}
           />
         </Grid>
         <Grid item className={classes.item} xs={12}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.candidate.teamNumber}
           </Typography>
           <FormControl
             required
-            variant='outlined'
+            variant="outlined"
             className={classes.formControl}
           >
             <Select
-              labelId='demo-simple-select-required-label'
-              id='demo-simple-select-required'
+              labelId="demo-simple-select-required-label"
+              id="demo-simple-select-required"
               value={teamNumber}
               onChange={handleTeamNumber}
               className={classes.selectEmpty}
@@ -152,19 +152,19 @@ const TeamForm = props => {
         </Grid>
       </Grid>
 
-      <Grid container wrap='nowrap'>
+      <Grid container wrap="nowrap">
         <Grid item className={classes.item} xs={12}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.candidate.classificationMiddle}
           </Typography>
           <FormControl
             required
-            variant='outlined'
+            variant="outlined"
             className={classes.formControl}
           >
             <Select
-              labelId='demo-simple-select-required-label'
-              id='demo-simple-select-required'
+              labelId="demo-simple-select-required-label"
+              id="demo-simple-select-required"
               value={currentMiddle}
               onChange={handleEjectMiddle}
               className={classes.selectEmpty}
@@ -182,19 +182,19 @@ const TeamForm = props => {
           <Grid item className={classes.item} xs={12}>
             <Typography
               className={classes.titleText}
-              variant='h4'
-              component='h4'
+              variant="h4"
+              component="h4"
             >
               {TextData.titleText.candidate.classificationBottom}
             </Typography>
             <FormControl
               required
-              variant='outlined'
+              variant="outlined"
               className={classes.formControl}
             >
               <Select
-                labelId='demo-simple-select-required-label'
-                id='demo-simple-select-required'
+                labelId="demo-simple-select-required-label"
+                id="demo-simple-select-required"
                 value={currentBottom}
                 onChange={handleEjectBottom}
                 className={classes.selectEmpty}
@@ -214,7 +214,7 @@ const TeamForm = props => {
   );
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   item: {
     marginBottom: '20px',
   },

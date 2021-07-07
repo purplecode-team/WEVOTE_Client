@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import CalenderPreview from './CalenderPreview';
-import client from '../../../lib/api/client';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
+import client from '../../../lib/api/client';
+import styled from 'styled-components';
 import useFetch from '../../../lib/hooks/useFetch';
 import { withStyles } from '@material-ui/core/styles';
 

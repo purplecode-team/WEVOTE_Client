@@ -1,7 +1,7 @@
 import Card from '@material-ui/core/Card';
+import React from 'react';
 import defaultImg from '../../../../public/img/noimg.jpg';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
 import styled from 'styled-components';
 
 const useStyles = makeStyles({

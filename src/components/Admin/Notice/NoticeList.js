@@ -1,10 +1,11 @@
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import React, { useEffect } from 'react';
+import 'react-responsive-modal/styles.css';
+import './Notice.css';
 
-import client from '../../../lib/api/client';
+import React, { useEffect, useState } from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { getFormatDate } from '../../../utils/getFormatDate';
 import IconButton from '@material-ui/core/IconButton';
 import Loader from '../../Common/Loader';
 import { Modal } from 'react-responsive-modal';
@@ -16,11 +17,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import client from '../../../lib/api/client';
+import { getFormatDate } from '../../../utils/getFormatDate';
 import { useAlert } from 'react-alert';
-import { useState } from 'react';
-
-import 'react-responsive-modal/styles.css';
-import './Notice.css';
 
 const defaultData = [
   {

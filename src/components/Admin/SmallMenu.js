@@ -5,13 +5,13 @@ import clsx from 'clsx';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const SmallMenu = props => {
+const SmallMenu = (props) => {
   const { classes, smallMenu, handleCurrentSmallMenu } = props;
 
   return (
     <>
       {smallMenu &&
-        smallMenu.map(obj => (
+        smallMenu.map((obj) => (
           <ListItem
             key={obj.id}
             className={clsx(

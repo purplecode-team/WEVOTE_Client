@@ -36,7 +36,7 @@ const top = category.reduce((acc, cur) => {
   return acc;
 }, []);
 
-const initialMiddleArr = arr => {
+const initialMiddleArr = (arr) => {
   const result = arr.reduce((acc, cur) => {
     acc.push(cur.organization);
     return acc;
@@ -44,7 +44,7 @@ const initialMiddleArr = arr => {
   return result;
 };
 
-export default function TransferList ({
+export default function TransferList({
   submitData,
   category,
   setCategory,
@@ -62,7 +62,7 @@ export default function TransferList ({
   // const [middleList, setMiddleList] = useState([]);
   const [middleValue, setMiddleValue] = useState('');
 
-  const handleMiddleInputValue = e => {
+  const handleMiddleInputValue = (e) => {
     setMiddleValue(e.target.value);
   };
 
@@ -89,7 +89,7 @@ export default function TransferList ({
 
   return (
     <form className={classes.contentWrapper} onSubmit={submitData}>
-      <Grid container spacing={2} justify='center' className={classes.root}>
+      <Grid container spacing={2} justify="center" className={classes.root}>
         <Grid item className={classes.card}>
           {customList('top', '대분류', topList)(onClickTop)}
         </Grid>
@@ -97,16 +97,16 @@ export default function TransferList ({
           {customList('middle', '중분류', middleList)(onClickMiddle)}
           <Grid item className={classes.item} xs={12}>
             <TextField
-              id='outlined-basic'
+              id="outlined-basic"
               className={classes.inputText}
-              placeholder='입력하세요.'
-              variant='outlined'
+              placeholder="입력하세요."
+              variant="outlined"
               value={middleValue}
               onChange={handleMiddleInputValue}
             />
             <Button
-              variant='contained'
-              color='primary'
+              variant="contained"
+              color="primary"
               className={classes.button}
               onClick={addMiddleCategory}
             >
@@ -148,7 +148,7 @@ theme = {
   },
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     margin: 'auto',
   },

@@ -1,20 +1,20 @@
 /* eslint-disable no-use-before-define */
 
+import React, { useEffect, useState } from 'react';
 import {
+  ThemeProvider,
   createMuiTheme,
   createStyles,
   makeStyles,
-  ThemeProvider,
 } from '@material-ui/core/styles';
-import React, { useEffect, useState } from 'react';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import deptData from '../../../../lib/api/dummyData/SearchDept.json';
-import media from '../../../../lib/styles/media';
 import Popper from '@material-ui/core/Popper';
 import SearchIcon from '@material-ui/icons/Search';
-import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
+import deptData from '../../../../lib/api/dummyData/SearchDept.json';
+import media from '../../../../lib/styles/media';
+import styled from 'styled-components';
 import { withRouter } from 'react-router';
 
 type searchDataType = {

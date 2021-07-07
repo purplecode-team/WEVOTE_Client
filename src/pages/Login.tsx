@@ -1,10 +1,12 @@
-import * as React from 'react';
+import AuthTemplate from '../components/auth/AuthTemplate';
+import LoginForm from '../containers/auth/LoginForm';
+import React from 'react';
 
 const Login = () => {
   return (
-    <>
-      <h1>Login page</h1>
-    </>
+    <AuthTemplate>
+      <LoginForm />
+    </AuthTemplate>
   );
 };
 

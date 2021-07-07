@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
-
 import Category from './Category';
 import Central from './Central';
 import College from './College';
 import Department from './Department';
+import React from 'react';
 
 const Content = [
   { id: 1, component: <Category /> },
@@ -13,7 +12,7 @@ const Content = [
 ];
 
 const Candidate = props => {
-  const { classes, currentSmallMenuId } = props;
+  const { currentSmallMenuId } = props;
 
   return (
     <>

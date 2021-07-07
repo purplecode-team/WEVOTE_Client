@@ -1,6 +1,6 @@
 import Image from '../../../../lib/api/dummyData/ImageImport.json';
-import media from '../../../../lib/styles/media';
 import React from 'react';
+import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
 
 const ImgBoard = () => {

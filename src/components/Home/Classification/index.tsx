@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import Candidate from './Candidate';
 import Category from './Category';
 import CentralData from '../../../lib/api/dummyData/CentralData.json';
-import client from '../../../lib/api/client';
 import CollegeData from '../../../lib/api/dummyData/CollegeData.json';
 import DepartmentData from '../../../lib/api/dummyData/DepartmentData.json';
+import client from '../../../lib/api/client';
 import { useChangeCurrentCategory } from '../../../lib/hooks/useChangeCurrentCategory';
 import useFetch from '../../../lib/hooks/useFetch';
 
