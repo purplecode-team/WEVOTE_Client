@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { Home, Info, Login, Register } from './pages';
-import { lazy, Suspense } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 
 import GlobalStyle from './lib/styles/GlobalStyle';
 import Layout from './components/Common/Layout';

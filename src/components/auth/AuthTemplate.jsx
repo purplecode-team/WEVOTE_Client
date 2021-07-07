@@ -1,14 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import media from '../../lib/styles/media';
-
+import styled from 'styled-components';
 
 const AuthTemplate = ({ children }) => {
   return (
     <AuthTemplateBlock>
-      <WhiteBox>
-        {children}
-      </WhiteBox>
+      <WhiteBox>{children}</WhiteBox>
     </AuthTemplateBlock>
   );
 };
@@ -23,8 +20,8 @@ const AuthTemplateBlock = styled.div`
   justify-content: center;
   align-items: center;
   margin: 160px auto 100px;
-  @media (max-width: ${media.mobileL}px){
-    width:90%;
+  @media (max-width: ${media.mobileL}px) {
+    width: 90%;
   }
 `;
 

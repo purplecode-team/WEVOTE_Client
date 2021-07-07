@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm } from '../../modules/auth';
-import { login } from '../../lib/api/auth';
+import { useDispatch, useSelector } from 'react-redux';
+
 import AuthForm from '../../components/auth/AuthForm';
+import { login } from '../../lib/api/auth';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const LoginForm = () => {
   const onSubmit = e => {
     e.preventDefault();
     console.log(form);
-    login({ email: form.email, password: form.password });
+    login({ userId: form.userId, password: form.password });
     // 구현 예정
   };
 
