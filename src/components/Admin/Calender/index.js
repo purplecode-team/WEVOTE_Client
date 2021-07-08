@@ -18,9 +18,14 @@ import { withStyles } from '@material-ui/core/styles';
 function Canlender (props) {
   const { classes } = props;
   const { loading, fetchData, error } = useFetch('/api/v1//main/calender');
-  const [file, setFile] = useState(null);
-  const [fileUrl, setFileUrl] = useState(null);
+  const [file, setFile] = useState('');
+  const [fileUrl, setFileUrl] = useState('');
   const alert = useAlert();
+
+  const isDefault = fileUrl === '';
+
+  // DB에 등록된 데이터의 이미지가 미리보기에 보여지고 있을 때만 삭제 버튼 생성하기 위함
+  const activeDeletion = fetchData && fetchData.image === fileUrl;
 
   const processImage = e => {
     const imageFile = e.target.files[0];
@@ -45,7 +50,7 @@ function Canlender (props) {
           alert.error('이미지 등록 실패');
           return;
         }
-        setFile(null);
+        resetImg();
         alert.success('이미지가 등록되었습니다');
       })
       .catch(e => {
@@ -58,10 +63,14 @@ function Canlender (props) {
       .delete('/api/v1/calender')
       .then(response => {
         alert.success('이미지 삭제 완료');
-        setFile(null);
-        setFileUrl(null);
+        resetImg();
       })
       .catch(e => alert.error('이미지 삭제 실패'));
+  };
+
+  const resetImg = () => {
+    setFile('');
+    setFileUrl('');
   };
 
   useEffect(() => {
@@ -79,7 +88,11 @@ function Canlender (props) {
       ) : (
         <form onSubmit={submitForm}>
           <div className={classes.contentWrapper}>
-            <CalenderPreview fileUrl={fileUrl} />
+            <CalenderPreview
+              alt={'calender'}
+              fileUrl={fileUrl}
+              resetImg={resetImg}
+            />
             <ButtonBlock>
               <Label className='input-file-button' htmlFor='input-file'>
                 <PhotoCameraIcon />
@@ -94,20 +107,23 @@ function Canlender (props) {
             </ButtonBlock>
           </div>
           <Grid item xs={12} className={classes.buttonWrap}>
+            {activeDeletion && (
+              <Button
+                className={classes.button}
+                variant='contained'
+                color='primary'
+                type='button'
+                onClick={deleteImg}
+              >
+                삭제
+              </Button>
+            )}
             <Button
-              className={classes.submit}
-              variant='contained'
-              color='primary'
-              type='button'
-              onClick={deleteImg}
-            >
-              삭제
-            </Button>
-            <Button
-              className={classes.submit}
+              className={classes.button}
               variant='contained'
               color='primary'
               type='submit'
+              disabled={isDefault}
             >
               등록
             </Button>
@@ -156,12 +172,24 @@ const styles = theme => ({
     textAlign: 'right',
     margin: '20px',
   },
-  submit: {
+  button: {
     width: '100px',
     height: '40px',
     borderRadius: '15px',
+    margin: '0 10px',
+  },
+  closeButton: {
+    width: '20px',
+    height: '20px',
+    color: 'white',
+    fontSize: '1.3rem',
+    position: 'absolute',
+    zIndex: '1',
+    top: '20px',
+    left: '20px',
   },
 });
+
 const ButtonBlock = styled.div`
   width: 50%;
   text-align: center;
