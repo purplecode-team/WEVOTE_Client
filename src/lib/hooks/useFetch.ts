@@ -8,19 +8,19 @@ type fetchProps = {
 
 const useFetch = ({ url }: fetchProps) => {
   const [loading, setLoading] = useState(true);
-  const [fetchData, setFetchData] = useState([]);
-  const [error, setError] = useState('initial error');
+  const [fetchData, setFetchData] = useState();
+  const [error, setError] = useState(null);
+
+  const fetchUsers = async () => {
+    await client.get(url)
+    .then(response => {
+      setFetchData(response.data)
+    })
+    .catch(e => setError(e))
+    .then( () => {setLoading(false)});
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await client.get(url);
-        setFetchData(response.data); // 데이터는 response.data 안에 들어있습니다.
-      } catch (e) {
-        setError(e);
-      }
-      setLoading(false);
-    };
     fetchUsers();
   }, []);
 
