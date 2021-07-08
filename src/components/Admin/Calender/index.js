@@ -2,42 +2,40 @@ import { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import CalenderPreview from './CalenderPreview';
+import client from '../../../lib/api/client';
 import Grid from '@material-ui/core/Grid';
+import Loader from '../../Common/Loader';
 import Paper from '@material-ui/core/Paper';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import client from '../../../lib/api/client';
 import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
+import { useAlert } from 'react-alert';
 import useFetch from '../../../lib/hooks/useFetch';
 import { withStyles } from '@material-ui/core/styles';
 
 function Canlender (props) {
   const { classes } = props;
-  const [data, setData] = useState({ image: '/' });
-  // const { loading, data, error } = useFetch('/api/v1//main/calender');
-  const [file, setFile] = useState(null);
-  const [fileUrl, setFileUrl] = useState(null);
+  const { loading, fetchData, error } = useFetch('/api/v1//main/calender');
+  const [file, setFile] = useState('');
+  const [fileUrl, setFileUrl] = useState('');
+  const alert = useAlert();
 
-  useEffect(() => {
-    const response = client.get('http://34.64.235.182/api/v1//main/calender');
-    if (!response.data) return;
-    setData(response.data);
-  }, []);
+  const isDefault = fileUrl === '';
 
-  function processImage (event) {
-    const imageFile = event.target.files[0];
+  // DB에 등록된 데이터의 이미지가 미리보기에 보여지고 있을 때만 삭제 버튼 생성하기 위함
+  const activeDeletion = fetchData && fetchData.image === fileUrl;
+
+  const processImage = e => {
+    const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     setFileUrl(imageUrl);
     setFile(imageFile);
-  }
+  };
 
-  useEffect(() => {
-    setFileUrl(data.image);
-  }, [data]);
-
-  const submitForm = () => {
+  const submitForm = e => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append('img', file);
     const config = {
@@ -45,58 +43,93 @@ function Canlender (props) {
         'content-type': 'multipart/form-data',
       },
     };
-    try {
-      client
-        .post('/api/v1/register-calendar', formData, config)
-        .then(response => {
-          if (response.status !== 200) {
-            alert('이미지 등록 실패');
-            return;
-          }
-          setFile(null);
-          alert('이미지가 등록되었습니다');
-        })
-        .catch(error => {
-          alert('이미지 등록 실패');
-        });
-    } catch (e) {
-      console.error(e);
-    }
-    console.log('이미지 등록 실행');
+    client
+      .post('/api/v1/calendar', formData, config)
+      .then(response => {
+        if (response.status !== 200) {
+          alert.error('이미지 등록 실패');
+          return;
+        }
+        resetImg();
+        alert.success('이미지가 등록되었습니다');
+      })
+      .catch(e => {
+        alert.error('이미지 등록 실패');
+      });
   };
+
+  const deleteImg = () => {
+    client
+      .delete('/api/v1/calender')
+      .then(response => {
+        alert.success('이미지 삭제 완료');
+        resetImg();
+      })
+      .catch(e => alert.error('이미지 삭제 실패'));
+  };
+
+  const resetImg = () => {
+    setFile('');
+    setFileUrl('');
+  };
+
+  useEffect(() => {
+    if (error) alert.error('이미지 불러오기 실패');
+    if (fetchData) setFileUrl(fetchData.image);
+  }, [fetchData, error]);
 
   return (
     <Paper className={classes.paper}>
       <Typography className={classes.title} variant='h4' component='h4'>
         캘린더 등록
       </Typography>
-      <form onSubmit={submitForm}>
-        <div className={classes.contentWrapper}>
-          <CalenderPreview fileUrl={fileUrl} />
-          <ButtonBlock>
-            <Label className='input-file-button' htmlFor='input-file'>
-              <PhotoCameraIcon />
-              <span>이미지 업로드</span>
-            </Label>
-            <Input
-              id='input-file'
-              type='file'
-              accept='image/*'
-              onChange={processImage}
+      {loading ? (
+        <Loader />
+      ) : (
+        <form onSubmit={submitForm}>
+          <div className={classes.contentWrapper}>
+            <CalenderPreview
+              alt={'calender'}
+              fileUrl={fileUrl}
+              resetImg={resetImg}
             />
-          </ButtonBlock>
-        </div>
-        <Grid item xs={12} className={classes.buttonWrap}>
-          <Button
-            className={classes.submit}
-            variant='contained'
-            color='primary'
-            type='submit'
-          >
-            등록
-          </Button>
-        </Grid>
-      </form>
+            <ButtonBlock>
+              <Label className='input-file-button' htmlFor='input-file'>
+                <PhotoCameraIcon />
+                <span>이미지 업로드</span>
+              </Label>
+              <Input
+                id='input-file'
+                type='file'
+                accept='image/*'
+                onChange={processImage}
+              />
+            </ButtonBlock>
+          </div>
+          <Grid item xs={12} className={classes.buttonWrap}>
+            {activeDeletion && (
+              <Button
+                className={classes.button}
+                variant='contained'
+                color='primary'
+                type='button'
+                onClick={deleteImg}
+              >
+                삭제
+              </Button>
+            )}
+            <Button
+              className={classes.button}
+              variant='contained'
+              color='primary'
+              type='submit'
+              disabled={isDefault}
+            >
+              등록
+            </Button>
+          </Grid>
+        </form>
+      )}
     </Paper>
   );
 }
@@ -130,7 +163,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
-    margin: '40px 16px',
+    margin: '80px 40px',
   },
   uploader: {
     width: '45%',
@@ -139,12 +172,24 @@ const styles = theme => ({
     textAlign: 'right',
     margin: '20px',
   },
-  submit: {
+  button: {
     width: '100px',
     height: '40px',
     borderRadius: '15px',
+    margin: '0 10px',
+  },
+  closeButton: {
+    width: '20px',
+    height: '20px',
+    color: 'white',
+    fontSize: '1.3rem',
+    position: 'absolute',
+    zIndex: '1',
+    top: '20px',
+    left: '20px',
   },
 });
+
 const ButtonBlock = styled.div`
   width: 50%;
   text-align: center;
