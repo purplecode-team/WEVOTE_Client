@@ -8,8 +8,8 @@ type fetchProps = {
 
 const useFetch = ({ url }: fetchProps) => {
   const [loading, setLoading] = useState(true);
-  const [fetchData, setFetchData] = useState();
-  const [error, setError] = useState(null);
+  const [fetchData, setFetchData] = useState(null);
+  const [error, setError] = useState('');
 
   const fetchUsers = async () => {
     await client.get(url)

@@ -1,34 +1,36 @@
-import Card from '@material-ui/core/Card';
+import React, { useEffect, useState } from 'react';
+
 import defaultImg from '../../../../public/img/noimg.jpg';
-import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
 import styled from 'styled-components';
 
-const useStyles = makeStyles({
-  root: {
-    width: '50%',
-  },
-});
+export default function CalenderPreview (props) {
+  const { fileUrl, alt, resetImg } = props;
+  const [url, setUrl] = useState(fileUrl);
 
-export default function CalenderPreview ({ fileUrl }) {
-  const classes = useStyles();
+  const isDefault = url === defaultImg;
 
-  const handleImgError = e => {
-    e.target.src = defaultImg;
+  const handleImgError = () => {
+    setUrl(defaultImg);
   };
+
+  useEffect(() => {
+    setUrl(fileUrl);
+  }, [fileUrl]);
 
   return (
     <Box>
-      {fileUrl ? (
-        <Img src={fileUrl} alt='calender' onError={handleImgError} />
-      ) : (
-        <Img src={defaultImg} alt='calender' />
+      <Img src={url} alt={alt} onError={handleImgError} />
+      {!isDefault && (
+        <Button type='button' onClick={resetImg}>
+          X
+        </Button>
       )}
     </Box>
   );
 }
 
 const Box = styled.div`
+  position: relative;
   width: 50%;
   overflow: hidden;
   border-radius: 20px;
@@ -38,4 +40,21 @@ const Box = styled.div`
 const Img = styled.img`
   width: 100%;
   border-radius: 20px;
+`;
+
+const Button = styled.button`
+  border-style: none;
+  background: none;
+  width: 20px;
+  height: 20px;
+  color: gray;
+  font-size: 2.5rem;
+  position: absolute;
+  z-index: 1;
+  top: 15px;
+  right: 25px;
+  &:hover {
+    cursor: pointer;
+    color: black;
+  }
 `;
