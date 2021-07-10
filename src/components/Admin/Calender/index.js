@@ -17,7 +17,10 @@ import { withStyles } from '@material-ui/core/styles';
 
 function Canlender (props) {
   const { classes } = props;
-  const { loading, fetchData, error } = useFetch('/api/v1//main/calender');
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  // const { loading, data, error } = useFetch('/api/v1/main/calendar');
   const [file, setFile] = useState('');
   const [fileUrl, setFileUrl] = useState('');
   const alert = useAlert();
@@ -25,7 +28,7 @@ function Canlender (props) {
   const isDefault = fileUrl === '';
 
   // DB에 등록된 데이터의 이미지가 미리보기에 보여지고 있을 때만 삭제 버튼 생성하기 위함
-  const activeDeletion = fetchData && fetchData.image === fileUrl;
+  const activeDeletion = data && data.image === fileUrl;
 
   const processImage = e => {
     const imageFile = e.target.files[0];
@@ -38,13 +41,14 @@ function Canlender (props) {
     e.preventDefault();
     const formData = new FormData();
     formData.append('img', file);
+    console.log(file);
     const config = {
       headers: {
         'content-type': 'multipart/form-data',
       },
     };
     client
-      .post('/api/v1/calendar', formData, config)
+      .post('/api/v1/admin/calendar', formData, config)
       .then(response => {
         if (response.status !== 200) {
           alert.error('이미지 등록 실패');
@@ -60,7 +64,7 @@ function Canlender (props) {
 
   const deleteImg = () => {
     client
-      .delete('/api/v1/calender')
+      .delete('/api/v1/admin/calendar')
       .then(response => {
         alert.success('이미지 삭제 완료');
         resetImg();
@@ -73,10 +77,29 @@ function Canlender (props) {
     setFileUrl('');
   };
 
+  const fetchData = async () => {
+    setLoading(true);
+    await client
+      .get('/api/v1/main/calendar')
+      .then(response => {
+        const { data } = response;
+        if (data) {
+          setData(data);
+        }
+      })
+      .catch(e => alert.error('데이터를 불러올 수 없습니다.'))
+      .then(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   useEffect(() => {
     if (error) alert.error('이미지 불러오기 실패');
-    if (fetchData) setFileUrl(fetchData.image);
-  }, [fetchData, error]);
+    console.log(data);
+    if (data) setFileUrl(data.image);
+  }, [data, error]);
 
   return (
     <Paper className={classes.paper}>
