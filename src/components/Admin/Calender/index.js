@@ -17,10 +17,10 @@ import { withStyles } from '@material-ui/core/styles';
 
 function Canlender (props) {
   const { classes } = props;
-  const [data, setData] = useState();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  // const { loading, data, error } = useFetch('/api/v1/main/calendar');
+  const [{ loading, data, error }, setUrl] = useFetch({
+    initialUrl: '/api/v1/main/calendar',
+    initialData: { id: 0, image: '' },
+  });
   const [file, setFile] = useState('');
   const [fileUrl, setFileUrl] = useState('');
   const alert = useAlert();
@@ -41,7 +41,6 @@ function Canlender (props) {
     e.preventDefault();
     const formData = new FormData();
     formData.append('img', file);
-    console.log(file);
     const config = {
       headers: {
         'content-type': 'multipart/form-data',
@@ -54,7 +53,6 @@ function Canlender (props) {
           alert.error('이미지 등록 실패');
           return;
         }
-        resetImg();
         alert.success('이미지가 등록되었습니다');
       })
       .catch(e => {
@@ -77,29 +75,9 @@ function Canlender (props) {
     setFileUrl('');
   };
 
-  const fetchData = async () => {
-    setLoading(true);
-    await client
-      .get('/api/v1/main/calendar')
-      .then(response => {
-        const { data } = response;
-        if (data) {
-          setData(data);
-        }
-      })
-      .catch(e => alert.error('데이터를 불러올 수 없습니다.'))
-      .then(() => setLoading(false));
-  };
-
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (error) alert.error('이미지 불러오기 실패');
-    console.log(data);
-    if (data) setFileUrl(data.image);
-  }, [data, error]);
+    setFileUrl(data.image);
+  }, [data]);
 
   return (
     <Paper className={classes.paper}>
