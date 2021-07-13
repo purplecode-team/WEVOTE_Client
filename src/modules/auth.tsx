@@ -8,6 +8,26 @@ import createRequestSaga, {
 import produce from 'immer';
 import { takeLatest } from 'redux-saga/effects';
 
+type registerType = {
+  name: string;
+  userId: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+type loginType = {
+  userId: string,
+  password: string,
+}
+
+export type authState = {
+  register : registerType,
+  login: loginType,
+  auth: any | null,
+  authError: any | null,
+}
+
+
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
@@ -49,7 +69,7 @@ export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
 }
 
-const initialState = {
+const initialState:authState = {
   register: {
     name: '',
     userId: '',
