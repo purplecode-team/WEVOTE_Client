@@ -8,10 +8,10 @@ import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 
 type TextMenuProps = {
-  changeSidebar: () => void;
+  changeActiveMenu: () => void;
 };
 
-export const TextMenu = ({ changeSidebar }: TextMenuProps) => {
+export const TextMenu = ({ changeActiveMenu }: TextMenuProps) => {
   return (
     <>
       {/* MenuDate.js의 데이터에 따라 자동 추가 */}
@@ -20,7 +20,7 @@ export const TextMenu = ({ changeSidebar }: TextMenuProps) => {
           return <MenuSpace key={item.id} />;
         }
         return (
-          <MenuItem key={item.id} onClick={changeSidebar}>
+          <MenuItem key={item.id} onClick={changeActiveMenu}>
             <TextLink to={item.path}>
               {item.icon}
               <span>{item.title}</span>
@@ -33,7 +33,7 @@ export const TextMenu = ({ changeSidebar }: TextMenuProps) => {
 };
 
 TextMenu.propTypes = {
-  changeSidebar: PropTypes.func.isRequired,
+  changeActiveMenu: PropTypes.func.isRequired,
 };
 
 const MenuItem = styled.li`
