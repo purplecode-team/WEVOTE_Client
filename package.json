@@ -26,6 +26,7 @@
     "http-proxy-middleware": "^1.0.6",
     "immer": "^9.0.2",
     "infinite-react-carousel": "^1.2.11",
+    "lodash": "^4.17.21",
     "path": "^0.12.7",
     "react": "^17.0.1",
     "react-alert": "^7.0.3",
