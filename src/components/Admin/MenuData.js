@@ -4,7 +4,7 @@ import PublicIcon from '@material-ui/icons/Public';
 import React from 'react';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 
-export const Menu = [
+export const MenuData = [
   {
     id: 1,
     name: '공지사항 관리',
@@ -21,14 +21,13 @@ export const Menu = [
   },
   {
     id: 3,
-    name: '후보자 관리',
+    name: '선거 관리',
     icon: <PublicIcon />,
     active: false,
     smallMenu: [
-      { id: 1, name: '세부 조직 등록', active: true },
-      { id: 2, name: '중앙자치기구', active: false },
-      { id: 3, name: '단과대', active: false },
-      { id: 4, name: '학과', active: false },
+      { id: 1, name: '선거 조직 등록', active: true },
+      { id: 2, name: '선거 후보 등록', active: false },
+      { id: 3, name: '조직별 선거 관리', active: false },
     ],
   },
   {
