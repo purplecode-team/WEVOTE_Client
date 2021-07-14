@@ -1,118 +1,89 @@
-import React, { useEffect, useState } from 'react';
 import {
-  ThemeProvider,
   createMuiTheme,
   makeStyles,
+  ThemeProvider,
 } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import client from '../../../../lib/api/client';
 import CloseIcon from '@material-ui/icons/Close';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Loader from '../../../Common/Loader';
 import Paper from '@material-ui/core/Paper';
-import RegisterBottom from './RegisterBottom';
-import RegisterMiddle from './RegisterMiddle';
-import client from '../../../../lib/api/client';
+import Register from './Register';
+import { useAlert } from 'react-alert';
+import useFetch from '../../../../lib/hooks/useFetch';
 
-// 고정 분류 [중앙자치기구, 단과대, 학과] 선택창
-// 고정 분류마다 중분류 입력 => [총학생회, 동아리연합회 등]
-// 중분류마다 소분류 입력 => [문예창작학과 등] (미입력 가능)
-
-const category = [
+const initialData = [
   {
     id: 1,
     top: '중앙자치기구',
-    middle: [
-      { id: 1, organization: '총학생회' },
-      { id: 2, organization: '학생복지위원회' },
-      { id: 3, organization: '동아리연합회' },
-    ],
+    middle: [],
   },
   {
     id: 2,
     top: '단과대',
-    middle: [
-      { id: 10, organization: '인문대' },
-      { id: 11, organization: '공과대' },
-      { id: 12, organization: '정통대' },
-      { id: 13, organization: '조형대' },
-    ],
+    middle: [],
   },
-];
-
-const categoryBottom = [
   {
     id: 3,
     top: '학과',
-    middle: [
-      { id: 1, organization: '인문대' },
-      { id: 2, organization: '공과대' },
-      { id: 3, organization: '정통대' },
-      { id: 4, organization: '조형대' },
-      { id: 5, organization: '기경대' },
-    ],
-    bottom: [
-      {
-        id: 1,
-        organization: '인문대',
-        major: ['문예창작학과', '행정학과', '영어영문학과'],
-      },
-      {
-        id: 2,
-        organization: '공과대',
-        major: ['기계공학과', '전자정보공학과', '건축공학과'],
-      },
-      {
-        id: 3,
-        organization: '정통대',
-        major: ['컴퓨터공학과', '전자미디어공학과'],
-      },
-    ],
+    middle: [],
+    bottom: [],
   },
 ];
 
-// const top = category.reduce((acc, cur) => {
-//   acc.push(cur.top);
-//   return acc;
-// }, []);
-
-// const initialMiddleArr = arr => {
-//   const result = arr.reduce((acc, cur) => {
-//     acc.push(cur.organization);
-//     return acc;
-//   }, []);
-//   return result;
-// };
-
-export default function TransferList () {
+export default function Category () {
   const classes = useStyles();
-  const [current, setCurrent] = useState({ top: 0, middle: 0, bottom: 0 });
+  const [{ loading, data, error }, setUrl] = useFetch({
+    initialUrl: '/api/v1/admin/category',
+    initialData: initialData,
+  });
+  const [currentIndex, setCurrentIndex] = useState({
+    top: 0,
+    middle: 0,
+    bottom: 0,
+  });
   const [topList, setTopList] = useState([]);
   const [middleList, setMiddleList] = useState([]);
   const [bottomList, setBottomList] = useState([]);
+  const [sendingData, setSendingData] = useState({
+    top: '',
+    middle: '',
+    bottom: '',
+  });
+  const alert = useAlert();
+
+  let hasBottom = bottomList.length !== 0;
+
+  useEffect(() => {
+    if (error) alert.error('카테고리 호출 실패');
+  }, [error]);
 
   const setCategory = newObj => {
-    category[current.top].middle.push(newObj);
+    data[currentIndex.top].middle.push(newObj);
   };
 
-  const onClickTop = value => () => {
+  const getNewMiddleList = value => () => {
     const currentTopIndex = topList.indexOf(value);
-    const newMiddle = category[currentTopIndex].middle;
+    const newMiddle = data[currentTopIndex].middle;
     const result = newMiddle.reduce((acc, cur) => {
       acc.push(cur.organization);
       return acc;
     }, []);
-    setCurrent({ top: currentTopIndex, middle: 0, bottom: 0 });
+    setCurrentIndex({ top: currentTopIndex, middle: 0, bottom: 0 });
     setMiddleList(result);
   };
 
-  const onClickMiddle = value => () => {
+  const getNewBottomList = value => () => {
     const currentMiddleIndex = middleList.indexOf(value);
-    setCurrent({ ...current, middle: currentMiddleIndex, bottom: 0 });
-    const bottomArr = category[current.top].bottom || [];
+    setCurrentIndex({ ...currentIndex, middle: currentMiddleIndex, bottom: 0 });
+    const bottomArr = data[currentIndex.top].bottom || [];
     const currentObj = bottomArr.filter(cur => cur.organization === value)[0];
     if (!currentObj) {
       setBottomList(new Array(0));
@@ -123,32 +94,50 @@ export default function TransferList () {
 
   const onClickBottom = value => () => {
     const currentBottomIndex = bottomList.indexOf(value);
-    setCurrent({ ...current, bottom: currentBottomIndex });
+    setCurrentIndex({ ...currentIndex, bottom: currentBottomIndex });
   };
 
-  const onDelete = value => {
-    console.log(middleList.filter(mid => mid !== value));
-    setMiddleList(middleList.filter(mid => mid !== value));
+  const confirmDeletion = (section, value) => {
+    if (window.confirm(`[${value}]의 모든 데이터를 삭제하시겠습니까?`))
+      onDelete(section);
+  };
+
+  const onDelete = async section => {
+    const value = {
+      top: topList[currentIndex.top],
+      middle: middleList[currentIndex.middle],
+      bottom: bottomList[currentIndex.bottom],
+    };
+    if (section === 'top') {
+      value.middle = '';
+      value.bottom = '';
+    } else if (section === 'middle') {
+      value.bottom = '';
+    }
+    await client
+      .post(`/api/v1/admin/category`, value)
+      .then(response => {
+        if (response.status === 200) alert.success('카테고리 삭제 완료');
+        else alert.error('데이터 삭제 실패');
+      })
+      .catch(e => {
+        alert.error('데이터를 삭제 실패');
+      });
   };
 
   const submitData = e => {
     e.preventDefault();
-    client.post('/admin/post', data);
+    if (!hasBottom) sendingData.bottom = '';
+    client
+      .post('/api/v1/admin/category', sendingData)
+      .then(response => {
+        if (response.status === 200) alert.success('카테고리 등록 완료');
+        else alert.error('데이터 등록 실패');
+      })
+      .catch(e => {
+        alert.error('데이터를 등록할 수 없습니다.');
+      });
   };
-
-  useEffect(() => {
-    setTopList(
-      category.reduce((acc, cur) => {
-        acc.push(cur.top);
-        return acc;
-      }, [])
-    );
-  }, [category]);
-
-  useEffect(() => {
-    onClickMiddle(middleList[0])();
-    setCurrent({ ...current, bottom: 0 });
-  }, [topList, middleList]);
 
   const customList = (section, title, items) => handle => (
     <Card>
@@ -164,10 +153,14 @@ export default function TransferList () {
                 role='listitem'
                 button
                 onClick={handle(value)}
-                className={current[section] === index ? classes.active : 'none'}
+                className={
+                  currentIndex[section] === index ? classes.active : 'none'
+                }
               >
                 <ListItemText id={labelId} primary={`${value}`} />
-                <CloseIcon onClick={() => onDelete(value)} />
+                {currentIndex[section] === index && section !== 'top' && (
+                  <CloseIcon onClick={() => confirmDeletion(section, value)} />
+                )}
               </ListItem>
             );
           })}
@@ -176,24 +169,51 @@ export default function TransferList () {
     </Card>
   );
 
+  useEffect(() => {
+    setTopList(
+      data.reduce((acc, cur) => {
+        acc.push(cur.top);
+        return acc;
+      }, [])
+    );
+    setMiddleList(
+      data[0].middle.reduce((acc, cur) => {
+        acc.push(cur.organization);
+        return acc;
+      }, [])
+    );
+  }, [data]);
+
+  useEffect(() => {
+    getNewBottomList(middleList[0])();
+    setCurrentIndex({ ...currentIndex, bottom: 0 });
+  }, [topList, middleList]);
+
   return (
     <ThemeProvider theme={theme}>
       <Paper className={classes.paper}>
-        <RegisterMiddle
-          category={category}
-          setCategory={setCategory}
-          onClickTop={onClickTop}
-          onClickMiddle={onClickMiddle}
-          topList={topList}
-          middleList={middleList}
-          setTopList={setTopList}
-          setMiddleList={setMiddleList}
-          customList={customList}
-          submitData={submitData}
-        />
-      </Paper>
-      <Paper className={classes.paper}>
-        <RegisterBottom />
+        {loading ? (
+          <Loader />
+        ) : (
+          <Register
+            data={data}
+            setCategory={setCategory}
+            getNewMiddleList={getNewMiddleList}
+            getNewBottomList={getNewBottomList}
+            onClickBottom={onClickBottom}
+            topList={topList}
+            middleList={middleList}
+            bottomList={bottomList}
+            setTopList={setTopList}
+            setMiddleList={setMiddleList}
+            setSendingData={setSendingData}
+            setCurrentIndex={setCurrentIndex}
+            currentIndex={currentIndex}
+            customList={customList}
+            submitData={submitData}
+            hasBottom={hasBottom}
+          />
+        )}
       </Paper>
     </ThemeProvider>
   );

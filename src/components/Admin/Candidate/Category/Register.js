@@ -1,34 +1,31 @@
-import React, { useEffect, useState } from 'react';
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-export default function TransferList ({
+export default function Register ({
   submitData,
-  category,
-  setData,
+  data,
+  setSendingData,
   currentIndex,
   setCurrentIndex,
-  onClickTop,
-  onClickMiddle,
+  getNewMiddleList,
+  getNewBottomList,
   onClickBottom,
   topList,
   middleList,
   bottomList,
   customList,
-  setTopList,
-  setMiddleList,
-  setBottomList,
-  middleValue,
-  bottomValue,
-  setMiddleValue,
-  setBottomValue,
   hasBottom,
 }) {
   const classes = useStyles();
+  const [middleValue, setMiddleValue] = useState('');
+  const [bottomValue, setBottomValue] = useState('');
+
+  const buttonText = '입력';
 
   const handleMiddleInputValue = e => {
     setMiddleValue(e.target.value);
@@ -38,53 +35,34 @@ export default function TransferList ({
     setBottomValue(e.target.value);
   };
 
-  // const addMiddleCategory = () => {
-  //   setMiddleList([...middleList, middleValue]);
-  //   setMiddleValue('');
-  // };
-
-  // const addBottomCategory = () => {
-  //   setBottomList([...bottomList, bottomValue]);
-  //   setBottomValue('');
-  // };
-
   useEffect(() => {
-    setTopList(
-      category.reduce((acc, cur) => {
-        acc.push(cur.top);
-        return acc;
-      }, [])
-    );
-  }, [category]);
-
-  useEffect(() => {
-    onClickMiddle(middleList[0])();
+    getNewBottomList(middleList[0])();
     setCurrentIndex({ ...currentIndex, bottom: 0 });
   }, [topList, middleList]);
 
   useEffect(() => {
-    const currentTop = category[currentIndex.top].top;
+    const currentTop = data[currentIndex.top].top;
     let currentMiddle = middleValue;
-    const currentBottom = bottomValue;
-    if (!middleValue)
+    let currentBottom = bottomValue;
+    if (!middleValue && data[currentIndex.top].middle.length !== 0) {
       currentMiddle =
-        category[currentIndex.top].middle[currentIndex.middle].organization;
-    setData({ top: currentTop, middle: currentMiddle, bottom: currentBottom });
-    // console.log({
-    //   top: currentTop,
-    //   middle: currentMiddle,
-    //   bottom: currentBottom,
-    // });
+        data[currentIndex.top].middle[currentIndex.middle].organization;
+    }
+    setSendingData({
+      top: currentTop,
+      middle: currentMiddle,
+      bottom: currentBottom,
+    });
   }, [middleValue, bottomValue]);
 
   return (
     <form className={classes.contentWrapper} onSubmit={submitData}>
       <Grid container spacing={2} justify='center' className={classes.root}>
         <Grid item className={classes.card}>
-          {customList('top', '대분류', topList)(onClickTop)}
+          {customList('top', '대분류', topList)(getNewMiddleList)}
         </Grid>
         <Grid item className={classes.card}>
-          {customList('middle', '중분류', middleList)(onClickMiddle)}
+          {customList('middle', '중분류', middleList)(getNewBottomList)}
           {!hasBottom && (
             <Grid item className={classes.item} xs={12}>
               <TextField
@@ -102,7 +80,7 @@ export default function TransferList ({
                 className={classes.button}
                 onClick={submitData}
               >
-                입력
+                {buttonText}
               </Button>
             </Grid>
           )}
@@ -126,7 +104,7 @@ export default function TransferList ({
                 className={classes.button}
                 onClick={submitData}
               >
-                입력
+                {buttonText}
               </Button>
             </Grid>
           </Grid>
