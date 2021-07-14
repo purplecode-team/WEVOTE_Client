@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import loginIcon from '../../../../public/img/login.svg';
+import { logout } from '../../../lib/api/auth';
 import logoutIcon from '../../../../public/img/logout.svg';
 import media from '../../../lib/styles/media';
 import { NavLink } from 'react-router-dom';
@@ -9,36 +10,33 @@ import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 
 type LoginMenuProps = {
-  changeSidebar: () => void;
-  changeLog: () => void;
-  login: boolean;
+  changeActiveMenu: () => void;
+  isLogin: boolean;
 };
 
 export const LoginMenu = ({
-  changeSidebar,
-  changeLog,
-  login,
+  changeActiveMenu,
+  isLogin=false,
 }: LoginMenuProps) => {
+
   return (
     <>
-      <MenuItem
-        onClick={() => {
-          changeSidebar();
-          changeLog();
-        }}
-      >
-        <ImgLink exact to="/login">
-          {login ? <LoginImg /> : <LogoutImg />}
-        </ImgLink>
+      <MenuItem onClick={changeActiveMenu} >
+        {isLogin ? (
+          <LoginImg onClick={logout}/>
+        ):(
+          <ImgLink exact to="/login">
+            <LogoutImg />
+          </ImgLink>
+        )}
       </MenuItem>
     </>
   );
 };
 
 LoginMenu.propTypes = {
-  changeSidebar: PropTypes.func.isRequired,
-  changeLog: PropTypes.func.isRequired,
-  login: PropTypes.bool.isRequired,
+  changeActiveMenu: PropTypes.func.isRequired,
+  isLogin: PropTypes.bool.isRequired,
 };
 
 const MenuItem = styled.li`
@@ -48,6 +46,9 @@ const MenuItem = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
   @media (max-width: ${media.mobileL}px) {
     margin-bottom: 2rem;
     height: 70px;
@@ -60,9 +61,7 @@ const MenuItem = styled.li`
 const ImgLink = styled(NavLink)`
   width: 120px;
   height: 35px;
-  &:hover {
-    cursor: pointer;
-  }
+
 `;
 
 const LoginImg = styled.img.attrs({

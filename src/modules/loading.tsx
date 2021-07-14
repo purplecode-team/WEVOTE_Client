@@ -1,5 +1,10 @@
 import { createAction, handleActions } from 'redux-actions';
 
+export type loadingState = {
+  loading?: boolean
+}
+
+
 const START_LOADING = 'loading/START_LOADING';
 const FINISH_LOADING = 'loading/FINISH_LOADING';
 
@@ -17,7 +22,7 @@ export const finishLoading = createAction(
   requestType => requestType
 );
 
-const initialState = {};
+const initialState:loadingState = {};
 
 const loading = handleActions(
   {

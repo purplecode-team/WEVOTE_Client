@@ -17,7 +17,10 @@ import { withStyles } from '@material-ui/core/styles';
 
 function Canlender (props) {
   const { classes } = props;
-  const { loading, fetchData, error } = useFetch('/api/v1//main/calender');
+  const [{ loading, data, error }, setUrl] = useFetch({
+    initialUrl: '/api/v1/main/calendar',
+    initialData: { id: 0, image: '' },
+  });
   const [file, setFile] = useState('');
   const [fileUrl, setFileUrl] = useState('');
   const alert = useAlert();
@@ -25,7 +28,7 @@ function Canlender (props) {
   const isDefault = fileUrl === '';
 
   // DB에 등록된 데이터의 이미지가 미리보기에 보여지고 있을 때만 삭제 버튼 생성하기 위함
-  const activeDeletion = fetchData && fetchData.image === fileUrl;
+  const activeDeletion = data && data.image === fileUrl;
 
   const processImage = e => {
     const imageFile = e.target.files[0];
@@ -44,13 +47,12 @@ function Canlender (props) {
       },
     };
     client
-      .post('/api/v1/calendar', formData, config)
+      .post('/api/v1/admin/calendar', formData, config)
       .then(response => {
         if (response.status !== 200) {
           alert.error('이미지 등록 실패');
           return;
         }
-        resetImg();
         alert.success('이미지가 등록되었습니다');
       })
       .catch(e => {
@@ -60,7 +62,7 @@ function Canlender (props) {
 
   const deleteImg = () => {
     client
-      .delete('/api/v1/calender')
+      .delete('/api/v1/admin/calendar')
       .then(response => {
         alert.success('이미지 삭제 완료');
         resetImg();
@@ -74,9 +76,8 @@ function Canlender (props) {
   };
 
   useEffect(() => {
-    if (error) alert.error('이미지 불러오기 실패');
-    if (fetchData) setFileUrl(fetchData.image);
-  }, [fetchData, error]);
+    setFileUrl(data.image);
+  }, [data]);
 
   return (
     <Paper className={classes.paper}>

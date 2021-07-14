@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) =>
       position: 'fixed',
       top: '94px',
       right: '14px',
-      zIndex: 1000,
+      zIndex: 1,
       margin: theme.spacing(1),
     },
     onModal: {

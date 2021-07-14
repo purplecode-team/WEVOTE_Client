@@ -3,28 +3,31 @@ import { useEffect, useState } from 'react';
 import client from '../api/client';
 
 type fetchProps = {
-  url: string;
-};
+  initialUrl: string,
+  initialData?: Array<object>;
+}
 
-const useFetch = ({ url }: fetchProps) => {
-  const [loading, setLoading] = useState(true);
-  const [fetchData, setFetchData] = useState(null);
-  const [error, setError] = useState('');
-
-  const fetchUsers = async () => {
-    await client.get(url)
-    .then(response => {
-      setFetchData(response.data)
-    })
-    .catch(e => setError(e))
-    .then( () => {setLoading(false)});
-  };
+const useFetch = (props: fetchProps) => {
+  const {initialUrl, initialData} = props;
+  const [url, setUrl] = useState(initialUrl);
+  const [data, setData] = useState(initialData);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      setLoading(true);
+      await client.get(url)
+      .then(response => {
+        setData(response.data)
+      })
+      .catch(e => setError(true))
+      .then(() => setLoading(false));
+    };
     fetchUsers();
-  }, []);
+  }, [url]);
 
-  return { loading, fetchData, error };
+  return [{ loading, data, error }, setUrl];
 };
 
 export default useFetch;

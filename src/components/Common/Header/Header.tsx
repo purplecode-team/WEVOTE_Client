@@ -9,24 +9,33 @@ import logoIcon from '../../../../public/img/logo.svg';
 import media from '../../../lib/styles/media';
 import menuBackground from '../../../../public/img/menuBackground.svg';
 import { NavLink } from 'react-router-dom';
+import { rootState } from '../../../modules';
 import { TextMenu } from './TextMenu';
 import theme from '../../../lib/styles/theme';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-type HeaderProps = {
+type HeaderStyle = {
   isActive: boolean;
 };
 
 const Header = () => {
-  const [isActive, setActive] = useState(false);
-  const [login, setLogin] = useState(false);
+  const { user } = useSelector((state:rootState) => ({user: state.user.user}));
+  const [isActive, setIsActive] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
 
-  const changeLog = () => setLogin(!login);
-  const changeSidebar = () => setActive(!isActive);
-  const hideSidebar = () => setActive(false);
+  const changeActiveMenu = () => setIsActive(!isActive);
+  const hideSidebar = () => setIsActive(false);
 
-  const loginText = '반갑습니다. OO님';
+  const loginText = user && `반갑습니다. ${user.userId}님`;
   const logoutText = '더 많은 이용을 위해 로그인/회원가입을 진행해주세요';
+
+  useEffect(()=>{
+    if (user){
+      setIsLogin(true);
+    }
+  },[user])
 
   return (
     <HeaderBar isActive={isActive}>
@@ -36,14 +45,13 @@ const Header = () => {
         </ImgLink>
         <MenuBox isActive={isActive}>
           <LoginMenu
-            changeLog={changeLog}
-            login={login}
-            changeSidebar={changeSidebar}
+            isLogin={isLogin}
+            changeActiveMenu={changeActiveMenu}
           />
-          <Subtext>{login ? loginText : logoutText}</Subtext>
-          <TextMenuBlock changeSidebar={changeSidebar} />
+          <Subtext>{isLogin ? loginText : logoutText}</Subtext>
+          <TextMenuBlock changeActiveMenu={changeActiveMenu} />
         </MenuBox>
-        <IconBox onClick={changeSidebar}>
+        <IconBox onClick={changeActiveMenu}>
           {isActive ? <AiIcons.AiOutlineClose /> : <FaIcons.FaBars />}
         </IconBox>
       </MenuBar>
@@ -59,7 +67,7 @@ const HeaderBar = styled.header`
   position: absolute;
   top: 0;
   overflow-x: hidden;
-  ${(props: HeaderProps) =>
+  ${(props: HeaderStyle) =>
     props.isActive &&
     css`
       position: fixed;
@@ -94,7 +102,7 @@ const MenuBox = styled.ul`
   font-weight: 500;
   text-align: center;
   @media (max-width: ${media.mobileL}px) {
-    display: ${(props: HeaderProps) => (props.isActive ? 'block' : 'none')};
+    display: ${(props: HeaderStyle) => (props.isActive ? 'block' : 'none')};
     flex-direction: column;
     position: fixed;
     top: 60px;

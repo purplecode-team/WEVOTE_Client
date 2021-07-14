@@ -6,7 +6,20 @@ import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/saga/createRequestSaga';
 
-const TEMP_SET_USER = 'user/TEMP_SET_USER'; // 새로고침 이후 임시 로그인 처리
+export type userType = {
+  userId: String,
+  password: String,
+  nickName: String,
+  status: String,
+}
+
+export type userState = {
+  user?: userType | null,
+  checkError?: any
+}
+
+ // 새로고침 이후 임시 로그인 처리
+const TEMP_SET_USER = 'user/TEMP_SET_USER';
 // 회원 정보 확인
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
   'user/CHECK'
@@ -42,7 +55,7 @@ export function * userSaga () {
   yield takeLatest(LOGOUT, logoutSaga);
 }
 
-const initialState = {
+const initialState: userState = {
   user: null,
   checkError: null,
 };
