@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
 import { changeField, initializeForm } from '../../modules/auth';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AuthForm from '../../components/auth/AuthForm';
@@ -25,7 +25,6 @@ const LoginForm = () => {
   // 폼 등록 이벤트 핸들러
   const onSubmit = e => {
     e.preventDefault();
-    console.log(form);
     login({ userId: form.userId, password: form.password });
     // 구현 예정
   };

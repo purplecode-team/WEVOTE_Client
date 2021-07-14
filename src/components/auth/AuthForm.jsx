@@ -2,14 +2,14 @@ import styled, { css } from 'styled-components';
 import { verifyEmail, verifyName, verifyPassword } from '../../utils/getRegExp';
 
 import Button from '../Common/Button';
-import GoogleLogin from 'react-google-login';
-import KakaoLogin from 'react-kakao-login';
-import { Link } from 'react-router-dom';
-import React from 'react';
 import client from '../../lib/api/client';
 import glogin from '../../../public/img/login/googleLogin.png';
+import GoogleLogin from 'react-google-login';
+import KakaoLogin from 'react-kakao-login';
 import klogin from '../../../public/img/login/kakaoLogin.png';
+import { Link } from 'react-router-dom';
 import media from '../../lib/styles/media';
+import React from 'react';
 import theme from '../../lib/styles/theme';
 
 const textMap = {
@@ -115,7 +115,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
         {!isRegister && (
           <APILoginBlock>
             <KakaoLogin
-              token="JAVASCRIPT KEY를 입력하세요.!!!"
+              token="5bea7f615e03c869086e836714986db6"
               onSuccess={console.log}
               onFail={console.error}
               onLogout={console.info}
