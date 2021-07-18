@@ -1,13 +1,21 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import client from '../api/client';
 
 type fetchProps = {
   initialUrl: string,
-  initialData?: Array<object>;
+  initialData?: any;
 }
 
-const useFetch = (props: fetchProps) => {
+type stateTypes = {
+  loading: boolean,
+  data:  any,
+  error: boolean,
+}
+
+type ReturnTypes = [stateTypes, Dispatch<SetStateAction<string>>]
+
+function useFetch(props: fetchProps):ReturnTypes{
   const {initialUrl, initialData} = props;
   const [url, setUrl] = useState(initialUrl);
   const [data, setData] = useState(initialData);

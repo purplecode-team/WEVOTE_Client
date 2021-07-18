@@ -24,6 +24,11 @@ const Layout = ({ children }: LayoutProps) => (
 const Main = styled.main`
   width: 100vw;
   margin: 60px 0;
+  -ms-user-select: none; 
+  -moz-user-select: -moz-none; 
+  -webkit-user-select: none; 
+  -khtml-user-select: none; 
+  user-select:none;
 `;
 
 const BackgroundBig = styled.img`

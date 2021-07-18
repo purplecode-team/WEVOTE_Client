@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import InformationSection from '../components/Info/InformationSection';
+import InformationSection from '../components/Info';
 
 const Info = () => {
   return (
