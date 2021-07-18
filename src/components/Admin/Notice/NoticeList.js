@@ -1,23 +1,23 @@
-import 'react-responsive-modal/styles.css';
-import './Notice.css';
-
-import React, { useEffect, useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { getFormatDate } from '../../../utils/getFormatDate';
 import IconButton from '@material-ui/core/IconButton';
 import Loader from '../../Common/Loader';
 import { Modal } from 'react-responsive-modal';
 import NoticeForm from './NoticeForm';
 import Paper from '@material-ui/core/Paper';
+import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { getFormatDate } from '../../../utils/getFormatDate';
+
+import 'react-responsive-modal/styles.css';
+import './Notice.css';
 
 export default function NoticeList (props) {
   const {
