@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
-import CalenderPreview from './CalenderPreview';
 import client from '../../../lib/api/client';
 import Grid from '@material-ui/core/Grid';
+import ImageUploader from '../Common/ImageUploader';
 import Loader from '../../Common/Loader';
 import Paper from '@material-ui/core/Paper';
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import { useAlert } from 'react-alert';
 import useFetch from '../../../lib/hooks/useFetch';
@@ -88,25 +86,14 @@ function Canlender (props) {
         <Loader />
       ) : (
         <form onSubmit={submitForm}>
-          <div className={classes.contentWrapper}>
-            <CalenderPreview
-              alt={'calender'}
-              fileUrl={fileUrl}
-              resetImg={resetImg}
-            />
-            <ButtonBlock>
-              <Label className='input-file-button' htmlFor='input-file'>
-                <PhotoCameraIcon />
-                <span>이미지 업로드</span>
-              </Label>
-              <Input
-                id='input-file'
-                type='file'
-                accept='image/*'
-                onChange={processImage}
-              />
-            </ButtonBlock>
-          </div>
+          <ImageUploader
+            alt={'calender'}
+            fileUrl={fileUrl}
+            resetImg={resetImg}
+            processImage={processImage}
+            width={'250px'}
+            heigth={'250px'}
+          />
           <Grid item xs={12} className={classes.buttonWrap}>
             {activeDeletion && (
               <Button
@@ -134,7 +121,6 @@ function Canlender (props) {
     </Paper>
   );
 }
-
 const styles = theme => ({
   paper: {
     maxWidth: 936,
@@ -190,31 +176,6 @@ const styles = theme => ({
     left: '20px',
   },
 });
-
-const ButtonBlock = styled.div`
-  width: 50%;
-  text-align: center;
-`;
-
-const Label = styled.label`
-  margin: 0 auto;
-  border: 1px solid gray;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 50px;
-  color: white;
-  background-color: #252c44;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const Input = styled.input`
-  display: none;
-`;
 
 Canlender.propTypes = {
   classes: PropTypes.object.isRequired,

@@ -1,74 +1,68 @@
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import ImagePreview from '../Common/ImageUploader/ImagePreview';
+import Loader from '../../Common/Loader';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React from 'react';
-import img1 from '../../../../public/img/information.png';
-import img2 from '../../../../public/img/information.png';
-import img3 from '../../../../public/img/information.png';
-import media from '../../../lib/styles/media';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
-import { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
-function InformationForm (props) {
-  const { classes } = props;
-  const [pictures, setPictures] = useState([]);
-  const [images, setImages] = useState([img1, img2, img3, img1, img2, img3]);
+function InformationList (props) {
+  const { classes, loading, data, error, confirmDeletion } = props;
+
+  const title = '현재 안내 이미지';
 
   const showTeamCard = () => {
-    return images.map((image, index) => (
-      <FlexBlock key={index}>
-        <HighlightOffIcon className={classes.icon} />
-        <Box>
-          <Img src={image} alt='information' />
-        </Box>
-      </FlexBlock>
-    ));
+    if (!data) return;
+    return (
+      <>
+        {loading ? (
+          <Loader />
+        ) : (
+          data.map((obj, index) => (
+            <FlexBlock key={index}>
+              <ImagePreview
+                alt={'information'}
+                fileUrl={obj.image}
+                width={'350px'}
+                height={'auto'}
+                resetImg={() => confirmDeletion(obj.id)}
+              />
+            </FlexBlock>
+          ))
+        )}
+      </>
+    );
   };
 
   return (
     <Paper className={classes.paper}>
+      <Title>{title}</Title>
       <div className={classes.contentWrapper}>{showTeamCard()}</div>
     </Paper>
   );
 }
-const FlexBlock = styled.div`
-  display: inline-block;
+
+const Title = styled.h2`
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: ${theme.Blue};
+  margin: 30px 0;
   text-align: center;
 `;
-const Box = styled.div`
-  max-width: 300px;
-  margin: 20px 35px 20px 35px;
-  background: #ffffff;
-  box-shadow: 0px 0px 20px ${theme.CardShadow}4d;
-  border: 1px solid ${theme.CardDash};
-  border-radius: 25px;
-  box-sizing: border-box;
-  overflow: hidden;
-  @media (min-width: ${media.mobileL + 1}px) {
-    width: 600px;
-  }
-  @media (max-width: ${media.mobileL}px) {
-    max-width: 360px;
-    flex: 1 0;
-    margin: 20px 0px 20px 20px;
-  }
-`;
 
-const Img = styled.img`
-  width: 100%;
-  display: block;
-  @media (max-width: ${media.mobileL}px) {
-    height: 400px;
-  }
+const FlexBlock = styled.div`
+  display: inline-block;
+  text-align: end;
+  margin: 20px;
 `;
 
 const styles = () => ({
   paper: {
     maxWidth: 936,
-    margin: 'auto',
+    margin: '30px auto',
     overflow: 'hidden',
+    padding: '20px 0',
   },
   contentWrapper: {
     display: 'flex',
@@ -83,13 +77,13 @@ const styles = () => ({
     color: theme.Blue,
     '&:hover': {
       cursor: 'pointer',
-      color: '#f00',
+      color: theme.DarkBlue,
     },
   },
 });
 
-InformationForm.propTypes = {
+InformationList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(InformationForm);
+export default withStyles(styles)(InformationList);

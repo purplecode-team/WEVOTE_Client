@@ -1,38 +1,68 @@
 import * as React from 'react';
 
-import media from '../../../lib/styles/media';
+import defaultImg from '../../../public/img/noimg.jpg';
+import media from '../../lib/styles/media';
 import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
+import { Team } from '../../types/candidateType';
+import theme from '../../lib/styles/theme';
 
-type CardInnerProps = {
-  Runner: {
-    id: number;
-    name: string;
-    major: string;
-    studentNum: number;
-    position: string;
-    picture?: string;
-    teamId: number;
-  };
-  type: boolean;
+type TeamProps = {
+  teamData: Team;
+  isCurrent?: boolean;
 };
 
-const CardInnerBlock = ({ Runner, type }: CardInnerProps) => {
-  const role = type ? '정' : '부';
+const CandidateCard = ({ teamData }: TeamProps) => {
+
+  const handleImgError = (e) => {
+    e.target.src = defaultImg;
+  }
+
   return (
-    <Block>
-      <ImgBlock>
-        <Profile src={Runner.picture} alt="profile" />
-      </ImgBlock>
-      <RoleText>{role}학생회장 후보</RoleText>
-      <NameBlock>
-        <p>{Runner.name}</p>
-      </NameBlock>
-      <MajorText>{Runner.major}</MajorText>
-      <StudentNumberText>{Runner.studentNum}학번</StudentNumberText>
-    </Block>
+    <>
+      <NumberBlock>기호 {teamData.order}번</NumberBlock>
+      <SloganBlock>"{teamData.slogan}"</SloganBlock>
+      <InnerBox>
+        {teamData.Runners.map(Runner => (
+          <Block key={Runner.id} >
+            <ImgBlock>
+              <Profile src={Runner.picture || ''} alt="profile" onError={handleImgError}/>
+            </ImgBlock>
+            <RoleText>{Runner.position}</RoleText>
+            <NameBlock>
+              <p>{Runner.name}</p>
+            </NameBlock>
+            <MajorText>{Runner.major}</MajorText>
+            <StudentNumberText>{Runner.studentNum}학번</StudentNumberText>
+          </Block>
+        ))}
+      </InnerBox>
+    </>
   );
 };
+
+CandidateCard.defaultProps = {
+  isCurrent: true,
+};
+
+const NumberBlock = styled.p`
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: ${theme.DarkBlue};
+`;
+
+const SloganBlock = styled.p`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: ${theme.Blue};
+  text-align: center;
+  margin: 30px 0;
+`;
+
+const InnerBox = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
 
 const Block = styled.div`
   display: inline-block;
@@ -109,4 +139,5 @@ const StudentNumberText = styled.p`
   margin: 10px auto;
 `;
 
-export default CardInnerBlock;
+
+export default CandidateCard;
