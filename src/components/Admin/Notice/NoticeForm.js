@@ -1,28 +1,26 @@
+import { createStyles, withStyles } from '@material-ui/core/styles';
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
-import React, { useEffect } from 'react';
-import { createStyles, withStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
+import client from '../../../lib/api/client';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import client from '../../../lib/api/client';
-import styled from 'styled-components';
 import { useAlert } from 'react-alert';
-import { useState } from 'react';
 
 function NoticeForm (props) {
   const { classes, editData, setOpen, fetchData } = props;
   const [id, setId] = useState();
   const [content, setContent] = useState('');
-  const [startDate, setStartDate] = useState(new Date('2021-11-14T21:11:54'));
-  const [endDate, setEndDate] = useState(new Date('2021-11-19T21:11:54'));
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [disabled, setDisabled] = useState(false);
   const alert = useAlert();
 
@@ -33,37 +31,27 @@ function NoticeForm (props) {
   const handleStartDateInput = date => {
     setStartDate(date);
   };
+
   const handleEndDateInput = date => {
     setEndDate(date);
   };
 
-  useEffect(() => {
-    if (editData) {
-      setId(editData.id);
-      setContent(editData.content);
-      setStartDate(editData.startDate);
-      setEndDate(editData.endDate);
-    }
-  }, [editData]);
-
   const onUpdate = () => {
     setDisabled(true);
     const result = {
-      id,
       content,
       startDate,
       endDate,
     };
     client
-      .patch('/api/v1/admin/register-banner', result)
+      .patch(`/api/v1/admin/banner/${id}`, result)
       .then(() => {
         alert.success('수정 완료');
         setContent('');
         fetchData();
         setOpen(false);
       })
-      .catch(e => alert.error('업데이트 실패'))
-      .then(() => setDisabled(false));
+      .catch(e => alert.error('업데이트 실패'));
   };
 
   const submitForm = () => {
@@ -74,7 +62,7 @@ function NoticeForm (props) {
       endDate,
     };
     client
-      .post('/api/v1/admin/register-banner', result)
+      .post('/api/v1/admin/banner', result)
       .then(() => {
         alert.success('배너 등록 완료');
         setContent('');
@@ -85,6 +73,15 @@ function NoticeForm (props) {
         fetchData();
       });
   };
+
+  useEffect(() => {
+    if (editData) {
+      setId(editData.id);
+      setContent(editData.content);
+      setStartDate(editData.startDate);
+      setEndDate(editData.endDate);
+    }
+  }, [editData]);
 
   return (
     <>
@@ -208,9 +205,5 @@ const ButtonBlock = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-
-NoticeForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(NoticeForm);
