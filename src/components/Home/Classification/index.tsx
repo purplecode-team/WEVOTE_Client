@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Candidate from './Candidate';
 import Category from './Category';
 import client from '../../../lib/api/client';
+import { useAlert } from 'react-alert';
 import { useChangeCurrentCategory } from '../../../lib/hooks/useChangeCurrentCategory';
 
 type DataType = {
@@ -31,8 +32,6 @@ const topCategory = {
 };
 const topList = Object.values(topCategory);
 
-const isEmptyArray = arr => !Array.isArray(arr) || arr.length === 0
-
 const ClassificationSection = () => {
   const [centralData, setCentralData] = useState<HasMiddleType[]>(initialMiddle);
   const [collegeData, setCollegeData] = useState<HasMiddleType[]>(initialMiddle);
@@ -42,6 +41,7 @@ const ClassificationSection = () => {
   const [teamData, setTeamData] = useState<Team[]>([]);
   const [middleList, setMiddleList] = useState<string[]>([]);
   const [bottomList, setBottomList] = useState<string[]>([]);
+  const alert = useAlert();
 
   const changeCurrent = (
     position: string,
@@ -49,6 +49,15 @@ const ClassificationSection = () => {
   ) => {
     dispatch({ data: dataSet, type: position, current: e.target.innerText });
   };
+
+  const fetchData = (url, reducer) => {
+    client
+    .get(url)
+    .then((response) => {
+      reducer(response.data);
+    })
+    .catch(() => alert.error('후보 데이터 호출 실패'));
+  }
 
   useEffect(()=>{
     setDataSet({
@@ -59,26 +68,9 @@ const ClassificationSection = () => {
   },[centralData, collegeData, departmentData])
 
   useEffect(() => {
-    client
-      .get('/api/v1/main/central')
-      .then((response) => {
-        setCentralData(response.data);
-      })
-      .catch((e) => console.log(e));
-
-    client
-      .get('/api/v1/main/college')
-      .then((response) => {
-        setCollegeData(response.data);
-      })
-      .catch((e) => console.log(e));
-
-    client
-      .get('/api/v1/main/major')
-      .then((response) => {
-        setDepartmentData(response.data);
-      })
-      .catch((e) => console.log(e));
+    fetchData('/api/v1/main/central', setCentralData);
+    fetchData('/api/v1/main/college', setCollegeData);
+    fetchData('/api/v1/main/major', setDepartmentData);
   }, []);
 
   // top 변경 시, middle list 변경
