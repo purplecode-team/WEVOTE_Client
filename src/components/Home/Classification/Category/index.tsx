@@ -85,6 +85,7 @@ const BackgroundBar = styled.div`
 `;
 
 const Category = styled.ul`
+  max-width: 100%;
   width: ${media.laptop}px;
   margin: 0 auto;
   display: flex;

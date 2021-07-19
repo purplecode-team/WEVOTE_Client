@@ -1,25 +1,20 @@
-import CentralData from '../api/dummyData/CentralData.json';
-import CollegeData from '../api/dummyData/CollegeData.json';
-import DepartmentData from '../api/dummyData/DepartmentData.json';
 import { useReducer } from 'react';
 
 const initialState = { top: '중앙자치기구', middle: '총학생회', bottom: '' };
 
-const dataSet = {
-  중앙자치기구: CentralData || [{ id: 1, organizationName: '총학' }],
-  단과대: CollegeData || [{ id: 1, organizationName: '인문대학' }],
-  학과: DepartmentData || [{ id: 1, organizationName: '인문대학' }],
-};
+const reducer = (state, { data, type, current }) => {
 
-const reducer = (state, { type, current }) => {
+  const isEmptyArray = arr => !Array.isArray(arr) || arr.length === 0
+
   switch (type) {
     case 'top': {
-      const middleObj = dataSet[current][0];
-      const currentMiddle = middleObj.centralName || middleObj.organizationName;
-      const bottomArr = dataSet[current].find(
+      const middleObj = data[current][0];
+      const currentMiddle = middleObj.organizationName;
+      const tempArr = data[current].find(
         (obj) => obj.organizationName === currentMiddle
-      ).Majors;
-      const currentBottom = bottomArr && bottomArr[0].majorName;
+      )
+      const bottomArr = tempArr ? tempArr.Majors : [];
+      const currentBottom = isEmptyArray(bottomArr) ? null : bottomArr[0].organizationName;
       return {
         ...state,
         top: current,
@@ -28,14 +23,15 @@ const reducer = (state, { type, current }) => {
       };
     }
     case 'middle': {
-      const bottomArr2 = dataSet[state.top].find(
+      const tempArr = data[state.top].find(
         (obj) => obj.organizationName === current
-      ).Majors;
-      const currentBottom2 = bottomArr2 && bottomArr2[0].majorName;
+      );
+      const bottomArr = tempArr ? tempArr.Majors : [];
+      const currentBottom = isEmptyArray(bottomArr) ? null : bottomArr[0].organizationName;
       return {
         ...state,
         middle: current,
-        bottom: currentBottom2 || initialState.bottom,
+        bottom: currentBottom || initialState.bottom,
       };
     }
     case 'bottom': {
