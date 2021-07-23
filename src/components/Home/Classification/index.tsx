@@ -1,11 +1,14 @@
 import * as React from 'react';
 
 import { HasBottomType, HasMiddleType, Team } from '../../../types/candidateType';
+import { useCandidateDispatch, useCandidateState } from '../../../context/CandidateProvider'
 import { useEffect, useState } from 'react';
 
 import Candidate from './Candidate';
+import CandidateRegister from '../../Admin/Candidate/Register';
 import Category from './Category';
 import client from '../../../lib/api/client';
+import { Modal } from 'react-responsive-modal';
 import { useAlert } from 'react-alert';
 import { useChangeCurrentCategory } from '../../../lib/hooks/useChangeCurrentCategory';
 
@@ -32,7 +35,8 @@ const topCategory = {
 };
 const topList = Object.values(topCategory);
 
-const ClassificationSection = () => {
+const ClassificationSection = (props) => {
+  // const { isOpenEdit, editId, setEditState, editData } = props;
   const [centralData, setCentralData] = useState<HasMiddleType[]>(initialMiddle);
   const [collegeData, setCollegeData] = useState<HasMiddleType[]>(initialMiddle);
   const [departmentData, setDepartmentData] = useState<HasBottomType[]>(initialBottom);
@@ -42,6 +46,9 @@ const ClassificationSection = () => {
   const [middleList, setMiddleList] = useState<string[]>([]);
   const [bottomList, setBottomList] = useState<string[]>([]);
   const alert = useAlert();
+  const { isOpenEdit, id } = useCandidateState();
+  const setEditState = useCandidateDispatch();
+
 
   const changeCurrent = (
     position: string,
@@ -59,6 +66,12 @@ const ClassificationSection = () => {
     .catch(() => alert.error('후보 데이터 호출 실패'));
   }
 
+  const refetch = () => {
+    fetchData('/api/v1/main/central', setCentralData);
+    fetchData('/api/v1/main/college', setCollegeData);
+    fetchData('/api/v1/main/major', setDepartmentData);
+  }
+
   useEffect(()=>{
     setDataSet({
       중앙자치기구: centralData,
@@ -68,9 +81,7 @@ const ClassificationSection = () => {
   },[centralData, collegeData, departmentData])
 
   useEffect(() => {
-    fetchData('/api/v1/main/central', setCentralData);
-    fetchData('/api/v1/main/college', setCollegeData);
-    fetchData('/api/v1/main/major', setDepartmentData);
+    refetch();
   }, []);
 
   // top 변경 시, middle list 변경
@@ -146,6 +157,18 @@ const ClassificationSection = () => {
         }
         teamArr={teamData}
       />
+      <Modal
+        open={isOpenEdit}
+        onClose={()=>{setEditState({type: 'TOGGLE_EDIT_CANDIDATE', isOpenEdit: false, id: 0})}}
+        center
+        classNames={{
+          modal: 'modal-large',
+        }}
+      >
+        <CandidateRegister
+          refetch={refetch}
+        />
+      </Modal>
     </section>
   );
 };

@@ -1,5 +1,3 @@
-import './index.css';
-
 import * as React from 'react';
 
 import { Provider as AlertProvider, positions, transitions } from 'react-alert';
@@ -8,11 +6,13 @@ import rootReducer, { rootSaga } from './modules';
 
 import AlertTemplate from 'react-alert-template-basic';
 import App from './App.tsx';
-import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { tempSetUser } from './modules/user';
+
+import './index.css';
 
 const sagaMiddleware = createSagaMiddleware();
 

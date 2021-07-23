@@ -79,6 +79,7 @@ const Box = styled.div`
   overflow: hidden;
   box-sizing: border-box;
   padding: 20px;
+  position: relative;
   &:hover{
     cursor: pointer;
   }
