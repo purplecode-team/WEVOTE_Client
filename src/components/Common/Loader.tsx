@@ -5,20 +5,21 @@ import RingLoader from 'react-spinners/RingLoader';
 import theme from '../../lib/styles/theme';
 
 type loaderType = {
+  margin?: number;
   size?: number;
 };
 
 const color = theme.Blue;
-function Loader(props: loaderType) {
-  const { size } = props;
+function Loader({ margin, size }: loaderType) {
   return (
-    <div>
+    <div style={{margin:margin+'px'}}>
       <RingLoader color={color} css={override} size={size} />
     </div>
   );
 }
 
 Loader.defaultProps = {
+  margin: 60,
   size: 50,
 };
 
