@@ -1,18 +1,16 @@
 import Category from './Category';
-import Central from './Central';
-import College from './College';
-import Department from './Department';
+import Editor from './Editor';
 import React from 'react';
-
-const Content = [
-  { id: 1, component: <Category /> },
-  { id: 2, component: <Central /> },
-  { id: 3, component: <College /> },
-  { id: 4, component: <Department /> },
-];
+import Register from './Register';
 
 const Candidate = props => {
   const { currentSmallMenuId } = props;
+
+  const Content = [
+    { id: 1, component: <Category /> },
+    { id: 2, component: <Register /> },
+    { id: 3, component: <Editor /> },
+  ];
 
   return (
     <>
