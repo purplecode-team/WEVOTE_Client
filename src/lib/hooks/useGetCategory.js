@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import useFetch from './useFetch';
 
@@ -55,46 +55,43 @@ const useGetCategory = () => {
 
   let hasBottom = 'Majors' in data[currentIndex.top].middle[0];
 
+  const handleBottomCurrentIndex = value => () => {
+    const currentBottomIndex = bottomList.indexOf(value);
+    setCurrentIndex({ ...currentIndex, bottom: currentBottomIndex });
+  };
+
+  const initializeMiddleIndex = index => {
+    setCurrentIndex({ top: index, middle: 0, bottom: 0 });
+  };
+
+  const initializeBottomIndex = index => {
+    setCurrentIndex({ ...currentIndex, middle: index, bottom: 0 });
+  };
+
   const getNewMiddleList = value => () => {
     const currentTopIndex = topList.indexOf(value);
-    const newMiddle = data[currentTopIndex].middle;
-    const result = newMiddle.reduce((acc, cur) => {
-      acc.push(cur.organizationName);
-      return acc;
-    }, []);
-    setCurrentIndex({ top: currentTopIndex, middle: 0, bottom: 0 });
-    setMiddleList(result);
+    setMiddleList(
+      data[currentTopIndex].middle.map(mid => mid.organizationName)
+    );
+    initializeMiddleIndex(currentTopIndex);
   };
 
   const getNewBottomList = value => () => {
     const currentMiddleIndex = middleList.indexOf(value) || 0;
-    setCurrentIndex({ ...currentIndex, middle: currentMiddleIndex, bottom: 0 });
-    let Majors = [];
-    let MajorNameList = [];
-    if (hasBottom) {
-      Majors = data[currentIndex.top].middle[currentMiddleIndex].Majors || [];
-      MajorNameList = Majors.reduce((acc, cur) => {
-        acc.push(cur.organizationName);
-        return acc;
-      }, []);
+    initializeBottomIndex(currentMiddleIndex);
+    if (!hasBottom) {
+      setBottomList([]);
+      return;
     }
-    MajorNameList && MajorNameList.length !== 0
-      ? setBottomList(MajorNameList)
-      : setBottomList(new Array(0));
+    let Majors = data[currentIndex.top].middle[currentMiddleIndex].Majors || [];
+    let MajorNameList = Majors.map(mid => mid.organizationName);
+    setBottomList(MajorNameList);
   };
 
   useEffect(() => {
-    setTopList(
-      data.reduce((acc, cur) => {
-        acc.push(cur.top);
-        return acc;
-      }, [])
-    );
+    setTopList(data.map(obj => obj.top));
     setMiddleList(
-      data[currentIndex.top].middle.reduce((acc, cur) => {
-        acc.push(cur.organizationName);
-        return acc;
-      }, [])
+      data[currentIndex.top].middle.map(mid => mid.organizationName)
     );
   }, [data]);
 
@@ -110,13 +107,13 @@ const useGetCategory = () => {
     currentIndex,
     setCurrentIndex,
     topList,
-    setTopList,
     middleList,
-    setMiddleList,
     bottomList,
+    setMiddleList,
     setBottomList,
     getNewMiddleList,
     getNewBottomList,
+    handleBottomCurrentIndex,
     hasBottom,
   };
 };

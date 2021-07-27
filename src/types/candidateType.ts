@@ -14,10 +14,10 @@ export type HasMiddleType = {
   organizationName: string;
   Teams: Team[];
 };
-export type DataType = {
-  중앙자치기구: HasMiddleType[];
-  단과대: HasMiddleType[];
-  학과: HasBottomType[];
+export type CandidateDataType = {
+  central: HasMiddleType[];
+  college: HasMiddleType[];
+  major: HasBottomType[];
 };
 
 

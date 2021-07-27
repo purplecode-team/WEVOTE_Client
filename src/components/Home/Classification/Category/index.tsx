@@ -6,23 +6,37 @@ import SlideCategory from './SlideCategory';
 import styled from 'styled-components';
 
 type ClassificationProps = {
-  changeCurrent: (
-    position: string,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  getNewMiddleList: (HTMLInputElement: any) => () => void;
+  getNewBottomList: (HTMLInputElement: any) => () => void;
+  handleBottomCurrentIndex: (HTMLInputElement: any) => () => void;
   topList: string[];
   middleList: string[];
   bottomList: string[];
-  current: { top: string; middle: string; bottom: string };
+  currentIndex: { top: number; middle: number; bottom: number };
 };
 
 const ClassificationCategory = ({
-  changeCurrent,
+  getNewMiddleList,
+  getNewBottomList,
+  handleBottomCurrentIndex,
   topList,
   middleList,
   bottomList,
-  current,
+  currentIndex,
 }: ClassificationProps) => {
+
+  const handleMiddleList = e => {
+    getNewMiddleList(e.target.innerText)();
+  }
+
+  const handleBottomList = e => {
+    getNewBottomList(e.target.innerText)();
+  }
+
+  const handleBottomIndex = e => {
+    handleBottomCurrentIndex(e.target.innerText)();
+  }
+
   return (
     <>
       <BackgroundBar color="#F6F3FD">
@@ -31,48 +45,42 @@ const ClassificationCategory = ({
             <CategoryItem
               key={index}
               title={item}
-              onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
-                changeCurrent('top', e);
-              }}
-              isActive={item === current.top}
-              isTopActive={item === current.top}
+              onClick={handleMiddleList}
+              isActive={item === topList[currentIndex.top]}
+              isTopActive={item === topList[currentIndex.top]}
               isTop
             />
           ))}
         </Category>
       </BackgroundBar>
       <BackgroundBar color="#EAE3FF">
-        <SlideCategory isChange={current.top}>
+        <SlideCategory isChange={topList[currentIndex.top]}>
           {middleList.map((item, index) => {
             return (
               <CategoryItem
                 key={index}
                 title={item}
-                onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  changeCurrent('middle', e);
-                }}
-                isActive={item === current.middle}
+                onClick={handleBottomList}
+                isActive={item === middleList[currentIndex.middle]}
               />
             );
           })}
         </SlideCategory>
       </BackgroundBar>
-      {current.bottom ? (
+      {bottomList[currentIndex.bottom] && (
         <BackgroundBar color="#F1ECFF">
-          <SlideCategory isChange={current.middle}>
+          <SlideCategory isChange={middleList[currentIndex.middle]}>
             {bottomList.map((item, index) => (
               <CategoryItem
                 key={index}
                 title={item}
-                onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  changeCurrent('bottom', e);
-                }}
-                isActive={item === current.bottom}
+                onClick={handleBottomIndex}
+                isActive={item === bottomList[currentIndex.bottom]}
               />
             ))}
           </SlideCategory>
         </BackgroundBar>
-      ) : null}
+      )}
     </>
   );
 };

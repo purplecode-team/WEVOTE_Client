@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { HasBottomType, HasMiddleType, Team } from '../../../types/candidateType';
+import { CandidateDataType, HasBottomType, HasMiddleType, Team } from '../../../types/candidateType';
 import { useCandidateDispatch, useCandidateState } from '../../../context/CandidateProvider'
 import { useEffect, useState } from 'react';
 
@@ -10,18 +10,12 @@ import Category from './Category';
 import client from '../../../lib/api/client';
 import { Modal } from 'react-responsive-modal';
 import { useAlert } from 'react-alert';
-import { useChangeCurrentCategory } from '../../../lib/hooks/useChangeCurrentCategory';
-
-type DataType = {
-  중앙자치기구: HasMiddleType[];
-  단과대: HasMiddleType[];
-  학과: HasBottomType[];
-};
+import useGetCategory from '../../../lib/hooks/useGetCategory';
 
 const initialData = {
-  중앙자치기구: [{ id: 1, organizationName: '총학생회', Teams: [] }],
-  단과대: [{ id: 1, organizationName: '', Teams: [] }],
-  학과: [{ id: 1, organizationName: '', Majors: [] }],
+  central: [{ id: 1, organizationName: '총학생회', Teams: [] }],
+  college: [{ id: 1, organizationName: '', Teams: [] }],
+  major: [{ id: 1, organizationName: '', Majors: [] }],
 };
 
 const initialMiddle = [{ id: 1, organizationName: '', Teams: [] }];
@@ -29,33 +23,30 @@ const initialMiddle = [{ id: 1, organizationName: '', Teams: [] }];
 const initialBottom = [{ id: 0, organizationName: '', Majors: [] }];
 
 const topCategory = {
-  Central: '중앙자치기구',
-  College: '단과대',
-  Department: '학과',
+  central: '중앙자치기구',
+  college: '단과대',
+  major: '학과',
 };
-const topList = Object.values(topCategory);
 
-const ClassificationSection = (props) => {
-  // const { isOpenEdit, editId, setEditState, editData } = props;
+const Classification = (props) => {
+  const {
+    currentIndex,
+    topList,
+    middleList,
+    bottomList,
+    hasBottom,
+    getNewMiddleList,
+    getNewBottomList,
+    handleBottomCurrentIndex
+  } = useGetCategory();
   const [centralData, setCentralData] = useState<HasMiddleType[]>(initialMiddle);
   const [collegeData, setCollegeData] = useState<HasMiddleType[]>(initialMiddle);
-  const [departmentData, setDepartmentData] = useState<HasBottomType[]>(initialBottom);
-  const [dataSet, setDataSet] = useState<DataType>(initialData);
-  const [current, dispatch] = useChangeCurrentCategory();
+  const [majorData, setmajorData] = useState<HasBottomType[]>(initialBottom);
+  const [dataSet, setDataSet] = useState<CandidateDataType>(initialData);
   const [teamData, setTeamData] = useState<Team[]>([]);
-  const [middleList, setMiddleList] = useState<string[]>([]);
-  const [bottomList, setBottomList] = useState<string[]>([]);
   const alert = useAlert();
   const { isOpenEdit, id } = useCandidateState();
   const setEditState = useCandidateDispatch();
-
-
-  const changeCurrent = (
-    position: string,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    dispatch({ data: dataSet, type: position, current: e.target.innerText });
-  };
 
   const fetchData = (url, reducer) => {
     client
@@ -69,91 +60,77 @@ const ClassificationSection = (props) => {
   const refetch = () => {
     fetchData('/api/v1/main/central', setCentralData);
     fetchData('/api/v1/main/college', setCollegeData);
-    fetchData('/api/v1/main/major', setDepartmentData);
+    fetchData('/api/v1/main/major', setmajorData);
+  }
+
+  // key에서 현재 index에 위치한 데이터셋을 가져온다
+  const getCurrentDataSet = () => {
+    const keys = Object.keys(topCategory);
+    return dataSet[keys[currentIndex.top]]
+  }
+
+  const handleMiddleTeamData = () => {
+    const currentDataSet = getCurrentDataSet();
+    currentDataSet.map((obj: HasMiddleType) => {
+      if (obj.organizationName === middleList[currentIndex.middle]) {
+        setTeamData(obj.Teams);
+        return false;
+      }
+    });
+  }
+
+  const handleBottomTeamData = () => {
+    const currentDataSet = getCurrentDataSet();
+    currentDataSet.map((obj: HasBottomType) => {
+      if (obj.organizationName === middleList[currentIndex.middle]) {
+        obj.Majors.map((obj2) => {
+          if (obj2.organizationName === bottomList[currentIndex.bottom]) {
+            setTeamData(obj2.Teams);
+            return false;
+          }
+        });
+        return false;
+      }
+    });
   }
 
   useEffect(()=>{
     setDataSet({
-      중앙자치기구: centralData,
-      단과대: collegeData,
-      학과: departmentData,
+      central: centralData,
+      college: collegeData,
+      major: majorData,
     })
-  },[centralData, collegeData, departmentData])
+  },[centralData, collegeData, majorData])
 
   useEffect(() => {
     refetch();
   }, []);
 
-  // top 변경 시, middle list 변경
+  // Teams 데이터 출력
   useEffect(() => {
-    const middleTemp: string[] = [];
-    if (centralData.length !== 0 && current.top === topCategory.Central) {
-      centralData.map((obj) => {
-        middleTemp.push(obj.organizationName);
-      });
-    } else if (collegeData.length !== 0 && current.top === topCategory.College) {
-      collegeData.map((obj) => {
-        middleTemp.push(obj.organizationName);
-      });
-    } else if (departmentData.length !== 0){
-      departmentData.map((obj) => {
-        middleTemp.push(obj.organizationName);
-      });
-    }
-    setMiddleList(middleTemp);
-  }, [dataSet, current]);
-
-  // bottomList 변경
-  useEffect(() => {
-    const bottomTemp: string[] = [];
-    const middleObj = departmentData.find(
-      (obj: HasBottomType) => obj.organizationName === current.middle
-    );
-    if (!middleObj) return;
-    middleObj.Majors.map((obj) => {
-      bottomTemp.push(obj.organizationName);
-    });
-    setBottomList(bottomTemp);
-  }, [dataSet, current]);
-
-  // Teams 데이터 반환
-  useEffect(() => {
-    const currentDataSet = dataSet[current.top];
-    // 현재 topDataSet의 middle에 majors가 있을 때,
-    if (current.top === topCategory.Department) {
-      currentDataSet.map((obj: HasBottomType) => {
-        if (obj.organizationName === current.middle) {
-          obj.Majors.map((obj2) => {
-            if (obj2.organizationName === current.bottom) {
-              setTeamData(obj2.Teams);
-            }
-          });
-        }
-      });
+    if (!hasBottom) {
+      handleMiddleTeamData();
       return;
     }
-    // middle에서 teams가 있을 때,
-    currentDataSet.map((obj: HasMiddleType) => {
-      if (obj.organizationName === current.middle) {
-        setTeamData(obj.Teams);
-      }
-    });
-  }, [dataSet, current]);
+    handleBottomTeamData();
+  }, [dataSet, currentIndex]);
 
   return (
     <section>
       <Category
-        changeCurrent={changeCurrent}
+        getNewMiddleList={getNewMiddleList}
+        getNewBottomList={getNewBottomList}
+        handleBottomCurrentIndex={handleBottomCurrentIndex}
         topList={topList}
         middleList={middleList}
         bottomList={bottomList}
-        current={current}
+        currentIndex={currentIndex}
       />
       <Candidate
         title={
-          current.top === topCategory.Department
-            ? current.bottom
-            : current.middle
+          topList[currentIndex.top] === topCategory.major
+            ? bottomList[currentIndex.bottom]
+            : middleList[currentIndex.middle]
         }
         teamArr={teamData}
       />
@@ -173,4 +150,4 @@ const ClassificationSection = (props) => {
   );
 };
 
-export default ClassificationSection;
+export default Classification;
