@@ -39,16 +39,14 @@ const initialData = [
   },
 ];
 
+const initialIndex = { top: 0, middle: 0, bottom: 0 };
+
 const useGetCategory = () => {
   const [{ loading, data, error }, setUrl] = useFetch({
     initialUrl: '/api/v1/admin/category',
     initialData: initialData,
   });
-  const [currentIndex, setCurrentIndex] = useState({
-    top: 0,
-    middle: 0,
-    bottom: 0,
-  });
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [topList, setTopList] = useState([]);
   const [middleList, setMiddleList] = useState([]);
   const [bottomList, setBottomList] = useState([]);
@@ -104,6 +102,7 @@ const useGetCategory = () => {
     data,
     loading,
     error,
+    setUrl,
     currentIndex,
     setCurrentIndex,
     topList,

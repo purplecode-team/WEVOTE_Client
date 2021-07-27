@@ -14,7 +14,7 @@ export default function Register ({
   setCurrentIndex,
   getNewMiddleList,
   getNewBottomList,
-  onClickBottom,
+  handleBottomCurrentIndex,
   topList,
   middleList,
   bottomList,
@@ -45,15 +45,14 @@ export default function Register ({
     let currentMiddle = middleValue;
     let currentBottom = bottomValue;
     if (!middleValue && data[currentIndex.top].middle.length !== 0) {
-      currentMiddle =
-        data[currentIndex.top].middle[currentIndex.middle].organization;
+      currentMiddle = middleList[currentIndex.middle];
     }
     setSendingData({
       top: currentTop,
       middle: currentMiddle,
       bottom: currentBottom,
     });
-  }, [middleValue, bottomValue]);
+  }, [currentIndex.middle, middleValue, bottomValue]);
 
   return (
     <form className={classes.contentWrapper} onSubmit={submitData}>
@@ -78,7 +77,7 @@ export default function Register ({
                 variant='contained'
                 color='primary'
                 className={classes.button}
-                onClick={submitData}
+                type='submit'
               >
                 {buttonText}
               </Button>
@@ -87,7 +86,11 @@ export default function Register ({
         </Grid>
         {hasBottom && (
           <Grid item className={classes.card}>
-            {customList('bottom', '소분류', bottomList)(onClickBottom)}
+            {customList(
+              'bottom',
+              '소분류',
+              bottomList
+            )(handleBottomCurrentIndex)}
             <Divider />
             <Grid item className={classes.item} xs={12}>
               <TextField
@@ -101,8 +104,8 @@ export default function Register ({
               <Button
                 variant='contained'
                 color='primary'
+                type='submit'
                 className={classes.button}
-                onClick={submitData}
               >
                 {buttonText}
               </Button>
