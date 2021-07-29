@@ -1,20 +1,15 @@
 import * as React from 'react';
 
 import media from '../../../lib/styles/media';
+import { Promise } from '../../../types/candidateType';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
-
-type Pledge = {
-  promiseType: string;
-  promiseTitle: string;
-  promiseDetail: string;
-};
 
 const PledgeCard = ({
   promiseType,
   promiseTitle,
   promiseDetail,
-}: Pledge) => {
+}: Promise) => {
   return (
     <CardBlock>
       <BarIcon>l</BarIcon>

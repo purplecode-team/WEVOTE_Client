@@ -4,16 +4,9 @@ import styled, { css } from 'styled-components';
 
 import adminProfile from '../../../../public/img/AdminProfile.svg';
 import media from '../../../lib/styles/media';
+import { qnaInfo } from '../../../types/candidateType';
 import theme from '../../../lib/styles/theme';
 import userProfile from '../../../../public/img/UserProfile.svg';
-import { useState } from 'react';
-
-type qnaInfo = {
-  id: number;
-  type: string;
-  comment: string;
-  time: number;
-};
 
 type styleProps = {
   answer?: boolean;

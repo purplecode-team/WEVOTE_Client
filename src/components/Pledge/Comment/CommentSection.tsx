@@ -3,20 +3,10 @@ import * as React from 'react';
 import CommentArticle from './CommentArticle';
 import CommentInput from './CommentInput';
 import media from '../../../lib/styles/media';
+import { qnaArr } from '../../../types/candidateType';
 import styled from 'styled-components';
 
-type qnaInfo = {
-  id: number;
-  type: string;
-  comment: string;
-  time: number;
-};
-
-type qnaArrayType = {
-  qnaArr: qnaInfo[];
-};
-
-const CommentSection = ({ qnaArr }: qnaArrayType) => {
+const CommentSection = ({ qnaArr }: qnaArr) => {
   return (
     <Section>
       <CommentBlock>

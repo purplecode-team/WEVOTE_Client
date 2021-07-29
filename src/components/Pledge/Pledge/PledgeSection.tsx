@@ -2,22 +2,11 @@ import * as React from 'react';
 
 import media from '../../../lib/styles/media';
 import PledgeCard from './PledgeCard';
+import { PromiseArr } from '../../../types/candidateType';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 
-type Pledge = {
-  id: number;
-  promiseType: string;
-  promiseTitle: string;
-  promiseDetail: string;
-};
-
-type PledgeArray = {
-  pledgeArr: Pledge[];
-  slogan: string;
-};
-
-const PledgeSection = ({ pledgeArr, slogan }: PledgeArray) => {
+const PledgeSection = ({ pledgeArr, slogan }: PromiseArr) => {
   return (
     <Article>
       <PledgeBlock>
