@@ -48,16 +48,6 @@ export default function Category (props) {
   });
   const alert = useAlert();
 
-  useEffect(() => {
-    if (currentIndex === initialIndex) {
-      setCurrentIndex({ ...categoryIndex });
-    } else {
-      setCategoryIndex({ ...currentIndex });
-    }
-  }, [currentIndex]);
-
-  //hooks에서 currentIndex 바뀔 경우, 자동으로 index에 맞춰서 list 변경되는 코드 추가할 것!
-
   const confirmDeletion = (section, value) => () => {
     if (window.confirm(`[${value}]의 모든 데이터를 삭제하시겠습니까?`))
       onDelete(section);
@@ -166,6 +156,15 @@ export default function Category (props) {
       </List>
     </Card>
   );
+
+  useEffect(() => {
+    if (currentIndex === initialIndex) {
+      setCurrentIndex({ ...categoryIndex });
+    } else {
+      setCategoryIndex({ ...currentIndex });
+    }
+    return () => setCurrentIndex(initialIndex);
+  }, [currentIndex]);
 
   useEffect(() => {
     if (error) alert.error('카테고리 호출 실패');

@@ -30,7 +30,7 @@ function useFetch(props: fetchProps):ReturnTypes{
         setData(response.data)
       })
       .catch(e => setError(true))
-      .then(() => setLoading(false));
+      setLoading(false);
     };
     fetchUsers();
   }, [url]);

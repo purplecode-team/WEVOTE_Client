@@ -13,7 +13,6 @@ const GlobalStyle = createGlobalStyle`
   body{
     width: 100vw;
     overflow-x: hidden;
-    width: 100vw;
     font-family: 'paybooc';
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     background-color: ${theme.BackgroundWhite};
@@ -36,6 +35,15 @@ const GlobalStyle = createGlobalStyle`
         display:none;
       }
     }
+  }
+  .modal-small {
+    max-width: 800px;
+    width: 100%;
+  }
+  
+  .modal-large {
+    max-width:1000px;
+    width: 100%;
   }
 
   * {
