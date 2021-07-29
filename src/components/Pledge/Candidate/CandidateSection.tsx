@@ -3,66 +3,29 @@ import * as React from 'react';
 import CandidateArticleInPledge from './CandidateArticleInPledge';
 import media from '../../../lib/styles/media';
 import styled from 'styled-components';
+import { Team } from '../../../types/candidateType';
 import theme from '../../../lib/styles/theme';
-
-type Runner = {
-  id: number;
-  name: string;
-  major: string;
-  studentNum: number;
-  position: string;
-  picture?: string;
-  teamId: number;
-};
-
-type Promise = {
-  id?: number;
-  promiseType?: string;
-  promiseTitle?: string;
-  promiseDetail?: string;
-};
-
-type comment = {
-  comment?: string;
-  time?: number;
-};
-
-type question = {
-  id?: number;
-  question?: string;
-  time?: number;
-  answer?: comment[];
-};
-
-type Team = {
-  id: number;
-  order: number;
-  slogan: string;
-  Runners: Runner[];
-  Promises?: Promise[];
-  qna?: question[];
-};
 
 type CandidateArticleProps = {
   title: string;
-  teamArray: Team[];
+  teamArr: Team[];
   current: number;
-  handleCurrent: (id: number) => void;
+  setCurrent: (id: number) => void;
 };
 
 const CarouselSection = ({
   title,
-  teamArray,
+  teamArr,
   current,
-  handleCurrent,
+  setCurrent,
 }: CandidateArticleProps) => {
   return (
     <Background>
       <CandidateArticleInPledge
         title={title}
-        teamArray={teamArray}
+        teamArr={teamArr}
         current={current}
-        handleCurrent={handleCurrent}
+        setCurrent={setCurrent}
       />
     </Background>
   );

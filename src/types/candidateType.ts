@@ -14,10 +14,10 @@ export type HasMiddleType = {
   organizationName: string;
   Teams: Team[];
 };
-export type DataType = {
-  중앙자치기구: HasMiddleType[];
-  단과대: HasMiddleType[];
-  학과: HasBottomType[];
+export type CandidateDataType = {
+  central: HasMiddleType[];
+  college: HasMiddleType[];
+  major: HasBottomType[];
 };
 
 
@@ -33,9 +33,14 @@ export type Runner = {
 
 export type Promise = {
   id?: number;
-  promiseType?: string;
-  promiseTitle?: string;
-  promiseDetail?: string;
+  promiseType: string;
+  promiseTitle: string;
+  promiseDetail: string;
+};
+
+export type PromiseArr = {
+  pledgeArr: Promise[];
+  slogan: string;
 };
 
 export type comment = {
@@ -48,6 +53,17 @@ export type question = {
   question?: string;
   time?: number;
   answer?: comment[];
+};
+
+export type qnaInfo = {
+  id: number;
+  type: string;
+  comment: string;
+  time: number;
+};
+
+export type qnaArr = {
+  qnaArr: qnaInfo[];
 };
 
 export type Team = {

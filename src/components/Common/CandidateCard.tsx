@@ -1,6 +1,10 @@
 import * as React from 'react';
 
+import { useCandidateDispatch, useCandidateState } from '../../context/CandidateProvider';
+import { useEffect, useState } from 'react';
+
 import defaultImg from '../../../public/img/noimg.jpg';
+import EditIcon from '@material-ui/icons/Edit';
 import media from '../../lib/styles/media';
 import styled from 'styled-components';
 import { Team } from '../../types/candidateType';
@@ -12,13 +16,36 @@ type TeamProps = {
 };
 
 const CandidateCard = ({ teamData }: TeamProps) => {
+  const [isAdminPage, setAdminPage] = useState(false);
+  const dispatch = useCandidateDispatch();
+
+  const editCandidate = e => {
+    e.stopPropagation();
+    // delete 클릭 시, 이벤트
+    dispatch({type: 'TOGGLE_EDIT_CANDIDATE', isOpenEdit: true, id: teamData.id});
+  }
 
   const handleImgError = (e) => {
     e.target.src = defaultImg;
   }
 
+  // admin일 경우, 상황에 따라 edit open, delete candidate 실행 함수 작성
+  useEffect(()=>{
+    const addressList = window.location.href.split('/')
+    if (addressList[addressList.length -1] === 'admin') {
+      setAdminPage(true);
+    }
+  },[])
+
   return (
     <>
+      { isAdminPage && (
+        <>
+          <EditButton type='button' onClick={editCandidate}>
+            <EditIcon fontSize={'large'} />
+          </EditButton>
+        </>
+      )}
       <NumberBlock>기호 {teamData.order}번</NumberBlock>
       <SloganBlock>"{teamData.slogan}"</SloganBlock>
       <InnerBox>
@@ -43,6 +70,28 @@ const CandidateCard = ({ teamData }: TeamProps) => {
 CandidateCard.defaultProps = {
   isCurrent: true,
 };
+
+const EditButton = styled.button`
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  border-style: none;
+  background: none;
+  color: gray;
+  font-size: 2.5rem;
+  position: absolute;
+  z-index: 1;
+  top: 15px;
+  right: 10px;
+  border-radius: 20px;
+  &:hover {
+    cursor: pointer;
+    color: black;
+    background: lightgray;
+  }
+`;
 
 const NumberBlock = styled.p`
   font-size: 1.4rem;

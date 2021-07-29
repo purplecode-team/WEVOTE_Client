@@ -36,7 +36,6 @@ const Slide = ({ data }: DataProps) => {
   const sdate = dateFormat(sdate_bformat);
   const edate = dateFormat(edate_bformat);
 
-  console.log('slide 렌더링');
   return (
     <CardBox>
       <Article>

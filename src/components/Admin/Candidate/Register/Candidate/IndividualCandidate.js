@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import ImageUploader from '../../Common/ImageUploader';
+import ImageUploader from '../../../Common/ImageUploader';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
@@ -11,14 +11,18 @@ import { withStyles } from '@material-ui/core/styles';
 
 const IndividualCandidate = props => {
   const {
-    id,
+    index,
     classes,
     titleText,
+    candidateMajor,
+    candidateName,
+    candidateStudentNum,
+    candidatePosition,
     handleImageArr,
     handleUrlArr,
     handleMajorArr,
     handleNameArr,
-    handleStudentNumberArr,
+    handleStudentNumArr,
     handlePositionArr,
     majorData,
     image,
@@ -26,40 +30,55 @@ const IndividualCandidate = props => {
   } = props;
   const [individualName, setIndividualName] = useState('');
   const [individualMajor, setIndividualMajor] = useState('');
-  const [individualStudentNumber, setIndividualStudentNumber] = useState('');
+  const [individualStudentNum, setIndividualStudentNum] = useState('');
   const [individualPosition, setIndividualPosition] = useState('');
 
   const handleName = e => {
     setIndividualName(e.target.value);
-    handleNameArr(id, e.target.value);
+    handleNameArr(index, e.target.value);
   };
 
   const handleStudentNumber = e => {
-    setIndividualStudentNumber(e.target.value);
-    handleStudentNumberArr(id, e.target.value);
+    setIndividualStudentNum(e.target.value);
+    handleStudentNumArr(index, e.target.value);
   };
 
   const handleMajor = e => {
     setIndividualMajor(e.target.value);
-    handleMajorArr(id, e.target.value);
+    handleMajorArr(index, e.target.value);
   };
 
   const handlePosition = e => {
     setIndividualPosition(e.target.value);
-    handlePositionArr(id, e.target.value);
+    handlePositionArr(index, e.target.value);
   };
   const processImage = e => {
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
-    handleUrlArr(id, imageUrl);
-    handleImageArr(id, imageFile);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(imageFile);
+
+    reader.onloadend = () => {
+      const base64data = reader.result;
+      handleImageArr(index, base64data);
+    };
+
+    handleUrlArr(index, imageUrl);
   };
   const resetImg = () => {
-    handleUrlArr(id, '');
+    handleUrlArr(index, '');
   };
 
   useEffect(() => {
-    handleUrlArr(id, url);
+    setIndividualMajor(candidateMajor);
+    setIndividualName(candidateName);
+    setIndividualPosition(candidatePosition);
+    setIndividualStudentNum(candidateStudentNum);
+  }, [candidateStudentNum]);
+
+  useEffect(() => {
+    handleUrlArr(index, url);
   }, [url]);
 
   return (
@@ -69,7 +88,7 @@ const IndividualCandidate = props => {
           {titleText.candidate.image}
         </Typography>
         <ImageUploader
-          alt={`candidate-${id}`}
+          alt={`candidate-${index}`}
           fileUrl={url}
           resetImg={resetImg}
           processImage={processImage}
@@ -83,7 +102,7 @@ const IndividualCandidate = props => {
             {titleText.candidate.name}
           </Typography>
           <TextField
-            id='outlined-basic'
+            index='outlined-basic'
             placeholder='ex) 홍길동'
             variant='outlined'
             value={individualName}
@@ -95,10 +114,10 @@ const IndividualCandidate = props => {
             {titleText.candidate.studentNumber}
           </Typography>
           <TextField
-            id='outlined-basic'
+            index='outlined-basic'
             placeholder='ex) 21'
             variant='outlined'
-            value={individualStudentNumber}
+            value={individualStudentNum}
             onChange={handleStudentNumber}
           />
         </Grid>
@@ -115,7 +134,7 @@ const IndividualCandidate = props => {
           >
             <Select
               labelId='demo-simple-select-outlined-label'
-              id='demo-simple-select-outlined'
+              index='demo-simple-select-outlined'
               value={individualMajor}
               onChange={handleMajor}
               className={classes.selectEmpty}
@@ -134,7 +153,7 @@ const IndividualCandidate = props => {
             {titleText.candidate.position}
           </Typography>
           <TextField
-            id='outlined-basic'
+            index='outlined-basic'
             placeholder='ex) 정학생회장'
             variant='outlined'
             value={individualPosition}

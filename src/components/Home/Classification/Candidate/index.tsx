@@ -1,89 +1,50 @@
 import * as React from 'react';
 
-import CandidateCard from '../../../Common/CandidateCard';
+import CardList from './CardList';
 import Carousel from '../../../Common/Carousel';
-import EmptyCard from './EmptyCard';
-import img1 from '../../../../../public/img/CardImg.svg';
-import img2 from '../../../../../public/img/CardImg2.svg';
-import img3 from '../../../../../public/img/CardImg3.svg';
-import { Link } from 'react-router-dom';
+import Img1 from '../../../../../public/img/CardImg1.svg';
+import Img2 from '../../../../../public/img/CardImg2.svg';
+import Img3 from '../../../../../public/img/CardImg3.svg';
 import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
-import theme from '../../../../lib/styles/theme';
-
-type Runner = {
-  id: number;
-  name: string;
-  major: string;
-  studentNum: number;
-  position: string;
-  picture?: string;
-  teamId: number;
-};
-
-type Promise = {
-  id?: number;
-  promiseType?: string;
-  promiseTitle?: string;
-  promiseDetail?: string;
-};
-
-type comment = {
-  comment?: string;
-  time?: number;
-};
-
-type question = {
-  id?: number;
-  question?: string;
-  time?: number;
-  answer?: comment[];
-};
-
-type Team = {
-  id: number;
-  order: number;
-  slogan: string;
-  Runners: Runner[];
-  Promises?: Promise[];
-  qna?: question[];
-};
+import { Team } from '../../../../types/candidateType';
+import { useState } from 'react';
 
 type CandidateArticleProps = {
   title: string;
-  teamArray: Team[];
+  teamArr: Team[];
 };
 
-const CandidateArticle = ({ title, teamArray }: CandidateArticleProps) => {
-  const images = [img1, img2, img3];
-  const showEmptyCard = () => {
-    return images.map((image, index) => (
-      <EmptyBlock key={index}>
-        <EmptyCard url={image} />
-      </EmptyBlock>
-    ));
-  };
-  const showTeamCard = (teamArr: Team[]) => {
-    return teamArr.map((team: Team) => (
-      // <LinkBlock to={`/pledge?id=${team.id}`} key={team.id}>
-      <LinkBlock to="/pledge?id=1" key={team.id}>
-        <CandidateCard teamData={team} />
-      </LinkBlock>
-    ));
-  };
+const emptyCardArr = [Img1, Img2, Img3];
+const emptyDescription = '후보가 등록되어 있지 않습니다.';
+
+const CandidateArticle = ({ title, teamArr }: CandidateArticleProps) => {
+  const [locationX, setLocationX] = useState(0);
+  const [count, setCount] = useState(0);
+
+  const isEmptyTeamArr = 
+    typeof teamArr === 'undefined' ||
+    teamArr === null ||
+    teamArr.length === 0;
+  
   return (
     <Article>
       <CandidateTitle>{title} 후보</CandidateTitle>
-      <InnerArticle>
-        <Carousel isLineBreak>
-          {/* props로 받은 후보자 데이터의 존재 유무에 따라 출력 Card 바뀜 */}
-          {typeof teamArray === 'undefined' ||
-          teamArray === null ||
-          teamArray.length === 0
-            ? showEmptyCard()
-            : showTeamCard(teamArray)}
+      <CarouselWrapper>
+        <Carousel 
+          isLineBreak
+          locationX={locationX}
+          setLocationX={setLocationX}
+          count={count}
+          setCount={setCount}
+          maxCount={teamArr.length}
+        >
+          {isEmptyTeamArr
+            ? <CardList dataArr={emptyCardArr} alt={'empty card'} description={emptyDescription}/>
+            : <CardList isLink dataArr={teamArr} alt={'team card'} />
+          }
         </Carousel>
-      </InnerArticle>
+      </CarouselWrapper>
     </Article>
   );
 };
@@ -98,6 +59,7 @@ const CandidateTitle = styled.h2`
 `;
 
 const Article = styled.article`
+  max-width: 100%;
   width: ${media.laptop}px;
   margin: 0 auto;
   padding: 30px 0;
@@ -107,26 +69,8 @@ const Article = styled.article`
   }
 `;
 
-const InnerArticle = styled.article`
+const CarouselWrapper = styled.div`
   overflow: hidden;
-  color: ${theme.DarkBlue};
-  color: ${theme.DarkBlue};
-  padding-left: 20px;
-`;
-
-const LinkBlock = styled(Link)`
-  text-decoration: none;
-  color: black;
-  @media (max-width: ${media.mobileL}px) {
-    width: 90%;
-  }
-`;
-
-const EmptyBlock = styled.div`
-  width: 420px;
-  @media (max-width: ${media.mobileL}px) {
-    min-width: 90%;
-  }
 `;
 
 export default CandidateArticle;

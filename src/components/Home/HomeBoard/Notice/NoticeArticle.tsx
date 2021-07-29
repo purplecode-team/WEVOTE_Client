@@ -39,6 +39,7 @@ const NoticeArticle = () => {
       });
     });
     setBanner(temp);
+    return () => setBanner(bannerData);
   }, [bannerData]);
 
   useEffect(() => {

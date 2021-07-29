@@ -1,31 +1,31 @@
 [
   {
     "id": 2,
-    "organizationName": "공과대학",
+    "organizationName": "공과대",
     "Majors": [
       {
         "id": 3,
-        "majorName": "기계공학과",
+        "organizationName": "기계공학과",
         "Teams": []
       },
       {
         "id": 2,
-        "majorName": "전자전기공학부",
+        "organizationName": "전자전기공학부",
         "Teams": []
       },
       {
         "id": 4,
-        "majorName": "기계공학과2",
+        "organizationName": "기계공학과2",
         "Teams": []
       },
       {
         "id": 5,
-        "majorName": "전자전기공학부2",
+        "organizationName": "전자전기공학부2",
         "Teams": []
       },
       {
         "id": 1,
-        "majorName": "컴퓨터공학과",
+        "organizationName": "컴퓨터공학과",
         "Teams": [
           {
             "id": 2,
@@ -87,12 +87,12 @@
     "Majors": [
       {
         "id": 2,
-        "majorName": "영어영문학과",
+        "organizationName": "영어영문학과",
         "Teams": []
       },
       {
         "id": 1,
-        "majorName": "국어국문학과",
+        "organizationName": "국어국문학과",
         "Teams": [
           {
             "id": 4,
@@ -154,12 +154,12 @@
     "Majors": [
       {
         "id": 2,
-        "majorName": "영어영문학과",
+        "organizationName": "영어영문학과",
         "Teams": []
       },
       {
         "id": 1,
-        "majorName": "국어국문학과",
+        "organizationName": "국어국문학과",
         "Teams": [
           {
             "id": 4,

@@ -14,6 +14,7 @@ export const titleText = {
     major: '후보자 학과',
     position: '후보자 직무',
     studentNumber: '후보자 학번',
+    classificationTop: '선거 대분류',
     classificationMiddle: '선거 중분류',
     classificationBottom: '선거 소분류',
   },

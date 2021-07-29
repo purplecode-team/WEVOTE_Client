@@ -1,41 +1,113 @@
 import * as React from 'react';
 
-import { useCallback, useState } from 'react';
+import { Promise, qnaInfo, Team } from '../types/candidateType';
 
-import CarouselSection from '../components/Pledge/Candidate/CandidateSection';
+import CandidateSection from '../components/Pledge/Candidate/CandidateSection';
 import CommentSection from '../components/Pledge/Comment/CommentSection';
-import PledgeData from '../lib/api/dummyData/PledgeData.json';
+import Loader from '../components/Common/Loader';
 import PledgeSection from '../components/Pledge/Pledge/PledgeSection';
 import { RouteComponentProps } from 'react-router-dom';
+import { useEffect } from 'react';
+import useFetch from '../lib/hooks/useFetch';
+import { useState } from 'react';
 
 type MatchParams = {
   id: string;
 };
 
+const initialData = {
+    id: 0,
+    organizationName: "미등록",
+    Teams: [
+      {
+        id: 1,
+        categoryName: "미등록",
+        categoryDetail: "미등록",
+        majorName: "미등록",
+        order: 1,
+        slogan: "미등록",
+        centralId: 1,
+        collegeId: 1,
+        majorId: 1,
+        Runners: [{
+          id: 1,
+          name: "미등록",
+          major: "미등록",
+          studentNum: 11111111,
+          position: "미등록",
+          picture: "미등록",
+          teamId: 1
+        },
+        {
+          id: 2,
+          name: "미등록",
+          major: "미등록",
+          studentNum: 22222222,
+          position: "미등록",
+          picture: "미등록",
+          teamId: 1
+        }
+      ],
+        Promises: [
+          {
+            id: 1,
+            promiseType: "미등록",
+            promiseTitle: "미등록",
+            promiseDetail: "미등록"
+          }
+        ],
+        Qnas: [{
+          id: 2,
+          type: "question",
+          comment: "미등록",
+          time: 1618239463
+        },
+        {
+          id: 2,
+          type: "answer",
+          comment: "미등록",
+          time: 1618239464
+        },
+      ]
+      }
+    ]
+};
+
 const Pledge = ({ match }: RouteComponentProps<MatchParams>) => {
   // api 호출
-  // const {loading, data, error} = useFetch('http://localhost:8001/api/v1/promise/promise-detail');
-  const [current, setCurrent] = useState(1);
-  const data = PledgeData[0];
-  const teamArray = data.Teams;
-  const pledgeArray = data.Teams[current - 1].Promises;
-  const { slogan } = data.Teams[current - 1];
-  const { Qna } = data.Teams[current - 1];
+  const [{loading, data, error}, setUrl] = useFetch({
+    initialUrl: `/api/v1/promise/promise-detail/1`,
+    initialData: initialData,
+  })
+  const [current, setCurrent] = useState(0);
+  const [teamArr, setTeamArr] = useState<Team[]>(initialData.Teams);
+  const [pledgeArr, setPledgeArr] = useState<Promise[]>(initialData.Teams[0].Promises);
+  const [slogan, setSlogan] = useState<string>(initialData.Teams[0].slogan);
+  const [Qnas, setQnas] = useState<qnaInfo[]>(initialData.Teams[0].Qnas);
 
-  const handleCurrent = useCallback((id) => {
-    setCurrent(id);
-  }, []);
+  useEffect(()=>{
+    setTeamArr(data.Teams);
+    setPledgeArr(data.Teams[current].Promises)
+    setSlogan(data.Teams[current].slogan);
+    setQnas(data.Teams[current].Qnas);
+  },[data])
 
   return (
     <>
-      <CarouselSection
-        title={data.organizationName}
-        teamArray={teamArray}
-        current={current}
-        handleCurrent={handleCurrent}
-      />
-      <PledgeSection pledgeArray={pledgeArray} slogan={slogan} />
-      <CommentSection qnaArray={Qna} />
+      {loading ? (
+        <Loader margin={100}/>
+      ) : (
+      <>
+        <CandidateSection
+          title={data.organizationName}
+          teamArr={teamArr}
+          current={current}
+          setCurrent={setCurrent}
+        />
+        <PledgeSection pledgeArr={pledgeArr} slogan={slogan} />
+        <CommentSection qnaArr={Qnas} />
+      </>
+      )}
     </>
   );
 };
