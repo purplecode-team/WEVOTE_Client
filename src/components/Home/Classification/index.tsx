@@ -100,6 +100,7 @@ const Classification = (props) => {
       college: collegeData,
       major: majorData,
     })
+    return ()=> setDataSet(initialData);
   },[centralData, collegeData, majorData])
 
   useEffect(() => {
