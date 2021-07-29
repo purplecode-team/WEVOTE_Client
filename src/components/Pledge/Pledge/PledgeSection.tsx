@@ -13,18 +13,18 @@ type Pledge = {
 };
 
 type PledgeArray = {
-  pledgeArray: Pledge[];
+  pledgeArr: Pledge[];
   slogan: string;
 };
 
-const PledgeSection = ({ pledgeArray, slogan }: PledgeArray) => {
+const PledgeSection = ({ pledgeArr, slogan }: PledgeArray) => {
   return (
     <Article>
       <PledgeBlock>
         <InnerBox>
           <SloganText>"{slogan}"</SloganText>
           <PledgeTable>
-            {pledgeArray.map((pledge, index) => {
+            {pledgeArr.map((pledge, index) => {
               return (
                 <PledgeCard
                   key={index}
@@ -45,6 +45,11 @@ const Article = styled.article`
   width: ${media.laptop}px;
   height: 100%;
   margin: 0 auto;
+  -ms-user-select: text; 
+  -moz-user-select: text; 
+  -webkit-user-select: text; 
+  -khtml-user-select: text; 
+  user-select:text;
   @media (max-width: ${media.mobileL}px) {
     width: 100%;
   }

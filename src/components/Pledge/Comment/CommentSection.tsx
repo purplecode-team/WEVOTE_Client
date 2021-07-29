@@ -13,15 +13,15 @@ type qnaInfo = {
 };
 
 type qnaArrayType = {
-  qnaArray: qnaInfo[];
+  qnaArr: qnaInfo[];
 };
 
-const CommentSection = ({ qnaArray }: qnaArrayType) => {
+const CommentSection = ({ qnaArr }: qnaArrayType) => {
   return (
     <Section>
       <CommentBlock>
         <CommentInput />
-        <CommentArticle qnaArray={qnaArray} />
+        <CommentArticle qnaArr={qnaArr} />
       </CommentBlock>
     </Section>
   );

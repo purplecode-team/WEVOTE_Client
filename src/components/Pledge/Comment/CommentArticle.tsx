@@ -1,10 +1,7 @@
 import * as React from 'react';
 
 import Comment from './Comment';
-import media from '../../../lib/styles/media';
 import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
-import { useState } from 'react';
 
 type qnaInfo = {
   id: number;
@@ -13,14 +10,14 @@ type qnaInfo = {
   time: number;
 };
 
-type qnaArrayType = {
-  qnaArray: qnaInfo[];
+type qnaArrType = {
+  qnaArr: qnaInfo[];
 };
 
-const CommentArticle = ({ qnaArray }: qnaArrayType) => {
+const CommentArticle = ({ qnaArr }: qnaArrType) => {
   return (
     <Article>
-      {qnaArray.map((qna, index) => {
+      {qnaArr.map((qna, index) => {
         if (qna.type === 'question') {
           return <Comment key={index} qna={qna} />;
         }

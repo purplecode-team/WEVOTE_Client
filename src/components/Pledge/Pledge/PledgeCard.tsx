@@ -10,7 +10,7 @@ type Pledge = {
   promiseDetail: string;
 };
 
-const PledgeSection = ({
+const PledgeCard = ({
   promiseType,
   promiseTitle,
   promiseDetail,
@@ -79,4 +79,4 @@ const DetailText = styled.p`
   }
 `;
 
-export default PledgeSection;
+export default PledgeCard;
