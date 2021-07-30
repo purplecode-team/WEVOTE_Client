@@ -1,49 +1,32 @@
-/* eslint-disable no-use-before-define */
-
-import React, { useEffect, useState } from 'react';
 import {
-  ThemeProvider,
   createMuiTheme,
   createStyles,
   makeStyles,
+  ThemeProvider,
 } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import media from '../../../../lib/styles/media';
 import Popper from '@material-ui/core/Popper';
 import SearchIcon from '@material-ui/icons/Search';
-import TextField from '@material-ui/core/TextField';
-import deptData from '../../../../lib/api/dummyData/SearchDept.json';
-import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
+import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
-
-type searchDataType = {
-  id: number;
-  name: string;
-};
 
 const defaultText = '선거명을 입력하세요';
 
-function AutoBox({ history }: any) {
-  const classes = useStyles();
-  const [department, setDepartment] = useState<searchDataType[]>([]);
-  const [searchValue, setSearchValue] = useState<string>('');
 
-  useEffect(() => {
-    const temp: searchDataType[] = [];
-    deptData.map((data) => {
-      const departmentData = { id: data.id, name: data.name };
-      temp.push(departmentData);
-    }, []);
-    setDepartment(temp);
-  }, []);
+function AutoBox({ history, data }: any) {
+  const classes = useStyles();
+  const [searchValue, setSearchValue] = useState<string>('');
 
   // AutoComplete의 onChange 매개변수는 event, value, reason, detail 등으로 구성되어있음
   const selectSearchValue = (e, value) => {
     setSearchValue(value);
   };
 
-  const handleSearchValue = (e) => {
+  const handleSearchValue = e => {
     setSearchValue(e.target.value);
   };
 
@@ -52,14 +35,14 @@ function AutoBox({ history }: any) {
     return 436;
   };
 
-  const enterKey = (e) => {
+  const enterKey = e => {
     if (e.key === 'Enter') {
       goLink();
     }
   };
 
   const goLink = () => {
-    const searchData = department.filter((obj) => obj.name == searchValue)[0];
+    const searchData = data.filter((obj) => obj.name == searchValue)[0];
     if (searchData) {
       history.push(`pledge?id=${searchData.id}`);
     } else {
@@ -77,7 +60,7 @@ function AutoBox({ history }: any) {
         <Autocomplete
           freeSolo
           id="custom-autocomplete"
-          options={department.map((option) => option.name)}
+          options={data.map((option) => option.name)}
           onChange={selectSearchValue}
           renderInput={(params) => {
             return (

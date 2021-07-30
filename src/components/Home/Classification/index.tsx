@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { CandidateDataType, HasBottomType, HasMiddleType, Team } from '../../../types/candidateType';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useCandidateDispatch, useCandidateState } from '../../../context/CandidateProvider'
 import { useEffect, useState } from 'react';
 
@@ -9,6 +10,7 @@ import CandidateRegister from '../../Admin/Candidate/Register';
 import Category from './Category';
 import client from '../../../lib/api/client';
 import { Modal } from 'react-responsive-modal';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { useAlert } from 'react-alert';
 import useGetCategory from '../../../lib/hooks/useGetCategory';
 
@@ -29,7 +31,9 @@ const topCategory = {
 };
 
 const Classification = (props) => {
+  const classes = useStyles();
   const {
+    loading,
     currentIndex,
     topList,
     middleList,
@@ -118,6 +122,12 @@ const Classification = (props) => {
 
   return (
     <section>
+      {loading 
+      ? <>
+        <Skeleton animation="wave" variant="rect" className={classes.categoryTop}/>
+        <Skeleton animation="wave" variant="rect" className={classes.categoryMid}/>
+      </>
+      :
       <Category
         getNewMiddleList={getNewMiddleList}
         getNewBottomList={getNewBottomList}
@@ -126,8 +136,9 @@ const Classification = (props) => {
         middleList={middleList}
         bottomList={bottomList}
         currentIndex={currentIndex}
-      />
+      />}
       <Candidate
+        loading={loading}
         title={
           topList[currentIndex.top] === topCategory.major
             ? bottomList[currentIndex.bottom]
@@ -152,3 +163,21 @@ const Classification = (props) => {
 };
 
 export default Classification;
+
+
+const useStyles = makeStyles((theme: Theme) => (
+  createStyles({
+  categoryTop: {
+    width: '100%',
+    height: '60px',
+    overflowX: 'hidden',
+    backgroundColor: '#eee',
+  },
+  categoryMid:{
+    width: '100%',
+    height: '60px',
+    overflowX: 'hidden',
+  }
+})
+));
+

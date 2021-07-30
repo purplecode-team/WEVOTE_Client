@@ -1,24 +1,70 @@
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+
 import media from '../../../../lib/styles/media';
 import ModalSearchBox from './ModalSearchBox';
 import React from 'react';
 import SearchBox from './SearchBox';
+import Skeleton from '@material-ui/lab/Skeleton';
 import styled from 'styled-components';
+import useFetch from '../../../../lib/hooks/useFetch';
 
+const initialData = [{id: 0, name: '없음'}]
 const Search = () => {
+  const classes = useStyles();
+  const [{loading, data, error}, setUrl] = useFetch({
+    initialUrl: '/api/v1/main/search',
+    initialData: initialData,
+  })
   return (
     <Contain>
-      <Title>00대학교 선거소식</Title>
-      <SearchWrapper>
-        <SearchBox />
-      </SearchWrapper>
+      {loading ?
+      <> 
+        <Skeleton animation="wave" variant="rect" className={classes.title}/>
+        <Skeleton animation="wave" variant="rect" className={classes.searchWrapper}/>        
+      </> :
+      <>
+        <Title>00대학교 선거소식</Title>
+        <SearchWrapper>
+          <SearchBox data={data}/>
+        </SearchWrapper>
+      </>
+      }
+      {!loading && 
       <MobileArea>
-        <ModalSearchBox />
-      </MobileArea>
+        <ModalSearchBox data={data}/>
+      </MobileArea>}
     </Contain>
   );
 };
 
 export default Search;
+
+const useStyles = makeStyles((theme: Theme) => (
+  createStyles({
+  title: {
+    width: '250px',
+    height: '50px',
+    borderRadius: '20px',
+    marginTop: '3.7rem',
+    marginLeft: '11px',
+    [theme.breakpoints.up('mobile')] : {
+      marginTop: '10.4rem',
+      marginLeft: '0',
+    }
+  },
+  searchWrapper:{
+    display: 'none',
+    [theme.breakpoints.up('mobile')] : {
+      display: 'block',
+      position: 'relative',
+      width: '400px',
+      height: '50px',
+      borderRadius: '20px',
+      marginTop: '20px'
+    }
+  }
+})
+));
 
 const Contain = styled.div``;
 
