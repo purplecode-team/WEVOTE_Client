@@ -164,7 +164,7 @@ export default function Category (props) {
       setCategoryIndex({ ...currentIndex });
     }
     return () => setCurrentIndex(initialIndex);
-  }, [currentIndex]);
+  }, []);
 
   useEffect(() => {
     if (error) alert.error('카테고리 호출 실패');

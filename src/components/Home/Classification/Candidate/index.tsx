@@ -1,24 +1,30 @@
 import * as React from 'react';
 
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+
 import CardList from './CardList';
 import Carousel from '../../../Common/Carousel';
 import Img1 from '../../../../../public/img/CardImg1.svg';
 import Img2 from '../../../../../public/img/CardImg2.svg';
 import Img3 from '../../../../../public/img/CardImg3.svg';
 import media from '../../../../lib/styles/media';
+import Skeleton from '@material-ui/lab/Skeleton';
 import styled from 'styled-components';
 import { Team } from '../../../../types/candidateType';
 import { useState } from 'react';
 
 type CandidateArticleProps = {
-  title: string;
-  teamArr: Team[];
+  organizationId?: number,
+  loading: boolean,
+  title: string,
+  teamArr: Team[],
 };
 
 const emptyCardArr = [Img1, Img2, Img3];
 const emptyDescription = '후보가 등록되어 있지 않습니다.';
 
-const CandidateArticle = ({ title, teamArr }: CandidateArticleProps) => {
+const CandidateArticle = ({ loading, title, teamArr, organizationId }: CandidateArticleProps) => {
+  const classes = useStyles();
   const [locationX, setLocationX] = useState(0);
   const [count, setCount] = useState(0);
 
@@ -29,7 +35,10 @@ const CandidateArticle = ({ title, teamArr }: CandidateArticleProps) => {
   
   return (
     <Article>
-      <CandidateTitle>{title} 후보</CandidateTitle>
+      {loading 
+      ? <Skeleton animation="wave" variant="rect" className={classes.title}/>
+      : <CandidateTitle>{title} 후보</CandidateTitle>
+      }
       <CarouselWrapper>
         <Carousel 
           isLineBreak
@@ -40,14 +49,28 @@ const CandidateArticle = ({ title, teamArr }: CandidateArticleProps) => {
           maxCount={teamArr.length}
         >
           {isEmptyTeamArr
-            ? <CardList dataArr={emptyCardArr} alt={'empty card'} description={emptyDescription}/>
-            : <CardList isLink dataArr={teamArr} alt={'team card'} />
+            ? <CardList loading={loading} dataArr={emptyCardArr} alt={'empty card'} description={emptyDescription}/>
+            : <CardList isLink dataArr={teamArr} organizationId={organizationId} alt={'team card'} />
           }
         </Carousel>
       </CarouselWrapper>
     </Article>
   );
 };
+
+const useStyles = makeStyles((theme: Theme) => (
+  createStyles({
+  title:{
+    width: '80px',
+    height: '30px',
+    borderRadius: '20px',
+    margin: '20px 0px 40px 20px',
+    [theme.breakpoints.up('mobile')] : {
+      width: '100px',
+      height: '40px',
+    }
+  }
+})));
 
 const CandidateTitle = styled.h2`
   font-size: 2.4rem;

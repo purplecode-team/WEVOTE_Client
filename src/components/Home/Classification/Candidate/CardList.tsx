@@ -1,23 +1,27 @@
 import * as React from 'react';
 
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import styled, { css } from 'styled-components';
 
 import CandidateCard from '../../../Common/CandidateCard';
 import media from '../../../../lib/styles/media';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { Team } from '../../../../types/candidateType';
 import theme from '../../../../lib/styles/theme';
 import { useHistory } from "react-router-dom";
 
 type imgTypes = {
+  loading?: boolean;
   isLink?: boolean;
   dataArr: any[];
   alt: string;
   description?: string;
-  isCurrent?: boolean,
+  isCurrent?: boolean
+  organizationId?: number;
 }
 
 type styleProps = {
-  isCurrent?: boolean,
+  isCurrent?: boolean;
   mobileMargin?: number;
   MobileBoxSize?: number;
   laptopMargin?:number;
@@ -26,13 +30,15 @@ type styleProps = {
 const BoxSize = 360;
 const MobileBoxSize = 90;
 
-const CardList = ({ isLink, dataArr, alt, isCurrent, description }:imgTypes) => {
+const CardList = (props:imgTypes) => {
+  const {loading, isLink, dataArr, alt, isCurrent, description, organizationId} = props;
   const history = useHistory();
+  const classes = useStyles();
   
   const mobileMargin = (window.innerWidth - window.innerWidth*MobileBoxSize/100) / 2
 
-  const routePledge = (id) => {
-    history.push(`/pledge/${id}`);
+  const routePledge = () => {
+    history.push(`/pledge/${organizationId}`);
   }
 
   return (
@@ -44,22 +50,25 @@ const CardList = ({ isLink, dataArr, alt, isCurrent, description }:imgTypes) => 
             isCurrent={isCurrent} 
             mobileMargin={mobileMargin} 
             MobileBoxSize={MobileBoxSize}
-            onClick={() => routePledge(team.id)}
+            onClick={routePledge}
           >
             <CandidateCard teamData={team} />
           </Box>
         ))
        : 
        dataArr.map((img,index) => (
-        <Box 
-          key={index}
-          mobileMargin={mobileMargin}
-          MobileBoxSize={MobileBoxSize}
-        >
-          <Img src={img} alt={alt} />
-          {description && <Description>{description}</Description>}
-        </Box>
-       ))
+         loading ?
+            <Skeleton key={index} animation="wave" variant="rect" className={classes.card}/>
+          : <Box 
+           key={index}
+           mobileMargin={mobileMargin}
+           MobileBoxSize={MobileBoxSize}
+         >
+           <Img src={img} alt={alt} />
+           {description && <Description>{description}</Description>}
+         </Box>
+       )
+       )
       }
     </>
   );
@@ -70,6 +79,23 @@ CardList.defaultProps = {
   isCurrent: true,
 };
 
+const useStyles = makeStyles((theme: Theme) => (
+  createStyles({
+  card: {
+    borderRadius: '25px',
+    overflow: 'hidden',
+    boxSizing: 'border-box',
+    padding: '20px',
+    position: 'relative',
+    minWidth: '90vw',
+    height: '436px',
+    margin: '20px 20px',
+    [theme.breakpoints.up('mobile')] : {
+      minWidth: '360px',
+      margin: '20px 30px',
+    }
+  }})
+));
 
 const Box = styled.div`
   background: #ffffff;

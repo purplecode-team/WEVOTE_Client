@@ -1,6 +1,9 @@
+import { GOOGLE_CLIENT_ID, GOOGLE_REDIRECT_URI, JAVASCRIPT_KEY, LOCAL_REDIRECT_URI, REDIRECT_URI } from './auth';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { verifyEmail, verifyName, verifyPassword } from '../../utils/getRegExp';
+import { verifyEmail, verifyName, verifyPassword } from '../../utils/getFunction';
 
+import axios from 'axios';
 import Button from '../Common/Button';
 import client from '../../lib/api/client';
 import glogin from '../../../public/img/login/googleLogin.png';
@@ -9,7 +12,6 @@ import KakaoLogin from 'react-kakao-login';
 import klogin from '../../../public/img/login/kakaoLogin.png';
 import { Link } from 'react-router-dom';
 import media from '../../lib/styles/media';
-import React from 'react';
 import theme from '../../lib/styles/theme';
 
 const textMap = {
@@ -18,18 +20,43 @@ const textMap = {
 };
 
 const AuthForm = ({ type, form, onChange, onSubmit }) => {
+  const [data, setData] = useState();
   const text = textMap[type];
   const isRegister = type === 'register';
 
-  const responseSuccess = res => {
-    // token id 포함한 post request로 사용자 정보 가져오기
-    if (res.id_token) {
-      client
-        .post(`/outh/v1/login`, { tokenId: res.id_token })
-        .then(response => console.log(response.data))
-        .catch(e => console.error(e));
-    }
+  const kakaoSuccess = res => {
+    setData(res);
+    console.log('redirect 보내기 전 response',res);
+    axios.get(`${LOCAL_REDIRECT_URI}`, {
+      headers: {
+        Authorization: res.response.access_token,
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log('redirect 보낸 후 서버에서 받은 response',res);
+        // localStorage.setItem('x-access-token', res.data.token);
+        // localStorage.setItem('user', JSON.stringify(res.data));
+      })
+      .catch(e => {
+        console.log('카카오 로그인 실패');
+        console.log(e);
+      });
   };
+
+  const googleSuccess = res => {
+    setData(res);
+    console.log(res);
+    client.get(`${GOOGLE_REDIRECT_URI}`, {
+      headers: {
+        Authorization: res.response.access_token,
+        //받아오는 response객체의 access_token을 통해 유저 정보를 authorize한다. 
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => localStorage.setItem('token', res.token), 
+        console.log('result',res));
+  }
 
   const correctName = () => verifyName(form.name)
   const correctEmail = () => verifyEmail(form.userId)
@@ -115,8 +142,8 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
         {!isRegister && (
           <APILoginBlock>
             <KakaoLogin
-              token="5bea7f615e03c869086e836714986db6"
-              onSuccess={console.log}
+              token={JAVASCRIPT_KEY}
+              onSuccess={kakaoSuccess}
               onFail={console.error}
               onLogout={console.info}
               style={{
@@ -128,7 +155,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
               <KakaoImg src={klogin} alt="klogin" />
             </KakaoLogin>
             <GoogleLogin
-              clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+              clientId={GOOGLE_CLIENT_ID}
               render={(renderProps) => (
                 <GoogleImg
                   src={glogin}
@@ -138,8 +165,8 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
                 />
               )}
               buttonText="Login"
-              onSuccess={responseSuccess}
-              onFailure={responseSuccess}
+              onSuccess={googleSuccess}
+              onFailure={(e)=>console.log(e)}
               cookiePolicy="single_host_origin"
             />
           </APILoginBlock>
@@ -271,25 +298,6 @@ const ButtonBlock = styled.div`
   align-items: flex-end;
   margin: 20px 15px 20px 0px;
 `;
-
-// const Button = styled.button`
-//   width: 100px;
-//   height: 44px;
-//   background-color: ${theme.Blue};
-//   color: white;
-//   border-style: none;
-//   border-radius: 10px;
-//   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-//   &:hover {
-//     cursor: pointer;
-//     background-color: ${theme.DarkBlue};
-//   }
-//   @media (max-width: ${media.mobileL}px) {
-//     font-size: 1.2rem;
-//     width: 80px;
-//     height: 40px;
-//   }
-// `;
 
 const Footer = styled.div`
   margin: 40px auto;

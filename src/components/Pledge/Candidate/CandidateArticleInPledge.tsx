@@ -32,15 +32,17 @@ const CandidateInPledge = ({ title, teamArr, current, setCurrent }: CandidateArt
   const mobileMargin = (window.innerWidth - window.innerWidth*0.75) / 2
 
   const onMoveRight = () => {
-    if (count+2 >= teamArr.length -1) return;
+    if (count+2 >= teamArr.length-1) return;
     setLocationX(locationX - (BoxSize+laptopMargin*2));
     setCount(count + 1);
+    setCurrent(count + 1);
   };
 
   const onMoveLeft = () => {
-    if (locationX === 0) return;
+    if (count === 0) return;
     setLocationX(locationX + (BoxSize+laptopMargin*2));
     setCount(count - 1);
+    setCurrent(count - 1);
   };
 
 
@@ -49,7 +51,7 @@ const CandidateInPledge = ({ title, teamArr, current, setCurrent }: CandidateArt
       <Box
         key={index}
         isCurrent={current === index}
-        onClick={()=>{setCurrent(index)}}
+        onClick={()=>setCurrent(index)}
         laptopMargin={laptopMargin}
         mobileMargin={mobileMargin}>
         <CandidateCard teamData={obj} />

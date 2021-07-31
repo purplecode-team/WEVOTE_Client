@@ -9,43 +9,19 @@ type Data = {
   endDate: String;
 };
 
-type DataProps = {
+type SlideProps = {
   data: Data;
 };
 
-const Slide = ({ data }: DataProps) => {
-  const dateFormat = (date) => {
-    let n_date;
-    n_date =
-      date.slice(3, 5) < 10
-        ? date.replace(date.slice(3, 5), date.slice(4, 5))
-        : date;
-    n_date =
-      n_date.slice(0, 2) < 10
-        ? n_date.replace(n_date.slice(0, 2), n_date.slice(1, 2))
-        : n_date;
-    return n_date;
-  };
-  const { name } = data;
-  const { numOfTeam } = data;
-  const { type } = data;
-
-  const sdate_bformat = data.startDate.slice(5, 10).replace('-', '/');
-  const edate_bformat = data.endDate.slice(5, 10).replace('-', '/');
-
-  const sdate = dateFormat(sdate_bformat);
-  const edate = dateFormat(edate_bformat);
+const Slide = ({ data }: SlideProps) => {
+  const { name, numOfTeam, type } = data;
 
   return (
     <CardBox>
       <Article>
         <NameBlock>{name}</NameBlock>
         <ElectionType>{type}</ElectionType>
-        <CandidateBlock>후보: {numOfTeam}</CandidateBlock>
-        <DateBlock>투표기간</DateBlock>
-        <Date>
-          {sdate}~{edate}
-        </Date>
+        <CandidateBlock>후보: {numOfTeam}명</CandidateBlock>
       </Article>
     </CardBox>
   );

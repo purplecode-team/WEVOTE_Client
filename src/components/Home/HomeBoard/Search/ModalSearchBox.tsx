@@ -11,7 +11,7 @@ import styled from 'styled-components';
 
 const modalTitle = '검색하기';
 
-export default function ModalSearchBox() {
+export default function ModalSearchBox({data}) {
   const classes = useStyles();
   const [active, setActive] = useState(false);
 
@@ -27,7 +27,7 @@ export default function ModalSearchBox() {
             <CloseIcon />
           </IconArea>
           <ModalTitle>{modalTitle}</ModalTitle>
-          <SearchBox />
+          <SearchBox data={data} />
           <Recommendation>
             <Button color={theme.palette.primary.main}>총학</Button>
           </Recommendation>
