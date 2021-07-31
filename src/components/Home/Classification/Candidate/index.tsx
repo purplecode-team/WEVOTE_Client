@@ -14,15 +14,16 @@ import { Team } from '../../../../types/candidateType';
 import { useState } from 'react';
 
 type CandidateArticleProps = {
+  organizationId?: number,
   loading: boolean,
-  title: string;
-  teamArr: Team[];
+  title: string,
+  teamArr: Team[],
 };
 
 const emptyCardArr = [Img1, Img2, Img3];
 const emptyDescription = '후보가 등록되어 있지 않습니다.';
 
-const CandidateArticle = ({ loading, title, teamArr }: CandidateArticleProps) => {
+const CandidateArticle = ({ loading, title, teamArr, organizationId }: CandidateArticleProps) => {
   const classes = useStyles();
   const [locationX, setLocationX] = useState(0);
   const [count, setCount] = useState(0);
@@ -49,7 +50,7 @@ const CandidateArticle = ({ loading, title, teamArr }: CandidateArticleProps) =>
         >
           {isEmptyTeamArr
             ? <CardList loading={loading} dataArr={emptyCardArr} alt={'empty card'} description={emptyDescription}/>
-            : <CardList isLink dataArr={teamArr} alt={'team card'} />
+            : <CardList isLink dataArr={teamArr} organizationId={organizationId} alt={'team card'} />
           }
         </Carousel>
       </CarouselWrapper>

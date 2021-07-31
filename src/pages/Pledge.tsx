@@ -74,9 +74,8 @@ const initialData = {
 };
 
 const Pledge = ({ match }: RouteComponentProps<MatchParams>) => {
-  // api 호출
   const [{loading, data, error}, setUrl] = useFetch({
-    initialUrl: `/api/v1/promise/promise-detail/1`,
+    initialUrl: `/api/v1/promise/promise-detail/${match.params.id}`,
     initialData: initialData,
   })
   const [current, setCurrent] = useState(0);
@@ -90,7 +89,7 @@ const Pledge = ({ match }: RouteComponentProps<MatchParams>) => {
     setPledgeArr(data.Teams[current].Promises)
     setSlogan(data.Teams[current].slogan);
     setQnas(data.Teams[current].Qnas);
-  },[data])
+  },[data, current])
 
   return (
     <>
@@ -105,7 +104,7 @@ const Pledge = ({ match }: RouteComponentProps<MatchParams>) => {
           setCurrent={setCurrent}
         />
         <PledgeSection pledgeArr={pledgeArr} slogan={slogan} />
-        <CommentSection qnaArr={Qnas} />
+        <CommentSection teamId={teamArr[current].id} qnaArr={Qnas} />
       </>
       )}
     </>

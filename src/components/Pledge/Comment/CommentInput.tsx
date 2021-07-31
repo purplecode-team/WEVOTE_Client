@@ -1,17 +1,44 @@
 import * as React from 'react';
 
+import client from '../../../lib/api/client';
 import media from '../../../lib/styles/media';
+import { rootState } from '../../../modules'
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
+import { useAlert } from 'react-alert';
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-const CommentInput = () => {
+const CommentInput = ({ teamId }) => {
   const [text, setText] = useState('');
+  const alert = useAlert();
+  const { user } = useSelector((state:rootState) => ({user: state.user.user}));
+  
+  const type = user?.status === 'admin' ? 'answer' : 'question';
+
   const handleInputChange = (e) => {
     setText(e.target.value);
   };
+
+  const submitComment = e => {
+    e.preventDefault();
+    if (!user) {
+      alert.info('로그인이 필요한 기능입니다.');
+      return;
+    }
+    const result = {
+      comment : text,
+      teamId : teamId,
+      type: type
+    }
+    client
+      .post('/api/v1/promise/promise-detail/qna', result)
+      .then(res => alert.success('QnA 등록 완료'))
+      .catch(e => alert.error('QnA 등록 실패'))
+  }
+
   return (
-    <InputBlock>
+    <InputForm onSubmit={submitComment}>
       <InputText
         type="text"
         value={text}
@@ -19,11 +46,11 @@ const CommentInput = () => {
         onChange={handleInputChange}
       />
       <InputButton type="submit" value="등록" />
-    </InputBlock>
+    </InputForm>
   );
 };
 
-const InputBlock = styled.form`
+const InputForm = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;

@@ -47,6 +47,7 @@ const Classification = (props) => {
   const [collegeData, setCollegeData] = useState<HasMiddleType[]>(initialMiddle);
   const [majorData, setmajorData] = useState<HasBottomType[]>(initialBottom);
   const [dataSet, setDataSet] = useState<CandidateDataType>(initialData);
+  const [organizationId, setOrganizationId] = useState<number>();
   const [teamData, setTeamData] = useState<Team[]>([]);
   const alert = useAlert();
   const { isOpenEdit, id } = useCandidateState();
@@ -77,6 +78,7 @@ const Classification = (props) => {
     const currentDataSet = getCurrentDataSet();
     currentDataSet.map((obj: HasMiddleType) => {
       if (obj.organizationName === middleList[currentIndex.middle]) {
+        setOrganizationId(obj.id);
         setTeamData(obj.Teams);
         return false;
       }
@@ -89,6 +91,7 @@ const Classification = (props) => {
       if (obj.organizationName === middleList[currentIndex.middle]) {
         obj.Majors.map((obj2) => {
           if (obj2.organizationName === bottomList[currentIndex.bottom]) {
+            setOrganizationId(obj2.id);
             setTeamData(obj2.Teams);
             return false;
           }
@@ -145,6 +148,7 @@ const Classification = (props) => {
             : middleList[currentIndex.middle]
         }
         teamArr={teamData}
+        organizationId={organizationId}
       />
       <Modal
         open={isOpenEdit}

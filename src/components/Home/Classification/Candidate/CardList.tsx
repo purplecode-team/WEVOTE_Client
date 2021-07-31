@@ -17,6 +17,7 @@ type imgTypes = {
   alt: string;
   description?: string;
   isCurrent?: boolean
+  organizationId?: number;
 }
 
 type styleProps = {
@@ -30,14 +31,14 @@ const BoxSize = 360;
 const MobileBoxSize = 90;
 
 const CardList = (props:imgTypes) => {
-  const {loading, isLink, dataArr, alt, isCurrent, description} = props;
+  const {loading, isLink, dataArr, alt, isCurrent, description, organizationId} = props;
   const history = useHistory();
   const classes = useStyles();
   
   const mobileMargin = (window.innerWidth - window.innerWidth*MobileBoxSize/100) / 2
 
-  const routePledge = (id) => {
-    history.push(`/pledge/${id}`);
+  const routePledge = () => {
+    history.push(`/pledge/${organizationId}`);
   }
 
   return (
@@ -49,7 +50,7 @@ const CardList = (props:imgTypes) => {
             isCurrent={isCurrent} 
             mobileMargin={mobileMargin} 
             MobileBoxSize={MobileBoxSize}
-            onClick={() => routePledge(team.id)}
+            onClick={routePledge}
           >
             <CandidateCard teamData={team} />
           </Box>

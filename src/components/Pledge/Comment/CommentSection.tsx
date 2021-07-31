@@ -3,14 +3,19 @@ import * as React from 'react';
 import CommentArticle from './CommentArticle';
 import CommentInput from './CommentInput';
 import media from '../../../lib/styles/media';
-import { qnaArr } from '../../../types/candidateType';
+import { qnaInfo } from '../../../types/candidateType';
 import styled from 'styled-components';
 
-const CommentSection = ({ qnaArr }: qnaArr) => {
+type commentType = {
+  qnaArr : qnaInfo[],
+  teamId : number,
+}
+
+const CommentSection = ({ qnaArr, teamId }: commentType) => {
   return (
     <Section>
       <CommentBlock>
-        <CommentInput />
+        <CommentInput teamId={teamId} />
         <CommentArticle qnaArr={qnaArr} />
       </CommentBlock>
     </Section>

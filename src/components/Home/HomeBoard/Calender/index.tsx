@@ -1,4 +1,5 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { useEffect, useState } from 'react';
 
 import initialCalendar from '../../../../../public/img/calendar.svg';
 import media from '../../../../lib/styles/media';
@@ -18,12 +19,21 @@ const ImgBoard = () => {
     initialUrl: '/api/v1/main/calendar',
     initialData: initialData
   });
-  
+  const [image, setImage] = useState(data.image);
+
+  const handleImgError = () => {
+    setImage(initialCalendar);
+  };
+
+  useEffect(()=>{
+    setImage(data.image);
+  },[data])
+
   return (
     <Calendar>
       {loading 
       ? <Skeleton animation="wave" variant="rect" className={classes.media}/>
-      : <CalenderImg src={data.image} alt='calendar'/>
+      : <CalenderImg src={image} alt='calendar' onError={handleImgError}/>
       }
     </Calendar>
   );
