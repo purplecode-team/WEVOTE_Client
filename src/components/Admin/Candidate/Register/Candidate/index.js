@@ -9,7 +9,14 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 // 전체 등록된 학과 모은 데이터 받기
-const majorData = ['문예창작학과', '정치외교학과', '컴퓨터공학과'];
+const majorData = [
+  '문예창작학과',
+  '정치외교학과',
+  '컴퓨터공학과',
+  '국어국문학과',
+  '사회학과',
+  '통계학과',
+];
 
 // 팀당 후보 수(고정)
 const candidateCount = 2;
@@ -89,14 +96,14 @@ const CandidateForm = props => {
   useEffect(() => {
     if (!isReady) return;
     if (nameArr && majorArr && studentNumArr && positionArr && imageArr) {
-      const CandidateData = initialData.map(i => ({
+      const candidateData = initialData.map((_, i) => ({
         name: nameArr[i],
         major: majorArr[i],
         studentNum: Number(studentNumArr[i]),
         position: positionArr[i],
         picture: imageArr[i],
       }));
-      getCandidateData(CandidateData);
+      getCandidateData(candidateData);
     }
   }, [nameArr, majorArr, studentNumArr, positionArr, imageArr]);
 

@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
+import { isEmptyArr } from '../../../../../utils/getFunction';
+import Loader from '../../../../Common/Loader';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
@@ -14,12 +16,18 @@ import { withStyles } from '@material-ui/core/styles';
 const TeamForm = props => {
   const { classes, getTeamData, editData } = props;
   const {
+    loading,
+    data,
     topList,
     middleList,
     bottomList,
+    setMiddleList,
+    setBottomList,
     getNewMiddleList,
     getNewBottomList,
     hasBottom,
+    currentIndex,
+    setCurrentIndex,
   } = useGetCategory();
   // input 상태 관리
   const [slogan, setSlogan] = useState('');
@@ -59,27 +67,56 @@ const TeamForm = props => {
 
   const overwriteEditData = () => {
     setSlogan(editData.slogan);
-    setCurrentTop(editData.categoryName);
-    setCurrentMiddle(editData.categoryDetail);
-    if (editData.majorName) setCurrentBottom(editData.majorName);
     setTeamNumber(editData.order);
+    if (editData.majorName) setCurrentBottom(editData.majorName);
+
+    const currentTopIndex = topList.indexOf(editData.categoryName);
+    const midList = data[currentTopIndex].middle.map(
+      mid => mid.organizationName
+    );
+    const currentMidIndex = midList.indexOf(editData.categoryDetail);
+    setMiddleList(midList);
+    const botList = hasBottom
+      ? data[currentTopIndex].middle[currentMidIndex].Majors.map(
+          mid => mid.organizationName
+        )
+      : [];
+    const currentBotIndex = hasBottom ? botList.indexOf(editData.majorName) : 0;
+    setBottomList(botList);
+    setCurrentIndex({
+      top: currentTopIndex,
+      middle: currentMidIndex,
+      bottom: currentBotIndex,
+    });
   };
 
   useEffect(() => {
-    if (!editData) return;
+    setCurrentTop(topList[currentIndex.top]);
+    setCurrentMiddle(middleList[currentIndex.middle]);
+    if (hasBottom && editData) setCurrentBottom(editData.majorName);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    if (!editData || !data) return;
     overwriteEditData();
-  }, [editData]);
+    return () => overwriteEditData();
+  }, [editData, data]);
 
   useEffect(() => {
     setCurrentTop(topList[0] || '');
+    return () => setCurrentTop(topList[0] || '');
   }, [topList]);
 
   useEffect(() => {
-    setCurrentMiddle(middleList[0] || '');
+    if (!editData) setCurrentMiddle(middleList[0] || '');
+    return () => setCurrentMiddle(middleList[0] || '');
   }, [middleList]);
 
   useEffect(() => {
-    setCurrentBottom(bottomList[0] || '');
+    if (!editData) {
+      setCurrentBottom(bottomList[0] || '');
+    }
+    return () => setCurrentBottom(bottomList[0] || '');
   }, [bottomList]);
 
   useEffect(() => {
@@ -102,74 +139,20 @@ const TeamForm = props => {
           {TextData.sectionText.team}
         </Typography>
       </Grid>
-      <Grid container>
-        <Grid container wrap='nowrap'>
-          <Grid item className={classes.item} xs={12}>
-            <Typography
-              className={classes.titleText}
-              variant='h4'
-              component='h4'
-            >
-              {TextData.titleText.candidate.classificationTop}
-            </Typography>
-            <FormControl
-              required
-              variant='outlined'
-              className={classes.formControl}
-            >
-              <Select
-                labelId='label'
-                id='select'
-                value={currentTop}
-                onChange={handleClassificationTop}
-                className={classes.selectEmpty}
-              >
-                {topList &&
-                  topList.map((data, i) => (
-                    <MenuItem key={i} value={data}>
-                      {data}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item className={classes.item} xs={12}>
-            <Typography
-              className={classes.titleText}
-              variant='h4'
-              component='h4'
-            >
-              {TextData.titleText.candidate.classificationMiddle}
-            </Typography>
-            <FormControl
-              required
-              variant='outlined'
-              className={classes.formControl}
-            >
-              <Select
-                labelId='label2'
-                id='select2'
-                value={currentMiddle}
-                onChange={handleClassificationMiddle}
-                className={classes.selectEmpty}
-              >
-                {middleList &&
-                  middleList.map((data, i) => (
-                    <MenuItem key={i} value={data}>
-                      {data}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          {hasBottom && (
+      {loading ? (
+        <Grid item className={classes.loaderWrapper}>
+          <Loader size={80} margin={20} />
+        </Grid>
+      ) : (
+        <Grid container>
+          <Grid container wrap='nowrap'>
             <Grid item className={classes.item} xs={12}>
               <Typography
                 className={classes.titleText}
                 variant='h4'
                 component='h4'
               >
-                {TextData.titleText.candidate.classificationBottom}
+                {TextData.titleText.candidate.classificationTop}
               </Typography>
               <FormControl
                 required
@@ -177,14 +160,14 @@ const TeamForm = props => {
                 className={classes.formControl}
               >
                 <Select
-                  labelId='label3'
-                  id='select3'
-                  value={currentBottom}
-                  onChange={handleClassificationBottom}
+                  labelId='label'
+                  id='select'
+                  value={currentTop}
+                  onChange={handleClassificationTop}
                   className={classes.selectEmpty}
                 >
-                  {bottomList &&
-                    bottomList.map((data, i) => (
+                  {topList &&
+                    topList.map((data, i) => (
                       <MenuItem key={i} value={data}>
                         {data}
                       </MenuItem>
@@ -192,55 +175,115 @@ const TeamForm = props => {
                 </Select>
               </FormControl>
             </Grid>
-          )}
-        </Grid>
-        <Grid container wrap='nowrap'>
-          <Grid item className={classes.item} xs={12}>
-            <Typography
-              className={classes.titleText}
-              variant='h4'
-              component='h4'
-            >
-              {TextData.titleText.slogan}
-            </Typography>
-            <TextField
-              className={classes.textField}
-              id='outlined-basic'
-              placeholder='슬로건을 30자 내외로 입력하세요'
-              variant='outlined'
-              value={slogan}
-              onChange={handleSlogan}
-            />
-          </Grid>
-          <Grid item className={classes.item} xs={12}>
-            <Typography
-              className={classes.titleText}
-              variant='h4'
-              component='h4'
-            >
-              {TextData.titleText.candidate.teamNumber}
-            </Typography>
-            <FormControl
-              required
-              variant='outlined'
-              className={classes.formControl}
-            >
-              <Select
-                labelId='demo-simple-select-required-label'
-                id='demo-simple-select-required'
-                value={teamNumber}
-                onChange={handleTeamNumber}
-                className={classes.selectEmpty}
+            <Grid item className={classes.item} xs={12}>
+              <Typography
+                className={classes.titleText}
+                variant='h4'
+                component='h4'
               >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-              </Select>
-            </FormControl>
+                {TextData.titleText.candidate.classificationMiddle}
+              </Typography>
+              <FormControl
+                required
+                variant='outlined'
+                className={classes.formControl}
+              >
+                <Select
+                  labelId='label2'
+                  id='select2'
+                  value={currentMiddle}
+                  onChange={handleClassificationMiddle}
+                  className={classes.selectEmpty}
+                >
+                  {middleList &&
+                    middleList.map((data, i) => (
+                      <MenuItem key={i} value={data}>
+                        {data}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            {!isEmptyArr(bottomList) && (
+              <Grid item className={classes.item} xs={12}>
+                <Typography
+                  className={classes.titleText}
+                  variant='h4'
+                  component='h4'
+                >
+                  {TextData.titleText.candidate.classificationBottom}
+                </Typography>
+                <FormControl
+                  required
+                  variant='outlined'
+                  className={classes.formControl}
+                >
+                  <Select
+                    labelId='label3'
+                    id='select3'
+                    value={currentBottom}
+                    onChange={handleClassificationBottom}
+                    className={classes.selectEmpty}
+                  >
+                    {bottomList &&
+                      bottomList.map((data, i) => (
+                        <MenuItem key={i} value={data}>
+                          {data}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            )}
+          </Grid>
+          <Grid container wrap='nowrap'>
+            <Grid item className={classes.item} xs={12}>
+              <Typography
+                className={classes.titleText}
+                variant='h4'
+                component='h4'
+              >
+                {TextData.titleText.slogan}
+              </Typography>
+              <TextField
+                className={classes.textField}
+                id='outlined-basic'
+                placeholder='슬로건을 30자 내외로 입력하세요'
+                variant='outlined'
+                value={slogan}
+                onChange={handleSlogan}
+              />
+            </Grid>
+            <Grid item className={classes.item} xs={12}>
+              <Typography
+                className={classes.titleText}
+                variant='h4'
+                component='h4'
+              >
+                {TextData.titleText.candidate.teamNumber}
+              </Typography>
+              <FormControl
+                required
+                variant='outlined'
+                className={classes.formControl}
+              >
+                <Select
+                  labelId='demo-simple-select-required-label'
+                  id='demo-simple-select-required'
+                  value={teamNumber}
+                  onChange={handleTeamNumber}
+                  className={classes.selectEmpty}
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      )}
     </Grid>
   );
 };
@@ -294,6 +337,10 @@ const styles = theme => ({
     width: '100px',
     height: '40px',
     borderRadius: '15px',
+  },
+  loaderWrapper: {
+    width: '100%',
+    textAlign: 'center',
   },
 });
 export default withStyles(styles)(TeamForm);
