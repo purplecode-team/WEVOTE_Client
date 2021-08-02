@@ -18,7 +18,7 @@ type CarouselProps = {
   count: number;
   setCount: (num: number) => void;
   maxCount?: number;
-  handleCurrent?: (id: number) => void;
+  setCurrent?: (count: number) => void;
 };
 
 type styleProps = {
@@ -35,15 +35,12 @@ const Carousel = ({
   setLocationX,
   count,
   setCount,
-  handleCurrent,
+  setCurrent,
   maxCount
 }: CarouselProps) => {
 
   const itemLength = maxCount || Children.count(children);
   const swipePoint = 50;
-
-  //  줄바꿈 없고, team card 개수가 3개 미만이면, 중앙 정렬
-  if (!isLineBreak && itemLength < 3) isCentralize = true;
 
   const touchStart = (e: React.TouchEvent) => {
     start = e.changedTouches[0].clientX;
@@ -72,9 +69,10 @@ const Carousel = ({
   };
 
   useEffect(()=>{
-    if (handleCurrent) {
+    console.log('count 실행', count);
+    if (setCurrent) {
       console.log('count 실행', count);
-      handleCurrent(count);
+      setCurrent(count);
     }
   },[count])
 
@@ -109,6 +107,8 @@ const Wrapper = styled.div`
   @media (max-width: ${media.mobileL}px) {
     flex-wrap: nowrap;
     transform: translateX(${(props: styleProps) => props.locationX}vw);
+    justify-content: start;
+
   }
   ${(props: styleProps) =>
     props.isLineBreak &&
@@ -119,8 +119,5 @@ const Wrapper = styled.div`
     props.isCentralize &&
     css`
       justify-content: center;
-      @media (max-width: ${media.mobileL}px) {
-        justify-content: start;
-      }
     `};
 `;

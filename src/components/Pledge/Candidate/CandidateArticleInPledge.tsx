@@ -70,6 +70,7 @@ const CandidateInPledge = ({ title, teamArr, current, setCurrent }: CandidateArt
           setLocationX={setLocationX}
           count={count}
           setCount={setCount}
+          setCurrent={setCurrent}
           maxCount={teamArr.length}
         >
           {showTeamCard()}
