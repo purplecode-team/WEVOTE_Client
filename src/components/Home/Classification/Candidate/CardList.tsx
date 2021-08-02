@@ -1,17 +1,14 @@
 import * as React from 'react';
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import styled, { css } from 'styled-components';
 
 import CandidateCard from '../../../Common/CandidateCard';
 import media from '../../../../lib/styles/media';
-import Skeleton from '@material-ui/lab/Skeleton';
 import { Team } from '../../../../types/candidateType';
 import theme from '../../../../lib/styles/theme';
 import { useHistory } from "react-router-dom";
 
 type imgTypes = {
-  loading?: boolean;
   isLink?: boolean;
   dataArr: any[];
   title?: string;
@@ -32,9 +29,8 @@ const BoxSize = 360;
 const MobileBoxSize = 90;
 
 const CardList = (props:imgTypes) => {
-  const {loading, isLink, dataArr, title, alt, isCurrent, description, organizationId} = props;
+  const {isLink, dataArr, title, alt, isCurrent, description, organizationId} = props;
   const history = useHistory();
-  const classes = useStyles();
   
   const mobileMargin = (window.innerWidth - window.innerWidth*MobileBoxSize/100) / 2
 
@@ -56,11 +52,9 @@ const CardList = (props:imgTypes) => {
             <CandidateCard title={title} teamData={team} />
           </Box>
         ))
-       : 
-       dataArr.map((img,index) => (
-         loading ?
-            <Skeleton key={index} animation="wave" variant="rect" className={classes.card}/>
-          : <Box 
+        : 
+        dataArr.map((img,index) => (
+          <Box 
            key={index}
            mobileMargin={mobileMargin}
            MobileBoxSize={MobileBoxSize}
@@ -68,8 +62,7 @@ const CardList = (props:imgTypes) => {
            <Img src={img} alt={alt} />
            {description && <Description>{description}</Description>}
          </Box>
-       )
-       )
+       ))
       }
     </>
   );
@@ -79,24 +72,6 @@ CardList.defaultProps = {
   isLink : false,
   isCurrent: true,
 };
-
-const useStyles = makeStyles((theme: Theme) => (
-  createStyles({
-  card: {
-    borderRadius: '25px',
-    overflow: 'hidden',
-    boxSizing: 'border-box',
-    padding: '20px',
-    position: 'relative',
-    minWidth: '90vw',
-    height: '436px',
-    margin: '20px 20px',
-    [theme.breakpoints.up('mobile')] : {
-      minWidth: '360px',
-      margin: '20px 30px',
-    }
-  }})
-));
 
 const Box = styled.div`
   background: #ffffff;

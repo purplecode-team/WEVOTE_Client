@@ -48,9 +48,17 @@ const CandidateArticle = ({ loading, title, teamArr, organizationId }: Candidate
           setCount={setCount}
           maxCount={teamArr.length}
         >
-          {isEmptyTeamArr
-            ? <CardList loading={loading} dataArr={emptyCardArr} alt={'empty card'} description={emptyDescription}/>
+          {loading ?
+          (<>
+            <Skeleton animation="wave" variant="rect" className={classes.card}/>
+            <Skeleton animation="wave" variant="rect" className={classes.card}/>
+            <Skeleton animation="wave" variant="rect" className={classes.card}/>
+          </>)
+          :
+          (isEmptyTeamArr
+            ? <CardList dataArr={emptyCardArr} alt={'empty card'} description={emptyDescription}/>
             : <CardList isLink dataArr={teamArr} title={title} organizationId={organizationId} alt={'team card'} />
+          )
           }
         </Carousel>
       </CarouselWrapper>
@@ -68,6 +76,20 @@ const useStyles = makeStyles((theme: Theme) => (
     [theme.breakpoints.up('mobile')] : {
       width: '100px',
       height: '40px',
+    }
+  },
+  card: {
+    borderRadius: '25px',
+    overflow: 'hidden',
+    boxSizing: 'border-box',
+    padding: '20px',
+    position: 'relative',
+    minWidth: '90vw',
+    height: '436px',
+    margin: '20px 20px',
+    [theme.breakpoints.up('mobile')] : {
+      minWidth: '360px',
+      margin: '20px 30px',
     }
   }
 })));
