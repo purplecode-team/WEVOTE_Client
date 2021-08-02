@@ -3,26 +3,42 @@ import * as React from 'react';
 import { useCandidateDispatch, useCandidateState } from '../../context/CandidateProvider';
 import { useEffect, useState } from 'react';
 
+import client from '../../lib/api/client';
+import CloseIcon from '@material-ui/icons/Close';
 import defaultImg from '../../../public/img/noimg.jpg';
 import EditIcon from '@material-ui/icons/Edit';
 import media from '../../lib/styles/media';
 import styled from 'styled-components';
 import { Team } from '../../types/candidateType';
 import theme from '../../lib/styles/theme';
+import { useAlert } from 'react-alert';
 
 type TeamProps = {
   teamData: Team;
+  title?: string;
   isCurrent?: boolean;
 };
 
-const CandidateCard = ({ teamData }: TeamProps) => {
+const CandidateCard = ({ teamData, title }: TeamProps) => {
   const [isAdminPage, setAdminPage] = useState(false);
+  const alert = useAlert();
   const dispatch = useCandidateDispatch();
 
   const editCandidate = e => {
     e.stopPropagation();
     // delete 클릭 시, 이벤트
     dispatch({type: 'TOGGLE_EDIT_CANDIDATE', isOpenEdit: true, id: teamData.id});
+  }
+
+  const deleteCandidate = e => {
+    e.stopPropagation();
+    if (!confirm(`${title} 기호${teamData.order}번 후보를 삭제하시겠습니까?`)) return;
+    client.delete(`/api/v1/admin/candidate/${teamData.id}`)
+    .then(res => {
+      if(res.status !== 200) alert.error('후보 삭제 실패');
+      alert.success('후보 삭제 성공');
+    })
+    .catch(e => alert.error('후보 삭제 실패'));
   }
 
   const handleImgError = (e) => {
@@ -44,6 +60,9 @@ const CandidateCard = ({ teamData }: TeamProps) => {
           <EditButton type='button' onClick={editCandidate}>
             <EditIcon fontSize={'large'} />
           </EditButton>
+          <DeleteButton type='button' onClick={deleteCandidate}>
+            <CloseIcon fontSize={'large'} />
+          </DeleteButton>
         </>
       )}
       <NumberBlock>기호 {teamData.order}번</NumberBlock>
@@ -84,7 +103,29 @@ const EditButton = styled.button`
   position: absolute;
   z-index: 1;
   top: 15px;
-  right: 10px;
+  right: 45px;
+  border-radius: 20px;
+  &:hover {
+    cursor: pointer;
+    color: black;
+    background: lightgray;
+  }
+`;
+
+const DeleteButton = styled.button`
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  border-style: none;
+  background: none;
+  color: gray;
+  font-size: 2.5rem;
+  position: absolute;
+  z-index: 1;
+  top: 15px;
+  right: 15px;
   border-radius: 20px;
   &:hover {
     cursor: pointer;

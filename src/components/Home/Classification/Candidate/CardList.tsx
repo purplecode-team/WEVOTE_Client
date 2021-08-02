@@ -14,6 +14,7 @@ type imgTypes = {
   loading?: boolean;
   isLink?: boolean;
   dataArr: any[];
+  title?: string;
   alt: string;
   description?: string;
   isCurrent?: boolean
@@ -31,7 +32,7 @@ const BoxSize = 360;
 const MobileBoxSize = 90;
 
 const CardList = (props:imgTypes) => {
-  const {loading, isLink, dataArr, alt, isCurrent, description, organizationId} = props;
+  const {loading, isLink, dataArr, title, alt, isCurrent, description, organizationId} = props;
   const history = useHistory();
   const classes = useStyles();
   
@@ -52,7 +53,7 @@ const CardList = (props:imgTypes) => {
             MobileBoxSize={MobileBoxSize}
             onClick={routePledge}
           >
-            <CandidateCard teamData={team} />
+            <CandidateCard title={title} teamData={team} />
           </Box>
         ))
        : 

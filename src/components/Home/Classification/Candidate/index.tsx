@@ -50,7 +50,7 @@ const CandidateArticle = ({ loading, title, teamArr, organizationId }: Candidate
         >
           {isEmptyTeamArr
             ? <CardList loading={loading} dataArr={emptyCardArr} alt={'empty card'} description={emptyDescription}/>
-            : <CardList isLink dataArr={teamArr} organizationId={organizationId} alt={'team card'} />
+            : <CardList isLink dataArr={teamArr} title={title} organizationId={organizationId} alt={'team card'} />
           }
         </Carousel>
       </CarouselWrapper>
