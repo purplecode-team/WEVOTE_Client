@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
+import imageCompression from 'browser-image-compression';
 import ImageUploader from '../../../Common/ImageUploader';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -55,14 +56,20 @@ const IndividualCandidate = props => {
   const processImage = e => {
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
-
-    const reader = new FileReader();
-    reader.readAsDataURL(imageFile);
-
-    reader.onloadend = () => {
-      const base64data = reader.result;
-      handleImageArr(index, base64data);
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 300,
+      useWebWorker: true,
     };
+
+    imageCompression(imageFile, options).then(compressedFile => {
+      const reader = new FileReader();
+      reader.readAsDataURL(compressedFile);
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        handleImageArr(index, base64data);
+      };
+    });
 
     handleUrlArr(index, imageUrl);
   };
@@ -71,6 +78,7 @@ const IndividualCandidate = props => {
   };
 
   useEffect(() => {
+    if (!candidateStudentNum) return;
     setIndividualMajor(candidateMajor);
     setIndividualName(candidateName);
     setIndividualPosition(candidatePosition);
