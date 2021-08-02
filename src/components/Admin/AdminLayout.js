@@ -103,6 +103,14 @@ let theme = createMuiTheme({
       background: '#F6F3FD',
     },
   },
+  breakpoints: {
+    values: {
+      mobile: 480,
+      tablet: 640,
+      laptop: 1024,
+      desktop: 1280,
+    },
+  },
 });
 
 theme = {
@@ -128,14 +136,14 @@ const styles = createStyles({
     position: 'relative',
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('mobile')]: {
       width: drawerWidth,
       flexShrink: 0,
     },
     zIndex: 1,
   },
   app: {
-    width: '100%',
+    width: '80%',
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
