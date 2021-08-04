@@ -99,8 +99,11 @@ const PledgeForm = props => {
     return (
       <Pledge
         key={num}
-        id={num}
+        index={num}
         titleText={TextData.titleText}
+        editTitle={titleArr[num]}
+        editSubTitle={subTitleArr[num]}
+        editDescription={descriptionArr[num]}
         handleTitleArr={handleTitleArr}
         handleSubTitleArr={handleSubTitleArr}
         handleDescriptionArr={handleDescriptionArr}
@@ -128,7 +131,7 @@ const PledgeForm = props => {
             <Select
               labelId='demo-simple-select-required-label'
               id='demo-simple-select-required'
-              value={pledgeCount}
+              value={pledgeCount || 1}
               onChange={handlePledgeCount}
               className={classes.selectEmpty}
             >

@@ -1,6 +1,8 @@
-import * as TextData from './TextData';
-
 import React, { useCallback, useEffect, useState } from 'react';
+import {
+  useCandidateDispatch,
+  useCandidateState,
+} from '../../../../context/CandidateProvider';
 
 import Button from '@material-ui/core/Button';
 import CandidateForm from './Candidate';
@@ -10,71 +12,18 @@ import Paper from '@material-ui/core/Paper';
 import PledgeForm from './Pledge';
 import TeamForm from './Team';
 import { useAlert } from 'react-alert';
-import { useCandidateState } from '../../../../context/CandidateProvider';
 import { withStyles } from '@material-ui/core/styles';
 
 let TeamData = {};
 let CandidateData = [];
 let PledgeData = [];
 
-let editData = {
-  order: 1,
-  slogan: '',
-  organizationId: 0,
-  categoryName: '',
-  categoryDetail: '',
-  majorName: '',
-  Runners: [
-    {
-      name: '',
-      major: '',
-      studentNum: '',
-      position: '',
-      picture: '',
-    },
-    {
-      name: '',
-      major: '',
-      studentNum: '',
-      position: '',
-      picture: '',
-    },
-  ],
-  Promises: [
-    {
-      promiseOrder: 1,
-      promiseType: '',
-      promiseTitle: '',
-      promiseDetail: '',
-    },
-    {
-      promiseOrder: 2,
-      promiseType: '',
-      promiseTitle: '',
-      promiseDetail: '',
-    },
-  ],
-};
-
 const Register = props => {
   const { classes, refetch } = props;
   const [editData, setEditData] = useState(null);
   const { isOpenEdit, id } = useCandidateState();
+  const dispatch = useCandidateDispatch();
   const alert = useAlert();
-
-  const fetchData = useCallback(url => {
-    client
-      .get(url)
-      .then(response => {
-        setEditData(response.data);
-      })
-      .catch(() => alert.error('후보 데이터 호출 실패'));
-  }, []);
-
-  useEffect(() => {
-    if (!isOpenEdit) return;
-    fetchData(`/api/v1/admin/candidate/${id}`);
-  }, [id]);
 
   const getTeamData = data => {
     TeamData = data;
@@ -104,16 +53,13 @@ const Register = props => {
       Runners: CandidateData,
       Promises: PledgeData,
     };
-    console.log(data);
-
     client
       .post('/api/v1/admin/candidate', data)
       .then(res => {
-        console.log(res);
+        if (res.status !== 200) alert.error('후보 등록 실패');
+        else alert.success('후보 등록 성공');
       })
-      .catch(error => {
-        console.log('error:', error);
-      });
+      .catch(e => alert.error('후보 등록 실패'));
   };
 
   const updateData = e => {
@@ -126,17 +72,37 @@ const Register = props => {
       Runners: CandidateData,
       Promises: PledgeData,
     };
-    console.log(data);
-
     client
       .patch(`/api/v1/admin/candidate/${id}`, data)
       .then(res => {
-        console.log(res);
+        if (res.status !== 200) alert.error('후보 정보 업데이트 실패');
+        else alert.success('후보 정보 업데이트 성공');
       })
-      .catch(error => {
-        console.log('error:', error);
-      });
+      .then(() => {
+        console.log('완료');
+        dispatch({
+          type: 'TOGGLE_EDIT_CANDIDATE',
+          isOpenEdit: false,
+          id: null,
+        });
+        refetch();
+      })
+      .catch(e => alert.error('후보 정보 업데이트 실패'));
   };
+
+  const fetchData = useCallback(url => {
+    client
+      .get(url)
+      .then(response => {
+        setEditData(response.data);
+      })
+      .catch(() => alert.error('후보 데이터 호출 실패'));
+  }, []);
+
+  useEffect(() => {
+    if (!isOpenEdit) return;
+    fetchData(`/api/v1/admin/candidate/${id}`);
+  }, [id]);
 
   return (
     <Paper className={classes.paper}>
@@ -149,14 +115,26 @@ const Register = props => {
         />
         <PledgeForm getPledgeData={getPledgeData} editData={editData} />
         <Grid item xs={12} className={classes.button}>
-          <Button
-            className={classes.submit}
-            variant='contained'
-            color='primary'
-            type='submit'
-          >
-            등록
-          </Button>
+          {editData ? (
+            <Button
+              className={classes.submit}
+              variant='contained'
+              color='primary'
+              type='button'
+              onClick={updateData}
+            >
+              {'수정'}
+            </Button>
+          ) : (
+            <Button
+              className={classes.submit}
+              variant='contained'
+              color='primary'
+              type='submit'
+            >
+              {'등록'}
+            </Button>
+          )}
         </Grid>
       </form>
     </Paper>

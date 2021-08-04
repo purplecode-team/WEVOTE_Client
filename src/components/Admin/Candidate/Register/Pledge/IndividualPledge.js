@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -8,8 +8,11 @@ import { withStyles } from '@material-ui/core/styles';
 const Pledge = props => {
   const {
     classes,
-    id,
+    index,
     titleText,
+    editTitle,
+    editSubTitle,
+    editDescription,
     handleTitleArr,
     handleSubTitleArr,
     handleDescriptionArr,
@@ -20,16 +23,24 @@ const Pledge = props => {
 
   const handleTitle = e => {
     setTitle(e.target.value);
-    handleTitleArr(id, e.target.value);
+    handleTitleArr(index, e.target.value);
   };
   const handleSubTitle = e => {
     setSubTitle(e.target.value);
-    handleSubTitleArr(id, e.target.value);
+    handleSubTitleArr(index, e.target.value);
   };
   const handleDescription = e => {
     setDescription(e.target.value);
-    handleDescriptionArr(id, e.target.value);
+    handleDescriptionArr(index, e.target.value);
   };
+
+  useEffect(() => {
+    if (!editTitle) return;
+    setTitle(editTitle);
+    setSubTitle(editSubTitle);
+    setDescription(editDescription);
+  }, [editTitle, editSubTitle, editDescription]);
+
   return (
     <>
       <Grid container wrap='nowrap'>

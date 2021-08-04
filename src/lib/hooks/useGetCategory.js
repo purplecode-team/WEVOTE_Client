@@ -81,8 +81,9 @@ const useGetCategory = () => {
       setBottomList([]);
       return;
     }
-    let Majors = data[currentIndex.top].middle[currentMiddleIndex].Majors || [];
-    let MajorNameList = Majors.map(mid => mid.organizationName);
+    const currentMiddleData = data[currentIndex.top].middle[currentMiddleIndex];
+    const Majors = currentMiddleData ? currentMiddleData.Majors : [];
+    const MajorNameList = Majors.map(mid => mid.organizationName);
     setBottomList(MajorNameList);
   };
 

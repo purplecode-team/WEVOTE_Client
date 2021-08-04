@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import { useEffect, useRef, useState } from 'react';
 
 import Carousel from '../Common/Carousel';
 import defaultImg from '../../../public/img/noimg.jpg';
@@ -11,6 +10,7 @@ import media from '../../lib/styles/media';
 import styled from 'styled-components';
 import theme from '../../lib/styles/theme';
 import useFetch from '../../lib/hooks/useFetch';
+import { useState } from 'react';
 
 type styleProps = {
   locationX?: number;
@@ -74,8 +74,6 @@ const Information = () => {
         <Loader />
       ) : (
         <Carousel
-          isLineBreak={false}
-          isCentralize={false}
           locationX={locationX}
           setLocationX={setLocationX}
           setCount={setCount}

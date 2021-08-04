@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import client from '../../../lib/api/client';
 import Grid from '@material-ui/core/Grid';
+import imageCompression from 'browser-image-compression';
 import ImageUploader from '../Common/ImageUploader';
 import Loader from '../../Common/Loader';
 import Paper from '@material-ui/core/Paper';
@@ -30,9 +31,16 @@ function Canlender (props) {
 
   const processImage = e => {
     const imageFile = e.target.files[0];
-    const imageUrl = URL.createObjectURL(imageFile);
-    setFileUrl(imageUrl);
-    setFile(imageFile);
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 700,
+      useWebWorker: true,
+    };
+    imageCompression(imageFile, options).then(compressedFile => {
+      const imageUrl = URL.createObjectURL(compressedFile);
+      setFileUrl(imageUrl);
+      setFile(compressedFile);
+    });
   };
 
   const submitForm = e => {

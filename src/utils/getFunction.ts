@@ -36,3 +36,8 @@ export const verifyName = value => {
   if (regExp.test(value)) return true;
   return false;
 }
+
+export const isEmptyArr = arr => {
+  if (arr && Array.isArray(arr) && arr.length !== 0) return false;
+  return true;
+}

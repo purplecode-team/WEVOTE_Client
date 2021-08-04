@@ -1,11 +1,11 @@
 import Button from '@material-ui/core/Button';
 import client from '../../../lib/api/client';
 import Grid from '@material-ui/core/Grid';
+import imageCompression from 'browser-image-compression';
 import ImageUploader from '../Common/ImageUploader';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
 import { useAlert } from 'react-alert';
 import { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
@@ -16,13 +16,23 @@ function InformationForm (props) {
   const [urls, setUrls] = useState(['']);
   const alert = useAlert();
 
-  const processImage = e => {
-    const imageFile = Object.values(e.target.files);
-    setFiles(imageFile);
+  const processImage = async e => {
+    const imageFiles = Object.values(e.target.files);
+    const options = {
+      maxSizeMB: 2,
+      maxWidthOrHeight: 600,
+      useWebWorker: true,
+    };
+    const compressedFiles = await Promise.all(
+      imageFiles.map(file => {
+        return imageCompression(file, options);
+      })
+    );
+    setFiles(compressedFiles);
     setUrls(
-      imageFile.reduce((acc, cur) => {
-        return [...acc, URL.createObjectURL(cur)];
-      }, [])
+      compressedFiles.map(file => {
+        return URL.createObjectURL(file);
+      })
     );
   };
 
