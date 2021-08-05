@@ -1,0 +1,60 @@
+[
+  {
+    "top": "중앙자치기구",
+    "middle": [
+      {
+        "id": 1,
+        "organizationName": "총학생회"
+      },
+      {
+        "id": 2,
+        "organizationName": "동아리연합회"
+      }
+    ]
+  },
+  {
+    "top": "단과대",
+    "middle": [
+      {
+        "id": 11,
+        "organizationName": "사회대학"
+      },
+      {
+        "id": 12,
+        "organizationName": "공과대학"
+      }
+    ]
+  },
+  {
+    "top": "학과",
+    "middle": [
+      {
+        "organizationName": "사회대학",
+        "Majors": [
+          {
+            "id": 102,
+            "organizationName": "경제학과"
+          },
+          {
+            "id": 101,
+            "organizationName": "정치외교학과"
+          }
+        ]
+      },
+      {
+        "organizationName": "공과대학",
+        "Majors": [
+          {
+            "id": 104,
+            "organizationName": "컴퓨터공학과"
+          },
+          {
+            "id": 103,
+            "organizationName": "기계공학과"
+          }
+        ]
+      }
+    ]
+  }
+]
+
