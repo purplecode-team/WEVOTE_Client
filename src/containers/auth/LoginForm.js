@@ -4,8 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import AuthForm from '../../components/auth/AuthForm';
 import { login } from '../../lib/api/auth';
+import { tempSetUser } from '../../modules/user';
+import { useAlert } from 'react-alert';
+import { useHistory } from 'react-router-dom';
 
 const LoginForm = () => {
+  const history = useHistory();
+  const alert = useAlert();
   const dispatch = useDispatch();
   const { form } = useSelector(({ auth }) => ({
     form: auth.login,
@@ -23,10 +28,19 @@ const LoginForm = () => {
   };
 
   // 폼 등록 이벤트 핸들러
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
-    login({ userId: form.userId, password: form.password });
-    // 구현 예정
+    try {
+      const userData = await login({
+        userId: form.userId,
+        password: form.password,
+      });
+      dispatch(tempSetUser({ user: userData }));
+      if (userData.status === 'admin') history.push('/admin');
+      else history.push('/');
+    } catch {
+      alert.error('로그인 실패');
+    }
   };
 
   // 컴포넌트가 처음 렌더링될 때 form을 초기화함

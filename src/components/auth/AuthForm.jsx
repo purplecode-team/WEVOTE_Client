@@ -20,12 +20,10 @@ const textMap = {
 };
 
 const AuthForm = ({ type, form, onChange, onSubmit }) => {
-  const [data, setData] = useState();
   const text = textMap[type];
   const isRegister = type === 'register';
 
   const kakaoSuccess = res => {
-    setData(res);
     console.log('redirect 보내기 전 response',res);
     axios.get(`${LOCAL_REDIRECT_URI}`, {
       headers: {
@@ -45,7 +43,6 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
   };
 
   const googleSuccess = res => {
-    setData(res);
     console.log(res);
     client.get(`${GOOGLE_REDIRECT_URI}`, {
       headers: {
