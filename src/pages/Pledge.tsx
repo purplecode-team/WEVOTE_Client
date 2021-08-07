@@ -7,12 +7,8 @@ import CandidateSection from '../components/Pledge/Candidate/CandidateSection';
 import CommentSection from '../components/Pledge/Comment/CommentSection';
 import Loader from '../components/Common/Loader';
 import PledgeSection from '../components/Pledge/Pledge/PledgeSection';
-import { RouteComponentProps } from 'react-router-dom';
 import useFetch from '../lib/hooks/useFetch';
-
-type MatchParams = {
-  id: string;
-};
+import { useParams } from 'react-router-dom';
 
 const initialData = {
     id: 0,
@@ -72,9 +68,10 @@ const initialData = {
     ]
 };
 
-const Pledge = ({ match }: RouteComponentProps<MatchParams>) => {
+const Pledge = () => {
+  const { id } = useParams<{id:string}>();
   const [{loading, data, error}, setUrl] = useFetch({
-    initialUrl: `/api/v1/promise/promise-detail/${match.params.id}`,
+    initialUrl: `/api/v1/promise/promise-detail/${id}`,
     initialData: initialData,
   })
   const [current, setCurrent] = useState(0);
@@ -103,7 +100,7 @@ const Pledge = ({ match }: RouteComponentProps<MatchParams>) => {
           setCurrent={setCurrent}
         />
         <PledgeSection pledgeArr={pledgeArr} slogan={slogan} />
-        <CommentSection teamId={teamArr[current].id} qnaArr={Qnas} />
+        <CommentSection teamId={teamArr[current].id} qnaArr={Qnas} setUrl={setUrl}/>
       </>
       )}
     </>

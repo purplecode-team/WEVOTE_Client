@@ -9,13 +9,14 @@ import styled from 'styled-components';
 type commentType = {
   qnaArr : qnaInfo[],
   teamId : number,
+  setUrl : any,
 }
 
-const CommentSection = ({ qnaArr, teamId }: commentType) => {
+const CommentSection = ({ qnaArr, teamId, setUrl }: commentType) => {
   return (
     <Section>
       <CommentBlock>
-        <CommentInput teamId={teamId} />
+        <CommentInput teamId={teamId} setUrl={setUrl} />
         <CommentArticle qnaArr={qnaArr} />
       </CommentBlock>
     </Section>
