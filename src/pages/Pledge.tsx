@@ -1,15 +1,14 @@
 import * as React from 'react';
 
 import { Promise, qnaInfo, Team } from '../types/candidateType';
+import { useEffect, useState } from 'react';
 
 import CandidateSection from '../components/Pledge/Candidate/CandidateSection';
 import CommentSection from '../components/Pledge/Comment/CommentSection';
 import Loader from '../components/Common/Loader';
 import PledgeSection from '../components/Pledge/Pledge/PledgeSection';
 import { RouteComponentProps } from 'react-router-dom';
-import { useEffect } from 'react';
 import useFetch from '../lib/hooks/useFetch';
-import { useState } from 'react';
 
 type MatchParams = {
   id: string;

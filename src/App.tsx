@@ -18,7 +18,7 @@ const Admin = lazy(() => import('./pages/Admin'));
 const App = () => {
   const { user } = useSelector((state:rootState) => ({user: state.user.user}));
 
-  const isAdmin = true //user && user.status === 'admin';
+  const isAdmin = user && user.status === 'admin';
 
   return (
     <CandidateProvider>
@@ -30,7 +30,7 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/info" component={Info} />
-              <Route path="/pledge/:id" component={Pledge} />
+              <Route path="/promise/promise-detail/:id" component={Pledge} />
               <Route path="/board" component={Board} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
