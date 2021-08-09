@@ -28,13 +28,12 @@ const Header = () => {
   const changeActiveMenu = () => setIsActive(!isActive);
   const hideSidebar = () => setIsActive(false);
 
-  const loginText = user && `반갑습니다. ${user.userId}님`;
+  const loginText = user && `반갑습니다. ${user.nickName}님`;
   const logoutText = '더 많은 이용을 위해 로그인/회원가입을 진행해주세요';
 
   useEffect(()=>{
-    if (user){
-      setIsLogin(true);
-    }
+    if (user) setIsLogin(true);
+    else setIsLogin(false)
   },[user])
 
   return (
@@ -100,15 +99,12 @@ const MenuBox = styled.ul`
   flex-direction: row;
   color: #ffffff;
   font-weight: 500;
-  text-align: center;
   @media (max-width: ${media.mobileL}px) {
     display: ${(props: HeaderStyle) => (props.isActive ? 'block' : 'none')};
     flex-direction: column;
     position: fixed;
     top: 60px;
     z-index: 10;
-    width: 100%;
-    height: 100%;
     padding-top: calc(100% - 300px);
     background-color: white;
     background-image: url(${menuBackground});
@@ -120,6 +116,7 @@ const Subtext = styled.p`
   display: none;
   @media (max-width: ${media.mobileL}px) {
     display: block;
+    text-align: center;
     order: 2;
     margin-bottom: 10rem;
     font-size: 1.3rem;

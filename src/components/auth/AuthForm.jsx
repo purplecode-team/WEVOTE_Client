@@ -1,18 +1,17 @@
-import { GOOGLE_CLIENT_ID, GOOGLE_REDIRECT_URI, JAVASCRIPT_KEY, LOCAL_REDIRECT_URI, REDIRECT_URI } from './auth';
-import React, { useState } from 'react';
+import { JAVASCRIPT_KEY, LOCAL_REDIRECT_URI, REDIRECT_URI } from './auth';
+import { Link, useHistory } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { verifyEmail, verifyName, verifyPassword } from '../../utils/getFunction';
 
 import axios from 'axios';
 import Button from '../Common/Button';
-import client from '../../lib/api/client';
-import glogin from '../../../public/img/login/googleLogin.png';
-import GoogleLogin from 'react-google-login';
 import KakaoLogin from 'react-kakao-login';
 import klogin from '../../../public/img/login/kakaoLogin.png';
-import { Link } from 'react-router-dom';
 import media from '../../lib/styles/media';
+import React from 'react';
+import { tempSetUser } from '../../modules/user';
 import theme from '../../lib/styles/theme';
+import { useDispatch } from 'react-redux';
 
 const textMap = {
   login: '로그인',
@@ -20,42 +19,29 @@ const textMap = {
 };
 
 const AuthForm = ({ type, form, onChange, onSubmit }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const text = textMap[type];
   const isRegister = type === 'register';
 
   const kakaoSuccess = res => {
-    console.log('redirect 보내기 전 response',res);
     axios.get(`${LOCAL_REDIRECT_URI}`, {
       headers: {
         Authorization: res.response.access_token,
       },
     })
-      .then(res => res.json())
       .then(res => {
-        console.log('redirect 보낸 후 서버에서 받은 response',res);
-        // localStorage.setItem('x-access-token', res.data.token);
-        // localStorage.setItem('user', JSON.stringify(res.data));
+        localStorage.setItem('x-access-token', res.headers['x-access-token']);
+        localStorage.setItem('user', JSON.stringify(res.data));
+        dispatch(tempSetUser({ user: res.data }));
+        history.push('/');
       })
       .catch(e => {
-        console.log('카카오 로그인 실패');
-        console.log(e);
+        console.error(e);
       });
   };
 
-  const googleSuccess = res => {
-    console.log(res);
-    client.get(`${GOOGLE_REDIRECT_URI}`, {
-      headers: {
-        Authorization: res.response.access_token,
-        //받아오는 response객체의 access_token을 통해 유저 정보를 authorize한다. 
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => localStorage.setItem('token', res.token), 
-        console.log('result',res));
-  }
-
-  const correctName = () => verifyName(form.name)
+  const correctName = () => verifyName(form.nickName)
   const correctEmail = () => verifyEmail(form.userId)
   const correctPassword = () => verifyPassword(form.password)
   const correctPasswordConfirm = () => (
@@ -90,11 +76,11 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
             <StyledLabel>{'이름'}</StyledLabel>
             <StyledInput
               error={!correctName()}
-              autoComplete="name"
-              name="name"
+              autoComplete="nickName"
+              name="nickName"
               placeholder="2~20자리 한글 또는 영문"
               onChange={onChange}
-              value={form.name}
+              value={form.nickName}
             />
           </>
         )}
@@ -151,21 +137,6 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
             >
               <KakaoImg src={klogin} alt="klogin" />
             </KakaoLogin>
-            <GoogleLogin
-              clientId={GOOGLE_CLIENT_ID}
-              render={(renderProps) => (
-                <GoogleImg
-                  src={glogin}
-                  alt="glogin"
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                />
-              )}
-              buttonText="Login"
-              onSuccess={googleSuccess}
-              onFailure={(e)=>console.log(e)}
-              cookiePolicy="single_host_origin"
-            />
           </APILoginBlock>
           )
         }

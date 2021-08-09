@@ -7,29 +7,29 @@ export const login = async ({ userId, password }) => {
     if (response.status !== 200) {
       throw new ReferenceError();
     }
-    localStorage.setItem('x-access-token', response.data.token);
+    localStorage.setItem('x-access-token', response.headers['x-access-token']);
     localStorage.setItem('user', JSON.stringify(response.data));
     return response.data;
  } catch (e) {
-    alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+    console.error(e);
   }
 };
 
 // 회원가입
-export const register = async ({ name, userId, password }) => {
+export const register = async ({ nickName, userId, password }) => {
   try{
-    const response = await client.post('/api/v1/auth/join', { name, userId, password });
+    const response = await client.post('/api/v1/auth/join', { nickName:nickName, userId, password, status:'user' });
     if (response.status === 400) {
       throw new Error('이미 존재하는 ID');
     } else if (response.status !== 200) {
-      throw new Error();
+      throw new Error('회원가입 실패');
     }
-    localStorage.setItem('x-access-token', response.data.token);
+    localStorage.setItem('x-access-token', response.headers['x-access-token']);
     localStorage.setItem('user', JSON.stringify(response.data));
     return response.data;
   }
   catch(e){
-    alert('회원가입 실패');
+    console.error(e);
   };
 };
 

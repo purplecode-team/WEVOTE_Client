@@ -1,13 +1,16 @@
 import * as React from 'react';
 
+import { NavLink, useHistory } from 'react-router-dom';
+
 import loginIcon from '../../../../public/img/login.svg';
 import { logout } from '../../../lib/api/auth';
+import { logoutAction } from '../../../modules/user';
 import logoutIcon from '../../../../public/img/logout.svg';
 import media from '../../../lib/styles/media';
-import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
+import { useDispatch } from 'react-redux';
 
 type LoginMenuProps = {
   changeActiveMenu: () => void;
@@ -18,16 +21,26 @@ export const LoginMenu = ({
   changeActiveMenu,
   isLogin=false,
 }: LoginMenuProps) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleLogout = () => {
+    logout();
+    dispatch(logoutAction())
+    history.push('/');
+  }
+
+  const routeLoginForm = () => {
+    history.push('/login');    
+  }
 
   return (
     <>
       <MenuItem onClick={changeActiveMenu} >
         {isLogin ? (
-          <LoginImg onClick={logout}/>
+          <LoginImg onClick={handleLogout}/>
         ):(
-          <ImgLink exact to="/login">
-            <LogoutImg />
-          </ImgLink>
+          <LogoutImg onClick={routeLoginForm} />
         )}
       </MenuItem>
     </>
@@ -56,12 +69,6 @@ const MenuItem = styled.li`
     flex: none;
     order: 1;
   }
-`;
-
-const ImgLink = styled(NavLink)`
-  width: 120px;
-  height: 35px;
-
 `;
 
 const LoginImg = styled.img.attrs({
