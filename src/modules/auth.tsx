@@ -9,7 +9,7 @@ import produce from 'immer';
 import { takeLatest } from 'redux-saga/effects';
 
 type registerType = {
-  name: string;
+  nickName: string;
   userId: string;
   password: string;
   passwordConfirm: string;
@@ -43,15 +43,15 @@ export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
     form, // register , login
-    key, // name, password, passwordConfirm
+    key, // nickName, password, passwordConfirm
     value, // 실제 바꾸려는 값
   })
 );
 export const initializeForm = createAction(INITIALIZE_FORM, form => form); // register / login
 export const register = createAction(
   REGISTER,
-  ({ name, userId, password }) => ({
-    name,
+  ({ nickName, userId, password }) => ({
+    nickName,
     userId,
     password,
   })
@@ -71,7 +71,7 @@ export function* authSaga() {
 
 const initialState:authState = {
   register: {
-    name: '',
+    nickName: '',
     userId: '',
     password: '',
     passwordConfirm: '',
