@@ -35,7 +35,7 @@ const CardList = (props:imgTypes) => {
   const mobileMargin = (window.innerWidth - window.innerWidth*MobileBoxSize/100) / 2
 
   const routePledge = () => {
-    history.push(`/pledge/${organizationId}`);
+    history.push(`/promise/promise-detail/${organizationId}`);
   }
 
   return (

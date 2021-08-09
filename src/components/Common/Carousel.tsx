@@ -69,9 +69,7 @@ const Carousel = ({
   };
 
   useEffect(()=>{
-    console.log('count 실행', count);
     if (setCurrent) {
-      console.log('count 실행', count);
       setCurrent(count);
     }
   },[count])

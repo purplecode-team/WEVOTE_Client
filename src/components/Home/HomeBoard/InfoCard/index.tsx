@@ -62,7 +62,7 @@ const InfoCard = () => {
 
   const renderCard = () => (
     data.map((obj, i) => {
-      const uri = obj.id ? `promise/promise-detail/${i}` : '/';
+      const uri = obj.id ? `/promise/promise-detail/${obj.id}` : '/';
       return (
         <Link key={i} to={uri}>
           {loading

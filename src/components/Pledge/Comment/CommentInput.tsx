@@ -6,10 +6,12 @@ import { rootState } from '../../../modules'
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import { useAlert } from 'react-alert';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-const CommentInput = ({ teamId }) => {
+const CommentInput = ({ teamId, setUrl }) => {
+  const { id } = useParams<{id:string}>();
   const [text, setText] = useState('');
   const alert = useAlert();
   const { user } = useSelector((state:rootState) => ({user: state.user.user}));
@@ -33,7 +35,10 @@ const CommentInput = ({ teamId }) => {
     }
     client
       .post('/api/v1/promise/promise-detail/qna', result)
-      .then(res => alert.success('QnA 등록 완료'))
+      .then(res => {
+        setUrl(new String(`/api/v1/promise/promise-detail/${id}`));
+        alert.success('QnA 등록 완료')
+      })
       .catch(e => alert.error('QnA 등록 실패'))
   }
 
