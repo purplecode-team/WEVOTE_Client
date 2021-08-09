@@ -44,7 +44,7 @@ function AutoBox({ history, data }: any) {
   const goLink = () => {
     const searchData = data.filter((obj) => obj.name == searchValue)[0];
     if (searchData) {
-      history.push(`pledge?id=${searchData.id}`);
+      history.push(`/promise/promise-detail/${searchData.id}`);
     } else {
       alert('검색된 선거 정보가 없습니다');
     }

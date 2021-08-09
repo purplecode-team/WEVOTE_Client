@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { NavLink, useHistory } from 'react-router-dom';
-
 import loginIcon from '../../../../public/img/login.svg';
 import { logout } from '../../../lib/api/auth';
 import { logoutAction } from '../../../modules/user';
@@ -11,6 +9,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 type LoginMenuProps = {
   changeActiveMenu: () => void;
