@@ -31,17 +31,17 @@ const RegisterForm = () => {
   const onSubmit = async e => {
     e.preventDefault();
     const result = {
-      name: form.nickName,
+      nickName: form.nickName,
       userId: form.userId,
       password: form.password,
     };
     try {
       const response = await register(result);
-      const userData = await login({
+      const { nickName, status, userId } = await login({
         userId: response.userId,
         password: form.password,
       });
-      dispatch(tempSetUser({ user: userData }));
+      dispatch(tempSetUser({ user: { nickName, status, userId } }));
       history.push('/');
     } catch {
       alert.error('회원가입 실패');

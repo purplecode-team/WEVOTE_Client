@@ -31,12 +31,12 @@ const LoginForm = () => {
   const onSubmit = async e => {
     e.preventDefault();
     try {
-      const userData = await login({
+      const { nickName, status, userId } = await login({
         userId: form.userId,
         password: form.password,
       });
-      dispatch(tempSetUser({ user: userData }));
-      if (userData.status === 'admin') history.push('/admin');
+      dispatch(tempSetUser({ user: { nickName, status, userId } }));
+      if (status === 'admin') history.push('/admin');
       else history.push('/');
     } catch {
       alert.error('로그인 실패');

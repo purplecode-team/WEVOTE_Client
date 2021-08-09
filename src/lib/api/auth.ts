@@ -18,7 +18,7 @@ export const login = async ({ userId, password }) => {
 // 회원가입
 export const register = async ({ nickName, userId, password }) => {
   try{
-    const response = await client.post('/api/v1/auth/join', { nickName:nickName, userId, password, status:'user' });
+    const response = await client.post('/api/v1/auth/join', { nickName, userId, password, status:'user' });
     if (response.status === 400) {
       throw new Error('이미 존재하는 ID');
     } else if (response.status !== 200) {
