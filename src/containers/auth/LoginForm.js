@@ -35,7 +35,7 @@ const LoginForm = () => {
         userId: form.userId,
         password: form.password,
       });
-      dispatch(tempSetUser({ user: { nickName, status, userId } }));
+      dispatch(tempSetUser({ nickName, status, userId }));
       if (status === 'admin') history.push('/admin');
       else history.push('/');
     } catch {
