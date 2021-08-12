@@ -6,7 +6,7 @@ import { useAlert } from 'react-alert';
 import useFetch from '../../../lib/hooks/useFetch';
 
 const Information = () => {
-  const [{ loading, data, error }, setUrl] = useFetch({
+  const [{ loading, data, error }, fetchData] = useFetch({
     initialUrl: '/api/v1/admin/info',
     initialData: [{ id: 0, image: '' }],
   });
@@ -18,7 +18,7 @@ const Information = () => {
         .delete(`/api/v1/admin/info/${id}`)
         .then(response => {
           alert.success('이미지가 삭제되었습니다.');
-          setUrl(new String(`/api/v1/admin/info`));
+          fetchData();
         })
         .catch(e => {
           console.log(e);
@@ -37,7 +37,7 @@ const Information = () => {
 
   return (
     <>
-      <InformationForm setUrl={setUrl} confirmDeletion={confirmDeletion} />
+      <InformationForm refetch={fetchData} confirmDeletion={confirmDeletion} />
       <InformationList
         loading={loading}
         data={data}

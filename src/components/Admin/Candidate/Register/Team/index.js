@@ -16,8 +16,7 @@ import { withStyles } from '@material-ui/core/styles';
 const TeamForm = props => {
   const { classes, getTeamData, editData } = props;
   const {
-    loading,
-    data,
+    categoryState,
     topList,
     middleList,
     bottomList,
@@ -71,13 +70,13 @@ const TeamForm = props => {
     if (editData.majorName) setCurrentBottom(editData.majorName);
 
     const currentTopIndex = topList.indexOf(editData.categoryName);
-    const midList = data[currentTopIndex].middle.map(
+    const midList = categoryState.data[currentTopIndex].middle.map(
       mid => mid.organizationName
     );
     const currentMidIndex = midList.indexOf(editData.categoryDetail);
     setMiddleList(midList);
     const botList = hasBottom
-      ? data[currentTopIndex].middle[currentMidIndex].Majors.map(
+      ? categoryState.data[currentTopIndex].middle[currentMidIndex].Majors.map(
           mid => mid.organizationName
         )
       : [];
@@ -97,26 +96,28 @@ const TeamForm = props => {
   }, [currentIndex]);
 
   useEffect(() => {
-    if (!editData || !data) return;
+    if (!editData) return;
     overwriteEditData();
-    return () => overwriteEditData();
-  }, [editData, data]);
+    return () => {
+      null;
+    };
+  }, [editData, categoryState.data]);
 
   useEffect(() => {
     setCurrentTop(topList[0] || '');
-    return () => setCurrentTop(topList[0] || '');
+    return () => setCurrentTop('');
   }, [topList]);
 
   useEffect(() => {
     if (!editData) setCurrentMiddle(middleList[0] || '');
-    return () => setCurrentMiddle(middleList[0] || '');
+    return () => setCurrentMiddle('');
   }, [middleList]);
 
   useEffect(() => {
     if (!editData) {
       setCurrentBottom(bottomList[0] || '');
     }
-    return () => setCurrentBottom(bottomList[0] || '');
+    return () => setCurrentBottom('');
   }, [bottomList]);
 
   useEffect(() => {
@@ -130,6 +131,9 @@ const TeamForm = props => {
       };
       getTeamData(teamData);
     }
+    return () => {
+      null;
+    };
   }, [slogan, currentMiddle, currentBottom, teamNumber]);
 
   return (
@@ -139,7 +143,7 @@ const TeamForm = props => {
           {TextData.sectionText.team}
         </Typography>
       </Grid>
-      {loading ? (
+      {categoryState.loading ? (
         <Grid item className={classes.loaderWrapper}>
           <Loader size={80} margin={20} />
         </Grid>

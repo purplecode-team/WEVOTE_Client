@@ -11,7 +11,7 @@ import useFetch from '../../../../lib/hooks/useFetch';
 const initialData = [{id: 0, name: '없음'}]
 const Search = () => {
   const classes = useStyles();
-  const [{loading, data, error}, setUrl] = useFetch({
+  const [{loading, data, error}, fetchData] = useFetch({
     initialUrl: '/api/v1/main/search',
     initialData: initialData,
   })

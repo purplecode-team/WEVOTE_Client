@@ -17,7 +17,7 @@ const initialData = [
 ];
 
 const NoticeArticle = () => {
-  const [{ loading, data, error }, setUrl] = useFetch({
+  const [{ loading, data, error }, fetchData] = useFetch({
     initialUrl: '/api/v1/main/banner',
     initialData: initialData,
   });
@@ -40,10 +40,6 @@ const NoticeArticle = () => {
   const confirmDeletion = id => {
     if (isDefault(id)) return;
     if (window.confirm('해당 정보를 삭제하시겠습니까?')) onDelete(id);
-  };
-
-  const fetchData = () => {
-    setUrl(new String('/api/v1/main/banner'));
   };
 
   const onDelete = async id => {

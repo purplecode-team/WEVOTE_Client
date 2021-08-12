@@ -25,10 +25,8 @@ export default function Category (props) {
   const { categoryIndex, setCategoryIndex, initialIndex } = props;
   const classes = useStyles();
   const {
-    data,
-    loading,
-    error,
-    setUrl,
+    categoryState,
+    fetchData,
     currentIndex,
     setCurrentIndex,
     topList,
@@ -46,7 +44,7 @@ export default function Category (props) {
     middle: '',
     bottom: '',
   });
-  const [isLoading, setIsLoading] = useState(loading);
+  const [isLoading, setIsLoading] = useState(categoryState.loading);
   const alert = useAlert();
 
   const confirmDeletion = (section, value) => () => {
@@ -87,13 +85,13 @@ export default function Category (props) {
       .catch(e => {
         alert.error('데이터 삭제 실패');
       });
-    setUrl(new String(`/api/v1/admin/category`));
+    fetchData();
   };
 
   const onDelete = section => {
     const value = { top: requestTopNames[currentIndex.top], id: 0 };
     const currentMiddleData =
-      data[currentIndex.top].middle[currentIndex.middle];
+      categoryState.data[currentIndex.top].middle[currentIndex.middle];
 
     if (section === 'middle') {
       value.id = currentMiddleData.id;
@@ -122,7 +120,7 @@ export default function Category (props) {
         else alert.error('데이터 등록 실패');
         requestPost(sendingData);
       })
-      .then(() => setUrl(new String(`/api/v1/admin/category`)))
+      .then(() => fetchData())
       .catch(e => {
         alert.error('데이터를 등록할 수 없습니다.');
       });
@@ -171,13 +169,9 @@ export default function Category (props) {
   }, []);
 
   useEffect(() => {
-    if (error) alert.error('카테고리 호출 실패');
-    return () => null;
-  }, [error]);
-
-  useEffect(() => {
-    if (!loading) setIsLoading(false);
-  }, [loading]);
+    if (!categoryState.loading) setIsLoading(false);
+    return () => setIsLoading(false);
+  }, [categoryState.loading]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -186,7 +180,7 @@ export default function Category (props) {
           <Loader />
         ) : (
           <Register
-            data={data}
+            data={categoryState.data}
             getNewMiddleList={getNewMiddleList}
             getNewBottomList={getNewBottomList}
             handleBottomCurrentIndex={handleBottomCurrentIndex}

@@ -70,7 +70,7 @@ const initialData = {
 
 const Pledge = () => {
   const { id } = useParams<{id:string}>();
-  const [{loading, data, error}, setUrl] = useFetch({
+  const [{loading, data, error}, fetchData] = useFetch({
     initialUrl: `/api/v1/promise/promise-detail/${id}`,
     initialData: initialData,
   })
@@ -85,6 +85,12 @@ const Pledge = () => {
     setPledgeArr(data.Teams[current].Promises)
     setSlogan(data.Teams[current].slogan);
     setQnas(data.Teams[current].Qnas);
+    return () => {
+      setTeamArr(initialData.Teams);
+      setPledgeArr(initialData.Teams[0].Promises)
+      setSlogan(initialData.Teams[0].slogan);
+      setQnas(initialData.Teams[0].Qnas);
+    }
   },[data, current])
 
   return (
@@ -100,7 +106,7 @@ const Pledge = () => {
           setCurrent={setCurrent}
         />
         <PledgeSection pledgeArr={pledgeArr} slogan={slogan} />
-        <CommentSection teamId={teamArr[current].id} qnaArr={Qnas} setUrl={setUrl}/>
+        <CommentSection teamId={teamArr[current].id} qnaArr={Qnas} fetchData={fetchData}/>
       </>
       )}
     </>

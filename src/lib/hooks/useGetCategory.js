@@ -42,7 +42,7 @@ const initialData = [
 const initialIndex = { top: 0, middle: 0, bottom: 0 };
 
 const useGetCategory = () => {
-  const [{ loading, data, error }, setUrl] = useFetch({
+  const [{ loading, data, error }, fetchData] = useFetch({
     initialUrl: '/api/v1/admin/category',
     initialData: initialData,
   });
@@ -50,6 +50,7 @@ const useGetCategory = () => {
   const [topList, setTopList] = useState([]);
   const [middleList, setMiddleList] = useState([]);
   const [bottomList, setBottomList] = useState([]);
+  const [categoryState, setCategoryState] = useState({ loading, data, error });
 
   let hasBottom = 'Majors' in data[currentIndex.top].middle[0];
 
@@ -92,18 +93,31 @@ const useGetCategory = () => {
     setMiddleList(
       data[currentIndex.top].middle.map(mid => mid.organizationName)
     );
+    return () => {
+      setTopList(data.map(obj => obj.top));
+      setMiddleList(
+        data[currentIndex.top].middle.map(mid => mid.organizationName)
+      );
+    };
   }, [data]);
 
   useEffect(() => {
     getNewBottomList(middleList[currentIndex.middle])();
     setCurrentIndex({ ...currentIndex, bottom: 0 });
+    return () => {
+      getNewBottomList(middleList[currentIndex.middle])();
+      setCurrentIndex({ ...currentIndex, bottom: 0 });
+    };
   }, [topList, middleList]);
 
+  useEffect(() => {
+    setCategoryState({ loading, data, error });
+    return () => setCategoryState({ loading, data, error });
+  }, [loading, data, error]);
+
   return {
-    data,
-    loading,
-    error,
-    setUrl,
+    categoryState,
+    fetchData,
     currentIndex,
     setCurrentIndex,
     topList,

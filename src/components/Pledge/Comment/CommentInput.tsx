@@ -10,8 +10,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-const CommentInput = ({ teamId, setUrl }) => {
-  const { id } = useParams<{id:string}>();
+const CommentInput = ({ teamId, fetchData }) => {
   const [text, setText] = useState('');
   const alert = useAlert();
   const { user } = useSelector((state:rootState) => ({user: state.user.user}));
@@ -36,7 +35,7 @@ const CommentInput = ({ teamId, setUrl }) => {
     client
       .post('/api/v1/promise/promise-detail/qna', result)
       .then(res => {
-        setUrl(new String(`/api/v1/promise/promise-detail/${id}`));
+        fetchData();
         alert.success('QnA 등록 완료')
       })
       .catch(e => alert.error('QnA 등록 실패'))

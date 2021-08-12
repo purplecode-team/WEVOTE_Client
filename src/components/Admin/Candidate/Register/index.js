@@ -66,7 +66,7 @@ const Register = props => {
     setIsLoading(false);
   };
 
-  const updateData = async e => {
+  const updateData = async () => {
     setIsLoading(true);
     const data = {
       order: TeamData.teamNumber,
@@ -83,17 +83,9 @@ const Register = props => {
         if (res.status !== 200) alert.error('후보 정보 업데이트 실패');
         else alert.success('후보 정보 업데이트 성공');
       })
-      .then(() => {
-        console.log('완료');
-        dispatch({
-          type: 'TOGGLE_EDIT_CANDIDATE',
-          isOpenEdit: false,
-          id: null,
-        });
-        refetch();
-      })
       .catch(e => alert.error('후보 정보 업데이트 실패'));
     dispatch({ type: 'TOGGLE_EDIT_CANDIDATE', isOpenEdit: false, id: null });
+    refetch();
   };
 
   const fetchData = useCallback(url => {
