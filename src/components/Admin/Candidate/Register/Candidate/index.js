@@ -6,17 +6,11 @@ import { getNewArrState } from '../../../../../utils/getFunction';
 import Grid from '@material-ui/core/Grid';
 import IndividualCandidate from './IndividualCandidate';
 import Typography from '@material-ui/core/Typography';
+import useFetch from '../../../../../lib/hooks/useFetch';
 import { withStyles } from '@material-ui/core/styles';
 
 // 전체 등록된 학과 모은 데이터 받기
-const majorData = [
-  '문예창작학과',
-  '정치외교학과',
-  '컴퓨터공학과',
-  '국어국문학과',
-  '사회학과',
-  '통계학과',
-];
+const defualtMajor = ['없음'];
 
 // 팀당 후보 수(고정)
 const candidateCount = 2;
@@ -26,6 +20,10 @@ for (let i = 0; i < candidateCount; i++) initialData[i] = '';
 
 const CandidateForm = props => {
   const { classes, getCandidateData, editData } = props;
+  const [{ loading, data, error }, setUrl] = useFetch({
+    initialUrl: '/api/v1/admin/major',
+    initialData: defualtMajor,
+  });
   // input 상태 관리
   const [imageArr, setImageArr] = useState(initialData);
   const [urlArr, setUrlArr] = useState(initialData);
@@ -134,7 +132,8 @@ const CandidateForm = props => {
           handleNameArr={handleNameArr}
           handleStudentNumArr={handleStudentNumArr}
           handlePositionArr={handlePositionArr}
-          majorData={majorData}
+          majorData={data}
+          loading={loading}
         />
       </Grid>
     );

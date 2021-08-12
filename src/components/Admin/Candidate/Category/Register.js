@@ -69,6 +69,7 @@ export default function Register ({
                 className={classes.inputText}
                 placeholder='입력하세요.'
                 variant='outlined'
+                autoFocus
                 value={middleValue}
                 onChange={handleMiddleInputValue}
               />
@@ -98,6 +99,7 @@ export default function Register ({
                 className={classes.inputText}
                 placeholder='입력하세요.'
                 variant='outlined'
+                autoFocus
                 value={bottomValue}
                 onChange={handleBottomInputValue}
               />
