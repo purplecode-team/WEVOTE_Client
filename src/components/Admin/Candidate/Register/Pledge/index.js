@@ -93,6 +93,7 @@ const PledgeForm = props => {
       }));
       getPledgeData(pledgeData);
     }
+    return () => getPledgeData(null);
   }, [titleArr, subTitleArr, descriptionArr]);
 
   const individualPledge = num => {

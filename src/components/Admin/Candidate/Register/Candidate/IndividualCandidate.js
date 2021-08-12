@@ -87,6 +87,7 @@ const IndividualCandidate = props => {
 
   useEffect(() => {
     handleUrlArr(index, url);
+    return () => handleUrlArr(index, url);
   }, [url]);
 
   return (

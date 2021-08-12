@@ -88,6 +88,7 @@ const CandidateForm = props => {
   useEffect(() => {
     if (!editData) return;
     overwriteEditData();
+    return () => overwriteEditData();
   }, [editData]);
 
   // //개별 input data를 pledgeData Array로 모으기
@@ -103,6 +104,7 @@ const CandidateForm = props => {
       }));
       getCandidateData(candidateData);
     }
+    return () => getCandidateData(null);
   }, [nameArr, majorArr, studentNumArr, positionArr, imageArr]);
 
   const showCandidate = index => {

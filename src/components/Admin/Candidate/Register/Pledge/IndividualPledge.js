@@ -39,6 +39,11 @@ const Pledge = props => {
     setTitle(editTitle);
     setSubTitle(editSubTitle);
     setDescription(editDescription);
+    return () => {
+      setTitle('');
+      setSubTitle('');
+      setDescription('');
+    };
   }, [editTitle, editSubTitle, editDescription]);
 
   return (

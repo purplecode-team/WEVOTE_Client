@@ -30,7 +30,7 @@ const slidePerPage = 3;
 
 const InfoCard = () => {
   const classes = useStyles();
-  const [{loading, data, error}, setUrl] = useFetch({
+  const [{loading, data, error}, fetchData] = useFetch({
     initialUrl: '/api/v1/main/election',
     initialData: initialData,
   })
@@ -58,6 +58,7 @@ const InfoCard = () => {
     slideRef.current.style.transform = `translateX(-${
       currentSlide * slideSize
     }px)`; // 이동하는 애니메이션
+    return () => {null};
   }, [currentSlide]);
 
   const renderCard = () => (

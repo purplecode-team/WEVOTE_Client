@@ -51,6 +51,7 @@ const RegisterForm = () => {
   // 컴포넌트가 처음 렌더링될 때 form을 초기화함
   useEffect(() => {
     dispatch(initializeForm('register'));
+    return () => dispatch(initializeForm('register'));
   }, [dispatch]);
 
   return (
