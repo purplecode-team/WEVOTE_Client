@@ -81,6 +81,12 @@ function NoticeForm (props) {
       setStartDate(editData.startDate);
       setEndDate(editData.endDate);
     }
+    return ()=> {
+      setId();
+      setContent();
+      setStartDate();
+      setEndDate();
+    }
   }, [editData]);
 
   return (

@@ -51,6 +51,7 @@ const CandidateCard = ({ teamData, title }: TeamProps) => {
     if (addressList[addressList.length -1] === 'admin') {
       setAdminPage(true);
     }
+    return () => setAdminPage(false);
   },[])
 
   return (

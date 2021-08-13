@@ -17,13 +17,14 @@ const initialData = [
 ];
 
 const NoticeArticle = () => {
-  const [{ loading, data, error }, setUrl] = useFetch({
+  const [{ loading, data, error }, fetchData] = useFetch({
     initialUrl: '/api/v1/main/banner',
     initialData: initialData,
   });
   const [rows, setRows] = useState(initialData);
   const [editData, setEditData] = useState(null);
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(loading);
   const alert = useAlert();
 
   const onCloseModal = () => setOpen(false);
@@ -41,11 +42,8 @@ const NoticeArticle = () => {
     if (window.confirm('해당 정보를 삭제하시겠습니까?')) onDelete(id);
   };
 
-  const fetchData = () => {
-    setUrl(new String('/api/v1/main/banner'));
-  };
-
   const onDelete = async id => {
+    setIsLoading(true);
     await client
       .delete(`/api/v1/admin/banner/${id}`)
       .then(response => {
@@ -55,6 +53,7 @@ const NoticeArticle = () => {
       .catch(e => {
         alert.error('데이터를 삭제할 수 없습니다.');
       });
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -72,13 +71,19 @@ const NoticeArticle = () => {
         };
       })
     );
+    return () => setRows(initialData);
   }, [data]);
+
+  useEffect(() => {
+    if (!loading) setIsLoading(false);
+    return () => setIsLoading(false);
+  }, [loading]);
 
   return (
     <>
       <AddForm component={<NoticeForm fetchData={fetchData} />} />
       <NoticeList
-        loading={loading}
+        loading={isLoading}
         rows={rows}
         editData={editData}
         open={open}

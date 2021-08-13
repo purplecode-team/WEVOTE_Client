@@ -22,6 +22,7 @@ function Canlender (props) {
   });
   const [file, setFile] = useState('');
   const [fileUrl, setFileUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(loading);
   const alert = useAlert();
 
   const isDefault = fileUrl === '';
@@ -43,8 +44,9 @@ function Canlender (props) {
     });
   };
 
-  const submitForm = e => {
+  const submitForm = async e => {
     e.preventDefault();
+    setIsLoading(true);
     const formData = new FormData();
     formData.append('img', file);
     const config = {
@@ -52,7 +54,7 @@ function Canlender (props) {
         'content-type': 'multipart/form-data',
       },
     };
-    client
+    await client
       .post('/api/v1/admin/calendar', formData, config)
       .then(response => {
         if (response.status !== 200) {
@@ -64,16 +66,19 @@ function Canlender (props) {
       .catch(e => {
         alert.error('이미지 등록 실패');
       });
+    setIsLoading(false);
   };
 
-  const deleteImg = () => {
-    client
+  const deleteImg = async () => {
+    setIsLoading(true);
+    await client
       .delete('/api/v1/admin/calendar')
       .then(response => {
         alert.success('이미지 삭제 완료');
         resetImg();
       })
       .catch(e => alert.error('이미지 삭제 실패'));
+    setIsLoading(false);
   };
 
   const resetImg = () => {
@@ -83,14 +88,20 @@ function Canlender (props) {
 
   useEffect(() => {
     setFileUrl(data.image);
+    return () => setFileUrl(data.image);
   }, [data]);
+
+  useEffect(() => {
+    if (!loading) setIsLoading(false);
+    return () => setIsLoading(false);
+  }, [loading]);
 
   return (
     <Paper className={classes.paper}>
       <Typography className={classes.title} variant='h4' component='h4'>
         캘린더 등록
       </Typography>
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <form onSubmit={submitForm}>

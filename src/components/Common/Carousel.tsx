@@ -72,6 +72,7 @@ const Carousel = ({
     if (setCurrent) {
       setCurrent(count);
     }
+    return () => {null};
   },[count])
 
   return (

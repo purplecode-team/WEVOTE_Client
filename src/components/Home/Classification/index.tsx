@@ -1,17 +1,16 @@
 import * as React from 'react';
 
-import { CandidateDataType, HasBottomType, HasMiddleType, Team } from '../../../types/candidateType';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { HasBottomType, HasMiddleType, Team } from '../../../types/candidateType';
 import { useCandidateDispatch, useCandidateState } from '../../../context/CandidateProvider'
 import { useEffect, useState } from 'react';
 
 import Candidate from './Candidate';
 import CandidateRegister from '../../Admin/Candidate/Register';
 import Category from './Category';
-import client from '../../../lib/api/client';
 import { Modal } from 'react-responsive-modal';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { useAlert } from 'react-alert';
+import useFetch from '../../../lib/hooks/useFetch';
 import useGetCategory from '../../../lib/hooks/useGetCategory';
 
 const initialData = {
@@ -19,10 +18,6 @@ const initialData = {
   college: [{ id: 1, organizationName: '', Teams: [] }],
   major: [{ id: 1, organizationName: '', Majors: [] }],
 };
-
-const initialMiddle = [{ id: 1, organizationName: '', Teams: [] }];
-
-const initialBottom = [{ id: 0, organizationName: '', Majors: [] }];
 
 const topCategory = {
   central: '중앙자치기구',
@@ -33,7 +28,7 @@ const topCategory = {
 const Classification = (props) => {
   const classes = useStyles();
   const {
-    loading,
+    categoryState,
     currentIndex,
     topList,
     middleList,
@@ -43,35 +38,19 @@ const Classification = (props) => {
     getNewBottomList,
     handleBottomCurrentIndex
   } = useGetCategory();
-  const [centralData, setCentralData] = useState<HasMiddleType[]>(initialMiddle);
-  const [collegeData, setCollegeData] = useState<HasMiddleType[]>(initialMiddle);
-  const [majorData, setmajorData] = useState<HasBottomType[]>(initialBottom);
-  const [dataSet, setDataSet] = useState<CandidateDataType>(initialData);
+  const [{loading, data, error}, fetchData] = useFetch({
+    initialUrl : '/api/v1/main/all',
+    initialData : initialData, 
+  })
   const [organizationId, setOrganizationId] = useState<number>();
   const [teamData, setTeamData] = useState<Team[]>([]);
-  const alert = useAlert();
   const { isOpenEdit, id } = useCandidateState();
   const setEditState = useCandidateDispatch();
-
-  const fetchData = (url, reducer) => {
-    client
-    .get(url)
-    .then((response) => {
-      reducer(response.data);
-    })
-    .catch(() => alert.error('후보 데이터 호출 실패'));
-  }
-
-  const refetch = () => {
-    fetchData('/api/v1/main/central', setCentralData);
-    fetchData('/api/v1/main/college', setCollegeData);
-    fetchData('/api/v1/main/major', setmajorData);
-  }
 
   // key에서 현재 index에 위치한 데이터셋을 가져온다
   const getCurrentDataSet = () => {
     const keys = Object.keys(topCategory);
-    return dataSet[keys[currentIndex.top]]
+    return data[keys[currentIndex.top]]
   }
 
   const handleMiddleTeamData = () => {
@@ -101,19 +80,6 @@ const Classification = (props) => {
     });
   }
 
-  useEffect(()=>{
-    setDataSet({
-      central: centralData,
-      college: collegeData,
-      major: majorData,
-    })
-    return ()=> setDataSet(initialData);
-  },[centralData, collegeData, majorData])
-
-  useEffect(() => {
-    refetch();
-  }, []);
-
   // Teams 데이터 출력
   useEffect(() => {
     if (!hasBottom) {
@@ -121,11 +87,12 @@ const Classification = (props) => {
       return;
     }
     handleBottomTeamData();
-  }, [dataSet, currentIndex]);
+    return () => handleBottomTeamData();
+  }, [data, currentIndex]);
 
   return (
     <section>
-      {loading 
+      {categoryState.loading
       ? <>
         <Skeleton animation="wave" variant="rect" className={classes.categoryTop}/>
         <Skeleton animation="wave" variant="rect" className={classes.categoryMid}/>
@@ -159,7 +126,7 @@ const Classification = (props) => {
         }}
       >
         <CandidateRegister
-          refetch={refetch}
+          refetch={fetchData}
         />
       </Modal>
     </section>

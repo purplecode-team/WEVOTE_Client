@@ -15,7 +15,7 @@ const initialData = {
 
 const ImgBoard = () => {
   const classes = useStyles();
-  const [{loading, data, error}, setUrl] = useFetch({
+  const [{loading, data, error}, fetchData] = useFetch({
     initialUrl: '/api/v1/main/calendar',
     initialData: initialData
   });
@@ -27,6 +27,7 @@ const ImgBoard = () => {
 
   useEffect(()=>{
     setImage(data.image);
+    return () => setImage(data.image);
   },[data])
 
   return (

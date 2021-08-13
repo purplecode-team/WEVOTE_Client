@@ -24,7 +24,7 @@ const MobileBoxSize = 90;
 let moveWidth = media.laptop;
 
 const Information = () => {
-  const [{ loading, data, error }, setUrl] = useFetch({
+  const [{ loading, data, error }, fetchData] = useFetch({
     initialUrl: '/api/v1/admin/info',
     initialData: [{ id: 0, image: '' }],
   });

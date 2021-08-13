@@ -46,6 +46,7 @@ const LoginForm = () => {
   // 컴포넌트가 처음 렌더링될 때 form을 초기화함
   useEffect(() => {
     dispatch(initializeForm('login'));
+    return () => dispatch(initializeForm('login'));
   }, [dispatch]);
 
   return (

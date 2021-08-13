@@ -33,7 +33,8 @@ const Header = () => {
 
   useEffect(()=>{
     if (user) setIsLogin(true);
-    else setIsLogin(false)
+    else setIsLogin(false);
+    return () => setIsLogin(false);
   },[user])
 
   return (

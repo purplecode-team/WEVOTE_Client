@@ -26,6 +26,7 @@ const SlideCategory = ({ children, isChange }: SlideCategoryProps) => {
 
   useEffect(() => {
     setLocationX(0);
+    return () => setLocationX(0);
   }, [isChange]);
 
   const number = Children.count(children);

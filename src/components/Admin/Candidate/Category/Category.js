@@ -25,10 +25,8 @@ export default function Category (props) {
   const { categoryIndex, setCategoryIndex, initialIndex } = props;
   const classes = useStyles();
   const {
-    data,
-    loading,
-    error,
-    setUrl,
+    categoryState,
+    fetchData,
     currentIndex,
     setCurrentIndex,
     topList,
@@ -46,6 +44,7 @@ export default function Category (props) {
     middle: '',
     bottom: '',
   });
+  const [isLoading, setIsLoading] = useState(categoryState.loading);
   const alert = useAlert();
 
   const confirmDeletion = (section, value) => () => {
@@ -75,6 +74,7 @@ export default function Category (props) {
   };
 
   const requestDelete = async (section, top, id) => {
+    setIsLoading(true);
     await client
       .delete(`/api/v1/admin/category/${top}/${id}`)
       .then(response => {
@@ -85,13 +85,13 @@ export default function Category (props) {
       .catch(e => {
         alert.error('데이터 삭제 실패');
       });
-    setUrl(new String(`/api/v1/admin/category`));
+    fetchData();
   };
 
   const onDelete = section => {
     const value = { top: requestTopNames[currentIndex.top], id: 0 };
     const currentMiddleData =
-      data[currentIndex.top].middle[currentIndex.middle];
+      categoryState.data[currentIndex.top].middle[currentIndex.middle];
 
     if (section === 'middle') {
       value.id = currentMiddleData.id;
@@ -109,20 +109,22 @@ export default function Category (props) {
     }
   };
 
-  const submitData = e => {
+  const submitData = async e => {
     e.preventDefault();
+    setIsLoading(true);
     if (!hasBottom) sendingData.bottom = '';
-    client
+    await client
       .post('/api/v1/admin/category', sendingData)
       .then(response => {
         if (response.status === 200) alert.success('카테고리 등록 완료');
         else alert.error('데이터 등록 실패');
         requestPost(sendingData);
       })
-      .then(() => setUrl(new String(`/api/v1/admin/category`)))
+      .then(() => fetchData())
       .catch(e => {
         alert.error('데이터를 등록할 수 없습니다.');
       });
+    setIsLoading(false);
   };
 
   const customList = (section, title, items) => handle => (
@@ -167,17 +169,18 @@ export default function Category (props) {
   }, []);
 
   useEffect(() => {
-    if (error) alert.error('카테고리 호출 실패');
-  }, [error]);
+    if (!categoryState.loading) setIsLoading(false);
+    return () => setIsLoading(false);
+  }, [categoryState.loading]);
 
   return (
     <ThemeProvider theme={theme}>
       <Paper className={classes.paper}>
-        {loading ? (
+        {isLoading ? (
           <Loader />
         ) : (
           <Register
-            data={data}
+            data={categoryState.data}
             getNewMiddleList={getNewMiddleList}
             getNewBottomList={getNewBottomList}
             handleBottomCurrentIndex={handleBottomCurrentIndex}

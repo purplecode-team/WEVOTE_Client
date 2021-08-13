@@ -12,7 +12,7 @@ const initialData = [{id: 0, content: '공지사항 없음', startDate: new Date
 
 const Notice = () => {
   const classes = useStyles();
-  const [{loading, data, error}, setUrl] = useFetch({
+  const [{loading, data, error}, fetchData] = useFetch({
     initialUrl: '/api/v1/main/banner',
     initialData: initialData
   })

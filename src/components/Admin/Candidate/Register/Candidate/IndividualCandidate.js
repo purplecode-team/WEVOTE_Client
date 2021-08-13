@@ -26,7 +26,7 @@ const IndividualCandidate = props => {
     handleStudentNumArr,
     handlePositionArr,
     majorData,
-    image,
+    loading,
     url,
   } = props;
   const [individualName, setIndividualName] = useState('');
@@ -87,6 +87,7 @@ const IndividualCandidate = props => {
 
   useEffect(() => {
     handleUrlArr(index, url);
+    return () => handleUrlArr(index, url);
   }, [url]);
 
   return (
@@ -147,12 +148,16 @@ const IndividualCandidate = props => {
               onChange={handleMajor}
               className={classes.selectEmpty}
             >
-              {majorData &&
+              {loading ? (
+                <MenuItem>{'없음'}</MenuItem>
+              ) : (
+                majorData &&
                 majorData.map((data, i) => (
                   <MenuItem key={i} value={data}>
                     {data}
                   </MenuItem>
-                ))}
+                ))
+              )}
             </Select>
           </FormControl>
         </Grid>

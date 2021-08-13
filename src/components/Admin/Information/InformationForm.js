@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
 function InformationForm (props) {
-  const { classes, setUrl, confirmDeletion } = props;
+  const { classes, fetchData, confirmDeletion } = props;
   const [files, setFiles] = useState([]);
   const [urls, setUrls] = useState(['']);
   const alert = useAlert();
@@ -67,7 +67,7 @@ function InformationForm (props) {
       })
       .then(() =>
         // 등록 직후 fetch 실행 시, 새로운 db가 적용 안 되는 이슈 해결법
-        window.setTimeout(setUrl(new String('/api/v1/admin/info')), 2000)
+        window.setTimeout(fetchData(), 2000)
       );
   };
 
