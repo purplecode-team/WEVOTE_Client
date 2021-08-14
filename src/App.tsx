@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core'
+//import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Home, Info, Login, Register } from './pages';
 import { lazy, Suspense } from 'react';
 import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';

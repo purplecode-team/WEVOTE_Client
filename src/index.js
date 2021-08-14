@@ -14,6 +14,8 @@ import { tempSetUser } from './modules/user';
 
 import './index.css';
 
+import 'bootstrap/dist/css/bootstrap.css';
+
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(

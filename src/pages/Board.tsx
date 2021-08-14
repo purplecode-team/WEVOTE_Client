@@ -1,11 +1,15 @@
 import * as React from 'react';
+import BoardSection from '../components/Board/BoardSection2';
+//import Movie from '../components/Board/Movie'
 
 const Board = () => {
   return (
     <>
-      <h1>Board page</h1>
+      <BoardSection />
+     
     </>
   );
 };
+
 
 export default Board;
