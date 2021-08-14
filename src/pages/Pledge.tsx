@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Promise, qnaInfo, Team } from '../types/candidateType';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import CandidateSection from '../components/Pledge/Candidate/CandidateSection';
 import CommentSection from '../components/Pledge/Comment/CommentSection';
@@ -79,6 +79,7 @@ const Pledge = () => {
   const [pledgeArr, setPledgeArr] = useState<Promise[]>(initialData.Teams[0].Promises);
   const [slogan, setSlogan] = useState<string>(initialData.Teams[0].slogan);
   const [Qnas, setQnas] = useState<qnaInfo[]>(initialData.Teams[0].Qnas);
+  const pledgePageRef = useRef<HTMLInputElement>(null);
 
   useEffect(()=>{
     setTeamArr(data.Teams);
@@ -93,12 +94,18 @@ const Pledge = () => {
     }
   },[data, current])
 
+  useEffect(()=>{
+    if (pledgePageRef.current === null) return
+    window.scrollTo({top:0, left:pledgePageRef.current.scrollTop, behavior:'auto'})
+    return () => window.scrollTo(0, 0)
+  })
+
   return (
     <>
       {loading ? (
         <Loader margin={100}/>
       ) : (
-      <>
+      <div ref={pledgePageRef}>
         <CandidateSection
           title={data.organizationName}
           teamArr={teamArr}
@@ -107,7 +114,7 @@ const Pledge = () => {
         />
         <PledgeSection pledgeArr={pledgeArr} slogan={slogan} />
         <CommentSection teamId={teamArr[current].id} qnaArr={Qnas} fetchData={fetchData}/>
-      </>
+      </div>
       )}
     </>
   );
