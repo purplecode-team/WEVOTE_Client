@@ -20,12 +20,14 @@ type CandidateArticleProps = {
 type styleProps = {
   isCurrent?: boolean,
   mobileMargin?: number;
-  laptopMargin?:number;
+  laptopMargin?: number;
+  MobileBoxSize?: number;
 };
 
 const BoxSize = 360;
+const MobileBoxSize = 80;
+
 const CandidateInPledge = ({ title, teamArr, current, setCurrent }: CandidateArticleProps) => {
-  const [locationX, setLocationX] = useState(0);
   const [count, setCount] = useState(0);
 
   const laptopMargin = (media.laptop-BoxSize*3)/6;
@@ -33,18 +35,15 @@ const CandidateInPledge = ({ title, teamArr, current, setCurrent }: CandidateArt
 
   const onMoveRight = () => {
     if (count+2 >= teamArr.length-1) return;
-    setLocationX(locationX - (BoxSize+laptopMargin*2));
     setCount(count + 1);
     setCurrent(count + 1);
   };
 
   const onMoveLeft = () => {
     if (count === 0) return;
-    setLocationX(locationX + (BoxSize+laptopMargin*2));
     setCount(count - 1);
     setCurrent(count - 1);
   };
-
 
   const showTeamCard = () => {
     return teamArr.map((obj, index) => (
@@ -52,6 +51,7 @@ const CandidateInPledge = ({ title, teamArr, current, setCurrent }: CandidateArt
         key={index}
         isCurrent={current === index}
         onClick={()=>setCurrent(index)}
+        MobileBoxSize={MobileBoxSize}
         laptopMargin={laptopMargin}
         mobileMargin={mobileMargin}>
         <CandidateCard teamData={obj} />
@@ -59,15 +59,13 @@ const CandidateInPledge = ({ title, teamArr, current, setCurrent }: CandidateArt
     ));
   };
 
-  return (
+  return ( 
     <Article>
       <BarIcon>l</BarIcon>
       <CandidateTitle>{title} 후보</CandidateTitle>
       <InnerArticle>
         <Carousel 
           isCentralize={teamArr.length < 3}
-          locationX={locationX}
-          setLocationX={setLocationX}
           count={count}
           setCount={setCount}
           setCurrent={setCurrent}
@@ -84,26 +82,31 @@ const CandidateInPledge = ({ title, teamArr, current, setCurrent }: CandidateArt
 
 const Box = styled.div`
   background: #ffffff;
-  box-shadow: 0px 0px 20px ${theme.CardShadow}4d;
+  box-shadow: 0px 0px 20px 0px ${theme.BackgroundWhite};
   border: 1px solid ${theme.CardDash};
   border-radius: 25px;
-  overflow: hidden;
   box-sizing: border-box;
   padding: 20px;
+  position: relative;
   @media (min-width: ${media.mobileL + 1}px) {
     margin: 20px ${(props: styleProps) => props.laptopMargin}px;
     min-width: ${BoxSize}px;
   }
   @media (max-width: ${media.mobileL}px) {
-    margin: 20px ${(props: styleProps) => props.mobileMargin}px;
-    max-width: 360px;
-    min-width: 75vw;
+    margin: 20px 5vw 20px 2.5vw;
+    max-width: ${(props: styleProps) => props.MobileBoxSize}vw;
+    min-width: ${(props: styleProps) => props.MobileBoxSize}vw;
     flex: 1 0;
   }
   ${(props: styleProps) =>
     !props.isCurrent &&
     css`
       opacity: 0.5;
+      box-shadow: 0px 0px 0px 0px ${theme.BackgroundWhite};
+      &:hover{
+        opacity: 1;
+        cursor: pointer;
+      }
     `};
 `;
 
@@ -116,6 +119,7 @@ const BarIcon = styled.span`
   margin-left: 20px;
   margin-right: 10px;
 `;
+
 const CandidateTitle = styled.h2`
   display: inline-block;
   font-size: 2.2rem;

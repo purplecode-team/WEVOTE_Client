@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import { useRef, useState } from 'react';
 
 import Carousel from '../Common/Carousel';
 import defaultImg from '../../../public/img/noimg.jpg';
@@ -10,7 +11,6 @@ import media from '../../lib/styles/media';
 import styled from 'styled-components';
 import theme from '../../lib/styles/theme';
 import useFetch from '../../lib/hooks/useFetch';
-import { useState } from 'react';
 
 type styleProps = {
   locationX?: number;
@@ -19,8 +19,8 @@ type styleProps = {
   MobileBoxSize?: number;
 };
 
-const BoxSize = 450;
-const MobileBoxSize = 90;
+const LaptopBoxSize = 480;
+const MobileBoxSize = 80;
 let moveWidth = media.laptop;
 
 const Information = () => {
@@ -28,22 +28,20 @@ const Information = () => {
     initialUrl: '/api/v1/admin/info',
     initialData: [{ id: 0, image: '' }],
   });
-  const [locationX, setLocationX] = useState(0);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number>(0);
+  const carouselWrapRef = useRef<HTMLInputElement>(null);
   
   const infoTitle = '선거 안내';
-  const laptopMargin = (moveWidth-BoxSize)/2;
+  const laptopMargin = (moveWidth-LaptopBoxSize)/2;
   const mobileMargin = (window.innerWidth - window.innerWidth*MobileBoxSize/100) / 2
 
   const onMoveRight = () => {
     if (count >= data.length -1) return;
-    setLocationX(locationX - moveWidth);
     setCount(count + 1);
   };
 
   const onMoveLeft = () => {
-    if (locationX === 0) return;
-    setLocationX(locationX + moveWidth);
+    if (count === 0) return;
     setCount(count - 1);
   };
 
@@ -73,20 +71,24 @@ const Information = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Carousel
-          locationX={locationX}
-          setLocationX={setLocationX}
-          setCount={setCount}
-          count={count}
-        >
-          {showTeamCard()}
-        </Carousel>
+        <InfoWrapper ref={carouselWrapRef}>
+          <Carousel
+            setCount={setCount}
+            count={count}
+          >
+            {showTeamCard()}
+          </Carousel>
+        </InfoWrapper>
       )}
       <LeftIcon onClick={onMoveLeft} />
       <RightIcon onClick={onMoveRight} />
     </Article>
   );
 };
+
+const InfoWrapper = styled.div`
+  width: 100%;
+`;
 
 const Article = styled.article`
   position: relative;
@@ -123,11 +125,11 @@ const Box = styled.div`
   box-sizing: border-box;
   @media (min-width: ${media.mobileL + 1}px) {
     margin: 20px ${(props: styleProps) => props.laptopMargin}px;
-    min-width: ${BoxSize}px;
+    min-width: ${LaptopBoxSize}px;
   }
   @media (max-width: ${media.mobileL}px) {
-    margin: 20px ${(props: styleProps) => props.mobileMargin}px;
-    max-width: 360px;
+    margin: 20px 5vw 20px 2.5vw;
+    max-width: ${(props: styleProps) => props.MobileBoxSize}vw;
     min-width: ${(props: styleProps) => props.MobileBoxSize}vw;
     flex: 1 0;
   }
