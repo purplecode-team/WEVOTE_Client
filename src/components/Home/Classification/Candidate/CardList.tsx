@@ -26,7 +26,7 @@ type styleProps = {
 };
 
 const BoxSize = 360;
-const MobileBoxSize = 90;
+const MobileBoxSize = 80;
 
 const CardList = (props:imgTypes) => {
   const {isLink, dataArr, title, alt, isCurrent, description, organizationId} = props;
@@ -90,8 +90,8 @@ const Box = styled.div`
     min-width: ${BoxSize}px;
   }
   @media (max-width: ${media.mobileL}px) {
-    margin: 20px ${(props: styleProps) => props.mobileMargin}px;
-    max-width: 360px;
+    margin: 20px 5vw 20px 2.5vw;
+    max-width: ${(props: styleProps) => props.MobileBoxSize}vw;
     min-width: ${(props: styleProps) => props.MobileBoxSize}vw;
     flex: 1 0;
   }

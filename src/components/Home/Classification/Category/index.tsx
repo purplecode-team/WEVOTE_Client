@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import CategoryItem from './CategoryItem';
 import media from '../../../../lib/styles/media';
-import SlideCategory from './SlideCategory';
 import styled from 'styled-components';
 
 type ClassificationProps = {
@@ -40,7 +39,7 @@ const ClassificationCategory = ({
   return (
     <>
       <BackgroundBar color="#F6F3FD">
-        <Category>
+        <TopCategoryList>
           {topList.map((item, index) => (
             <CategoryItem
               key={index}
@@ -51,10 +50,10 @@ const ClassificationCategory = ({
               isTop
             />
           ))}
-        </Category>
+        </TopCategoryList>
       </BackgroundBar>
       <BackgroundBar color="#EAE3FF">
-        <SlideCategory isChange={topList[currentIndex.top]}>
+        <CategoryList >
           {middleList.map((item, index) => {
             return (
               <CategoryItem
@@ -65,11 +64,11 @@ const ClassificationCategory = ({
               />
             );
           })}
-        </SlideCategory>
+        </CategoryList>
       </BackgroundBar>
       {bottomList[currentIndex.bottom] && (
         <BackgroundBar color="#F1ECFF">
-          <SlideCategory isChange={middleList[currentIndex.middle]}>
+          <CategoryList >
             {bottomList.map((item, index) => (
               <CategoryItem
                 key={index}
@@ -78,7 +77,7 @@ const ClassificationCategory = ({
                 isActive={item === bottomList[currentIndex.bottom]}
               />
             ))}
-          </SlideCategory>
+          </CategoryList>
         </BackgroundBar>
       )}
     </>
@@ -89,10 +88,27 @@ const BackgroundBar = styled.div`
   background-color: ${(props) => props.color};
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar{
+    display:none;
+  }
 `;
 
-const Category = styled.ul`
+const CategoryList = styled.ul`
+  width: ${media.laptop}px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  @media (max-width: ${media.mobileL}px) {
+    flex-wrap: nowrap;
+    width: max-content;
+    margin: 0;
+  }
+`;
+
+const TopCategoryList = styled.ul`
   max-width: 100%;
   width: ${media.laptop}px;
   margin: 0 auto;

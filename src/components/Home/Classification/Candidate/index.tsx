@@ -25,7 +25,6 @@ const emptyDescription = '후보가 등록되어 있지 않습니다.';
 
 const CandidateArticle = ({ loading, title, teamArr, organizationId }: CandidateArticleProps) => {
   const classes = useStyles();
-  const [locationX, setLocationX] = useState(0);
   const [count, setCount] = useState(0);
 
   const isEmptyTeamArr = 
@@ -42,8 +41,6 @@ const CandidateArticle = ({ loading, title, teamArr, organizationId }: Candidate
       <CarouselWrapper>
         <Carousel 
           isLineBreak
-          locationX={locationX}
-          setLocationX={setLocationX}
           count={count}
           setCount={setCount}
           maxCount={teamArr.length}
@@ -84,9 +81,10 @@ const useStyles = makeStyles((theme: Theme) => (
     boxSizing: 'border-box',
     padding: '20px',
     position: 'relative',
-    minWidth: '90vw',
-    height: '436px',
-    margin: '20px 20px',
+    minWidth: '80vw',
+    maxWidth: '80vw',
+    height: '406px',
+    margin: '20px 5vw 20px 2.5vw',
     [theme.breakpoints.up('mobile')] : {
       minWidth: '360px',
       margin: '20px 30px',

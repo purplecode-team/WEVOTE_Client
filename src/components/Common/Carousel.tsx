@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Children, useEffect } from 'react';
+import { Children, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 
 import media from '../../lib/styles/media';
@@ -13,8 +13,6 @@ type CarouselProps = {
   children: React.ReactNode;
   isLineBreak?: boolean;
   isCentralize?: boolean;
-  locationX: number;
-  setLocationX: (count: number) => void;
   count: number;
   setCount: (num: number) => void;
   maxCount?: number;
@@ -22,7 +20,6 @@ type CarouselProps = {
 };
 
 type styleProps = {
-  locationX: number;
   isLineBreak?: boolean;
   isCentralize?: boolean;
 };
@@ -31,13 +28,12 @@ const Carousel = ({
   children,
   isLineBreak,
   isCentralize,
-  locationX,
-  setLocationX,
   count,
   setCount,
   setCurrent,
   maxCount
 }: CarouselProps) => {
+  const carouselRef = useRef<HTMLInputElement>(null);
 
   const itemLength = maxCount || Children.count(children);
   const swipePoint = 50;
@@ -57,16 +53,22 @@ const Carousel = ({
       if (count >= itemLength - 1) return;
       const nextCount = count += 1
       setCount(nextCount);
-      setLocationX(-100 * (nextCount));
     } else if (diff > swipePoint) {
       // 왼쪽 -> 오른쪽 swipe
       if (count === 0) return;
       const nextCount = count -= 1
       setCount(nextCount);
-      setLocationX(-100 * (nextCount));
     }
     diff = 0;
   };
+
+  useEffect(() => {
+    if(carouselRef.current === null) return;
+    let calculation = (count * 87.5)+'vw';
+    if(carouselRef.current.clientWidth === 1280) calculation = (count * 100)+'%'
+    carouselRef.current.style.transition = 'all 0.4s cubic-bezier(0.8, 0, 0.2, 1)';
+    carouselRef.current.style.transform = `translateX(-${calculation})`;
+  }, [count]);
 
   useEffect(()=>{
     if (setCurrent) {
@@ -77,10 +79,10 @@ const Carousel = ({
 
   return (
     <Wrapper
+      ref={carouselRef}
       onTouchMove={touchMove}
       onTouchStart={touchStart}
       onTouchEnd={touchEnd}
-      locationX={locationX}
       isLineBreak={isLineBreak}
       isCentralize={isCentralize}
     >
@@ -101,13 +103,10 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
-  transition: transform 300ms;
-  transform: translateX(${(props: styleProps) => props.locationX}px);
   @media (max-width: ${media.mobileL}px) {
     flex-wrap: nowrap;
-    transform: translateX(${(props: styleProps) => props.locationX}vw);
+    padding-left: 7.5vw;
     justify-content: start;
-
   }
   ${(props: styleProps) =>
     props.isLineBreak &&
