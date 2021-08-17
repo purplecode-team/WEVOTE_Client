@@ -23,26 +23,29 @@ const Pledge = props => {
 
   const handleTitle = e => {
     setTitle(e.target.value);
-    handleTitleArr(index, e.target.value);
   };
   const handleSubTitle = e => {
     setSubTitle(e.target.value);
-    handleSubTitleArr(index, e.target.value);
   };
   const handleDescription = e => {
     setDescription(e.target.value);
-    handleDescriptionArr(index, e.target.value);
   };
 
   useEffect(() => {
-    if (!editTitle) return;
-    setTitle(editTitle);
-    setSubTitle(editSubTitle);
-    setDescription(editDescription);
+    if (!(title && subTitle && description)) return;
+    handleTitleArr(index, title);
+    handleSubTitleArr(index, subTitle);
+    handleDescriptionArr(index, description);
+  }, [title, subTitle, description]);
+
+  useEffect(() => {
+    if (editTitle) setTitle(editTitle);
+    if (editSubTitle) setSubTitle(editSubTitle);
+    if (editDescription) setDescription(editDescription);
     return () => {
-      setTitle('');
-      setSubTitle('');
-      setDescription('');
+      setTitle(editTitle);
+      setSubTitle(editSubTitle);
+      setDescription(editDescription);
     };
   }, [editTitle, editSubTitle, editDescription]);
 
@@ -55,9 +58,9 @@ const Pledge = props => {
           </Typography>
           <TextField
             className={classes.textField}
-            id='outlined-full-width'
             placeholder='공약 제목을 입력하세요'
             margin='normal'
+            error={!Boolean(title)}
             value={title}
             onChange={handleTitle}
             InputLabelProps={{
@@ -72,9 +75,9 @@ const Pledge = props => {
           </Typography>
           <TextField
             className={classes.textField}
-            id='outlined-full-width'
             placeholder='공약 소제목을 입력하세요'
             margin='normal'
+            error={!Boolean(subTitle)}
             value={subTitle}
             onChange={handleSubTitle}
             InputLabelProps={{
@@ -89,12 +92,12 @@ const Pledge = props => {
           {titleText.pledge.description}
         </Typography>
         <TextField
-          id='outlined-full-width'
           placeholder='공약 내용을 입력하세요'
           multiline
           fullWidth
           rows={10}
           margin='normal'
+          error={!Boolean(description)}
           value={description}
           onChange={handleDescription}
           InputLabelProps={{

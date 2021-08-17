@@ -252,8 +252,9 @@ const TeamForm = props => {
               <TextField
                 className={classes.textField}
                 id='outlined-basic'
-                placeholder='슬로건을 30자 내외로 입력하세요'
+                placeholder='슬로건을 20자 내외로 입력하세요'
                 variant='outlined'
+                error={!Boolean(slogan)}
                 value={slogan}
                 onChange={handleSlogan}
               />
