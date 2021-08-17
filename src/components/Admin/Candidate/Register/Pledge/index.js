@@ -11,44 +11,58 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 const MaxPledgeCount = 10;
+const countArr = Array.from({ length: MaxPledgeCount }, (v, i) => i);
 
 const PledgeForm = props => {
   const { classes, getPledgeData, editData } = props;
-  const [pledgeCount, setPledgeCount] = React.useState(1);
+  const [pledgeCount, setPledgeCount] = useState(1);
+  const [pledgeCountArr, setPledgeCountArr] = useState(Array(pledgeCount));
   const [titleArr, setTitleArr] = useState(Array(pledgeCount));
   const [subTitleArr, setSubTitleArr] = useState(Array(pledgeCount));
   const [descriptionArr, setDescriptionArr] = useState(Array(pledgeCount));
-  const [teamId, setTeamId] = useState(null);
-  const [id, setId] = useState(null);
 
-  const maxCountArr = Array(MaxPledgeCount);
-  for (let i = 0; i < maxCountArr.length; i++) {
-    maxCountArr[i] = i + 1;
-  }
-  const pledgeCountArr = Array(pledgeCount);
-  for (let i = 0; i < pledgeCountArr.length; i++) {
-    pledgeCountArr[i] = i;
-  }
+  const handlePledgeCount = e => {
+    setPledgeCount(e.target.value);
+  };
+
+  const handleTitleArr = (idx, value) => {
+    const newTitleArr = titleArr.slice();
+    newTitleArr[idx] = value;
+    setTitleArr(newTitleArr);
+  };
+
+  const handleSubTitleArr = (idx, value) => {
+    const newSubTitleArr = subTitleArr.slice();
+    newSubTitleArr[idx] = value;
+    setSubTitleArr(newSubTitleArr);
+  };
+
+  const handleDescriptionArr = (idx, value) => {
+    const newDescriptionArr = descriptionArr.slice();
+    newDescriptionArr[idx] = value;
+    setDescriptionArr(newDescriptionArr);
+  };
+
+  const pledgeCountMenu = idx => (
+    <MenuItem key={idx} value={idx}>
+      {idx}
+    </MenuItem>
+  );
+
   // 배열로 업데이트한 값을 individual에서 받도록 수정해야함
   const overwriteEditData = () => {
-    const ids = [];
     const titles = [];
     const subTitles = [];
     const descriptions = [];
-    const teamIds = [];
     editData.Promises.map(promise => {
       titles.push(promise.promiseTitle);
       subTitles.push(promise.promiseType);
       descriptions.push(promise.promiseDetail);
-      ids.push(promise.id);
-      teamIds.push(promise.teamId);
     });
     setPledgeCount(editData.Promises.length);
-    setId(ids);
     setTitleArr(titles);
     setSubTitleArr(subTitles);
     setDescriptionArr(descriptions);
-    setTeamId(teamIds);
   };
 
   useEffect(() => {
@@ -56,61 +70,21 @@ const PledgeForm = props => {
     overwriteEditData();
   }, [editData]);
 
-  const handlePledgeCount = event => {
-    setPledgeCount(event.target.value);
-  };
-
-  const pledgeCountMenu = num => (
-    <MenuItem key={num} value={num}>
-      {num}
-    </MenuItem>
-  );
-
-  const handleTitleArr = (id, value) => {
-    const newTitleArr = titleArr.slice();
-    newTitleArr[id] = value;
-    setTitleArr(newTitleArr);
-  };
-  const handleSubTitleArr = (id, value) => {
-    const newSubTitleArr = subTitleArr.slice();
-    newSubTitleArr[id] = value;
-    setSubTitleArr(newSubTitleArr);
-  };
-  const handleDescriptionArr = (id, value) => {
-    const newDescriptionArr = descriptionArr.slice();
-    newDescriptionArr[id] = value;
-    setDescriptionArr(newDescriptionArr);
-  };
+  useEffect(() => {
+    setPledgeCountArr(Array.from({ length: pledgeCount }, (v, i) => i));
+  }, [pledgeCount]);
 
   // 개별 input data를 pledgeData Array로 모으기
   useEffect(() => {
-    if (titleArr && subTitleArr && descriptionArr) {
-      const pledgeData = pledgeCountArr.map(i => ({
-        promiseOrder: i + 1,
-        promiseType: titleArr[i],
-        promiseTitle: subTitleArr[i],
-        promiseDetail: descriptionArr[i],
-      }));
-      getPledgeData(pledgeData);
-    }
-    return () => getPledgeData(null);
+    const pledgeData = pledgeCountArr.map(i => ({
+      promiseOrder: i + 1,
+      promiseType: titleArr[i],
+      promiseTitle: subTitleArr[i],
+      promiseDetail: descriptionArr[i],
+    }));
+    getPledgeData(pledgeData);
+    return () => getPledgeData(pledgeData);
   }, [titleArr, subTitleArr, descriptionArr]);
-
-  const individualPledge = num => {
-    return (
-      <Pledge
-        key={num}
-        index={num}
-        titleText={TextData.titleText}
-        editTitle={titleArr[num]}
-        editSubTitle={subTitleArr[num]}
-        editDescription={descriptionArr[num]}
-        handleTitleArr={handleTitleArr}
-        handleSubTitleArr={handleSubTitleArr}
-        handleDescriptionArr={handleDescriptionArr}
-      />
-    );
-  };
 
   return (
     <Grid container className={classes.section}>
@@ -136,11 +110,23 @@ const PledgeForm = props => {
               onChange={handlePledgeCount}
               className={classes.selectEmpty}
             >
-              {maxCountArr.map(num => pledgeCountMenu(num))}
+              {countArr.map(idx => pledgeCountMenu(idx))}
             </Select>
           </FormControl>
         </Grid>
-        {pledgeCountArr.map(num => individualPledge(num))}
+        {pledgeCountArr.map(idx => (
+          <Pledge
+            key={idx}
+            index={idx}
+            titleText={TextData.titleText}
+            editTitle={titleArr[idx]}
+            editSubTitle={subTitleArr[idx]}
+            editDescription={descriptionArr[idx]}
+            handleTitleArr={handleTitleArr}
+            handleSubTitleArr={handleSubTitleArr}
+            handleDescriptionArr={handleDescriptionArr}
+          />
+        ))}
       </Grid>
     </Grid>
   );
