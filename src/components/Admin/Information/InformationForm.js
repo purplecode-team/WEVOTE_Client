@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 function InformationForm (props) {
   const { classes, fetchData, confirmDeletion } = props;
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState(['']);
   const [urls, setUrls] = useState(['']);
   const alert = useAlert();
 
@@ -37,11 +37,11 @@ function InformationForm (props) {
   };
 
   const resetImg = () => {
-    setFiles([]);
-    setUrls([]);
+    setFiles(['']);
+    setUrls(['']);
   };
 
-  const submitImg = e => {
+  const submitImg = async e => {
     e.preventDefault();
     const formData = new FormData();
     files.map(file => {
@@ -52,23 +52,24 @@ function InformationForm (props) {
         'content-type': 'multipart/form-data',
       },
     };
-    client
-      .post('/api/v1/admin/info', formData, config)
-      .then(response => {
-        if (response.status !== 200) {
+    try {
+      await client
+        .post('/api/v1/admin/info', formData, config)
+        .then(response => {
+          if (response.status !== 200) {
+            alert.error('이미지 등록 실패');
+            throw new Error('image upload failure');
+          }
+          resetImg();
+          alert.success('이미지가 등록되었습니다');
+        })
+        .then(() => fetchData())
+        .catch(e => {
           alert.error('이미지 등록 실패');
-          return;
-        }
-        resetImg();
-        alert.success('이미지가 등록되었습니다');
-      })
-      .catch(e => {
-        alert.error('이미지 등록 실패');
-      })
-      .then(() =>
-        // 등록 직후 fetch 실행 시, 새로운 db가 적용 안 되는 이슈 해결법
-        window.setTimeout(fetchData(), 2000)
-      );
+        });
+    } catch (e) {
+      alert.error('이미지 등록 실패');
+    }
   };
 
   return (

@@ -37,7 +37,10 @@ const Information = () => {
 
   return (
     <>
-      <InformationForm refetch={fetchData} confirmDeletion={confirmDeletion} />
+      <InformationForm
+        fetchData={fetchData}
+        confirmDeletion={confirmDeletion}
+      />
       <InformationList
         loading={loading}
         data={data}
