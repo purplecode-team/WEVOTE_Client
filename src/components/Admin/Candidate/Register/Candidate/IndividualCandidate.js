@@ -111,9 +111,9 @@ const IndividualCandidate = props => {
             {titleText.candidate.name}
           </Typography>
           <TextField
-            index='outlined-basic'
             placeholder='ex) 홍길동'
             variant='outlined'
+            error={!Boolean(individualName)}
             value={individualName}
             onChange={handleName}
           />
@@ -123,9 +123,10 @@ const IndividualCandidate = props => {
             {titleText.candidate.studentNumber}
           </Typography>
           <TextField
-            index='outlined-basic'
             placeholder='ex) 21'
             variant='outlined'
+            type='number'
+            error={!Boolean(individualStudentNum)}
             value={individualStudentNum}
             onChange={handleStudentNumber}
           />
@@ -143,13 +144,13 @@ const IndividualCandidate = props => {
           >
             <Select
               labelId='demo-simple-select-outlined-label'
-              index='demo-simple-select-outlined'
+              error={!Boolean(individualMajor)}
               value={individualMajor}
               onChange={handleMajor}
               className={classes.selectEmpty}
             >
               {loading ? (
-                <MenuItem>{'없음'}</MenuItem>
+                <MenuItem value={'없음'}>{'없음'}</MenuItem>
               ) : (
                 majorData &&
                 majorData.map((data, i) => (
@@ -166,9 +167,9 @@ const IndividualCandidate = props => {
             {titleText.candidate.position}
           </Typography>
           <TextField
-            index='outlined-basic'
             placeholder='ex) 정학생회장'
             variant='outlined'
+            error={!Boolean(individualPosition)}
             value={individualPosition}
             onChange={handlePosition}
           />
