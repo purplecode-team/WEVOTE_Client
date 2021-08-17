@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { useEffect, useState } from 'react';
 
 import CardList from './CardList';
 import Carousel from '../../../Common/Carousel';
@@ -11,19 +12,19 @@ import media from '../../../../lib/styles/media';
 import Skeleton from '@material-ui/lab/Skeleton';
 import styled from 'styled-components';
 import { Team } from '../../../../types/candidateType';
-import { useState } from 'react';
 
 type CandidateArticleProps = {
   organizationId?: number,
   loading: boolean,
   title: string,
   teamArr: Team[],
+  refetch?: () => void;
 };
 
 const emptyCardArr = [Img1, Img2, Img3];
 const emptyDescription = '후보가 등록되어 있지 않습니다.';
 
-const CandidateArticle = ({ loading, title, teamArr, organizationId }: CandidateArticleProps) => {
+const CandidateArticle = ({ loading, title, teamArr, organizationId, refetch }: CandidateArticleProps) => {
   const classes = useStyles();
   const [count, setCount] = useState(0);
 
@@ -32,6 +33,11 @@ const CandidateArticle = ({ loading, title, teamArr, organizationId }: Candidate
     teamArr === null ||
     teamArr.length === 0;
   
+  useEffect(()=>{
+    setCount(0);
+    return ()=>setCount(0);
+  },[teamArr])
+
   return (
     <Article>
       {loading 
@@ -54,7 +60,7 @@ const CandidateArticle = ({ loading, title, teamArr, organizationId }: Candidate
           :
           (isEmptyTeamArr
             ? <CardList dataArr={emptyCardArr} alt={'empty card'} description={emptyDescription}/>
-            : <CardList isLink dataArr={teamArr} title={title} organizationId={organizationId} alt={'team card'} />
+            : <CardList isLink refetch={refetch} dataArr={teamArr} title={title} organizationId={organizationId} alt={'team card'} />
           )
           }
         </Carousel>

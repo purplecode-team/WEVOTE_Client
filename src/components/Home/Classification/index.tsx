@@ -116,6 +116,7 @@ const Classification = (props) => {
         }
         teamArr={teamData}
         organizationId={organizationId}
+        refetch={fetchData}
       />
       <Modal
         open={isOpenEdit}

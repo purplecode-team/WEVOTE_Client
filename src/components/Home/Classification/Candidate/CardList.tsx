@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 
 type imgTypes = {
   isLink?: boolean;
+  refetch?: () => void;
   dataArr: any[];
   title?: string;
   alt: string;
@@ -29,7 +30,7 @@ const BoxSize = 360;
 const MobileBoxSize = 80;
 
 const CardList = (props:imgTypes) => {
-  const {isLink, dataArr, title, alt, isCurrent, description, organizationId} = props;
+  const {isLink, refetch, dataArr, title, alt, isCurrent, description, organizationId} = props;
   const history = useHistory();
   
   const mobileMargin = (window.innerWidth - window.innerWidth*MobileBoxSize/100) / 2
@@ -49,7 +50,7 @@ const CardList = (props:imgTypes) => {
             MobileBoxSize={MobileBoxSize}
             onClick={routePledge}
           >
-            <CandidateCard title={title} teamData={team} />
+            <CandidateCard title={title} teamData={team} refetch={refetch}/>
           </Box>
         ))
         : 
