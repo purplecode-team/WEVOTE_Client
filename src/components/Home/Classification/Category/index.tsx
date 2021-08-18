@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import {useEffect, useRef} from 'react';
+
 import CategoryItem from './CategoryItem';
 import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
@@ -23,6 +25,7 @@ const ClassificationCategory = ({
   bottomList,
   currentIndex,
 }: ClassificationProps) => {
+  const scrollBarRef = useRef<HTMLDivElement>(null);
 
   const handleMiddleList = e => {
     getNewMiddleList(e.target.innerText)();
@@ -35,6 +38,11 @@ const ClassificationCategory = ({
   const handleBottomIndex = e => {
     handleBottomCurrentIndex(e.target.innerText)();
   }
+
+  useEffect(()=>{
+    if (scrollBarRef.current === null) return
+    scrollBarRef.current.scrollTo({top:scrollBarRef.current.scrollTop, left: 0, behavior:'auto'})
+  },[bottomList])
 
   return (
     <>
@@ -67,7 +75,7 @@ const ClassificationCategory = ({
         </CategoryList>
       </BackgroundBar>
       {bottomList[currentIndex.bottom] && (
-        <BackgroundBar color="#F1ECFF">
+        <BackgroundBar ref={scrollBarRef} color="#F1ECFF">
           <CategoryList >
             {bottomList.map((item, index) => (
               <CategoryItem
