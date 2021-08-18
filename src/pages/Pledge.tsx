@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Promise, qnaInfo, Team } from '../types/candidateType';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import CandidateSection from '../components/Pledge/Candidate/CandidateSection';
 import CommentSection from '../components/Pledge/Comment/CommentSection';
@@ -79,7 +79,7 @@ const Pledge = () => {
   const [pledgeArr, setPledgeArr] = useState<Promise[]>(initialData.Teams[0].Promises);
   const [slogan, setSlogan] = useState<string>(initialData.Teams[0].slogan);
   const [Qnas, setQnas] = useState<qnaInfo[]>(initialData.Teams[0].Qnas);
-  const pledgePageRef = useRef<HTMLInputElement>(null);
+  const [height, setHeight] = useState<number>(0);
 
   useEffect(()=>{
     setTeamArr(data.Teams);
@@ -95,10 +95,14 @@ const Pledge = () => {
   },[data, current])
 
   useEffect(()=>{
-    if (pledgePageRef.current === null) return
-    window.scrollTo({top:0, left:pledgePageRef.current.scrollTop, behavior:'auto'})
-    return () => window.scrollTo(0, 0)
-  })
+    window.scrollTo({top:0, left:0, behavior:'auto'})
+  },[height])
+
+  const pledgePageRef = useCallback(node => {
+    if (node !== null) {
+      setHeight(node.getBoundingClientRect().height);
+    }
+  }, []);
 
   return (
     <>
