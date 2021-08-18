@@ -89,6 +89,16 @@ const TeamForm = props => {
     });
   };
 
+  const renderMenuItem = () => {
+    const maxMenuCount = 6;
+    const menuArr = Array.from({ length: maxMenuCount }, (_, i) => i + 1);
+    return menuArr.map(m => (
+      <MenuItem key={m} value={m}>
+        {m}
+      </MenuItem>
+    ));
+  };
+
   useEffect(() => {
     setCurrentTop(topList[currentIndex.top]);
     setCurrentMiddle(middleList[currentIndex.middle]);
@@ -279,10 +289,7 @@ const TeamForm = props => {
                   onChange={handleTeamNumber}
                   className={classes.selectEmpty}
                 >
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
+                  {renderMenuItem()}
                 </Select>
               </FormControl>
             </Grid>
@@ -292,6 +299,7 @@ const TeamForm = props => {
     </Grid>
   );
 };
+
 const styles = theme => ({
   paper: {
     maxWidth: 936,
