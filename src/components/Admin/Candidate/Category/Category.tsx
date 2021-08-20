@@ -1,8 +1,3 @@
-import {
-  createMuiTheme,
-  makeStyles,
-  ThemeProvider,
-} from '@material-ui/core/styles';
 import React, { useEffect, useState } from 'react';
 
 import Card from '@material-ui/core/Card';
@@ -14,10 +9,17 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Loader from '../../../Common/Loader';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Register from './Register';
 import { useAlert } from 'react-alert';
 import useGetCategory from '../../../../lib/hooks/useGetCategory';
+
+type postDataType = {
+  top: string,
+  middle: string,
+  bottom: string,
+}
 
 const requestTopNames = ['central', 'college', 'major'];
 
@@ -39,12 +41,12 @@ export default function Category (props) {
     handleBottomCurrentIndex,
     hasBottom,
   } = useGetCategory();
-  const [sendingData, setSendingData] = useState({
+  const [postData, setPostData] = useState<postDataType>({
     top: '',
     middle: '',
     bottom: '',
   });
-  const [isLoading, setIsLoading] = useState(categoryState.loading);
+  const [isLoading, setIsLoading] = useState<boolean>(categoryState.loading);
   const alert = useAlert();
 
   const confirmDeletion = (section, value) => () => {
@@ -112,13 +114,13 @@ export default function Category (props) {
   const submitData = async e => {
     e.preventDefault();
     setIsLoading(true);
-    if (!hasBottom) sendingData.bottom = '';
+    if (!hasBottom) postData.bottom = '';
     await client
-      .post('/api/v1/admin/category', sendingData)
+      .post('/api/v1/admin/category', postData)
       .then(response => {
         if (response.status === 200) alert.success('카테고리 등록 완료');
         else alert.error('데이터 등록 실패');
-        requestPost(sendingData);
+        requestPost(postData);
       })
       .then(() => fetchData())
       .catch(e => {
@@ -133,27 +135,25 @@ export default function Category (props) {
       <Divider />
       <List className={classes.list} dense component='div' role='list'>
         {items &&
-          items.map((value, index) => {
-            const labelId = `label-${index}`;
-            return (
-              <ListItem
-                key={index}
-                role='listitem'
-                button
-                onClick={handle(value)}
-                className={
-                  currentIndex[section] === index ? classes.active : 'none'
-                }
-              >
-                <ListItemText id={labelId} primary={`${value}`} />
-                {currentIndex[section] === index &&
-                  section !== 'top' &&
-                  !(hasBottom && section === 'middle') && (
-                    <CloseIcon onClick={confirmDeletion(section, value)} />
-                  )}
-              </ListItem>
-            );
-          })}
+          items.map((value, idx) => (
+            <ListItem
+              key={idx}
+              role='listitem'
+              button
+              onClick={handle(value)}
+              className={
+                currentIndex[section] === idx ? classes.active : 'none'
+              }
+            >
+              <ListItemText primary={`${value}`} />
+              {
+                (currentIndex[section] === idx) &&
+                (section !== 'top') &&
+                (!(hasBottom && section === 'middle')) &&
+                <CloseIcon onClick={confirmDeletion(section, value)} />
+              }
+            </ListItem>
+          ))}
         <ListItem />
       </List>
     </Card>
@@ -174,68 +174,31 @@ export default function Category (props) {
   }, [categoryState.loading]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Paper className={classes.paper}>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <Register
-            data={categoryState.data}
-            getNewMiddleList={getNewMiddleList}
-            getNewBottomList={getNewBottomList}
-            handleBottomCurrentIndex={handleBottomCurrentIndex}
-            topList={topList}
-            middleList={middleList}
-            bottomList={bottomList}
-            setSendingData={setSendingData}
-            setCurrentIndex={setCurrentIndex}
-            currentIndex={currentIndex}
-            customList={customList}
-            submitData={submitData}
-            hasBottom={hasBottom}
-          />
-        )}
-      </Paper>
-    </ThemeProvider>
+    <Paper className={classes.paper}>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Register
+          data={categoryState.data}
+          getNewMiddleList={getNewMiddleList}
+          getNewBottomList={getNewBottomList}
+          handleBottomCurrentIndex={handleBottomCurrentIndex}
+          topList={topList}
+          middleList={middleList}
+          bottomList={bottomList}
+          setPostData={setPostData}
+          setCurrentIndex={setCurrentIndex}
+          currentIndex={currentIndex}
+          customList={customList}
+          submitData={submitData}
+          hasBottom={hasBottom}
+        />
+      )}
+    </Paper>
   );
 }
 
-let theme = createMuiTheme({
-  typography: {
-    root: {
-      fontSize: '1.4rem',
-    },
-  },
-});
-
-theme = {
-  ...theme,
-  overrides: {
-    MuiTypography: {
-      body2: {
-        fontSize: '1.3rem',
-      },
-    },
-    MuiInputBase: {
-      input: {
-        fontSize: '1.3rem',
-      },
-    },
-    MuiOutlinedInput: {
-      root: {
-        height: '40px',
-      },
-    },
-  },
-};
-
 const useStyles = makeStyles(theme => ({
-  root: {
-    margin: 'auto',
-  },
-  card: {
-    width: '30%',
-  },
   cardHeader: {
     padding: theme.spacing(1, 2),
   },
@@ -246,43 +209,13 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     overflow: 'auto',
   },
-  item: {
-    margin: '10px auto',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
   active: {
     backgroundColor: '#eae3ff',
-  },
-  inputText: {
-    width: '70%',
-  },
-  button: {
-    width: '25%',
-    height: '40px',
-    backgroundColor: theme.palette.primary.main,
   },
   paper: {
     maxWidth: 936,
     margin: '30px auto',
     overflow: 'hidden',
     padding: '20px',
-  },
-  contentWrapper: {
-    margin: '40px 16px',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  buttonWrap: {
-    width: '100%',
-    textAlign: 'right',
-    marginTop: '20px',
-  },
-  submit: {
-    width: '100px',
-    height: '40px',
-    borderRadius: '15px',
-    backgroundColor: theme.palette.primary.main,
   },
 }));

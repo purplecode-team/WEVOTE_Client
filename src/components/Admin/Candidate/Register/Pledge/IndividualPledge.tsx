@@ -1,15 +1,25 @@
+import * as TextData from '../TextData';
+
 import React, { useEffect, useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 
-const Pledge = props => {
+type IndividualPledgeProps = {
+  index:number,
+  editTitle:string,
+  editSubTitle:string,
+  editDescription:string,
+  handleTitleArr:(idx:number, value:string) => void,
+  handleSubTitleArr:(idx:number, value:string) => void,
+  handleDescriptionArr:(idx:number, value:string) => void,
+}
+
+export default function IndividualPledge (props:IndividualPledgeProps) {
   const {
-    classes,
     index,
-    titleText,
     editTitle,
     editSubTitle,
     editDescription,
@@ -17,9 +27,10 @@ const Pledge = props => {
     handleSubTitleArr,
     handleDescriptionArr,
   } = props;
-  const [title, setTitle] = useState('');
-  const [subTitle, setSubTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const classes = useStyles();
+  const [title, setTitle] = useState<string>('');
+  const [subTitle, setSubTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
 
   const handleTitle = e => {
     setTitle(e.target.value);
@@ -52,9 +63,9 @@ const Pledge = props => {
   return (
     <>
       <Grid container wrap='nowrap'>
-        <Grid item className={classes.item} xs={12}>
+        <Grid item className={classes.item}>
           <Typography className={classes.titleText} variant='h4' component='h4'>
-            {titleText.pledge.title}
+            {TextData.titleText.pledge.title}
           </Typography>
           <TextField
             className={classes.textField}
@@ -69,9 +80,9 @@ const Pledge = props => {
             variant='outlined'
           />
         </Grid>
-        <Grid item className={classes.item} xs={12}>
+        <Grid item className={classes.item}>
           <Typography className={classes.titleText} variant='h4' component='h4'>
-            {titleText.pledge.smallTitle}
+            {TextData.titleText.pledge.smallTitle}
           </Typography>
           <TextField
             className={classes.textField}
@@ -87,9 +98,9 @@ const Pledge = props => {
           />
         </Grid>
       </Grid>
-      <Grid item className={classes.item} xs={12}>
+      <Grid item className={classes.item}>
         <Typography className={classes.titleText} variant='h4' component='h4'>
-          {titleText.pledge.description}
+          {TextData.titleText.pledge.description}
         </Typography>
         <TextField
           placeholder='공약 내용을 입력하세요'
@@ -110,7 +121,7 @@ const Pledge = props => {
   );
 };
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   item: {
     marginBottom: '20px',
   },
@@ -119,6 +130,7 @@ const styles = theme => ({
     fontWeight: 'bold',
     margin: '10px',
   },
-});
-
-export default withStyles(styles)(Pledge);
+  textField:{
+    
+  }
+}))

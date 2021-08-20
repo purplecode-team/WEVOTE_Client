@@ -41,15 +41,21 @@ const initialData = [
 
 const initialIndex = { top: 0, middle: 0, bottom: 0 };
 
+type indexType = {
+  top: number,
+  middle: number,
+  bottom: number,
+}
+
 const useGetCategory = () => {
   const [{ loading, data, error }, fetchData] = useFetch({
     initialUrl: '/api/v1/admin/category',
     initialData: initialData,
   });
-  const [currentIndex, setCurrentIndex] = useState(initialIndex);
-  const [topList, setTopList] = useState([]);
-  const [middleList, setMiddleList] = useState([]);
-  const [bottomList, setBottomList] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState<indexType>(initialIndex);
+  const [topList, setTopList] = useState<string[]>([]);
+  const [middleList, setMiddleList] = useState<string[]>([]);
+  const [bottomList, setBottomList] = useState<string[]>([]);
   const [categoryState, setCategoryState] = useState({ loading, data, error });
 
   let hasBottom = 'Majors' in data[currentIndex.top].middle[0];
@@ -75,7 +81,7 @@ const useGetCategory = () => {
     initializeMiddleIndex(currentTopIndex);
   };
 
-  const getNewBottomList = value => () => {
+  const getNewBottomList = (value:string) => () => {
     const currentMiddleIndex = middleList.indexOf(value) || 0;
     initializeBottomIndex(currentMiddleIndex);
     if (!hasBottom) {

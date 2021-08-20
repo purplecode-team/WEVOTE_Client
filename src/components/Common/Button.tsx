@@ -3,7 +3,14 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import React from 'react';
 
-const StyledButton = props => {
+// type ButtonProps = { 
+//   type: string, 
+//   disabled: boolean,
+//   onClick: () => void, 
+//   children: Element,
+// }
+
+export default function StyledButton (props) {
   const classes = useStyles();
   const { type, disabled, onClick, children } = props;
 
@@ -30,5 +37,3 @@ const useStyles = makeStyles(theme =>
     },
   })
 );
-
-export default StyledButton;

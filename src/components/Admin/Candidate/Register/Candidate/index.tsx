@@ -1,13 +1,21 @@
 import * as TextData from '../TextData';
 
+import { CandidateType, Runner } from '../../../../../types/candidateType';
 import React, { useEffect, useState } from 'react';
 
 import { getNewArrState } from '../../../../../utils/getFunction';
 import Grid from '@material-ui/core/Grid';
 import IndividualCandidate from './IndividualCandidate';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import useFetch from '../../../../../lib/hooks/useFetch';
-import { withStyles } from '@material-ui/core/styles';
+
+type InitialType = string[];
+
+type CandidateProps = {
+  handleCandidateData: (data:Runner[]) => void,
+  editData: CandidateType | null,
+}
 
 // 전체 등록된 학과 모은 데이터 받기
 const defualtMajor = ['없음'];
@@ -15,22 +23,21 @@ const defualtMajor = ['없음'];
 // 팀당 후보 수(고정)
 const candidateCount = 2;
 
-const initialData = Array(candidateCount);
-for (let i = 0; i < candidateCount; i++) initialData[i] = '';
+const initialData:string[] = Array.from({ length: candidateCount }, _ => '');
 
-const CandidateForm = props => {
-  const { classes, getCandidateData, editData } = props;
+export default function CandidateForm ({ handleCandidateData, editData }:CandidateProps) {
+  const classes = useStyles();
   const [{ loading, data, error }, setUrl] = useFetch({
     initialUrl: '/api/v1/admin/major',
     initialData: defualtMajor,
   });
   // input 상태 관리
-  const [imageArr, setImageArr] = useState(initialData);
-  const [urlArr, setUrlArr] = useState(initialData);
-  const [nameArr, setNameArr] = useState(initialData);
-  const [majorArr, setMajorArr] = useState(initialData);
-  const [studentNumArr, setStudentNumArr] = useState(initialData);
-  const [positionArr, setPositionArr] = useState(initialData);
+  const [imageArr, setImageArr] = useState<InitialType>(initialData);
+  const [urlArr, setUrlArr] = useState<InitialType>(initialData);
+  const [nameArr, setNameArr] = useState<InitialType>(initialData);
+  const [majorArr, setMajorArr] = useState<InitialType>(initialData);
+  const [studentNumArr, setStudentNumArr] = useState<number[]>([]);
+  const [positionArr, setPositionArr] = useState<InitialType>(initialData);
 
   // 후보 팀원 개별 정보 등록
   const handleImageArr = (index, value) => {
@@ -57,17 +64,17 @@ const CandidateForm = props => {
   };
 
   const overwriteEditData = () => {
-    const positions = [];
-    const majors = [];
-    const studentNums = [];
-    const urls = [];
-    const names = [];
-
-    editData.Runners.map((obj, i) => {
+    if (!editData) return;
+    const positions:string[] = [];
+    const majors:string[] = [];
+    const studentNums:number[] = [];
+    const urls:string[] = [];
+    const names:string[] = [];
+    editData.Runners.map((obj:Runner) => {
       positions.push(obj.position);
       majors.push(obj.major);
       studentNums.push(obj.studentNum);
-      urls.push(obj.picture || '');
+      urls.push(obj.picture);
       names.push(obj.name);
     });
 
@@ -102,15 +109,14 @@ const CandidateForm = props => {
         position: positionArr[i],
         picture: imageArr[i],
       }));
-      getCandidateData(candidateData);
+      handleCandidateData(candidateData);
     }
-    return () => getCandidateData(null);
   }, [nameArr, majorArr, studentNumArr, positionArr, imageArr]);
 
   const showCandidate = index => {
     return (
       <Grid container className={classes.section} key={index}>
-        <Grid item className={classes.item} xs={12}>
+        <Grid item className={classes.item}>
           <Typography
             className={classes.sectionText}
             variant='h4'
@@ -121,21 +127,19 @@ const CandidateForm = props => {
         </Grid>
         <IndividualCandidate
           index={Number(index)}
-          titleText={TextData.titleText}
-          handleImageArr={handleImageArr}
-          handleUrlArr={handleUrlArr}
-          image={imageArr[index]}
-          url={urlArr[index]}
           candidateMajor={majorArr[index]}
           candidateName={nameArr[index]}
           candidateStudentNum={studentNumArr[index]}
           candidatePosition={positionArr[index]}
+          handleImageArr={handleImageArr}
+          handleUrlArr={handleUrlArr}
           handleMajorArr={handleMajorArr}
           handleNameArr={handleNameArr}
           handleStudentNumArr={handleStudentNumArr}
           handlePositionArr={handlePositionArr}
           majorData={data}
           loading={loading}
+          url={urlArr[index]}
         />
       </Grid>
     );
@@ -144,18 +148,7 @@ const CandidateForm = props => {
   return <Grid container>{initialData.map((d, i) => showCandidate(i))}</Grid>;
 };
 
-const styles = theme => ({
-  paper: {
-    maxWidth: 936,
-    margin: '30px auto',
-    overflow: 'hidden',
-    padding: '20px',
-  },
-  contentWrapper: {
-    margin: '40px 16px',
-    display: 'flex',
-    flexDirection: 'column',
-  },
+const useStyles = makeStyles(theme => ({
   section: {
     marginBottom: '40px',
   },
@@ -167,33 +160,5 @@ const styles = theme => ({
     fontWeight: 'bold',
     color: '#5d3fe8',
     marginBottom: '20px',
-  },
-  titleText: {
-    fontSize: '14px',
-    fontWeight: 'bold',
-    margin: '10px',
-  },
-  formControl: {
-    minWidth: 200,
-  },
-  selectEmpty: {},
-  textField: {
-    minWidth: 400,
-  },
-  uploader: {
-    width: '200px',
-    margin: '0 20px',
-    border: '1px solid #ccc',
-    borderRadius: '15px',
-    textAlign: 'center',
-  },
-  button: {
-    textAlign: 'right',
-  },
-  submit: {
-    width: '100px',
-    height: '40px',
-    borderRadius: '15px',
-  },
-});
-export default withStyles(styles)(CandidateForm);
+  }
+}));

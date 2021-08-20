@@ -1,20 +1,28 @@
 import * as TextData from '../TextData';
 
+import { CandidateType, Team } from '../../../../../types/candidateType';
 import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import { isEmptyArr } from '../../../../../utils/getFunction';
 import Loader from '../../../../Common/Loader';
+import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import { TeamType } from '../index';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import useGetCategory from '../../../../../lib/hooks/useGetCategory';
-import { withStyles } from '@material-ui/core/styles';
 
-const TeamForm = props => {
-  const { classes, getTeamData, editData } = props;
+type TeamFormProps = {
+  handleTeamData: (data:TeamType) => void,
+  editData: CandidateType|null,
+}
+
+export default function TeamForm (props:TeamFormProps) {
+  const { handleTeamData, editData } = props;
+  const classes = useStyles();
   const {
     categoryState,
     topList,
@@ -29,11 +37,11 @@ const TeamForm = props => {
     setCurrentIndex,
   } = useGetCategory();
   // input 상태 관리
-  const [slogan, setSlogan] = useState('');
-  const [currentTop, setCurrentTop] = useState('');
-  const [currentMiddle, setCurrentMiddle] = useState('');
-  const [currentBottom, setCurrentBottom] = useState('');
-  const [teamNumber, setTeamNumber] = useState(1);
+  const [slogan, setSlogan] = useState<string>('');
+  const [currentTop, setCurrentTop] = useState<string>('');
+  const [currentMiddle, setCurrentMiddle] = useState<string>('');
+  const [currentBottom, setCurrentBottom] = useState<string>('');
+  const [teamNumber, setTeamNumber] = useState<number>(1);
 
   const isCompleted =
     Boolean(slogan) &&
@@ -65,6 +73,7 @@ const TeamForm = props => {
   };
 
   const overwriteEditData = () => {
+    if(!editData) return;
     setSlogan(editData.slogan);
     setTeamNumber(editData.order);
     if (editData.majorName) setCurrentBottom(editData.majorName);
@@ -139,7 +148,7 @@ const TeamForm = props => {
         currentBottom,
         teamNumber,
       };
-      getTeamData(teamData);
+      handleTeamData(teamData);
     }
     return () => {
       null;
@@ -148,7 +157,7 @@ const TeamForm = props => {
 
   return (
     <Grid container className={classes.section}>
-      <Grid item className={classes.item} xs={12}>
+      <Grid item className={classes.item}>
         <Typography className={classes.sectionText} variant='h4' component='h4'>
           {TextData.sectionText.team}
         </Typography>
@@ -160,7 +169,7 @@ const TeamForm = props => {
       ) : (
         <Grid container>
           <Grid container wrap='nowrap'>
-            <Grid item className={classes.item} xs={12}>
+            <Grid item className={classes.item}>
               <Typography
                 className={classes.titleText}
                 variant='h4'
@@ -178,7 +187,6 @@ const TeamForm = props => {
                   id='select'
                   value={currentTop}
                   onChange={handleClassificationTop}
-                  className={classes.selectEmpty}
                 >
                   {topList &&
                     topList.map((data, i) => (
@@ -189,7 +197,7 @@ const TeamForm = props => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item className={classes.item} xs={12}>
+            <Grid item className={classes.item}>
               <Typography
                 className={classes.titleText}
                 variant='h4'
@@ -207,7 +215,6 @@ const TeamForm = props => {
                   id='select2'
                   value={currentMiddle}
                   onChange={handleClassificationMiddle}
-                  className={classes.selectEmpty}
                 >
                   {middleList &&
                     middleList.map((data, i) => (
@@ -219,7 +226,7 @@ const TeamForm = props => {
               </FormControl>
             </Grid>
             {!isEmptyArr(bottomList) && (
-              <Grid item className={classes.item} xs={12}>
+              <Grid item className={classes.item}>
                 <Typography
                   className={classes.titleText}
                   variant='h4'
@@ -237,7 +244,6 @@ const TeamForm = props => {
                     id='select3'
                     value={currentBottom}
                     onChange={handleClassificationBottom}
-                    className={classes.selectEmpty}
                   >
                     {bottomList &&
                       bottomList.map((data, i) => (
@@ -251,7 +257,7 @@ const TeamForm = props => {
             )}
           </Grid>
           <Grid container wrap='nowrap'>
-            <Grid item className={classes.item} xs={12}>
+            <Grid item className={classes.item}>
               <Typography
                 className={classes.titleText}
                 variant='h4'
@@ -269,7 +275,7 @@ const TeamForm = props => {
                 onChange={handleSlogan}
               />
             </Grid>
-            <Grid item className={classes.item} xs={12}>
+            <Grid item className={classes.item}>
               <Typography
                 className={classes.titleText}
                 variant='h4'
@@ -287,7 +293,6 @@ const TeamForm = props => {
                   id='demo-simple-select-required'
                   value={teamNumber}
                   onChange={handleTeamNumber}
-                  className={classes.selectEmpty}
                 >
                   {renderMenuItem()}
                 </Select>
@@ -300,18 +305,7 @@ const TeamForm = props => {
   );
 };
 
-const styles = theme => ({
-  paper: {
-    maxWidth: 936,
-    margin: '30px auto',
-    overflow: 'hidden',
-    padding: '20px',
-  },
-  contentWrapper: {
-    margin: '40px 16px',
-    display: 'flex',
-    flexDirection: 'column',
-  },
+const useStyles = makeStyles(theme => ({
   section: {
     marginBottom: '40px',
   },
@@ -332,28 +326,11 @@ const styles = theme => ({
   formControl: {
     minWidth: 200,
   },
-  selectEmpty: {},
   textField: {
     minWidth: 400,
-  },
-  uploader: {
-    width: '200px',
-    margin: '0 20px',
-    border: '1px solid #ccc',
-    borderRadius: '15px',
-    textAlign: 'center',
-  },
-  button: {
-    textAlign: 'right',
-  },
-  submit: {
-    width: '100px',
-    height: '40px',
-    borderRadius: '15px',
   },
   loaderWrapper: {
     width: '100%',
     textAlign: 'center',
   },
-});
-export default withStyles(styles)(TeamForm);
+}));
