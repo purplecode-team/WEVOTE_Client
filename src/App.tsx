@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Home, Info, Login, Register } from './pages';
 import { lazy, Suspense } from 'react';
 import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
@@ -25,7 +24,6 @@ const App = () => {
       <Router>
       <GlobalStyle />
       <Suspense fallback={<div>Loading.....</div>}>
-        <ThemeProvider theme={theme}>
           <Layout>
             <Switch>
               <Route exact path="/" component={Home} />
@@ -38,22 +36,10 @@ const App = () => {
               <Redirect path="*" to="/" />
             </Switch>
           </Layout>
-        </ThemeProvider>
       </Suspense>
       </Router>
     </CandidateProvider>
   );
 };
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      mobile: 480,
-      tablet: 640,
-      laptop: 1024,
-      desktop: 1280,
-    },
-  },
-});
 
 export default App;
