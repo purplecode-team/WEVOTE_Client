@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AuthForm from '../../components/auth/AuthForm';
+import { rootState } from '../../modules';
 import { tempSetUser } from '../../modules/user';
 import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router-dom';
@@ -12,7 +13,7 @@ const RegisterForm = () => {
   const alert = useAlert();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { form } = useSelector(({ auth }) => ({
+  const { form } = useSelector(({ auth }:rootState) => ({
     form: auth.register,
   }));
   // 인풋 변경 이벤트 핸들러
