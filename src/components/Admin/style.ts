@@ -5,6 +5,11 @@ import media from '../../lib/styles/media';
 export let theme = createMuiTheme({
   breakpoints: {
     values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
       mobile: 480,
       tablet: 640,
       laptop: 1024,
@@ -44,10 +49,15 @@ theme = {
       },
     },
     MuiOutlinedInput: {
-      root: {
-        height: '40px',
+      inputMultiline: {
+        lineHeight: '20px',
       },
     },
+    MuiMenuItem:{
+      root:{
+        fontSize: '1.2rem',
+      }
+    }
   },
 };
 

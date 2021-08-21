@@ -4,9 +4,17 @@ import CloseIcon from '@material-ui/icons/Close';
 import defaultImg from '../../../../../public/img/noimg.jpg';
 import styled from 'styled-components';
 
-export default function ImagePreview (props) {
+type PreviewProps = {
+  fileUrl: any[],
+  alt: string,
+  resetImg: () => void,
+  width: number | string,
+  height: number | string,
+}
+
+export default function ImagePreview (props:PreviewProps) {
   const { fileUrl, alt, resetImg, width, height } = props;
-  const [urls, setUrls] = useState([]);
+  const [urls, setUrls] = useState<any>([]);
 
   const isDefault = urls[0] === defaultImg;
   const hasUrlArray = urls.length > 0;
@@ -28,7 +36,7 @@ export default function ImagePreview (props) {
       return;
     }
     // 이미지 최대 9개
-    let temp = [];
+    let temp:any = [];
     for (let i = 0; i < fileUrl.length; i++) {
       if (i >= MaxFileSize) break;
       temp.push(fileUrl[i]);

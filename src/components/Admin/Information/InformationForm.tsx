@@ -1,30 +1,35 @@
 import Button from '@material-ui/core/Button';
-import client from '../../../lib/api/client';
 import Grid from '@material-ui/core/Grid';
-import imageCompression from 'browser-image-compression';
 import ImageUploader from '../Common/ImageUploader';
 import Paper from '@material-ui/core/Paper';
-import PropTypes from 'prop-types';
 import React from 'react';
+import client from '../../../lib/api/client';
+import imageCompression from 'browser-image-compression';
+import { makeStyles } from '@material-ui/core/styles';
 import { useAlert } from 'react-alert';
 import { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 
-function InformationForm (props) {
-  const { classes, fetchData, confirmDeletion } = props;
-  const [files, setFiles] = useState(['']);
-  const [urls, setUrls] = useState(['']);
+type FormProps = {
+  fetchData: () => void,
+  confirmDeletion: (value:string) => void,
+}
+
+export default function InformationForm (props:FormProps) {
+  const { fetchData, confirmDeletion } = props;
+  const classes = useStyles();
+  const [files, setFiles] = useState<File[]|string[]>(['']);
+  const [urls, setUrls] = useState<string[]>(['']);
   const alert = useAlert();
 
   const processImage = async e => {
-    const imageFiles = Object.values(e.target.files);
+    const imageFiles:File[] = Object.values(e.target.files);
     const options = {
       maxSizeMB: 2,
       maxWidthOrHeight: 600,
       useWebWorker: true,
     };
     const compressedFiles = await Promise.all(
-      imageFiles.map(file => {
+      imageFiles.map((file:File) => {
         return imageCompression(file, options);
       })
     );
@@ -76,7 +81,7 @@ function InformationForm (props) {
     <Paper className={classes.paper}>
       <div className={classes.contentWrapper}>
         <form onSubmit={submitImg}>
-          <Grid item xs={12} className={classes.buttonWrap}>
+          <Grid item className={classes.buttonWrap}>
             <ImageUploader
               alt={'information'}
               fileUrl={urls}
@@ -87,7 +92,7 @@ function InformationForm (props) {
               multiple
             />
           </Grid>
-          <Grid item xs={12} className={classes.buttonWrap}>
+          <Grid item className={classes.buttonWrap}>
             <Button
               className={classes.button}
               variant='contained'
@@ -112,7 +117,7 @@ function InformationForm (props) {
   );
 }
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   paper: {
     maxWidth: 936,
     margin: 'auto',
@@ -135,10 +140,4 @@ const styles = theme => ({
     borderRadius: '15px',
     margin: '0 10px',
   },
-});
-
-InformationForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(InformationForm);
+}));

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 
 import CardList from './CardList';
@@ -8,10 +8,11 @@ import Carousel from '../../../Common/Carousel';
 import Img1 from '../../../../../public/img/CardImg1.svg';
 import Img2 from '../../../../../public/img/CardImg2.svg';
 import Img3 from '../../../../../public/img/CardImg3.svg';
-import media from '../../../../lib/styles/media';
 import Skeleton from '@material-ui/lab/Skeleton';
-import styled from 'styled-components';
 import { Team } from '../../../../types/candidateType';
+import media from '../../../../lib/styles/media';
+import styled from 'styled-components';
+import { theme } from '../../../Admin/style';
 
 type CandidateArticleProps = {
   organizationId?: number,
@@ -24,7 +25,8 @@ type CandidateArticleProps = {
 const emptyCardArr = [Img1, Img2, Img3];
 const emptyDescription = '후보가 등록되어 있지 않습니다.';
 
-const CandidateArticle = ({ loading, title, teamArr, organizationId, refetch }: CandidateArticleProps) => {
+export default function CandidateArticle (props: CandidateArticleProps) {
+  const { loading, title, teamArr, organizationId, refetch } = props;
   const classes = useStyles();
   const [count, setCount] = useState(0);
 
@@ -69,7 +71,7 @@ const CandidateArticle = ({ loading, title, teamArr, organizationId, refetch }: 
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => (
+const useStyles = makeStyles(() => (
   createStyles({
   title:{
     width: '80px',
@@ -122,4 +124,3 @@ const CarouselWrapper = styled.div`
   overflow: hidden;
 `;
 
-export default CandidateArticle;

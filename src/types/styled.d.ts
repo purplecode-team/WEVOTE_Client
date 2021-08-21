@@ -28,11 +28,11 @@ declare module "styled-components" {
 }
 declare module "@material-ui/core/styles/createBreakpoints" {
   interface BreakpointOverrides {
-    xs: false; // removes the `xs` breakpoint
-    sm: false;
-    md: false;
-    lg: false;
-    xl: false;
+    xs: true; // removes the `xs` breakpoint
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
     mobile: true;
     tablet: true; // adds the `tablet` breakpoint
     laptop: true;
