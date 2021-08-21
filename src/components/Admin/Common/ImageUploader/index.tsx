@@ -6,14 +6,14 @@ import styled from 'styled-components';
 type UploaderProps = {
   fileUrl: any,
   alt:string,
-  processImage: ()=>void,
+  processImage: React.ChangeEventHandler<HTMLInputElement>,
   resetImg: ()=>void,
-  multiple: boolean,
+  multiple?: boolean,
   width:number | string,
   height:number | string,
 }
 
-const ImageUploader = props => {
+const ImageUploader = (props:UploaderProps) => {
   const {
     fileUrl,
     alt,
