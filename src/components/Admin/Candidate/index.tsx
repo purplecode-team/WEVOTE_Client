@@ -3,9 +3,11 @@ import Editor from './Editor';
 import React from 'react';
 import Register from './Register';
 
-const Candidate = props => {
-  const { currentSmallMenuId } = props;
+type Props ={
+  currentSmallMenuId: number,
+}
 
+export default function Candidate ({ currentSmallMenuId}:Props) {
   const Content = [
     { id: 1, component: <Category /> },
     { id: 2, component: <Register /> },
@@ -21,4 +23,3 @@ const Candidate = props => {
     </>
   );
 };
-export default Candidate;

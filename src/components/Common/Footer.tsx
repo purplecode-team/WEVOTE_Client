@@ -5,16 +5,19 @@ import media from '../../lib/styles/media';
 import styled from 'styled-components';
 import theme from '../../lib/styles/theme';
 
+const footerText = {
+  title : '대학 온라인 선거 정보 관리 서비스',
+  eng : 'University Online Election Information and Management Service',
+  email : 'wevote.manager@gmail.com',
+}
+
 const Footer = () => {
   return (
     <FooterSection>
       <Logo />
-      <Text>대학 온라인 선거 정보 제공 및 관리 서비스 위보트</Text>
-      <Text>
-        University Online Election Information and Management Services WEVOTE
-      </Text>
-      <Space />
-      <Text>Master Email wevote.manager@gmail.com</Text>
+      <Text>{footerText.title}</Text>
+      <Text>{footerText.eng}</Text>
+      <Text>{footerText.email}</Text>
     </FooterSection>
   );
 };
@@ -31,9 +34,10 @@ const FooterSection = styled.footer`
 
 const Text = styled.p`
   color: white;
-  font-size: 1.2rem;
-  margin-top: 10px;
+  font-size: 1.3rem;
+  margin: 5px 50px;
   text-align: center;
+  line-height: 20px;
 `;
 
 const Space = styled.div`

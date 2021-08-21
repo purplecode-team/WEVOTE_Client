@@ -25,7 +25,8 @@ const ClassificationCategory = ({
   bottomList,
   currentIndex,
 }: ClassificationProps) => {
-  const scrollBarRef = useRef<HTMLDivElement>(null);
+  const middleScrollRef = useRef<HTMLDivElement>(null);
+  const bottomScrollRef = useRef<HTMLDivElement>(null);
 
   const handleMiddleList = e => {
     getNewMiddleList(e.target.innerText)();
@@ -40,9 +41,14 @@ const ClassificationCategory = ({
   }
 
   useEffect(()=>{
-    if (scrollBarRef.current === null) return
-    scrollBarRef.current.scrollTo({top:scrollBarRef.current.scrollTop, left: 0, behavior:'auto'})
+    if (bottomScrollRef.current === null) return
+    bottomScrollRef.current.scrollTo({top:bottomScrollRef.current.scrollTop, left: 0, behavior:'auto'})
   },[bottomList])
+  
+  useEffect(()=>{
+    if (middleScrollRef.current === null) return
+    middleScrollRef.current.scrollTo({top:middleScrollRef.current.scrollTop, left: 0, behavior:'auto'})
+  },[middleList])
 
   return (
     <>
@@ -60,7 +66,7 @@ const ClassificationCategory = ({
           ))}
         </TopCategoryList>
       </BackgroundBar>
-      <BackgroundBar color="#EAE3FF">
+      <BackgroundBar ref={middleScrollRef} color="#EAE3FF">
         <CategoryList >
           {middleList.map((item, index) => {
             return (
@@ -75,7 +81,7 @@ const ClassificationCategory = ({
         </CategoryList>
       </BackgroundBar>
       {bottomList[currentIndex.bottom] && (
-        <BackgroundBar ref={scrollBarRef} color="#F1ECFF">
+        <BackgroundBar ref={bottomScrollRef} color="#F1ECFF">
           <CategoryList >
             {bottomList.map((item, index) => (
               <CategoryItem

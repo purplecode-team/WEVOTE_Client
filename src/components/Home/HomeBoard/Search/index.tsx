@@ -8,6 +8,10 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import styled from 'styled-components';
 import useFetch from '../../../../lib/hooks/useFetch';
 
+const homeText = {
+  title : '서울과학기술대학교 선거소식',
+}
+
 const initialData = [{id: 0, name: '없음'}]
 const Search = () => {
   const classes = useStyles();
@@ -23,7 +27,7 @@ const Search = () => {
         <Skeleton animation="wave" variant="rect" className={classes.searchWrapper}/>        
       </> :
       <>
-        <Title>00대학교 선거소식</Title>
+        <Title>{homeText.title}</Title>
         <SearchWrapper>
           <SearchBox data={data}/>
         </SearchWrapper>

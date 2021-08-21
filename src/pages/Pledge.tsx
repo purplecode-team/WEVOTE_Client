@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Promise, qnaInfo, Team } from '../types/candidateType';
+import { PromiseType, qnaInfo, Team } from '../types/candidateType';
 import { useCallback, useEffect, useState } from 'react';
 
 import CandidateSection from '../components/Pledge/Candidate/CandidateSection';
@@ -74,9 +74,9 @@ const Pledge = () => {
     initialUrl: `/api/v1/promise/promise-detail/${id}`,
     initialData: initialData,
   })
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState<number>(0);
   const [teamArr, setTeamArr] = useState<Team[]>(initialData.Teams);
-  const [pledgeArr, setPledgeArr] = useState<Promise[]>(initialData.Teams[0].Promises);
+  const [pledgeArr, setPledgeArr] = useState<PromiseType[]>(initialData.Teams[0].Promises);
   const [slogan, setSlogan] = useState<string>(initialData.Teams[0].slogan);
   const [Qnas, setQnas] = useState<qnaInfo[]>(initialData.Teams[0].Qnas);
   const [height, setHeight] = useState<number>(0);

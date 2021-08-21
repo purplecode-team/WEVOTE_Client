@@ -4,42 +4,58 @@ export type Major = {
   organizationName: string;
   Teams: Team[];
 };
+
 export type HasBottomType = {
   id: number;
   organizationName: string;
   Majors: Major[];
 };
+
 export type HasMiddleType = {
   id: number;
   organizationName: string;
   Teams: Team[];
 };
-export type CandidateDataType = {
+
+export type ClassificationDataType = {
   central: HasMiddleType[];
   college: HasMiddleType[];
   major: HasBottomType[];
 };
 
+export type CandidateType = {
+  id: number,
+  order: number,
+  slogan: string,
+  categoryName: string,
+  categoryDetail : string,
+  majorName: string,
+  Runners: Runner[],
+  Promises: PromiseType[],
+  organizationId : number,
+}
+
 
 export type Runner = {
-  id: number;
+  id?: number;
   name: string;
   major: string;
   studentNum: number;
   position: string;
-  picture?: string;
-  teamId: number;
+  picture: string;
+  teamId?: number;
 };
 
-export type Promise = {
+export type PromiseType = {
   id?: number;
   promiseType: string;
   promiseTitle: string;
   promiseDetail: string;
+  teamId?: number;
 };
 
 export type PromiseArr = {
-  pledgeArr: Promise[];
+  pledgeArr: PromiseType[];
   slogan: string;
 };
 
@@ -71,6 +87,6 @@ export type Team = {
   order: number;
   slogan: string;
   Runners: Runner[];
-  Promises?: Promise[];
+  Promises?: PromiseType[];
   qna?: question[];
 };
