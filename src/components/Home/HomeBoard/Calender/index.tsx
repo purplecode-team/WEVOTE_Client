@@ -1,11 +1,12 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 
-import initialCalendar from '../../../../../public/img/calendar.svg';
-import media from '../../../../lib/styles/media';
 import React from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
+import initialCalendar from '../../../../../public/img/calendar.svg';
+import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
+import { theme } from '../../../Admin/style';
 import useFetch from '../../../../lib/hooks/useFetch';
 
 const initialData = {
@@ -19,7 +20,7 @@ const ImgBoard = () => {
     initialUrl: '/api/v1/main/calendar',
     initialData: initialData
   });
-  const [image, setImage] = useState(data.image);
+  const [image, setImage] = useState<string>(data.image);
 
   const handleImgError = () => {
     setImage(initialCalendar);
@@ -42,7 +43,7 @@ const ImgBoard = () => {
 
 export default ImgBoard;
 
-const useStyles = makeStyles((theme: Theme) => (
+const useStyles = makeStyles(() => (
   createStyles({
   media: {
     width: '95%',

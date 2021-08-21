@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
-import client from '../../../lib/api/client';
 import Grid from '@material-ui/core/Grid';
-import imageCompression from 'browser-image-compression';
 import ImageUploader from '../Common/ImageUploader';
 import Loader from '../../Common/Loader';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
-import { theme } from '../style';
 import Typography from '@material-ui/core/Typography';
+import client from '../../../lib/api/client';
+import imageCompression from 'browser-image-compression';
+import { makeStyles } from '@material-ui/core/styles';
+import { theme } from '../style';
 import { useAlert } from 'react-alert';
 import useFetch from '../../../lib/hooks/useFetch';
 
@@ -111,7 +111,7 @@ export default function Canlender () {
             resetImg={resetImg}
             processImage={processImage}
             width={'250px'}
-            heigth={'250px'}
+            height={'250px'}
           />
           <Grid item className={classes.buttonWrap}>
             {activeDeletion && (

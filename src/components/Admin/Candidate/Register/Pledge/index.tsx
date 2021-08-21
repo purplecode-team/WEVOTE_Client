@@ -6,10 +6,10 @@ import React, { useEffect, useState } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import IndividualPledge from './IndividualPledge';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
+import { useStyles } from '../RegisterStyle';
 
 type PledgeFormProps = {
   handlePledgeData: (data:PromiseType[]) => void,
@@ -79,7 +79,9 @@ export default function PledgeForm (props:PledgeFormProps) {
   }, [editData]);
 
   useEffect(() => {
-    setPledgeCountArr(Array.from({ length: pledgeCount }, (v, i) => i));
+    const tempArr = Array.from({ length: pledgeCount }, (v, i) => i);
+    setPledgeCountArr(tempArr);
+    return () => setPledgeCountArr(tempArr);
   }, [pledgeCount]);
 
   // 개별 input data를 pledgeData Array로 모으기
@@ -137,27 +139,4 @@ export default function PledgeForm (props:PledgeFormProps) {
     </Grid>
   );
 };
-
-const useStyles = makeStyles(theme => ({
-  section: {
-    marginBottom: '40px',
-  },
-  item: {
-    marginBottom: '20px',
-  },
-  sectionText: {
-    fontSize: '16px',
-    fontWeight: 'bold',
-    color: '#5d3fe8',
-    marginBottom: '20px',
-  },
-  titleText: {
-    fontSize: '14px',
-    fontWeight: 'bold',
-    margin: '10px',
-  },
-  formControl: {
-    minWidth: 200,
-  },
-}));
 

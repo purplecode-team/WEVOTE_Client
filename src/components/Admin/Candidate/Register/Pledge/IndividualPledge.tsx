@@ -3,9 +3,9 @@ import * as TextData from '../TextData';
 import React, { useEffect, useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { useStyles } from '../RegisterStyle';
 
 type IndividualPledgeProps = {
   index:number,
@@ -47,6 +47,11 @@ export default function IndividualPledge (props:IndividualPledgeProps) {
     handleTitleArr(index, title);
     handleSubTitleArr(index, subTitle);
     handleDescriptionArr(index, description);
+    return () => {
+      handleTitleArr(index, title);
+      handleSubTitleArr(index, subTitle);
+      handleDescriptionArr(index, description);
+    }
   }, [title, subTitle, description]);
 
   useEffect(() => {
@@ -106,31 +111,13 @@ export default function IndividualPledge (props:IndividualPledgeProps) {
           placeholder='공약 내용을 입력하세요'
           multiline
           fullWidth
-          rows={10}
-          margin='normal'
+          rows={8}
           error={!Boolean(description)}
           value={description}
           onChange={handleDescription}
-          InputLabelProps={{
-            shrink: true,
-          }}
           variant='outlined'
         />
       </Grid>
     </>
   );
 };
-
-const useStyles = makeStyles(theme => ({
-  item: {
-    marginBottom: '20px',
-  },
-  titleText: {
-    fontSize: '14px',
-    fontWeight: 'bold',
-    margin: '10px',
-  },
-  textField:{
-    
-  }
-}))

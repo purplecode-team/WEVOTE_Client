@@ -4,13 +4,13 @@ import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import imageCompression from 'browser-image-compression';
 import ImageUploader from '../../../Common/ImageUploader';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import imageCompression from 'browser-image-compression';
+import { useStyles } from '../RegisterStyle';
 
 type IndividualProps = {
   index : number,
@@ -103,12 +103,6 @@ export default function IndividualCandidate (props:IndividualProps) {
     setIndividualStudentNum(candidateStudentNum);
   }, [candidateStudentNum]);
 
-  // editData로 url변경 되었을 때, 
-  // useEffect(() => {
-  //   handleUrlArr(index, url);
-  //   return () => handleUrlArr(index, url);
-  // }, [url]);
-
   return (
     <Grid container wrap='nowrap'>
       <Grid item className={classes.item} >
@@ -125,7 +119,7 @@ export default function IndividualCandidate (props:IndividualProps) {
         />
       </Grid>
       <Grid container>
-        <Grid item className={classes.item} >
+        <Grid item className={classes.gridInput} >
           <Typography className={classes.titleText} variant='h4' component='h4'>
             {TextData.titleText.candidate.name}
           </Typography>
@@ -137,7 +131,7 @@ export default function IndividualCandidate (props:IndividualProps) {
             onChange={handleName}
           />
         </Grid>
-        <Grid item className={classes.item} >
+        <Grid item className={classes.gridInput} >
           <Typography className={classes.titleText} variant='h4' component='h4'>
             {TextData.titleText.candidate.studentNumber}
           </Typography>
@@ -152,7 +146,7 @@ export default function IndividualCandidate (props:IndividualProps) {
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item className={classes.item} >
+        <Grid item className={classes.gridInput} >
           <Typography className={classes.titleText} variant='h4' component='h4'>
             {TextData.titleText.candidate.major}
           </Typography>
@@ -180,7 +174,7 @@ export default function IndividualCandidate (props:IndividualProps) {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item className={classes.item} >
+        <Grid item className={classes.gridInput} >
           <Typography className={classes.titleText} variant='h4' component='h4'>
             {TextData.titleText.candidate.position}
           </Typography>
@@ -197,26 +191,4 @@ export default function IndividualCandidate (props:IndividualProps) {
   );
 };
 
-const useStyles = makeStyles(theme => ({
-  item: {
-    marginBottom: '20px',
-  },
-  titleText: {
-    fontSize: '14px',
-    fontWeight: 'bold',
-    margin: '10px',
-  },
-  formControl: {
-    minWidth: 200,
-  },
-  textField: {
-    minWidth: 400,
-  },
-  uploader: {
-    width: '200px',
-    margin: '0 20px',
-    border: '1px solid #ccc',
-    borderRadius: '15px',
-    textAlign: 'center',
-  },
-}))
+

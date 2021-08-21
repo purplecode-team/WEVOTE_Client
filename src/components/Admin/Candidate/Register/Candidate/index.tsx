@@ -3,12 +3,13 @@ import * as TextData from '../TextData';
 import { CandidateType, Runner } from '../../../../../types/candidateType';
 import React, { useEffect, useState } from 'react';
 
-import { getNewArrState } from '../../../../../utils/getFunction';
 import Grid from '@material-ui/core/Grid';
 import IndividualCandidate from './IndividualCandidate';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { getNewArrState } from '../../../../../utils/getFunction';
+import { makeStyles } from '@material-ui/core/styles';
 import useFetch from '../../../../../lib/hooks/useFetch';
+import { useStyles } from '../RegisterStyle';
 
 type InitialType = string[];
 
@@ -147,18 +148,3 @@ export default function CandidateForm ({ handleCandidateData, editData }:Candida
 
   return <Grid container>{initialData.map((d, i) => showCandidate(i))}</Grid>;
 };
-
-const useStyles = makeStyles(theme => ({
-  section: {
-    marginBottom: '40px',
-  },
-  item: {
-    marginBottom: '20px',
-  },
-  sectionText: {
-    fontSize: '16px',
-    fontWeight: 'bold',
-    color: '#5d3fe8',
-    marginBottom: '20px',
-  }
-}));

@@ -5,15 +5,15 @@ import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import { isEmptyArr } from '../../../../../utils/getFunction';
 import Loader from '../../../../Common/Loader';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { TeamType } from '../index';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { isEmptyArr } from '../../../../../utils/getFunction';
 import useGetCategory from '../../../../../lib/hooks/useGetCategory';
+import { useStyles } from '../RegisterStyle';
 
 type TeamFormProps = {
   handleTeamData: (data:TeamType) => void,
@@ -117,9 +117,6 @@ export default function TeamForm (props:TeamFormProps) {
   useEffect(() => {
     if (!editData) return;
     overwriteEditData();
-    return () => {
-      null;
-    };
   }, [editData, categoryState.data]);
 
   useEffect(() => {
@@ -150,9 +147,6 @@ export default function TeamForm (props:TeamFormProps) {
       };
       handleTeamData(teamData);
     }
-    return () => {
-      null;
-    };
   }, [slogan, currentMiddle, currentBottom, teamNumber]);
 
   return (
@@ -168,8 +162,8 @@ export default function TeamForm (props:TeamFormProps) {
         </Grid>
       ) : (
         <Grid container>
-          <Grid container wrap='nowrap'>
-            <Grid item className={classes.item}>
+          <Grid container wrap='nowrap' >
+            <Grid item className={classes.gridInput}>
               <Typography
                 className={classes.titleText}
                 variant='h4'
@@ -197,7 +191,7 @@ export default function TeamForm (props:TeamFormProps) {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item className={classes.item}>
+            <Grid item className={classes.gridInput}>
               <Typography
                 className={classes.titleText}
                 variant='h4'
@@ -226,7 +220,7 @@ export default function TeamForm (props:TeamFormProps) {
               </FormControl>
             </Grid>
             {!isEmptyArr(bottomList) && (
-              <Grid item className={classes.item}>
+              <Grid item className={classes.gridInput}>
                 <Typography
                   className={classes.titleText}
                   variant='h4'
@@ -256,8 +250,8 @@ export default function TeamForm (props:TeamFormProps) {
               </Grid>
             )}
           </Grid>
-          <Grid container wrap='nowrap'>
-            <Grid item className={classes.item}>
+          <Grid container wrap='nowrap' >
+            <Grid item className={classes.gridInput}>
               <Typography
                 className={classes.titleText}
                 variant='h4'
@@ -275,7 +269,7 @@ export default function TeamForm (props:TeamFormProps) {
                 onChange={handleSlogan}
               />
             </Grid>
-            <Grid item className={classes.item}>
+            <Grid item className={classes.gridInput}>
               <Typography
                 className={classes.titleText}
                 variant='h4'
@@ -304,33 +298,3 @@ export default function TeamForm (props:TeamFormProps) {
     </Grid>
   );
 };
-
-const useStyles = makeStyles(theme => ({
-  section: {
-    marginBottom: '40px',
-  },
-  item: {
-    marginBottom: '20px',
-  },
-  sectionText: {
-    fontSize: '16px',
-    fontWeight: 'bold',
-    color: '#5d3fe8',
-    marginBottom: '20px',
-  },
-  titleText: {
-    fontSize: '14px',
-    fontWeight: 'bold',
-    margin: '10px',
-  },
-  formControl: {
-    minWidth: 200,
-  },
-  textField: {
-    minWidth: 400,
-  },
-  loaderWrapper: {
-    width: '100%',
-    textAlign: 'center',
-  },
-}));
