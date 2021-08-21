@@ -1,25 +1,28 @@
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-
-import Button from '@material-ui/core/Button';
 import React from 'react';
+import styled from 'styled-components';
 
-// type ButtonProps = { 
-//   type: string, 
-//   disabled: boolean,
-//   onClick: () => void, 
-//   children: Element,
-// }
+type ButtonProps = { 
+  type?: "button" | "submit" | "reset" | undefined, 
+  bgColor?: string,
+  color?: string,
+  disabled?: boolean,
+  onClick?: () => void, 
+  children?: string,
+}
 
-export default function StyledButton (props) {
-  const classes = useStyles();
-  const { type, disabled, onClick, children } = props;
+type buttonStyleProps = {
+  bgColor?: string,
+  color?: string,
+}
+
+export default function StyledButton (props:ButtonProps) {
+  const { type, bgColor, color, disabled, onClick, children } = props;
 
   return (
     <Button
-      className={classes.button}
-      variant='contained'
-      color='primary'
       type={type}
+      bgColor={bgColor}
+      color={color}
       disabled={disabled}
       onClick={onClick}
     >
@@ -27,13 +30,12 @@ export default function StyledButton (props) {
     </Button>
   );
 };
-const useStyles = makeStyles(theme =>
-  createStyles({
-    button: {
-      width: '100px',
-      height: '40px',
-      borderRadius: '15px',
-      filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
-    },
-  })
-);
+
+const Button = styled.button<buttonStyleProps>`
+  width: 100px;
+  height: 40px;
+  border-radius: 15px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2));
+  background: ${(props)=> props.bgColor};
+  color: ${(props)=> props.color};
+`;

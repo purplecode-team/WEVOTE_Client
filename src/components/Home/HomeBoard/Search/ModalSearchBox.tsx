@@ -29,7 +29,7 @@ export default function ModalSearchBox({data}) {
           <ModalTitle>{modalTitle}</ModalTitle>
           <SearchBox data={data} />
           <Recommendation>
-            <Button color={theme.palette.primary.main}>총학</Button>
+            <Button bgColor={theme.palette.primary.main} color={theme.palette.primary.background}>총학</Button>
           </Recommendation>
         </ModalBox>
         <Fab
@@ -46,26 +46,25 @@ export default function ModalSearchBox({data}) {
   );
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    onButton: {
-      display: 'none',
-    },
-    offButton: {
-      position: 'fixed',
-      top: '94px',
-      right: '14px',
-      zIndex: 1,
-      margin: theme.spacing(1),
-    },
-    onModal: {
-      display: 'flex',
-    },
-    offModal: {
-      display: 'none',
-    },
-  })
-);
+const useStyles = makeStyles((theme) =>({
+  onButton: {
+    display: 'none',
+  },
+  offButton: {
+    position: 'fixed',
+    top: '94px',
+    right: '14px',
+    zIndex: 1,
+    margin: theme.spacing(1),
+  },
+  onModal: {
+    display: 'flex',
+  },
+  offModal: {
+    display: 'none',
+  },
+}));
+
 const theme = createMuiTheme({
   overrides: {
     MuiFab: {
