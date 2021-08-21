@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
 
 import AddForm from '../Common/AddForm';
-import client from '../../../lib/api/client';
 import NoticeForm from './NoticeForm';
 import NoticeList from './NoticeList';
+import client from '../../../lib/api/client';
 import { useAlert } from 'react-alert';
 import useFetch from '../../../lib/hooks/useFetch';
 
+export type NoticeData = {
+  id: number,
+  content: string,
+  startDate: string,
+  endDate: string,
+}
+
 const initialData = [
   {
-    id: '',
+    id: 0,
     content: '등록된 공지사항이 없습니다',
     startDate: '',
     endDate: '',
@@ -21,20 +28,20 @@ const NoticeArticle = () => {
     initialUrl: '/api/v1/main/banner',
     initialData: initialData,
   });
-  const [rows, setRows] = useState(initialData);
-  const [editData, setEditData] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(loading);
+  const [rows, setRows] = useState<NoticeData[]>(initialData);
+  const [editData, setEditData] = useState<NoticeData>();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(loading);
   const alert = useAlert();
 
-  const onCloseModal = () => setOpen(false);
+  const onCloseModal = () => setIsOpen(false);
 
   const isDefault = id => initialData[0].id === id;
 
   const onUpdate = id => {
     if (isDefault(id)) return;
     setEditData(data.filter(obj => obj.id === id)[0]);
-    setOpen(true);
+    setIsOpen(true);
   };
 
   const confirmDeletion = id => {
@@ -44,15 +51,19 @@ const NoticeArticle = () => {
 
   const onDelete = async id => {
     setIsLoading(true);
-    await client
+    try{
+      await client
       .delete(`/api/v1/admin/banner/${id}`)
-      .then(response => {
+      .then(res => {
         alert.success('배너 삭제 완료');
         fetchData();
       })
       .catch(e => {
         alert.error('데이터를 삭제할 수 없습니다.');
       });
+    }catch(e){
+      alert.error('데이터를 삭제할 수 없습니다')
+    }
     setIsLoading(false);
   };
 
@@ -86,8 +97,8 @@ const NoticeArticle = () => {
         loading={isLoading}
         rows={rows}
         editData={editData}
-        open={open}
-        setOpen={setOpen}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
         fetchData={fetchData}
         onCloseModal={onCloseModal}
         onUpdate={onUpdate}
