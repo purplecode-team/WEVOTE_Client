@@ -1,3 +1,4 @@
+import { createStyles, withStyles } from '@material-ui/core/styles';
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
@@ -5,32 +6,22 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
+import client from '../../../lib/api/client';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
-import { NoticeData } from './index';
 import Paper from '@material-ui/core/Paper';
+import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import client from '../../../lib/api/client';
-import { makeStyles } from '@material-ui/core/styles';
 import { useAlert } from 'react-alert';
 
-type FormProps = {
-  editData?: NoticeData,
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>,
-  fetchData: ()=>void,
-}
-
-const DateOfToday = (new Date()).toString();
-
-export default function NoticeForm (props:FormProps) {
-  const { editData, setIsOpen, fetchData } = props;
-  const classes = useStyles();
-  const [id, setId] = useState<number|null>(null);
-  const [content, setContent] = useState<string>('');
-  const [startDate, setStartDate] = useState<string>(DateOfToday);
-  const [endDate, setEndDate] = useState<string>(DateOfToday);
-  const [disabled, setDisabled] = useState<boolean>(false);
+function NoticeForm (props) {
+  const { classes, editData, setOpen, fetchData } = props;
+  const [id, setId] = useState();
+  const [content, setContent] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [disabled, setDisabled] = useState(false);
   const alert = useAlert();
 
   const handleContentInput = e => {
@@ -58,7 +49,7 @@ export default function NoticeForm (props:FormProps) {
         alert.success('수정 완료');
         setContent('');
         fetchData();
-        if(setIsOpen) setIsOpen(false);
+        setOpen(false);
       })
       .catch(e => alert.error('업데이트 실패'));
   };
@@ -84,16 +75,17 @@ export default function NoticeForm (props:FormProps) {
   };
 
   useEffect(() => {
-    if (!editData) return;
-    setId(editData.id);
-    setContent(editData.content);
-    setStartDate(editData.startDate);
-    setEndDate(editData.endDate);
+    if (editData) {
+      setId(editData.id);
+      setContent(editData.content);
+      setStartDate(editData.startDate);
+      setEndDate(editData.endDate);
+    }
     return ()=> {
-      setId(null);
-      setContent('');
-      setStartDate(DateOfToday);
-      setEndDate(DateOfToday);
+      setId();
+      setContent();
+      setStartDate();
+      setEndDate();
     }
   }, [editData]);
 
@@ -101,7 +93,7 @@ export default function NoticeForm (props:FormProps) {
     <>
       <Paper className={classes.paper}>
         <div className={classes.contentWrapper}>
-          <form noValidate autoComplete='off'>
+          <form className={classes.root} noValidate autoComplete='off'>
             <Typography className={classes.title} variant='h4' component='h4'>
               배너 입력
             </Typography>
@@ -145,6 +137,7 @@ export default function NoticeForm (props:FormProps) {
                   margin='normal'
                   id='date-picker-dialog'
                   label='종료일'
+                  format='MM/dd/yyyy'
                   InputProps={{ classes: { input: classes.resize } }}
                   value={endDate}
                   onChange={handleEndDateInput}
@@ -154,17 +147,17 @@ export default function NoticeForm (props:FormProps) {
                 />
               </Grid>
             </MuiPickersUtilsProvider>
-            <Grid className={classes.buttonBlock}>
-              <Button
+            <ButtonBlock>
+              <ColorButton
                 variant='contained'
                 color='primary'
-                className={classes.colorButton}
+                className={classes.margin}
                 onClick={editData ? onUpdate : submitForm}
                 disabled={disabled}
               >
                 {editData ? '수정' : '등록'}
-              </Button>
-            </Grid>
+              </ColorButton>
+            </ButtonBlock>
           </form>
         </div>
       </Paper>
@@ -172,7 +165,7 @@ export default function NoticeForm (props:FormProps) {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const styles = createStyles({
   paper: {
     maxWidth: 936,
     margin: '20px auto',
@@ -202,16 +195,21 @@ const useStyles = makeStyles(theme => ({
   input: {
     width: '100%',
   },
-  buttonBlock:{
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  colorButton: {
+});
+
+const ColorButton = withStyles(theme => ({
+  root: {
     color: theme.palette.common.white,
     backgroundColor: theme.palette.primary.main,
     '&:hover': {
       backgroundColor: theme.palette.primary.dark,
     },
-  }
+  },
+}))(Button);
 
-}));
+const ButtonBlock = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export default withStyles(styles)(NoticeForm);

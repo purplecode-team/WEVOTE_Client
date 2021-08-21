@@ -1,12 +1,8 @@
-import media from '../../lib/styles/media';
 import React from 'react';
+import media from '../../lib/styles/media';
 import styled from 'styled-components';
 
-type TemplateProps = {
-  children: React.ReactNode,
-}
-
-const AuthTemplate = ({ children }:TemplateProps) => {
+const AuthTemplate = ({ children }) => {
   return (
     <AuthTemplateBlock>
       <WhiteBox>{children}</WhiteBox>

@@ -1,9 +1,8 @@
 import AuthTemplate from '../components/auth/AuthTemplate';
 import LoginForm from '../containers/auth/LoginForm';
 import React from 'react';
-import RegisterForm from '../containers/auth/RegisterForm';
 
-export function Login () {
+const Login = () => {
   return (
     <AuthTemplate>
       <LoginForm />
@@ -11,10 +10,4 @@ export function Login () {
   );
 };
 
-export function Register () {
-  return (
-    <AuthTemplate>
-      <RegisterForm />
-    </AuthTemplate>
-  );
-};
+export default Login;

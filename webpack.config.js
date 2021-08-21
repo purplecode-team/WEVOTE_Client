@@ -47,7 +47,7 @@ module.exports = {
       template: './public/index.html',
     }),
   ],
-  entry: './src/index.tsx', // 웹팩을 실행할 대상 파일
+  entry: './src/index.js', // 웹팩을 실행할 대상 파일
   output: {
     // 웹팩의 결과물에 대한 정보
     path: path.resolve(__dirname, './dist'), // 결과물 경로

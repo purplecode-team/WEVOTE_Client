@@ -1,21 +1,15 @@
 import ImagePreview from '../Common/ImageUploader/ImagePreview';
 import Loader from '../../Common/Loader';
 import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
+import { withStyles } from '@material-ui/core/styles';
 
-type ListProps = {
-  loading?: boolean,
-  data?: any,
-  error?: boolean,
-  confirmDeletion: (value:string) => void,
-}
+function InformationList (props) {
+  const { classes, loading, data, error, confirmDeletion } = props;
 
-export default function InformationList (props:ListProps) {
-  const { loading, data, error, confirmDeletion } = props;
-  const classes = useStyles();
   const title = '현재 안내 이미지';
 
   const showTeamCard = () => {
@@ -63,7 +57,7 @@ const FlexBlock = styled.div`
   margin: 20px;
 `;
 
-const useStyles = makeStyles(() => ({
+const styles = () => ({
   paper: {
     maxWidth: 936,
     margin: '30px auto',
@@ -86,6 +80,10 @@ const useStyles = makeStyles(() => ({
       color: theme.DarkBlue,
     },
   },
-}));
+});
 
+InformationList.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
+export default withStyles(styles)(InformationList);

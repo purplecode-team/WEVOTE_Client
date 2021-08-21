@@ -1,50 +1,47 @@
+import { createStyles, withStyles } from '@material-ui/core/styles';
+
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
 import React from 'react';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../../lib/styles/theme';
 import { useState } from 'react';
 
-type AddFormProps = {
-  component: React.ReactNode,
-}
-
-export default function AddForm (props:AddFormProps) {
-  const { component } = props;
-  const classes = useStyles();
-  const [isModal, setIsModal] = useState<boolean>(false);
+function AddForm (props) {
+  const { classes, component } = props;
+  const [modal, setModal] = useState(false);
 
   const showForm = () => {
-    setIsModal(!isModal);
+    setModal(!modal);
   };
 
   return (
     <>
       <Paper className={classes.paper}>
         <div className={classes.contentWrapper}>
-          {isModal ? (
+          {modal ? (
             <>
               <RemoveCircleIcon
                 className={classes.addIcon}
                 onClick={showForm}
               />
-              <h2 className={classes.title}>{'닫기'}</h2>
+              <h2 className={classes.title}>닫기</h2>
             </>
           ) : (
             <>
               <AddCircleIcon className={classes.addIcon} onClick={showForm} />
-              <h2 className={classes.title}>{'추가하기'}</h2>
+              <h2 className={classes.title}>추가하기</h2>
             </>
           )}
         </div>
       </Paper>
-      {isModal && component}
+      {modal && component}
     </>
   );
 }
 
-const useStyles = makeStyles(()=> ({
+const styles = createStyles({
   paper: {
     maxWidth: 936,
     margin: '20px auto',
@@ -65,4 +62,10 @@ const useStyles = makeStyles(()=> ({
     height: '42px',
     color: theme.Blue,
   },
-}));
+});
+
+AddForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(AddForm);
