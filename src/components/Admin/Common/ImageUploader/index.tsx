@@ -3,6 +3,16 @@ import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import React from 'react';
 import styled from 'styled-components';
 
+type UploaderProps = {
+  fileUrl: any,
+  alt:string,
+  processImage: ()=>void,
+  resetImg: ()=>void,
+  multiple: boolean,
+  width:number | string,
+  height:number | string,
+}
+
 const ImageUploader = props => {
   const {
     fileUrl,

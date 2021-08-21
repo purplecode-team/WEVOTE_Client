@@ -2,10 +2,10 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { getFormatDate } from '../../../utils/getFunction';
 import IconButton from '@material-ui/core/IconButton';
 import Loader from '../../Common/Loader';
 import { Modal } from 'react-responsive-modal';
+import { NoticeData } from './index';
 import NoticeForm from './NoticeForm';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
@@ -15,14 +15,27 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { getFormatDate } from '../../../utils/getFunction';
 
-export default function NoticeList (props) {
+type ListProps = {
+  loading: boolean,
+  rows: NoticeData[],
+  editData?: NoticeData,
+  isOpen: boolean,
+  setIsOpen :React.Dispatch<React.SetStateAction<boolean>>,
+  fetchData : () => void,
+  onCloseModal : () => void,
+  onUpdate : (id:number) => void,
+  confirmDeletion : (id:number) => void,
+}
+
+export default function NoticeList (props:ListProps) {
   const {
     loading,
     rows,
     editData,
-    open,
-    setOpen,
+    isOpen,
+    setIsOpen,
     fetchData,
     onCloseModal,
     onUpdate,
@@ -86,7 +99,7 @@ export default function NoticeList (props) {
             <TableBody>{rows && showNoticeList(rows)}</TableBody>
           </Table>
           <Modal
-            open={open}
+            open={isOpen}
             onClose={onCloseModal}
             center
             classNames={{
@@ -95,7 +108,7 @@ export default function NoticeList (props) {
           >
             <NoticeForm
               editData={editData}
-              setOpen={setOpen}
+              setIsOpen={setIsOpen}
               fetchData={fetchData}
             />
           </Modal>
