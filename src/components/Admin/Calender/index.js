@@ -6,23 +6,23 @@ import Grid from '@material-ui/core/Grid';
 import imageCompression from 'browser-image-compression';
 import ImageUploader from '../Common/ImageUploader';
 import Loader from '../../Common/Loader';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
 import React from 'react';
-import { theme } from '../style';
 import Typography from '@material-ui/core/Typography';
 import { useAlert } from 'react-alert';
 import useFetch from '../../../lib/hooks/useFetch';
+import { withStyles } from '@material-ui/core/styles';
 
-export default function Canlender () {
-  const classes = useStyles();
+function Canlender (props) {
+  const { classes } = props;
   const [{ loading, data, error }, setUrl] = useFetch({
     initialUrl: '/api/v1/main/calendar',
     initialData: { id: 0, image: '' },
   });
-  const [file, setFile] = useState<string | Blob>('');
-  const [fileUrl, setFileUrl] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(loading);
+  const [file, setFile] = useState('');
+  const [fileUrl, setFileUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(loading);
   const alert = useAlert();
 
   const isDefault = fileUrl === '';
@@ -73,7 +73,7 @@ export default function Canlender () {
     setIsLoading(true);
     await client
       .delete('/api/v1/admin/calendar')
-      .then(res => {
+      .then(response => {
         alert.success('이미지 삭제 완료');
         resetImg();
       })
@@ -113,7 +113,7 @@ export default function Canlender () {
             width={'250px'}
             heigth={'250px'}
           />
-          <Grid item className={classes.buttonWrap}>
+          <Grid item xs={12} className={classes.buttonWrap}>
             {activeDeletion && (
               <Button
                 className={classes.button}
@@ -140,7 +140,7 @@ export default function Canlender () {
     </Paper>
   );
 }
-const useStyles = makeStyles({
+const styles = theme => ({
   paper: {
     maxWidth: 936,
     margin: 'auto',
@@ -190,9 +190,14 @@ const useStyles = makeStyles({
     color: 'white',
     fontSize: '1.3rem',
     position: 'absolute',
-    zIndex: 1,
+    zIndex: '1',
     top: '20px',
     left: '20px',
   },
 });
 
+Canlender.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Canlender);

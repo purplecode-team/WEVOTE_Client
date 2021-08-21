@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import media from '../../../lib/styles/media';
-import { PromiseType } from '../../../types/candidateType';
+import { Promise } from '../../../types/candidateType';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 
@@ -9,7 +9,7 @@ const PledgeCard = ({
   promiseType,
   promiseTitle,
   promiseDetail,
-}: PromiseType) => {
+}: Promise) => {
   return (
     <CardBlock>
       <BarIcon>l</BarIcon>

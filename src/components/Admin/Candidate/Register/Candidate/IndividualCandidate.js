@@ -1,37 +1,20 @@
-import * as TextData from '../TextData';
-
 import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import imageCompression from 'browser-image-compression';
 import ImageUploader from '../../../Common/ImageUploader';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
-type IndividualProps = {
-  index : number,
-  candidateMajor : string,
-  candidateName : string,
-  candidateStudentNum : number,
-  candidatePosition : string,
-  handleImageArr : (idx:number, value:string | ArrayBuffer | null) => void,
-  handleUrlArr : (idx:number, value:string) => void,
-  handleMajorArr : (idx:number, value:string) => void,
-  handleNameArr : (idx:number, value:string) => void,
-  handleStudentNumArr : (idx:number, value:number) => void,
-  handlePositionArr : (idx: number, value:string) => void,
-  majorData : string[],
-  loading : boolean,
-  url : string,
-}
-
-export default function IndividualCandidate (props:IndividualProps) {
+const IndividualCandidate = props => {
   const {
     index,
+    classes,
+    titleText,
     candidateMajor,
     candidateName,
     candidateStudentNum,
@@ -46,11 +29,10 @@ export default function IndividualCandidate (props:IndividualProps) {
     loading,
     url,
   } = props;
-  const classes = useStyles();
-  const [individualName, setIndividualName] = useState<string>('');
-  const [individualMajor, setIndividualMajor] = useState<string>('');
-  const [individualStudentNum, setIndividualStudentNum] = useState<number>(0);
-  const [individualPosition, setIndividualPosition] = useState<string>('');
+  const [individualName, setIndividualName] = useState('');
+  const [individualMajor, setIndividualMajor] = useState('');
+  const [individualStudentNum, setIndividualStudentNum] = useState('');
+  const [individualPosition, setIndividualPosition] = useState('');
 
   const handleName = e => {
     setIndividualName(e.target.value);
@@ -103,17 +85,16 @@ export default function IndividualCandidate (props:IndividualProps) {
     setIndividualStudentNum(candidateStudentNum);
   }, [candidateStudentNum]);
 
-  // editData로 url변경 되었을 때, 
-  // useEffect(() => {
-  //   handleUrlArr(index, url);
-  //   return () => handleUrlArr(index, url);
-  // }, [url]);
+  useEffect(() => {
+    handleUrlArr(index, url);
+    return () => handleUrlArr(index, url);
+  }, [url]);
 
   return (
     <Grid container wrap='nowrap'>
-      <Grid item className={classes.item} >
+      <Grid item className={classes.item} xs={12}>
         <Typography className={classes.titleText} variant='h4' component='h4'>
-          {TextData.titleText.candidate.image}
+          {titleText.candidate.image}
         </Typography>
         <ImageUploader
           alt={`candidate-${index}`}
@@ -125,9 +106,9 @@ export default function IndividualCandidate (props:IndividualProps) {
         />
       </Grid>
       <Grid container>
-        <Grid item className={classes.item} >
+        <Grid item className={classes.item} xs={12}>
           <Typography className={classes.titleText} variant='h4' component='h4'>
-            {TextData.titleText.candidate.name}
+            {titleText.candidate.name}
           </Typography>
           <TextField
             placeholder='ex) 홍길동'
@@ -137,9 +118,9 @@ export default function IndividualCandidate (props:IndividualProps) {
             onChange={handleName}
           />
         </Grid>
-        <Grid item className={classes.item} >
+        <Grid item className={classes.item} xs={12}>
           <Typography className={classes.titleText} variant='h4' component='h4'>
-            {TextData.titleText.candidate.studentNumber}
+            {titleText.candidate.studentNumber}
           </Typography>
           <TextField
             placeholder='ex) 21'
@@ -152,9 +133,9 @@ export default function IndividualCandidate (props:IndividualProps) {
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item className={classes.item} >
+        <Grid item className={classes.item} xs={12}>
           <Typography className={classes.titleText} variant='h4' component='h4'>
-            {TextData.titleText.candidate.major}
+            {titleText.candidate.major}
           </Typography>
           <FormControl
             variant='outlined'
@@ -166,6 +147,7 @@ export default function IndividualCandidate (props:IndividualProps) {
               error={!Boolean(individualMajor)}
               value={individualMajor}
               onChange={handleMajor}
+              className={classes.selectEmpty}
             >
               {loading ? (
                 <MenuItem value={'없음'}>{'없음'}</MenuItem>
@@ -180,9 +162,9 @@ export default function IndividualCandidate (props:IndividualProps) {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item className={classes.item} >
+        <Grid item className={classes.item} xs={12}>
           <Typography className={classes.titleText} variant='h4' component='h4'>
-            {TextData.titleText.candidate.position}
+            {titleText.candidate.position}
           </Typography>
           <TextField
             placeholder='ex) 정학생회장'
@@ -197,7 +179,7 @@ export default function IndividualCandidate (props:IndividualProps) {
   );
 };
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   item: {
     marginBottom: '20px',
   },
@@ -209,6 +191,7 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     minWidth: 200,
   },
+  selectEmpty: {},
   textField: {
     minWidth: 400,
   },
@@ -219,4 +202,5 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '15px',
     textAlign: 'center',
   },
-}))
+});
+export default withStyles(styles)(IndividualCandidate);

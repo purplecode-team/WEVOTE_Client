@@ -1,30 +1,29 @@
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import React, { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-export default function Register (props) {
-  const {
-    submitData,
-    data,
-    setPostData,
-    currentIndex,
-    setCurrentIndex,
-    getNewMiddleList,
-    getNewBottomList,
-    handleBottomCurrentIndex,
-    topList,
-    middleList,
-    bottomList,
-    customList,
-    hasBottom,
-  } = props;
+export default function Register ({
+  submitData,
+  data,
+  setSendingData,
+  currentIndex,
+  setCurrentIndex,
+  getNewMiddleList,
+  getNewBottomList,
+  handleBottomCurrentIndex,
+  topList,
+  middleList,
+  bottomList,
+  customList,
+  hasBottom,
+}) {
   const classes = useStyles();
-  const [middleValue, setMiddleValue] = useState<string>('');
-  const [bottomValue, setBottomValue] = useState<string>('');
+  const [middleValue, setMiddleValue] = useState('');
+  const [bottomValue, setBottomValue] = useState('');
 
   const buttonText = '입력';
 
@@ -48,7 +47,7 @@ export default function Register (props) {
     if (!middleValue && data[currentIndex.top].middle.length !== 0) {
       currentMiddle = middleList[currentIndex.middle];
     }
-    setPostData({
+    setSendingData({
       top: currentTop,
       middle: currentMiddle,
       bottom: currentBottom,
@@ -64,7 +63,7 @@ export default function Register (props) {
         <Grid item className={classes.card}>
           {customList('middle', '중분류', middleList)(getNewBottomList)}
           {!hasBottom && (
-            <Grid item className={classes.item}>
+            <Grid item className={classes.item} xs={12}>
               <TextField
                 id='outlined-basic'
                 className={classes.inputText}
@@ -94,7 +93,7 @@ export default function Register (props) {
               bottomList
             )(handleBottomCurrentIndex)}
             <Divider />
-            <Grid item className={classes.item}>
+            <Grid item className={classes.item} xs={12}>
               <TextField
                 id='outlined-basic'
                 className={classes.inputText}
@@ -120,6 +119,35 @@ export default function Register (props) {
   );
 }
 
+let theme = createMuiTheme({
+  typography: {
+    root: {
+      fontSize: '1.4rem',
+    },
+  },
+});
+
+theme = {
+  ...theme,
+  overrides: {
+    MuiTypography: {
+      body2: {
+        fontSize: '1.3rem',
+      },
+    },
+    MuiInputBase: {
+      input: {
+        fontSize: '1.3rem',
+      },
+    },
+    MuiOutlinedInput: {
+      root: {
+        height: '40px',
+      },
+    },
+  },
+};
+
 const useStyles = makeStyles(theme => ({
   root: {
     margin: 'auto',
@@ -127,11 +155,24 @@ const useStyles = makeStyles(theme => ({
   card: {
     width: '30%',
   },
+  cardHeader: {
+    padding: theme.spacing(1, 2),
+  },
+  list: {
+    width: 200,
+    height: 230,
+    margin: '0 auto',
+    backgroundColor: theme.palette.background.paper,
+    overflow: 'auto',
+  },
   item: {
     margin: '10px auto',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
+  },
+  active: {
+    backgroundColor: '#eae3ff',
   },
   inputText: {
     width: '70%',
@@ -141,9 +182,26 @@ const useStyles = makeStyles(theme => ({
     height: '40px',
     backgroundColor: theme.palette.primary.main,
   },
+  paper: {
+    maxWidth: 936,
+    margin: '30px auto',
+    overflow: 'hidden',
+    padding: '20px',
+  },
   contentWrapper: {
     margin: '40px 16px',
     display: 'flex',
     flexDirection: 'column',
+  },
+  buttonWrap: {
+    width: '100%',
+    textAlign: 'right',
+    marginTop: '20px',
+  },
+  submit: {
+    width: '100px',
+    height: '40px',
+    borderRadius: '15px',
+    backgroundColor: theme.palette.primary.main,
   },
 }));

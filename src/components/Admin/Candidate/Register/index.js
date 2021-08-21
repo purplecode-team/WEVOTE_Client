@@ -4,55 +4,38 @@ import {
   useCandidateState,
 } from '../../../../context/CandidateProvider';
 
-import { AxiosResponse } from 'axios';
 import Button from '@material-ui/core/Button';
 import CandidateForm from './Candidate';
-import { CandidateType } from '../../../../types/candidateType';
 import client from '../../../../lib/api/client';
 import Grid from '@material-ui/core/Grid';
 import Loader from '../../../Common/Loader';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import PledgeForm from './Pledge';
 import TeamForm from './Team';
 import { useAlert } from 'react-alert';
+import { withStyles } from '@material-ui/core/styles';
 
-export type TeamType = {
-  teamNumber: number,
-  slogan: string,
-  currentTop: string,
-  currentMiddle: string,
-  currentBottom: string,
-}
-
-let TeamData:TeamType = {
-  teamNumber: 1,
-  slogan : '',
-  currentTop : '',
-  currentMiddle : '',
-  currentBottom : '',
-};
+let TeamData = {};
 let CandidateData = [];
 let PledgeData = [];
 
-export default function Register (props) {
-  const { refetch } = props;
-  const classes = useStyles();
-  const [editData, setEditData] = useState<CandidateType | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+const Register = props => {
+  const { classes, refetch } = props;
+  const [editData, setEditData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { isOpenEdit, id } = useCandidateState();
   const dispatch = useCandidateDispatch();
   const alert = useAlert();
 
-  const handleTeamData = data => {
+  const getTeamData = data => {
     TeamData = data;
   };
 
-  const handleCandidateData = data => {
+  const getCandidateData = data => {
     CandidateData = data;
   };
 
-  const handlePledgeData = data => {
+  const getPledgeData = data => {
     PledgeData = data;
   };
 
@@ -62,14 +45,14 @@ export default function Register (props) {
     else updateData();
   };
 
-  const postData = async () => {
+  const postData = async e => {
     setIsLoading(true);
     const data = {
       order: TeamData.teamNumber,
       slogan: TeamData.slogan,
       categoryName: TeamData.currentTop,
       categoryDetail: TeamData.currentMiddle,
-      majorName: TeamData.currentBottom,
+      majorName: TeamData.currentBottom || null,
       Runners: CandidateData,
       Promises: PledgeData,
     };
@@ -84,10 +67,8 @@ export default function Register (props) {
   };
 
   const updateData = async () => {
-    if (!editData || !id) return;
     setIsLoading(true);
     const data = {
-      id: id,
       order: TeamData.teamNumber,
       slogan: TeamData.slogan,
       categoryName: TeamData.currentTop,
@@ -95,28 +76,23 @@ export default function Register (props) {
       majorName: TeamData.currentBottom || null,
       Runners: CandidateData,
       Promises: PledgeData,
-      organizationId : editData.organizationId
     };
-    try{
-      await client
+    await client
       .patch(`/api/v1/admin/candidate/${id}`, data)
       .then(res => {
         if (res.status !== 200) alert.error('후보 정보 업데이트 실패');
         else alert.success('후보 정보 업데이트 성공');
       })
       .catch(e => alert.error('후보 정보 업데이트 실패'));
-      dispatch({ type: 'TOGGLE_EDIT_CANDIDATE', isOpenEdit: false, id: 0 });
-      refetch();
-    }catch(e){
-      alert.error('후보 정보 업데이트 실패');
-    }
+    dispatch({ type: 'TOGGLE_EDIT_CANDIDATE', isOpenEdit: false, id: null });
+    refetch();
   };
 
   const fetchData = useCallback(url => {
     client
       .get(url)
-      .then((res:AxiosResponse) => {
-        setEditData(res.data);
+      .then(response => {
+        setEditData(response.data);
       })
       .catch(() => alert.error('후보 데이터 호출 실패'));
   }, []);
@@ -124,6 +100,7 @@ export default function Register (props) {
   useEffect(() => {
     if (!isOpenEdit) return;
     fetchData(`/api/v1/admin/candidate/${id}`);
+    return () => null;
   }, [id]);
 
   return (
@@ -132,14 +109,15 @@ export default function Register (props) {
         <Loader />
       ) : (
         <Paper className={classes.paper}>
+          <GlobalCss />
           <form className={classes.contentWrapper} onSubmit={submitForm}>
-            <TeamForm handleTeamData={handleTeamData} editData={editData} />
+            <TeamForm getTeamData={getTeamData} editData={editData} />
             <CandidateForm
-              handleCandidateData={handleCandidateData}
+              getCandidateData={getCandidateData}
               editData={editData}
             />
-            <PledgeForm handlePledgeData={handlePledgeData} editData={editData} />
-            <Grid item className={classes.button}>
+            <PledgeForm getPledgeData={getPledgeData} editData={editData} />
+            <Grid item xs={12} className={classes.button}>
               {editData ? (
                 <Button
                   className={classes.submit}
@@ -168,7 +146,19 @@ export default function Register (props) {
   );
 };
 
-const useStyles = makeStyles(theme => ({
+const GlobalCss = withStyles({
+  '@global': {
+    '.MuiInputBase-input': {
+      fontSize: '1.4rem',
+      lineHeight: '20px',
+    },
+    '.MuiMenuItem-root': {
+      fontSize: '1.3rem',
+    },
+  },
+})(() => null);
+
+const styles = theme => ({
   paper: {
     maxWidth: 936,
     margin: '30px auto',
@@ -180,8 +170,36 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
   },
+  section: {
+    marginBottom: '40px',
+  },
   item: {
     marginBottom: '20px',
+  },
+  sectionText: {
+    fontSize: '16px',
+    fontWeight: 'bold',
+    color: '#5d3fe8',
+    marginBottom: '20px',
+  },
+  titleText: {
+    fontSize: '14px',
+    fontWeight: 'bold',
+    margin: '10px',
+  },
+  formControl: {
+    minWidth: 200,
+  },
+  selectEmpty: {},
+  textField: {
+    minWidth: 400,
+  },
+  uploader: {
+    width: '200px',
+    margin: '0 20px',
+    border: '1px solid #ccc',
+    borderRadius: '15px',
+    textAlign: 'center',
   },
   button: {
     textAlign: 'right',
@@ -191,4 +209,5 @@ const useStyles = makeStyles(theme => ({
     height: '40px',
     borderRadius: '15px',
   },
-}))
+});
+export default withStyles(styles)(Register);

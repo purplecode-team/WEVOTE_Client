@@ -5,7 +5,6 @@ import { verifyEmail, verifyName, verifyPassword } from '../../utils/getFunction
 
 import axios from 'axios';
 import Button from '../Common/Button';
-import { FormType } from '../../modules/auth';
 import KakaoLogin from 'react-kakao-login';
 import klogin from '../../../public/img/login/kakaoLogin.png';
 import media from '../../lib/styles/media';
@@ -14,30 +13,19 @@ import { tempSetUser } from '../../modules/user';
 import theme from '../../lib/styles/theme';
 import { useDispatch } from 'react-redux';
 
-type AuthFormProps = {
-  type: string,
-  form: FormType,
-  onChange: React.ChangeEventHandler<HTMLInputElement>,
-  onSubmit: React.FormEventHandler<HTMLFormElement>,
-}
-
-type styleProps = {
-  error?: boolean,
-}
-
 const textMap = {
   login: '로그인',
   register: '회원가입',
 };
 
-const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
+const AuthForm = ({ type, form, onChange, onSubmit }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const text = textMap[type];
   const isRegister = type === 'register';
 
   const kakaoSuccess = res => {
-    axios.get(`${REDIRECT_URI}`, {
+    axios.get(`${LOCAL_REDIRECT_URI}`, {
       headers: {
         Authorization: res.response.access_token,
       },
@@ -53,24 +41,24 @@ const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
       });
   };
 
-  const correctName = (form) => verifyName(form.nickName)
-  const correctEmail = (form) => verifyEmail(form.userId)
-  const correctPassword = (form) => verifyPassword(form.password)
-  const correctPasswordConfirm = (form) => (
+  const correctName = () => verifyName(form.nickName)
+  const correctEmail = () => verifyEmail(form.userId)
+  const correctPassword = () => verifyPassword(form.password)
+  const correctPasswordConfirm = () => (
     form.password === form.passwordConfirm && form.password !== ''
   )
   
   const preventSubmit = () => {
     if (isRegister) {
       if (
-        correctEmail(form) &&
-        correctPassword(form) &&
-        correctPasswordConfirm(form) &&
-        correctName(form)
+        correctEmail() &&
+        correctPassword() &&
+        correctPasswordConfirm() &&
+        correctName()
       ) return false;
       return true
     }
-    if (correctEmail(form) && correctPassword(form)) return false;
+    if (correctEmail() && correctPassword()) return false;
     return true
   }
 
@@ -87,7 +75,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
           <>
             <StyledLabel>{'이름'}</StyledLabel>
             <StyledInput
-              error={!correctName(form)}
+              error={!correctName()}
               autoComplete="nickName"
               name="nickName"
               placeholder="2~20자리 한글 또는 영문"
@@ -98,7 +86,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
         )}
         <StyledLabel>{'이메일'}</StyledLabel>
         <StyledInput
-          error={!correctEmail(form)}
+          error={!correctEmail()}
           autoComplete="userId"
           name="userId"
           placeholder="ex) univote@vote.com"
@@ -107,7 +95,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
         />
         <StyledLabel>{'비밀번호'}</StyledLabel>
         <StyledInput 
-          error={!correctPassword(form)}
+          error={!correctPassword()}
           autoComplete="password"
           name="password"
           placeholder="영문,숫자,특수문자를 포함한 6~12자리"
@@ -120,7 +108,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
           <>
             <StyledLabel>{'비밀번호 확인'}</StyledLabel>
             <StyledInput
-              error={!correctPasswordConfirm(form)}
+              error={!correctPasswordConfirm()}
               autoComplete="new-password"
               name="passwordConfirm"
               placeholder="비밀번호 확인"
@@ -184,6 +172,18 @@ const KakaoImg = styled.img`
   }
 `;
 
+const GoogleImg = styled.img`
+  width: 300px;
+  margin: 20px auto;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: ${media.mobileL}px) {
+    width: 90%;
+  }
+`;
+
 const AuthFormBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -212,7 +212,7 @@ const StyledLabel = styled.label`
   font-weight: bold;
 `;
 
-const StyledInput = styled.input<styleProps>`
+const StyledInput = styled.input`
   width: 97%;
   height: 54px;
   padding-left: 10px;

@@ -8,18 +8,23 @@ import createRequestSaga, {
 import produce from 'immer';
 import { takeLatest } from 'redux-saga/effects';
 
-export type FormType = {
-  nickName?: string;
-  userId?: string;
-  password?: string;
-  passwordConfirm?: string;
+type registerType = {
+  nickName: string;
+  userId: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+type loginType = {
+  userId: string,
+  password: string,
 }
 
 export type authState = {
-  register: FormType,
-  login: FormType,
-  auth?: any | null,
-  authError?: any | null,
+  register : registerType,
+  login: loginType,
+  auth: any | null,
+  authError: any | null,
 }
 
 

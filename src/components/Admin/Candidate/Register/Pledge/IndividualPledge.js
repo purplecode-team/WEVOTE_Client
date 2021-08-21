@@ -1,25 +1,15 @@
-import * as TextData from '../TextData';
-
 import React, { useEffect, useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
-type IndividualPledgeProps = {
-  index:number,
-  editTitle:string,
-  editSubTitle:string,
-  editDescription:string,
-  handleTitleArr:(idx:number, value:string) => void,
-  handleSubTitleArr:(idx:number, value:string) => void,
-  handleDescriptionArr:(idx:number, value:string) => void,
-}
-
-export default function IndividualPledge (props:IndividualPledgeProps) {
+const Pledge = props => {
   const {
+    classes,
     index,
+    titleText,
     editTitle,
     editSubTitle,
     editDescription,
@@ -27,10 +17,9 @@ export default function IndividualPledge (props:IndividualPledgeProps) {
     handleSubTitleArr,
     handleDescriptionArr,
   } = props;
-  const classes = useStyles();
-  const [title, setTitle] = useState<string>('');
-  const [subTitle, setSubTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
+  const [title, setTitle] = useState('');
+  const [subTitle, setSubTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   const handleTitle = e => {
     setTitle(e.target.value);
@@ -63,9 +52,9 @@ export default function IndividualPledge (props:IndividualPledgeProps) {
   return (
     <>
       <Grid container wrap='nowrap'>
-        <Grid item className={classes.item}>
+        <Grid item className={classes.item} xs={12}>
           <Typography className={classes.titleText} variant='h4' component='h4'>
-            {TextData.titleText.pledge.title}
+            {titleText.pledge.title}
           </Typography>
           <TextField
             className={classes.textField}
@@ -80,9 +69,9 @@ export default function IndividualPledge (props:IndividualPledgeProps) {
             variant='outlined'
           />
         </Grid>
-        <Grid item className={classes.item}>
+        <Grid item className={classes.item} xs={12}>
           <Typography className={classes.titleText} variant='h4' component='h4'>
-            {TextData.titleText.pledge.smallTitle}
+            {titleText.pledge.smallTitle}
           </Typography>
           <TextField
             className={classes.textField}
@@ -98,9 +87,9 @@ export default function IndividualPledge (props:IndividualPledgeProps) {
           />
         </Grid>
       </Grid>
-      <Grid item className={classes.item}>
+      <Grid item className={classes.item} xs={12}>
         <Typography className={classes.titleText} variant='h4' component='h4'>
-          {TextData.titleText.pledge.description}
+          {titleText.pledge.description}
         </Typography>
         <TextField
           placeholder='공약 내용을 입력하세요'
@@ -121,7 +110,7 @@ export default function IndividualPledge (props:IndividualPledgeProps) {
   );
 };
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   item: {
     marginBottom: '20px',
   },
@@ -130,7 +119,6 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     margin: '10px',
   },
-  textField:{
-    
-  }
-}))
+});
+
+export default withStyles(styles)(Pledge);
