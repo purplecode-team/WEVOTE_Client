@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import AdminSection from '../components/Admin';
+import AdminLayout from '../components/Admin/AdminLayout';
 
 import 'react-responsive-modal/styles.css';
 
 const Admin = () => {
-  return <AdminSection />;
+  return <AdminLayout />;
 };
 
 export default Admin;

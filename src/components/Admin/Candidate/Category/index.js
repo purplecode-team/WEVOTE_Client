@@ -2,20 +2,14 @@ import React, { useState } from 'react';
 
 import Category from './Category';
 
-type indexType = {
-  top: number,
-  middle: number,
-  bottom: number,
-}
-
 const initialIndex = {
   top: 0,
   middle: 0,
   bottom: 0,
 };
 
-export default function CategoryContainer () {
-  const [categoryIndex, setCategoryIndex] = useState<indexType>(initialIndex);
+const CategoryContainer = () => {
+  const [categoryIndex, setCategoryIndex] = useState(initialIndex);
 
   return (
     <Category
@@ -25,3 +19,5 @@ export default function CategoryContainer () {
     />
   );
 };
+
+export default CategoryContainer;

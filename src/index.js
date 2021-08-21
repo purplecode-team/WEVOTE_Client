@@ -5,7 +5,7 @@ import { applyMiddleware, createStore } from 'redux';
 import rootReducer, { rootSaga } from './modules';
 
 import AlertTemplate from 'react-alert-template-basic';
-import App from './App';
+import App from './App.tsx';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';

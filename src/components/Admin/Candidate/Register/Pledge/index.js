@@ -1,32 +1,25 @@
 import * as TextData from '../TextData';
 
-import { CandidateType, PromiseType } from '../../../../../types/candidateType';
 import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import IndividualPledge from './IndividualPledge';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
+import Pledge from './IndividualPledge';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
-type PledgeFormProps = {
-  handlePledgeData: (data:PromiseType[]) => void,
-  editData: CandidateType | null,
-}
+const MaxPledgeCount = 10;
+const countArr = Array.from({ length: MaxPledgeCount }, (v, i) => i);
 
-const MaxPledgeCount:number = 10;
-const countArr:number[] = Array.from({ length: MaxPledgeCount }, (v, i) => i);
-
-export default function PledgeForm (props:PledgeFormProps) {
-  const { handlePledgeData, editData } = props;
-  const classes = useStyles();
-  const [pledgeCount, setPledgeCount] = useState<number>(1);
-  const [pledgeCountArr, setPledgeCountArr] = useState<number[]>(Array(pledgeCount));
-  const [titleArr, setTitleArr] = useState<string[]>(Array(pledgeCount));
-  const [subTitleArr, setSubTitleArr] = useState<string[]>(Array(pledgeCount));
-  const [descriptionArr, setDescriptionArr] = useState<string[]>(Array(pledgeCount));
+const PledgeForm = props => {
+  const { classes, getPledgeData, editData } = props;
+  const [pledgeCount, setPledgeCount] = useState(1);
+  const [pledgeCountArr, setPledgeCountArr] = useState(Array(pledgeCount));
+  const [titleArr, setTitleArr] = useState(Array(pledgeCount));
+  const [subTitleArr, setSubTitleArr] = useState(Array(pledgeCount));
+  const [descriptionArr, setDescriptionArr] = useState(Array(pledgeCount));
 
   const handlePledgeCount = e => {
     setPledgeCount(e.target.value);
@@ -58,11 +51,10 @@ export default function PledgeForm (props:PledgeFormProps) {
 
   // 배열로 업데이트한 값을 individual에서 받도록 수정해야함
   const overwriteEditData = () => {
-    if(!editData) return;
-    const titles:string[] = [];
-    const subTitles:string[] = [];
-    const descriptions:string[] = [];
-    editData.Promises.map((promise:PromiseType) => {
+    const titles = [];
+    const subTitles = [];
+    const descriptions = [];
+    editData.Promises.map(promise => {
       titles.push(promise.promiseTitle);
       subTitles.push(promise.promiseType);
       descriptions.push(promise.promiseDetail);
@@ -90,19 +82,19 @@ export default function PledgeForm (props:PledgeFormProps) {
       promiseTitle: subTitleArr[i],
       promiseDetail: descriptionArr[i],
     }));
-    handlePledgeData(pledgeData);
-    return () => handlePledgeData(pledgeData);
+    getPledgeData(pledgeData);
+    return () => getPledgeData(pledgeData);
   }, [titleArr, subTitleArr, descriptionArr]);
 
   return (
     <Grid container className={classes.section}>
-      <Grid item className={classes.item}>
+      <Grid item className={classes.item} xs={12}>
         <Typography className={classes.sectionText} variant='h4' component='h4'>
           {TextData.sectionText.pledge}
         </Typography>
       </Grid>
       <Grid container>
-        <Grid item className={classes.item}>
+        <Grid item className={classes.item} xs={12}>
           <Typography className={classes.titleText} variant='h4' component='h4'>
             {TextData.titleText.pledge.Number}
           </Typography>
@@ -116,15 +108,17 @@ export default function PledgeForm (props:PledgeFormProps) {
               id='demo-simple-select-required'
               value={pledgeCount || 1}
               onChange={handlePledgeCount}
+              className={classes.selectEmpty}
             >
               {countArr.map(idx => pledgeCountMenu(idx))}
             </Select>
           </FormControl>
         </Grid>
         {pledgeCountArr.map(idx => (
-          <IndividualPledge
+          <Pledge
             key={idx}
             index={idx}
+            titleText={TextData.titleText}
             editTitle={titleArr[idx]}
             editSubTitle={subTitleArr[idx]}
             editDescription={descriptionArr[idx]}
@@ -138,7 +132,18 @@ export default function PledgeForm (props:PledgeFormProps) {
   );
 };
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
+  paper: {
+    maxWidth: 936,
+    margin: '30px auto',
+    overflow: 'hidden',
+    padding: '20px',
+  },
+  contentWrapper: {
+    margin: '40px 16px',
+    display: 'flex',
+    flexDirection: 'column',
+  },
   section: {
     marginBottom: '40px',
   },
@@ -159,5 +164,25 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     minWidth: 200,
   },
-}));
+  selectEmpty: {},
+  textField: {
+    minWidth: 400,
+  },
+  uploader: {
+    width: '200px',
+    margin: '0 20px',
+    border: '1px solid #ccc',
+    borderRadius: '15px',
+    textAlign: 'center',
+  },
+  button: {
+    textAlign: 'right',
+  },
+  submit: {
+    width: '100px',
+    height: '40px',
+    borderRadius: '15px',
+  },
+});
 
+export default withStyles(styles)(PledgeForm);

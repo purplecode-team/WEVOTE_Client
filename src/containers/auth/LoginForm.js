@@ -1,10 +1,9 @@
-import { changeField, FormType, initializeForm } from '../../modules/auth';
+import { changeField, initializeForm } from '../../modules/auth';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AuthForm from '../../components/auth/AuthForm';
 import { login } from '../../lib/api/auth';
-import { rootState } from '../../modules';
 import { tempSetUser } from '../../modules/user';
 import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router-dom';
@@ -13,7 +12,7 @@ const LoginForm = () => {
   const history = useHistory();
   const alert = useAlert();
   const dispatch = useDispatch();
-  const { form } = useSelector(({ auth }:rootState) => ({
+  const { form } = useSelector(({ auth }) => ({
     form: auth.login,
   }));
   // 인풋 변경 이벤트 핸들러
@@ -31,7 +30,6 @@ const LoginForm = () => {
   // 폼 등록 이벤트 핸들러
   const onSubmit = async e => {
     e.preventDefault();
-    if(!form) return;
     try {
       const { nickName, status, userId } = await login({
         userId: form.userId,
