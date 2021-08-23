@@ -3,13 +3,13 @@ import { Link, useHistory } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { verifyEmail, verifyName, verifyPassword } from '../../utils/getFunction';
 
-import axios from 'axios';
 import Button from '../Common/Button';
 import { FormType } from '../../modules/auth';
 import KakaoLogin from 'react-kakao-login';
+import React from 'react';
+import axios from 'axios';
 import klogin from '../../../public/img/login/kakaoLogin.png';
 import media from '../../lib/styles/media';
-import React from 'react';
 import { tempSetUser } from '../../modules/user';
 import theme from '../../lib/styles/theme';
 import { useDispatch } from 'react-redux';
@@ -43,7 +43,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
       },
     })
       .then(res => {
-        localStorage.setItem('x-access-token', res.headers['x-access-token']);
+        localStorage.setItem('Authorization', res.headers['Authorization']);
         localStorage.setItem('user', JSON.stringify(res.data));
         dispatch(tempSetUser({ user: res.data }));
         history.push('/');
