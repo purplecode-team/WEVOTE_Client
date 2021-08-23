@@ -7,7 +7,7 @@ export const login = async ({ userId, password }) => {
     if (response.status !== 200) {
       throw new ReferenceError();
     }
-    localStorage.setItem('x-access-token', response.headers['x-access-token']);
+    localStorage.setItem('Authorization', response.headers['Authorization']);
     localStorage.setItem('user', JSON.stringify(response.data));
     return response.data;
  } catch (e) {
@@ -24,7 +24,7 @@ export const register = async ({ nickName, userId, password }) => {
     } else if (response.status !== 200) {
       throw new Error('회원가입 실패');
     }
-    localStorage.setItem('x-access-token', response.headers['x-access-token']);
+    localStorage.setItem('Authorization', response.headers['Authorization']);
     localStorage.setItem('user', JSON.stringify(response.data));
     return response.data;
   }
@@ -35,7 +35,7 @@ export const register = async ({ nickName, userId, password }) => {
 
 export const logout = () => {
   localStorage.removeItem('user');
-  localStorage.removeItem('x-access-token');
+  localStorage.removeItem('Authorization');
 };
 
 // 로그인 상태 확인

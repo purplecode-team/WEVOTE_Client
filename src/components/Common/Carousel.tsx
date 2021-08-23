@@ -65,16 +65,15 @@ const Carousel = ({
   useEffect(() => {
     if(carouselRef.current === null) return;
     let calculation = (count * 87.5)+'vw';
-    if(carouselRef.current.clientWidth === 1280) calculation = (count * 100)+'%'
+    if(carouselRef.current.clientWidth === media.laptop) calculation = (count * 33.33)+'%';
     carouselRef.current.style.transition = 'all 0.4s cubic-bezier(0.8, 0, 0.2, 1)';
     carouselRef.current.style.transform = `translateX(-${calculation})`;
   }, [count]);
 
   useEffect(()=>{
-    if (setCurrent) {
-      setCurrent(count);
-    }
-    return () => {null};
+    if (!setCurrent) return
+    setCurrent(count);
+    return () => {if (setCurrent) setCurrent(count)}
   },[count])
 
   return (

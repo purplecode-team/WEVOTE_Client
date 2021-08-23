@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Carousel from '../Common/Carousel';
 import defaultImg from '../../../public/img/noimg.jpg';
@@ -29,7 +29,8 @@ const Information = () => {
     initialData: [{ id: 0, image: '' }],
   });
   const [count, setCount] = useState<number>(0);
-  const carouselWrapRef = useRef<HTMLInputElement>(null);
+  const [isLapTop, setIsLapTop] = useState<boolean>(false);
+  const infoWrapRef = useRef<HTMLDivElement>(null);
   
   const infoTitle = '선거 안내';
   const laptopMargin = (moveWidth-LaptopBoxSize)/2;
@@ -48,6 +49,16 @@ const Information = () => {
   const handleImgError = e => {
     e.target.src = defaultImg;
   }
+
+  useEffect(() => {
+    if(infoWrapRef.current === null) return;
+    if(infoWrapRef.current.clientWidth >= media.laptop){
+      setIsLapTop(true);
+      const calculation = (count * 100)+'%';
+      infoWrapRef.current.style.transition = 'all 0.4s cubic-bezier(0.8, 0, 0.2, 1)';
+      infoWrapRef.current.style.transform = `translateX(-${calculation})`;
+    }
+  }, [count]);
 
   const showTeamCard = () => {
     return data.map((obj, index) => (
@@ -71,10 +82,10 @@ const Information = () => {
       {loading ? (
         <Loader />
       ) : (
-        <InfoWrapper ref={carouselWrapRef}>
+        <InfoWrapper ref={infoWrapRef}>
           <Carousel
             setCount={setCount}
-            count={count}
+            count={isLapTop ? 0 : count}
           >
             {showTeamCard()}
           </Carousel>

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import client from '../api/client';
 
@@ -15,12 +15,12 @@ type stateTypes = {
 
 type ReturnTypes = [stateTypes, () => void]
 
-function useFetch(props: fetchProps):ReturnTypes{
+export default function useFetch(props: fetchProps):ReturnTypes{
   const {initialUrl, initialData} = props;
-  const [url, setUrl] = useState(initialUrl);
-  const [data, setData] = useState(initialData);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [url, setUrl] = useState<string>(initialUrl);
+  const [data, setData] = useState<any>(initialData);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   const fetchData = async () => {
     setLoading(true);
@@ -34,9 +34,11 @@ function useFetch(props: fetchProps):ReturnTypes{
 
   useEffect(() => {
     fetchData();
+    return () => {
+      setLoading(false);
+      setData(initialData);
+    }
   }, [url]);
 
   return [{ loading, data, error }, fetchData];
 };
-
-export default useFetch;

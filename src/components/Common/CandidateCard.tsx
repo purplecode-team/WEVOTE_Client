@@ -16,10 +16,10 @@ import { useAlert } from 'react-alert';
 type TeamProps = {
   teamData: Team;
   title?: string;
-  isCurrent?: boolean;
+  refetch?: () => void;
 };
 
-const CandidateCard = ({ teamData, title }: TeamProps) => {
+const CandidateCard = ({ teamData, title, refetch }: TeamProps) => {
   const [isAdminPage, setAdminPage] = useState(false);
   const alert = useAlert();
   const dispatch = useCandidateDispatch();
@@ -30,15 +30,20 @@ const CandidateCard = ({ teamData, title }: TeamProps) => {
     dispatch({type: 'TOGGLE_EDIT_CANDIDATE', isOpenEdit: true, id: teamData.id});
   }
 
-  const deleteCandidate = e => {
+  const deleteCandidate = async e => {
     e.stopPropagation();
     if (!confirm(`${title} 기호${teamData.order}번 후보를 삭제하시겠습니까?`)) return;
-    client.delete(`/api/v1/admin/candidate/${teamData.id}`)
-    .then(res => {
-      if(res.status !== 200) alert.error('후보 삭제 실패');
-      alert.success('후보 삭제 성공');
-    })
-    .catch(e => alert.error('후보 삭제 실패'));
+    try {
+      await client.delete(`/api/v1/admin/candidate/${teamData.id}`)
+      .then(res => {
+        if(res.status !== 200) throw new Error('Delete Failed');
+        alert.success('후보 삭제 성공');
+      })
+      .then(()=> {if(refetch) refetch()})
+      .catch(e => alert.error('후보 삭제 실패'));
+    }catch(e) {
+      alert.error('후보 삭제 실패')
+    }
   }
 
   const handleImgError = (e) => {
@@ -85,10 +90,6 @@ const CandidateCard = ({ teamData, title }: TeamProps) => {
       </InnerBox>
     </>
   );
-};
-
-CandidateCard.defaultProps = {
-  isCurrent: true,
 };
 
 const EditButton = styled.button`
