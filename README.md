@@ -19,12 +19,6 @@
 - 로컬 회원가입/로그인
 - 관리자 페이지 모든 선거 정보 관련 CRUD 기능
 
-## 📦 Packages
-|Package|Version|Description|
-|:-----:|:-----:|:-----:|
-|[**@egjs/flicking-plugins**](https://github.com/naver/egjs-flicking-plugins)|<a href="https://www.npmjs.com/package/@egjs/flicking-plugins" target="_blank"><img src="https://img.shields.io/npm/v/@egjs/flicking-plugins.svg?style=flat-square&color=007acc&label=%F0%9F%94%96" alt="version" /></a>|Readymade effects for your carousel|
-|[**@egjs/react-flicking**](https://github.com/naver/egjs-flicking/blob/master/packages/react-flicking/README.md)|<a href="https://www.npmjs.com/package/@egjs/react-flicking" target="_blank"><img src="https://img.shields.io/npm/v/@egjs/react-flicking.svg?style=flat-square&color=00d8ff&label=%F0%9F%94%96" alt="version" /></a>|<img width="15" src="https://naver.github.io/egjs-flicking/img/icons/react.svg" valign="middle" alt="React" /> [React](https://reactjs.org/) port of @egjs/flicking|
-
 
 ## 🌐 Supported Browsers
 |<img width="20" src="https://simpleicons.org/icons/internetexplorer.svg" alt="IE" />|<img width="20" src="https://simpleicons.org/icons/googlechrome.svg" alt="Chrome" />|<img width="20" src="https://simpleicons.org/icons/firefoxbrowser.svg" alt="Firefox" />|<img width="20" src="https://simpleicons.org/icons/safari.svg" alt="Safari" />|<img width="20" src="https://simpleicons.org/icons/apple.svg" alt="iOS" />|<img width="20" src="https://simpleicons.org/icons/android.svg" alt="Android" />|
