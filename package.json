@@ -80,6 +80,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.1",
     "husky": "^4.3.8",
+    "msw": "^0.42.1",
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
     "redux-devtools-extension": "^2.13.9",
@@ -94,5 +95,8 @@
     "hooks": {
       "pre-commit": "pretty-quick -staged"
     }
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
