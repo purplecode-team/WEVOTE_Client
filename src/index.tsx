@@ -1,3 +1,5 @@
+import './index.css';
+
 import * as React from 'react';
 
 import { Provider as AlertProvider, positions, transitions } from 'react-alert';
@@ -6,13 +8,11 @@ import rootReducer, { rootSaga } from './modules';
 
 import AlertTemplate from 'react-alert-template-basic';
 import App from './App';
+import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { tempSetUser } from './modules/user';
-
-import './index.css';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -21,7 +21,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
-function loadUser () {
+function loadUser() {
   try {
     const user = localStorage.getItem('user');
     if (!user) return;
@@ -49,5 +49,10 @@ const Root = () => (
     </AlertProvider>
   </Provider>
 );
+
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser');
+  worker.start();
+}
 
 render(<Root />, document.getElementById('root'));
