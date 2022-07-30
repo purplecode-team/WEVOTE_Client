@@ -47,27 +47,27 @@ module.exports = {
       template: './public/index.html',
     }),
   ],
-  entry: './src/index.tsx', // 웹팩을 실행할 대상 파일
+  entry: './src/index.tsx',
   output: {
     // 웹팩의 결과물에 대한 정보
-    path: path.resolve(__dirname, './dist'), // 결과물 경로
-    filename: '[name].[chunkhash].js', // 결과물 파일명 // chunk로 나눠진 파일들 이름에 hash를 넣는다.
+    path: path.resolve(__dirname, '/dist'),
+    filename: '[name].[chunkhash].js', 
   },
   optimization: {
     runtimeChunk: {
-      name: 'runtime', // runtime을 기준으로 chunk한다. (*chunk : 파일이 몇개의 형태로 분리되어 있는 형태)
+      // runtime을 기준으로 chunk한다. (*chunk : 파일이 몇개의 형태로 분리되어 있는 형태)
+      name: 'runtime',
     },
   },
   resolve: {
-    // 확장자를 생략해도 인식하게 함
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
   },
   devtool: 'eval-cheap-source-map', // 번들링된 파일에서 에러 위치 확인
   devServer: {
-    // devServer 적용 시, 속성
     publicPath: '/',
     historyApiFallback: true,
     overlay: true,
     hot: true,
+    contentBase : '/public'
   },
 };
