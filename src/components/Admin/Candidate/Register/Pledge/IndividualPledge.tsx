@@ -8,16 +8,16 @@ import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../RegisterStyle';
 
 type IndividualPledgeProps = {
-  index:number,
-  editTitle:string,
-  editSubTitle:string,
-  editDescription:string,
-  handleTitleArr:(idx:number, value:string) => void,
-  handleSubTitleArr:(idx:number, value:string) => void,
-  handleDescriptionArr:(idx:number, value:string) => void,
-}
+  index: number;
+  editTitle: string;
+  editSubTitle: string;
+  editDescription: string;
+  handleTitleArr: (idx: number, value: string) => void;
+  handleSubTitleArr: (idx: number, value: string) => void;
+  handleDescriptionArr: (idx: number, value: string) => void;
+};
 
-export default function IndividualPledge (props:IndividualPledgeProps) {
+export default function IndividualPledge(props: IndividualPledgeProps) {
   const {
     index,
     editTitle,
@@ -32,13 +32,13 @@ export default function IndividualPledge (props:IndividualPledgeProps) {
   const [subTitle, setSubTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
 
-  const handleTitle = e => {
+  const handleTitle = (e) => {
     setTitle(e.target.value);
   };
-  const handleSubTitle = e => {
+  const handleSubTitle = (e) => {
     setSubTitle(e.target.value);
   };
-  const handleDescription = e => {
+  const handleDescription = (e) => {
     setDescription(e.target.value);
   };
 
@@ -51,7 +51,7 @@ export default function IndividualPledge (props:IndividualPledgeProps) {
       handleTitleArr(index, title);
       handleSubTitleArr(index, subTitle);
       handleDescriptionArr(index, description);
-    }
+    };
   }, [title, subTitle, description]);
 
   useEffect(() => {
@@ -67,57 +67,57 @@ export default function IndividualPledge (props:IndividualPledgeProps) {
 
   return (
     <>
-      <Grid container wrap='nowrap'>
+      <Grid container wrap="nowrap">
         <Grid item className={classes.item}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.pledge.title}
           </Typography>
           <TextField
             className={classes.textField}
-            placeholder='공약 제목을 입력하세요'
-            margin='normal'
-            error={!Boolean(title)}
+            placeholder="공약 제목을 입력하세요"
+            margin="normal"
+            error={!title}
             value={title}
             onChange={handleTitle}
             InputLabelProps={{
               shrink: true,
             }}
-            variant='outlined'
+            variant="outlined"
           />
         </Grid>
         <Grid item className={classes.item}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.pledge.smallTitle}
           </Typography>
           <TextField
             className={classes.textField}
-            placeholder='공약 소제목을 입력하세요'
-            margin='normal'
-            error={!Boolean(subTitle)}
+            placeholder="공약 소제목을 입력하세요"
+            margin="normal"
+            error={!subTitle}
             value={subTitle}
             onChange={handleSubTitle}
             InputLabelProps={{
               shrink: true,
             }}
-            variant='outlined'
+            variant="outlined"
           />
         </Grid>
       </Grid>
       <Grid item className={classes.item}>
-        <Typography className={classes.titleText} variant='h4' component='h4'>
+        <Typography className={classes.titleText} variant="h4" component="h4">
           {TextData.titleText.pledge.description}
         </Typography>
         <TextField
-          placeholder='공약 내용을 입력하세요'
+          placeholder="공약 내용을 입력하세요"
           multiline
           fullWidth
           rows={8}
-          error={!Boolean(description)}
+          error={!description}
           value={description}
           onChange={handleDescription}
-          variant='outlined'
+          variant="outlined"
         />
       </Grid>
     </>
   );
-};
+}

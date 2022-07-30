@@ -13,23 +13,23 @@ import imageCompression from 'browser-image-compression';
 import { useStyles } from '../RegisterStyle';
 
 type IndividualProps = {
-  index : number,
-  candidateMajor : string,
-  candidateName : string,
-  candidateStudentNum : number,
-  candidatePosition : string,
-  handleImageArr : (idx:number, value:string | ArrayBuffer | null) => void,
-  handleUrlArr : (idx:number, value:string) => void,
-  handleMajorArr : (idx:number, value:string) => void,
-  handleNameArr : (idx:number, value:string) => void,
-  handleStudentNumArr : (idx:number, value:number) => void,
-  handlePositionArr : (idx: number, value:string) => void,
-  majorData : string[],
-  loading : boolean,
-  url : string,
-}
+  index: number;
+  candidateMajor: string;
+  candidateName: string;
+  candidateStudentNum: number;
+  candidatePosition: string;
+  handleImageArr: (idx: number, value: string | ArrayBuffer | null) => void;
+  handleUrlArr: (idx: number, value: string) => void;
+  handleMajorArr: (idx: number, value: string) => void;
+  handleNameArr: (idx: number, value: string) => void;
+  handleStudentNumArr: (idx: number, value: number) => void;
+  handlePositionArr: (idx: number, value: string) => void;
+  majorData: string[];
+  loading: boolean;
+  url: string;
+};
 
-export default function IndividualCandidate (props:IndividualProps) {
+export default function IndividualCandidate(props: IndividualProps) {
   const {
     index,
     candidateMajor,
@@ -52,26 +52,26 @@ export default function IndividualCandidate (props:IndividualProps) {
   const [individualStudentNum, setIndividualStudentNum] = useState<number>(0);
   const [individualPosition, setIndividualPosition] = useState<string>('');
 
-  const handleName = e => {
+  const handleName = (e) => {
     setIndividualName(e.target.value);
     handleNameArr(index, e.target.value);
   };
 
-  const handleStudentNumber = e => {
+  const handleStudentNumber = (e) => {
     setIndividualStudentNum(e.target.value);
     handleStudentNumArr(index, e.target.value);
   };
 
-  const handleMajor = e => {
+  const handleMajor = (e) => {
     setIndividualMajor(e.target.value);
     handleMajorArr(index, e.target.value);
   };
 
-  const handlePosition = e => {
+  const handlePosition = (e) => {
     setIndividualPosition(e.target.value);
     handlePositionArr(index, e.target.value);
   };
-  const processImage = e => {
+  const processImage = (e) => {
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     const options = {
@@ -80,7 +80,7 @@ export default function IndividualCandidate (props:IndividualProps) {
       useWebWorker: true,
     };
 
-    imageCompression(imageFile, options).then(compressedFile => {
+    imageCompression(imageFile, options).then((compressedFile) => {
       const reader = new FileReader();
       reader.readAsDataURL(compressedFile);
       reader.onloadend = () => {
@@ -104,9 +104,9 @@ export default function IndividualCandidate (props:IndividualProps) {
   }, [candidateStudentNum]);
 
   return (
-    <Grid container wrap='nowrap'>
-      <Grid item className={classes.item} >
-        <Typography className={classes.titleText} variant='h4' component='h4'>
+    <Grid container wrap="nowrap">
+      <Grid item className={classes.item}>
+        <Typography className={classes.titleText} variant="h4" component="h4">
           {TextData.titleText.candidate.image}
         </Typography>
         <ImageUploader
@@ -119,45 +119,45 @@ export default function IndividualCandidate (props:IndividualProps) {
         />
       </Grid>
       <Grid container>
-        <Grid item className={classes.gridInput} >
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+        <Grid item className={classes.gridInput}>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.candidate.name}
           </Typography>
           <TextField
-            placeholder='ex) 홍길동'
-            variant='outlined'
-            error={!Boolean(individualName)}
+            placeholder="ex) 홍길동"
+            variant="outlined"
+            error={!individualName}
             value={individualName}
             onChange={handleName}
           />
         </Grid>
-        <Grid item className={classes.gridInput} >
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+        <Grid item className={classes.gridInput}>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.candidate.studentNumber}
           </Typography>
           <TextField
-            placeholder='ex) 21'
-            variant='outlined'
-            type='number'
-            error={!Boolean(individualStudentNum)}
+            placeholder="ex) 21"
+            variant="outlined"
+            type="number"
+            error={!individualStudentNum}
             value={individualStudentNum}
             onChange={handleStudentNumber}
           />
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item className={classes.gridInput} >
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+        <Grid item className={classes.gridInput}>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.candidate.major}
           </Typography>
           <FormControl
-            variant='outlined'
+            variant="outlined"
             required
             className={classes.formControl}
           >
             <Select
-              labelId='demo-simple-select-outlined-label'
-              error={!Boolean(individualMajor)}
+              labelId="demo-simple-select-outlined-label"
+              error={!individualMajor}
               value={individualMajor}
               onChange={handleMajor}
             >
@@ -174,14 +174,14 @@ export default function IndividualCandidate (props:IndividualProps) {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item className={classes.gridInput} >
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+        <Grid item className={classes.gridInput}>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.candidate.position}
           </Typography>
           <TextField
-            placeholder='ex) 정학생회장'
-            variant='outlined'
-            error={!Boolean(individualPosition)}
+            placeholder="ex) 정학생회장"
+            variant="outlined"
+            error={!individualPosition}
             value={individualPosition}
             onChange={handlePosition}
           />
@@ -189,6 +189,4 @@ export default function IndividualCandidate (props:IndividualProps) {
       </Grid>
     </Grid>
   );
-};
-
-
+}

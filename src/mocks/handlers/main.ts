@@ -2,7 +2,6 @@ import { rest } from 'msw';
 
 export const getSearch = rest.get('/api/v1/main/search', (req, res, ctx) =>
   res(
-    ctx.status(200),
     ctx.json([
       {
         id: 12,
@@ -54,17 +53,15 @@ export const getSearch = rest.get('/api/v1/main/search', (req, res, ctx) =>
 
 export const getCalendar = rest.get('/api/v1/main/calendar', (req, res, ctx) =>
   res(
-    ctx.status(200),
     ctx.json({
       id: 1,
-      image: "'../../../public/mock/main/calendar.png",
+      image: './public/img/calendar.svg',
     })
   )
 );
 
 export const getBanner = rest.get('/api/v1/main/banner', (req, res, ctx) =>
   res(
-    ctx.status(200),
     ctx.json([
       {
         id: 1,
@@ -90,7 +87,6 @@ export const getBanner = rest.get('/api/v1/main/banner', (req, res, ctx) =>
 
 export const getElection = rest.get('/api/v1/main/election', (req, res, ctx) =>
   res(
-    ctx.status(200),
     ctx.json([
       {
         id: 1,
@@ -130,7 +126,6 @@ export const getElection = rest.get('/api/v1/main/election', (req, res, ctx) =>
 
 export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
   res(
-    ctx.status(200),
     ctx.json({
       central: [
         {
@@ -148,7 +143,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: '../../../../public/img/candidate/candidate1.png',
+                  picture: './public/img/candidate/candidate1.png',
                   teamId: 1,
                 },
                 {
@@ -157,7 +152,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: '../../../../public/img/candidate/candidate2.png',
+                  picture: './public/img/candidate/candidate2.png',
                   teamId: 1,
                 },
               ],
@@ -173,7 +168,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: '../../../../public/img/candidate/candidate1.png',
+                  picture: './public/img/candidate/candidate1.png',
                   teamId: 1,
                 },
                 {
@@ -182,7 +177,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: '../../../../public/img/candidate/candidate2.png',
+                  picture: './public/img/candidate/candidate2.png',
                   teamId: 1,
                 },
               ],
@@ -198,7 +193,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: '../../../../public/img/candidate/candidate1.png',
+                  picture: './public/img/candidate/candidate1.png',
                   teamId: 1,
                 },
                 {
@@ -207,7 +202,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: '../../../../public/img/candidate/candidate2.png',
+                  picture: './public/img/candidate/candidate2.png',
                   teamId: 1,
                 },
               ],
@@ -229,7 +224,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: '../../../../public/img/candidate/candidate1.png',
+                  picture: './public/img/candidate/candidate1.png',
                   teamId: 1,
                 },
                 {
@@ -238,7 +233,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: '../../../../public/img/candidate/candidate2.png',
+                  picture: './public/img/candidate/candidate2.png',
                   teamId: 1,
                 },
               ],
@@ -254,7 +249,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: '../../../../public/img/candidate/candidate1.png',
+                  picture: './public/img/candidate/candidate1.png',
                   teamId: 2,
                 },
                 {
@@ -263,7 +258,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: '../../../../public/img/candidate/candidate2.png',
+                  picture: './public/img/candidate/candidate2.png',
                   teamId: 2,
                 },
               ],
@@ -279,7 +274,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: '../../../../public/img/candidate/candidate1.png',
+                  picture: './public/img/candidate/candidate1.png',
                   teamId: 3,
                 },
                 {
@@ -288,7 +283,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: '../../../../public/img/candidate/candidate2.png',
+                  picture: './public/img/candidate/candidate2.png',
                   teamId: 3,
                 },
               ],
@@ -304,7 +299,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: '../../../../public/img/candidate/candidate1.png',
+                  picture: './public/img/candidate/candidate1.png',
                   teamId: 4,
                 },
                 {
@@ -313,7 +308,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: '../../../../public/img/candidate/candidate2.png',
+                  picture: './public/img/candidate/candidate2.png',
                   teamId: 4,
                 },
               ],
@@ -337,7 +332,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '기계공학과',
                   studentNum: 123123,
                   position: '공동대표',
-                  picture: '../../../../public/img/candidate/profile.png',
+                  picture: './public/img/candidate/profile.png',
                   teamId: 5,
                 },
                 {
@@ -346,7 +341,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '산업공학과',
                   studentNum: 231214,
                   position: '공동대표',
-                  picture: '../../../../public/img/candidate/profile.png',
+                  picture: './public/img/candidate/profile.png',
                   teamId: 5,
                 },
               ],
@@ -362,7 +357,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '생명공학과',
                   studentNum: 123124,
                   position: '정학생회장',
-                  picture: '../../../../public/img/candidate/profile.png',
+                  picture: './public/img/candidate/profile.png',
                   teamId: 6,
                 },
                 {
@@ -371,7 +366,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '화학공학과',
                   studentNum: 1231433,
                   position: '부학생회장',
-                  picture: '../../../../public/img/candidate/profile.png',
+                  picture: './public/img/candidate/profile.png',
                   teamId: 6,
                 },
               ],
@@ -393,7 +388,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '불어불문학과',
                   studentNum: 123141,
                   position: '정학생회장',
-                  picture: '../../../../public/img/candidate/profile.png',
+                  picture: './public/img/candidate/profile.png',
                   teamId: 7,
                 },
                 {
@@ -402,7 +397,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '철학과',
                   studentNum: 2324123,
                   position: '부학생회장',
-                  picture: '../../../../public/img/candidate/profile.png',
+                  picture: './public/img/candidate/profile.png',
                   teamId: 7,
                 },
               ],
@@ -455,7 +450,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '컴퓨터공학과',
                       studentNum: 1234123,
                       position: '정학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 2,
                     },
                     {
@@ -464,7 +459,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '컴퓨터공학과',
                       studentNum: 1234122,
                       position: '정학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 2,
                     },
                   ],
@@ -480,7 +475,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '컴퓨터공학과',
                       studentNum: 1929132,
                       position: '정학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 1,
                     },
                     {
@@ -489,7 +484,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '컴퓨터공학과',
                       studentNum: 1234123,
                       position: '부학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 1,
                     },
                   ],
@@ -522,7 +517,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '국어국문학과',
                       studentNum: 2222223,
                       position: '정학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 4,
                     },
                     {
@@ -531,7 +526,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '국어국문학과',
                       studentNum: 22122223,
                       position: '부학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 4,
                     },
                   ],
@@ -547,7 +542,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '국어국문학과',
                       studentNum: 11111111,
                       position: '정학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 3,
                     },
                     {
@@ -556,7 +551,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '국어국문학과',
                       studentNum: 222222,
                       position: '정학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 3,
                     },
                   ],
@@ -589,7 +584,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '국어국문학과',
                       studentNum: 2222223,
                       position: '정학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 4,
                     },
                     {
@@ -598,7 +593,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '국어국문학과',
                       studentNum: 22122223,
                       position: '부학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 4,
                     },
                   ],
@@ -614,7 +609,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '국어국문학과',
                       studentNum: 11111111,
                       position: '정학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 3,
                     },
                     {
@@ -623,7 +618,7 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                       major: '국어국문학과',
                       studentNum: 222222,
                       position: '정학생회장',
-                      picture: '../../../../public/img/candidate/profile.png',
+                      picture: './public/img/candidate/profile.png',
                       teamId: 3,
                     },
                   ],

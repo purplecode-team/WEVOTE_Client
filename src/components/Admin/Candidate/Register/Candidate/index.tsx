@@ -14,9 +14,9 @@ import { useStyles } from '../RegisterStyle';
 type InitialType = string[];
 
 type CandidateProps = {
-  handleCandidateData: (data:Runner[]) => void,
-  editData: CandidateType | null,
-}
+  handleCandidateData: (data: Runner[]) => void;
+  editData: CandidateType | null;
+};
 
 // 전체 등록된 학과 모은 데이터 받기
 const defualtMajor = ['없음'];
@@ -24,14 +24,14 @@ const defualtMajor = ['없음'];
 // 팀당 후보 수(고정)
 const candidateCount = 2;
 
-const initialData:string[] = Array.from({ length: candidateCount }, _ => '');
+const initialData: string[] = Array.from({ length: candidateCount }, (_) => '');
 
-export default function CandidateForm ({ handleCandidateData, editData }:CandidateProps) {
+export default function CandidateForm({
+  handleCandidateData,
+  editData,
+}: CandidateProps) {
   const classes = useStyles();
-  const [{ loading, data, error }, setUrl] = useFetch({
-    initialUrl: '/api/v1/admin/major',
-    initialData: defualtMajor,
-  });
+  const [{ loading, data, error }, fetchData] = useFetch('/api/v1/admin/major');
   // input 상태 관리
   const [imageArr, setImageArr] = useState<InitialType>(initialData);
   const [urlArr, setUrlArr] = useState<InitialType>(initialData);
@@ -66,12 +66,12 @@ export default function CandidateForm ({ handleCandidateData, editData }:Candida
 
   const overwriteEditData = () => {
     if (!editData) return;
-    const positions:string[] = [];
-    const majors:string[] = [];
-    const studentNums:number[] = [];
-    const urls:string[] = [];
-    const names:string[] = [];
-    editData.Runners.map((obj:Runner) => {
+    const positions: string[] = [];
+    const majors: string[] = [];
+    const studentNums: number[] = [];
+    const urls: string[] = [];
+    const names: string[] = [];
+    editData.Runners.map((obj: Runner) => {
       positions.push(obj.position);
       majors.push(obj.major);
       studentNums.push(obj.studentNum);
@@ -114,14 +114,14 @@ export default function CandidateForm ({ handleCandidateData, editData }:Candida
     }
   }, [nameArr, majorArr, studentNumArr, positionArr, imageArr]);
 
-  const showCandidate = index => {
+  const showCandidate = (index) => {
     return (
       <Grid container className={classes.section} key={index}>
         <Grid item className={classes.item}>
           <Typography
             className={classes.sectionText}
-            variant='h4'
-            component='h4'
+            variant="h4"
+            component="h4"
           >
             {TextData.sectionText.candidate}
           </Typography>
@@ -147,4 +147,4 @@ export default function CandidateForm ({ handleCandidateData, editData }:Candida
   };
 
   return <Grid container>{initialData.map((d, i) => showCandidate(i))}</Grid>;
-};
+}

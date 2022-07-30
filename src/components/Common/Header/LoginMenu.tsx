@@ -1,11 +1,11 @@
 import * as React from 'react';
 
+import PropTypes from 'prop-types';
 import loginIcon from '../../../../public/img/login.svg';
 import { logout } from '../../../lib/api/auth';
 import { logoutAction } from '../../../modules/user';
 import logoutIcon from '../../../../public/img/logout.svg';
 import media from '../../../lib/styles/media';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import theme from '../../../lib/styles/theme';
 import { useDispatch } from 'react-redux';
@@ -18,27 +18,27 @@ type LoginMenuProps = {
 
 export const LoginMenu = ({
   changeActiveMenu,
-  isLogin=false,
+  isLogin = false,
 }: LoginMenuProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleLogout = () => {
     logout();
-    dispatch(logoutAction())
+    dispatch(logoutAction());
     history.push('/');
-  }
+  };
 
   const routeLoginForm = () => {
-    history.push('/login');    
-  }
+    history.push('/login');
+  };
 
   return (
     <>
-      <MenuItem onClick={changeActiveMenu} >
+      <MenuItem onClick={changeActiveMenu}>
         {isLogin ? (
-          <LoginImg onClick={handleLogout}/>
-        ):(
+          <LoginImg onClick={handleLogout} />
+        ) : (
           <LogoutImg onClick={routeLoginForm} />
         )}
       </MenuItem>

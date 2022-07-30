@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import bannerData from '../../../../lib/api/dummyData/BannerInfo.json';
 import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
+import useFetch from '../../../../lib/hooks/useFetch';
 
 type dataType = {
   id: number;
@@ -12,7 +12,8 @@ type dataType = {
 };
 
 const NoticeArticle = () => {
-  const [banner, setBanner] = useState<dataType[]>(bannerData);
+  const [{ loading, data, error }, fetchData] = useFetch('/api/v1/main/banner');
+  const [banner, setBanner] = useState<dataType[]>(data);
   const [index, setIndex] = useState<number>(0);
 
   const dateFormat = (date) => {
@@ -27,8 +28,9 @@ const NoticeArticle = () => {
   };
 
   useEffect(() => {
+    if (!data) return;
     const temp: dataType[] = [];
-    bannerData.map((data) => {
+    data.map((data) => {
       const sdate = dateFormat(new Date(data.startDate));
       const edate = dateFormat(new Date(data.endDate));
       temp.push({
@@ -39,8 +41,8 @@ const NoticeArticle = () => {
       });
     });
     setBanner(temp);
-    return () => setBanner(bannerData);
-  }, [bannerData]);
+    return () => setBanner(data);
+  }, [data]);
 
   useEffect(() => {
     const lastIndex = banner.length - 1;
@@ -59,11 +61,15 @@ const NoticeArticle = () => {
 
   return (
     <Container>
-      <TitleBox>Notice</TitleBox>
-      <ArticleBox>
-        <Article>{banner[index].content}</Article>
-      </ArticleBox>
-      <Day>{`${banner[index].startDate} ~ ${banner[index].endDate}`}</Day>
+      {data && (
+        <div>
+          <TitleBox>Notice</TitleBox>
+          <ArticleBox>
+            <Article>{banner[index].content}</Article>
+          </ArticleBox>
+          <Day>{`${banner[index].startDate} ~ ${banner[index].endDate}`}</Day>
+        </div>
+      )}
     </Container>
   );
 };

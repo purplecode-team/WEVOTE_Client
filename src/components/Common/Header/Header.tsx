@@ -5,12 +5,12 @@ import * as React from 'react';
 import styled, { css } from 'styled-components';
 
 import { LoginMenu } from './LoginMenu';
+import { NavLink } from 'react-router-dom';
+import { TextMenu } from './TextMenu';
 import logoIcon from '../../../../public/img/logo.svg';
 import media from '../../../lib/styles/media';
 import menuBackground from '../../../../public/img/menuBackground.svg';
-import { NavLink } from 'react-router-dom';
 import { rootState } from '../../../modules';
-import { TextMenu } from './TextMenu';
 import theme from '../../../lib/styles/theme';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -21,7 +21,9 @@ type HeaderStyle = {
 };
 
 const Header = () => {
-  const { user } = useSelector((state:rootState) => ({user: state.user.user}));
+  const { user } = useSelector((state: rootState) => ({
+    user: state.user.user,
+  }));
   const [isActive, setIsActive] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
@@ -31,11 +33,11 @@ const Header = () => {
   const loginText = user && `반갑습니다. ${user.nickName}님`;
   const logoutText = '더 많은 이용을 위해 로그인/회원가입을 진행해주세요';
 
-  useEffect(()=>{
+  useEffect(() => {
     if (user) setIsLogin(true);
-    else setIsLogin(false);
+    else setIsLogin(true);
     return () => setIsLogin(false);
-  },[user])
+  }, [user]);
 
   return (
     <HeaderBar isActive={isActive}>
@@ -44,10 +46,7 @@ const Header = () => {
           <LogoImg />
         </ImgLink>
         <MenuBox isActive={isActive}>
-          <LoginMenu
-            isLogin={isLogin}
-            changeActiveMenu={changeActiveMenu}
-          />
+          <LoginMenu isLogin={isLogin} changeActiveMenu={changeActiveMenu} />
           <Subtext>{isLogin ? loginText : logoutText}</Subtext>
           <TextMenuBlock changeActiveMenu={changeActiveMenu} />
         </MenuBox>

@@ -3,22 +3,30 @@ import client from './client';
 // 로그인
 export const login = async ({ userId, password }) => {
   try {
-    const response = await client.post('/api/v1/auth/login', { userId, password });
+    const response = await client.post('/api/v1/auth/login', {
+      userId,
+      password,
+    });
     if (response.status !== 200) {
       throw new ReferenceError();
     }
     localStorage.setItem('Authorization', response.headers['Authorization']);
     localStorage.setItem('user', JSON.stringify(response.data));
     return response.data;
- } catch (e) {
+  } catch (e) {
     console.error(e);
   }
 };
 
 // 회원가입
 export const register = async ({ nickName, userId, password }) => {
-  try{
-    const response = await client.post('/api/v1/auth/join', { nickName, userId, password, status:'user' });
+  try {
+    const response = await client.post('/api/v1/auth/join', {
+      nickName,
+      userId,
+      password,
+      status: 'user',
+    });
     if (response.status === 400) {
       throw new Error('이미 존재하는 ID');
     } else if (response.status !== 200) {
@@ -27,10 +35,9 @@ export const register = async ({ nickName, userId, password }) => {
     localStorage.setItem('Authorization', response.headers['Authorization']);
     localStorage.setItem('user', JSON.stringify(response.data));
     return response.data;
-  }
-  catch(e){
+  } catch (e) {
     console.error(e);
-  };
+  }
 };
 
 export const logout = () => {

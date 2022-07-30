@@ -1,4 +1,4 @@
-import { SetupWorkerApi, setupWorker } from 'msw';
+import { setupWorker, SetupWorkerApi } from 'msw';
 
 import { handlers } from './handlers';
 

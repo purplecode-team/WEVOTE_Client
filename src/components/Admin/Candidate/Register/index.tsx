@@ -8,55 +8,52 @@ import { AxiosResponse } from 'axios';
 import Button from '@material-ui/core/Button';
 import CandidateForm from './Candidate';
 import { CandidateType } from '../../../../types/candidateType';
-import client from '../../../../lib/api/client';
 import Grid from '@material-ui/core/Grid';
 import Loader from '../../../Common/Loader';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import PledgeForm from './Pledge';
 import TeamForm from './Team';
+import client from '../../../../lib/api/client';
+import { makeStyles } from '@material-ui/core/styles';
 import { useAlert } from 'react-alert';
 
 export type TeamType = {
-  teamNumber: number,
-  slogan: string,
-  currentTop: string,
-  currentMiddle: string,
-  currentBottom: string,
-}
+  teamNumber: number;
+  slogan: string;
+  currentTop: string;
+  currentMiddle: string;
+  currentBottom: string;
+};
 
-let TeamData:TeamType = {
+const initialTeamData: TeamType = {
   teamNumber: 1,
-  slogan : '',
-  currentTop : '',
-  currentMiddle : '',
-  currentBottom : '',
+  slogan: '',
+  currentTop: '',
+  currentMiddle: '',
+  currentBottom: '',
 };
 let CandidateData = [];
 let PledgeData = [];
 
-export default function Register (props) {
+export default function Register(props) {
   const { refetch } = props;
   const classes = useStyles();
+  const [teamData, setTeamData] = useState<TeamType>(initialTeamData);
   const [editData, setEditData] = useState<CandidateType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isOpenEdit, id } = useCandidateState();
   const dispatch = useCandidateDispatch();
   const alert = useAlert();
 
-  const handleTeamData = data => {
-    TeamData = data;
-  };
-
-  const handleCandidateData = data => {
+  const handleCandidateData = (data) => {
     CandidateData = data;
   };
 
-  const handlePledgeData = data => {
+  const handlePledgeData = (data) => {
     PledgeData = data;
   };
 
-  const submitForm = e => {
+  const submitForm = (e) => {
     e.preventDefault();
     if (!editData) postData();
     else updateData();
@@ -65,21 +62,21 @@ export default function Register (props) {
   const postData = async () => {
     setIsLoading(true);
     const data = {
-      order: TeamData.teamNumber,
-      slogan: TeamData.slogan,
-      categoryName: TeamData.currentTop,
-      categoryDetail: TeamData.currentMiddle,
-      majorName: TeamData.currentBottom,
+      order: teamData.teamNumber,
+      slogan: teamData.slogan,
+      categoryName: teamData.currentTop,
+      categoryDetail: teamData.currentMiddle,
+      majorName: teamData.currentBottom,
       Runners: CandidateData,
       Promises: PledgeData,
     };
     await client
       .post('/api/v1/admin/candidate', data)
-      .then(res => {
+      .then((res) => {
         if (res.status !== 200) alert.error('후보 등록 실패');
         else alert.success('후보 등록 성공');
       })
-      .catch(e => alert.error('후보 등록 실패'));
+      .catch((e) => alert.error('후보 등록 실패'));
     setIsLoading(false);
   };
 
@@ -88,34 +85,34 @@ export default function Register (props) {
     setIsLoading(true);
     const data = {
       id: id,
-      order: TeamData.teamNumber,
-      slogan: TeamData.slogan,
-      categoryName: TeamData.currentTop,
-      categoryDetail: TeamData.currentMiddle,
-      majorName: TeamData.currentBottom || null,
+      order: teamData.teamNumber,
+      slogan: teamData.slogan,
+      categoryName: teamData.currentTop,
+      categoryDetail: teamData.currentMiddle,
+      majorName: teamData.currentBottom || null,
       Runners: CandidateData,
       Promises: PledgeData,
-      organizationId : editData.organizationId
+      organizationId: editData.organizationId,
     };
-    try{
+    try {
       await client
-      .patch(`/api/v1/admin/candidate/${id}`, data)
-      .then(res => {
-        if (res.status !== 200) alert.error('후보 정보 업데이트 실패');
-        else alert.success('후보 정보 업데이트 성공');
-      })
-      .catch(e => alert.error('후보 정보 업데이트 실패'));
+        .patch(`/api/v1/admin/candidate/${id}`, data)
+        .then((res) => {
+          if (res.status !== 200) alert.error('후보 정보 업데이트 실패');
+          else alert.success('후보 정보 업데이트 성공');
+        })
+        .catch((e) => alert.error('후보 정보 업데이트 실패'));
       dispatch({ type: 'TOGGLE_EDIT_CANDIDATE', isOpenEdit: false, id: 0 });
       refetch();
-    }catch(e){
+    } catch (e) {
       alert.error('후보 정보 업데이트 실패');
     }
   };
 
-  const fetchData = useCallback(url => {
+  const fetchData = useCallback((url) => {
     client
       .get(url)
-      .then((res:AxiosResponse) => {
+      .then((res: AxiosResponse) => {
         setEditData(res.data);
       })
       .catch(() => alert.error('후보 데이터 호출 실패'));
@@ -133,19 +130,22 @@ export default function Register (props) {
       ) : (
         <Paper className={classes.paper}>
           <form className={classes.contentWrapper} onSubmit={submitForm}>
-            <TeamForm handleTeamData={handleTeamData} editData={editData} />
+            <TeamForm setTeamData={setTeamData} editData={editData} />
             <CandidateForm
               handleCandidateData={handleCandidateData}
               editData={editData}
             />
-            <PledgeForm handlePledgeData={handlePledgeData} editData={editData} />
+            <PledgeForm
+              handlePledgeData={handlePledgeData}
+              editData={editData}
+            />
             <Grid item className={classes.button}>
               {editData ? (
                 <Button
                   className={classes.submit}
-                  variant='contained'
-                  color='primary'
-                  type='button'
+                  variant="contained"
+                  color="primary"
+                  type="button"
                   onClick={updateData}
                 >
                   {'수정'}
@@ -153,9 +153,9 @@ export default function Register (props) {
               ) : (
                 <Button
                   className={classes.submit}
-                  variant='contained'
-                  color='primary'
-                  type='submit'
+                  variant="contained"
+                  color="primary"
+                  type="submit"
                 >
                   {'등록'}
                 </Button>
@@ -166,9 +166,9 @@ export default function Register (props) {
       )}
     </>
   );
-};
+}
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     maxWidth: 936,
     margin: '30px auto',
@@ -191,4 +191,4 @@ const useStyles = makeStyles(theme => ({
     height: '40px',
     borderRadius: '15px',
   },
-}))
+}));

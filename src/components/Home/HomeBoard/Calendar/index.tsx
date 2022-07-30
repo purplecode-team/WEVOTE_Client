@@ -9,58 +9,55 @@ import styled from 'styled-components';
 import { theme } from '../../../Admin/style';
 import useFetch from '../../../../lib/hooks/useFetch';
 
-const initialData = {
-  id: 0,
-  image: initialCalendar
-}
-
 const ImgBoard = () => {
   const classes = useStyles();
-  const [{loading, data, error}, fetchData] = useFetch({
-    initialUrl: '/api/v1/main/calendar',
-    initialData: initialData
-  });
-  const [image, setImage] = useState<string>(data.image);
+  const [{ loading, data, error }, fetchData] = useFetch(
+    '/api/v1/main/calendar'
+  );
+  const [image, setImage] = useState<string>();
 
   const handleImgError = () => {
     setImage(initialCalendar);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (!data) return;
     setImage(data.image);
     return () => setImage(data.image);
-  },[data])
+  }, [data]);
 
   return (
     <Calendar>
-      {loading 
-      ? <Skeleton animation="wave" variant="rect" className={classes.media}/>
-      : <CalenderImg src={image} alt='calendar' onError={handleImgError}/>
-      }
+      {loading ? (
+        <Skeleton animation="wave" variant="rect" className={classes.media} />
+      ) : (
+        <CalendarImg src={image} alt="calendar" onError={handleImgError} />
+      )}
     </Calendar>
   );
 };
 
 export default ImgBoard;
 
-const useStyles = makeStyles(() => (
+const useStyles = makeStyles(() =>
   createStyles({
-  media: {
-    width: '95%',
-    minWidth: '312px',
-    minHeight: '400px',
-    margin: '0 auto',
-    borderRadius: '20px',
-    [theme.breakpoints.up('mobile')] : {
-      minHeight: '700px',
-      maxHeight: '100%',
+    media: {
+      width: '95%',
+      minWidth: '312px',
+      minHeight: '400px',
+      margin: '0 auto',
+      borderRadius: '20px',
+      [theme.breakpoints.up('mobile')]: {
+        minHeight: '700px',
+        maxHeight: '100%',
+      },
     },
-  }})
-));
+  })
+);
 
 const Calendar = styled.div`
   margin-top: 70px;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   @media (max-width: ${media.mobileL}px) {
@@ -69,7 +66,7 @@ const Calendar = styled.div`
 `;
 
 // 이미지 4:3 비율
-const CalenderImg = styled.img`
+const CalendarImg = styled.img`
   margin: 0 auto;
   width: 95%;
   min-height: 700px;

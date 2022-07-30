@@ -42,6 +42,11 @@ const options = {
   transition: transitions.SCALE,
 };
 
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser');
+  worker.start();
+}
+
 const Root = () => (
   <Provider store={store}>
     <AlertProvider template={AlertTemplate} {...options}>
@@ -49,10 +54,5 @@ const Root = () => (
     </AlertProvider>
   </Provider>
 );
-
-if (process.env.NODE_ENV === 'development') {
-  const { worker } = require('./mocks/browser');
-  worker.start();
-}
 
 render(<Root />, document.getElementById('root'));

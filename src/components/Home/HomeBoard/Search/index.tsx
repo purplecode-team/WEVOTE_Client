@@ -1,74 +1,77 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
-import media from '../../../../lib/styles/media';
 import ModalSearchBox from './ModalSearchBox';
 import React from 'react';
 import SearchBox from './SearchBox';
 import Skeleton from '@material-ui/lab/Skeleton';
+import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
 import useFetch from '../../../../lib/hooks/useFetch';
 
 const homeText = {
-  title : '서울과학기술대학교 선거소식',
-}
+  title: '서울과학기술대학교 선거소식',
+};
 
-const initialData = [{id: 0, name: '없음'}]
+const initialData = [{ id: 0, name: '없음' }];
 const Search = () => {
   const classes = useStyles();
-  const [{loading, data, error}, fetchData] = useFetch({
-    initialUrl: '/api/v1/main/search',
-    initialData: initialData,
-  })
+  const [{ loading, data, error }, fetchData] = useFetch('/api/v1/main/search');
   return (
     <Contain>
-      {loading ?
-      <> 
-        <Skeleton animation="wave" variant="rect" className={classes.title}/>
-        <Skeleton animation="wave" variant="rect" className={classes.searchWrapper}/>        
-      </> :
-      <>
-        <Title>{homeText.title}</Title>
-        <SearchWrapper>
-          <SearchBox data={data}/>
-        </SearchWrapper>
-      </>
-      }
-      {!loading && 
-      <MobileArea>
-        <ModalSearchBox data={data}/>
-      </MobileArea>}
+      {loading ? (
+        <>
+          <Skeleton animation="wave" variant="rect" className={classes.title} />
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            className={classes.searchWrapper}
+          />
+        </>
+      ) : (
+        <>
+          <Title>{homeText.title}</Title>
+          <SearchWrapper>
+            <SearchBox data={data} />
+          </SearchWrapper>
+        </>
+      )}
+      {!loading && (
+        <MobileArea>
+          <ModalSearchBox data={data} />
+        </MobileArea>
+      )}
     </Contain>
   );
 };
 
 export default Search;
 
-const useStyles = makeStyles((theme: Theme) => (
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-  title: {
-    width: '250px',
-    height: '50px',
-    borderRadius: '20px',
-    marginTop: '3.7rem',
-    marginLeft: '11px',
-    [theme.breakpoints.up('mobile')] : {
-      marginTop: '10.4rem',
-      marginLeft: '0',
-    }
-  },
-  searchWrapper:{
-    display: 'none',
-    [theme.breakpoints.up('mobile')] : {
-      display: 'block',
-      position: 'relative',
-      width: '400px',
+    title: {
+      width: '250px',
       height: '50px',
       borderRadius: '20px',
-      marginTop: '20px'
-    }
-  }
-})
-));
+      marginTop: '3.7rem',
+      marginLeft: '11px',
+      [theme.breakpoints.up('mobile')]: {
+        marginTop: '10.4rem',
+        marginLeft: '0',
+      },
+    },
+    searchWrapper: {
+      display: 'none',
+      [theme.breakpoints.up('mobile')]: {
+        display: 'block',
+        position: 'relative',
+        width: '400px',
+        height: '50px',
+        borderRadius: '20px',
+        marginTop: '20px',
+      },
+    },
+  })
+);
 
 const Contain = styled.div``;
 

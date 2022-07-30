@@ -14,12 +14,11 @@ import { theme } from '../style';
 import { useAlert } from 'react-alert';
 import useFetch from '../../../lib/hooks/useFetch';
 
-export default function Canlender () {
+export default function Calendar() {
   const classes = useStyles();
-  const [{ loading, data, error }, setUrl] = useFetch({
-    initialUrl: '/api/v1/main/calendar',
-    initialData: { id: 0, image: '' },
-  });
+  const [{ loading, data, error }, fetchData] = useFetch(
+    '/api/v1/main/calendar'
+  );
   const [file, setFile] = useState<string | Blob>('');
   const [fileUrl, setFileUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(loading);
@@ -30,21 +29,21 @@ export default function Canlender () {
   // DB에 등록된 데이터의 이미지가 미리보기에 보여지고 있을 때만 삭제 버튼 생성하기 위함
   const activeDeletion = data && data.image === fileUrl;
 
-  const processImage = e => {
+  const processImage = (e) => {
     const imageFile = e.target.files[0];
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 700,
       useWebWorker: true,
     };
-    imageCompression(imageFile, options).then(compressedFile => {
+    imageCompression(imageFile, options).then((compressedFile) => {
       const imageUrl = URL.createObjectURL(compressedFile);
       setFileUrl(imageUrl);
       setFile(compressedFile);
     });
   };
 
-  const submitForm = async e => {
+  const submitForm = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const formData = new FormData();
@@ -56,14 +55,14 @@ export default function Canlender () {
     };
     await client
       .post('/api/v1/admin/calendar', formData, config)
-      .then(response => {
+      .then((response) => {
         if (response.status !== 200) {
           alert.error('이미지 등록 실패');
           return;
         }
         alert.success('이미지가 등록되었습니다');
       })
-      .catch(e => {
+      .catch((e) => {
         alert.error('이미지 등록 실패');
       });
     setIsLoading(false);
@@ -73,11 +72,11 @@ export default function Canlender () {
     setIsLoading(true);
     await client
       .delete('/api/v1/admin/calendar')
-      .then(res => {
+      .then((res) => {
         alert.success('이미지 삭제 완료');
         resetImg();
       })
-      .catch(e => alert.error('이미지 삭제 실패'));
+      .catch((e) => alert.error('이미지 삭제 실패'));
     setIsLoading(false);
   };
 
@@ -98,7 +97,7 @@ export default function Canlender () {
 
   return (
     <Paper className={classes.paper}>
-      <Typography className={classes.title} variant='h4' component='h4'>
+      <Typography className={classes.title} variant="h4" component="h4">
         캘린더 등록
       </Typography>
       {isLoading ? (
@@ -106,7 +105,7 @@ export default function Canlender () {
       ) : (
         <form onSubmit={submitForm}>
           <ImageUploader
-            alt={'calender'}
+            alt={'calendar'}
             fileUrl={fileUrl}
             resetImg={resetImg}
             processImage={processImage}
@@ -117,9 +116,9 @@ export default function Canlender () {
             {activeDeletion && (
               <Button
                 className={classes.button}
-                variant='contained'
-                color='primary'
-                type='button'
+                variant="contained"
+                color="primary"
+                type="button"
                 onClick={deleteImg}
               >
                 삭제
@@ -127,9 +126,9 @@ export default function Canlender () {
             )}
             <Button
               className={classes.button}
-              variant='contained'
-              color='primary'
-              type='submit'
+              variant="contained"
+              color="primary"
+              type="submit"
               disabled={isDefault}
             >
               등록
@@ -195,4 +194,3 @@ const useStyles = makeStyles({
     left: '20px',
   },
 });
-

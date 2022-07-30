@@ -12,23 +12,27 @@ import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../RegisterStyle';
 
 type PledgeFormProps = {
-  handlePledgeData: (data:PromiseType[]) => void,
-  editData: CandidateType | null,
-}
+  handlePledgeData: (data: PromiseType[]) => void;
+  editData: CandidateType | null;
+};
 
-const MaxPledgeCount:number = 10;
-const countArr:number[] = Array.from({ length: MaxPledgeCount }, (v, i) => i);
+const MaxPledgeCount = 10;
+const countArr: number[] = Array.from({ length: MaxPledgeCount }, (v, i) => i);
 
-export default function PledgeForm (props:PledgeFormProps) {
+export default function PledgeForm(props: PledgeFormProps) {
   const { handlePledgeData, editData } = props;
   const classes = useStyles();
   const [pledgeCount, setPledgeCount] = useState<number>(1);
-  const [pledgeCountArr, setPledgeCountArr] = useState<number[]>(Array(pledgeCount));
+  const [pledgeCountArr, setPledgeCountArr] = useState<number[]>(
+    Array(pledgeCount)
+  );
   const [titleArr, setTitleArr] = useState<string[]>(Array(pledgeCount));
   const [subTitleArr, setSubTitleArr] = useState<string[]>(Array(pledgeCount));
-  const [descriptionArr, setDescriptionArr] = useState<string[]>(Array(pledgeCount));
+  const [descriptionArr, setDescriptionArr] = useState<string[]>(
+    Array(pledgeCount)
+  );
 
-  const handlePledgeCount = e => {
+  const handlePledgeCount = (e) => {
     setPledgeCount(e.target.value);
   };
 
@@ -50,7 +54,7 @@ export default function PledgeForm (props:PledgeFormProps) {
     setDescriptionArr(newDescriptionArr);
   };
 
-  const pledgeCountMenu = idx => (
+  const pledgeCountMenu = (idx) => (
     <MenuItem key={idx} value={idx}>
       {idx}
     </MenuItem>
@@ -58,11 +62,11 @@ export default function PledgeForm (props:PledgeFormProps) {
 
   // 배열로 업데이트한 값을 individual에서 받도록 수정해야함
   const overwriteEditData = () => {
-    if(!editData) return;
-    const titles:string[] = [];
-    const subTitles:string[] = [];
-    const descriptions:string[] = [];
-    editData.Promises.map((promise:PromiseType) => {
+    if (!editData) return;
+    const titles: string[] = [];
+    const subTitles: string[] = [];
+    const descriptions: string[] = [];
+    editData.Promises.map((promise: PromiseType) => {
       titles.push(promise.promiseTitle);
       subTitles.push(promise.promiseType);
       descriptions.push(promise.promiseDetail);
@@ -86,7 +90,7 @@ export default function PledgeForm (props:PledgeFormProps) {
 
   // 개별 input data를 pledgeData Array로 모으기
   useEffect(() => {
-    const pledgeData = pledgeCountArr.map(i => ({
+    const pledgeData = pledgeCountArr.map((i) => ({
       promiseOrder: i + 1,
       promiseType: titleArr[i],
       promiseTitle: subTitleArr[i],
@@ -99,31 +103,31 @@ export default function PledgeForm (props:PledgeFormProps) {
   return (
     <Grid container className={classes.section}>
       <Grid item className={classes.item}>
-        <Typography className={classes.sectionText} variant='h4' component='h4'>
+        <Typography className={classes.sectionText} variant="h4" component="h4">
           {TextData.sectionText.pledge}
         </Typography>
       </Grid>
       <Grid container>
         <Grid item className={classes.item}>
-          <Typography className={classes.titleText} variant='h4' component='h4'>
+          <Typography className={classes.titleText} variant="h4" component="h4">
             {TextData.titleText.pledge.Number}
           </Typography>
           <FormControl
             required
-            variant='outlined'
+            variant="outlined"
             className={classes.formControl}
           >
             <Select
-              labelId='demo-simple-select-required-label'
-              id='demo-simple-select-required'
+              labelId="demo-simple-select-required-label"
+              id="demo-simple-select-required"
               value={pledgeCount || 1}
               onChange={handlePledgeCount}
             >
-              {countArr.map(idx => pledgeCountMenu(idx))}
+              {countArr.map((idx) => pledgeCountMenu(idx))}
             </Select>
           </FormControl>
         </Grid>
-        {pledgeCountArr.map(idx => (
+        {pledgeCountArr.map((idx) => (
           <IndividualPledge
             key={idx}
             index={idx}
@@ -138,5 +142,4 @@ export default function PledgeForm (props:PledgeFormProps) {
       </Grid>
     </Grid>
   );
-};
-
+}

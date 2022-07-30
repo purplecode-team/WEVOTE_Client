@@ -16,7 +16,6 @@ import { withRouter } from 'react-router';
 
 const defaultText = '선거명을 입력하세요';
 
-
 function AutoBox({ history, data }: any) {
   const classes = useStyles();
   const [searchValue, setSearchValue] = useState<string>('');
@@ -26,7 +25,7 @@ function AutoBox({ history, data }: any) {
     setSearchValue(value);
   };
 
-  const handleSearchValue = e => {
+  const handleSearchValue = (e) => {
     setSearchValue(e.target.value);
   };
 
@@ -35,7 +34,7 @@ function AutoBox({ history, data }: any) {
     return 436;
   };
 
-  const enterKey = e => {
+  const enterKey = (e) => {
     if (e.key === 'Enter') {
       goLink();
     }
@@ -103,7 +102,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-let theme = createMuiTheme({
+const theme = createMuiTheme({
   overrides: {
     MuiSvgIcon: {
       root: {

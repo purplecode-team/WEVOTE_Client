@@ -1,74 +1,85 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
+import Skeleton from '@material-ui/lab/Skeleton';
 import bannerIcon from '../../../../../public/img/bannerIcon.svg';
 import { getFormatDate } from '../../../../utils/getFunction';
 import media from '../../../../lib/styles/media';
-import Skeleton from '@material-ui/lab/Skeleton';
 import styled from 'styled-components';
 import useFetch from '../../../../lib/hooks/useFetch';
 
-const initialData = [{id: 0, content: '공지사항 없음', startDate: new Date(), endDate: new Date()}]
+const initialData = [
+  {
+    id: 0,
+    content: '공지사항 없음',
+    startDate: new Date(),
+    endDate: new Date(),
+  },
+];
 
 const Notice = () => {
   const classes = useStyles();
-  const [{loading, data, error}, fetchData] = useFetch({
-    initialUrl: '/api/v1/main/banner',
-    initialData: initialData
-  })
+  const [{ loading, data, error }, fetchData] = useFetch('/api/v1/main/banner');
   const [index, setIndex] = useState<number>(0);
 
   useEffect(() => {
+    if (!data) return;
     const lastIndex = data.length - 1;
     let interval;
     interval = setInterval(() => {
-      setIndex( index < lastIndex ? index + 1 : 0);
+      setIndex(index < lastIndex ? index + 1 : 0);
     }, 5000);
     return () => clearInterval(interval);
   }, [index]);
 
   return (
     <NoticeBoard>
-      {loading 
-      ? <Skeleton animation="wave" variant="rect" className={classes.container}/>
-      : <Container>
-        <div>
-          <TitleBox>Notice</TitleBox>
-          <ArticleBox>
-            <Article>{data[index].content}</Article>
-          </ArticleBox>
-          <Day>{`${getFormatDate(new Date(data[index].startDate))} ~ ${getFormatDate(new Date(data[index].endDate))}`}</Day>
-        </div>
-        <BIcon />
-      </Container>
-      }
+      {loading ? (
+        <Skeleton
+          animation="wave"
+          variant="rect"
+          className={classes.container}
+        />
+      ) : (
+        <Container>
+          {data && (
+            <div>
+              <TitleBox>Notice</TitleBox>
+              <ArticleBox>
+                <Article>{data[index].content}</Article>
+              </ArticleBox>
+              <Day>{`${getFormatDate(
+                new Date(data[index].startDate)
+              )} ~ ${getFormatDate(new Date(data[index].endDate))}`}</Day>
+            </div>
+          )}
+          <BIcon />
+        </Container>
+      )}
     </NoticeBoard>
   );
 };
 
 export default Notice;
 
-const useStyles = makeStyles((theme: Theme) => (
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-  container: {
-    position: 'relative',
-    width: '95%',
-    height: '9.2rem',
-    marginLeft: '11px',
-    borderRadius: '10px',
-    [theme.breakpoints.up('mobile')] : {
-      width: '57.8rem',
-      height: '13.6rem',
-      marginLeft: '0',
-    }
-  },
-})
-));
+    container: {
+      position: 'relative',
+      width: '95%',
+      height: '9.2rem',
+      marginLeft: '11px',
+      borderRadius: '10px',
+      [theme.breakpoints.up('mobile')]: {
+        width: '57.8rem',
+        height: '13.6rem',
+        marginLeft: '0',
+      },
+    },
+  })
+);
 
-
-const NoticeBoard = styled.div`
-  
-`;
+const NoticeBoard = styled.div``;
 const Container = styled.div`
   position: relative;
   width: 57.8rem;
