@@ -64,6 +64,8 @@
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
     "@webpack-cli/serve": "^1.2.2",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
@@ -87,8 +89,8 @@
     "style-loader": "^2.0.0",
     "ts-loader": "^8.0.18",
     "typescript": "^4.2.3",
-    "webpack": "5.6.0",
-    "webpack-cli": "3.3.12",
+    "webpack": "^5.6.0",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2"
   },
   "husky": {
