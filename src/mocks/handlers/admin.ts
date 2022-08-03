@@ -34,27 +34,27 @@ export const getInfo = rest.get('/api/v1/admin/info', (req, res, ctx) =>
       {
         id: 1,
         image:
-          'https://gpbucket-bomi.s3.ap-northeast-2.amazonaws.com/info/1625247316487.png',
+          'https://user-images.githubusercontent.com/62092665/182570251-3f3857f0-f18b-419f-970d-8aa15a21325b.png',
       },
       {
         id: 2,
         image:
-          'https://gpbucket-bomi.s3.ap-northeast-2.amazonaws.com/info/1625247316491.png',
+          'https://user-images.githubusercontent.com/62092665/182570251-3f3857f0-f18b-419f-970d-8aa15a21325b.png',
       },
       {
         id: 3,
         image:
-          'https://gpbucket-bomi.s3.ap-northeast-2.amazonaws.com/info/1625247316558.png',
+          'https://user-images.githubusercontent.com/62092665/182570251-3f3857f0-f18b-419f-970d-8aa15a21325b.png',
       },
       {
         id: 4,
         image:
-          'https://gpbucket-bomi.s3.ap-northeast-2.amazonaws.com/info/1625247316559.png',
+          'https://user-images.githubusercontent.com/62092665/182570251-3f3857f0-f18b-419f-970d-8aa15a21325b.png',
       },
       {
         id: 5,
         image:
-          'https://gpbucket-bomi.s3.ap-northeast-2.amazonaws.com/info/1625247316569.png',
+          'https://user-images.githubusercontent.com/62092665/182570251-3f3857f0-f18b-419f-970d-8aa15a21325b.png',
       },
     ])
   )

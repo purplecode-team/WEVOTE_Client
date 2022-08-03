@@ -5,7 +5,7 @@ export const getPromise = rest.get(
   (req, res, ctx) =>
     res(
       ctx.status(200),
-      ctx.json([
+      ctx.json(
         {
           id: 1,
           organizationName: '총학',
@@ -13,7 +13,7 @@ export const getPromise = rest.get(
             {
               id: 8,
               order: 1,
-              slogan: '아브라카다브라 다 이루어져라',
+              slogan: '1팀 슬로건',
               Runners: [
                 {
                   id: 15,
@@ -215,7 +215,7 @@ export const getPromise = rest.get(
             {
               id: 10,
               order: 3,
-              slogan: '각 후보의 슬로건을 적어 넣습니다.',
+              slogan: '3팀 슬로건.',
               Runners: [
                 {
                   id: 15,
@@ -270,7 +270,7 @@ export const getPromise = rest.get(
             {
               id: 11,
               order: 4,
-              slogan: '각 후보의 슬로건을 적어 넣습니다.',
+              slogan: '4팀 슬로건',
               Runners: [
                 {
                   id: 15,
@@ -324,6 +324,6 @@ export const getPromise = rest.get(
             },
           ],
         },
-      ])
+      )
     )
 );
