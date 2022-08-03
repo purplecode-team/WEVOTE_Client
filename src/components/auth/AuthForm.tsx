@@ -1,65 +1,69 @@
 import { JAVASCRIPT_KEY, LOCAL_REDIRECT_URI, REDIRECT_URI } from './auth';
 import { Link, useHistory } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { verifyEmail, verifyName, verifyPassword } from '../../utils/getFunction';
+import {
+  verifyEmail,
+  verifyName,
+  verifyPassword,
+} from '../../utils/getFunction';
 
+import axios from 'axios';
 import Button from '../Common/Button';
 import { FormType } from '../../modules/auth';
 import KakaoLogin from 'react-kakao-login';
-import React from 'react';
-import axios from 'axios';
 import klogin from '../../../public/img/login/kakaoLogin.png';
 import media from '../../lib/styles/media';
+import React from 'react';
 import { tempSetUser } from '../../modules/user';
 import theme from '../../lib/styles/theme';
 import { useDispatch } from 'react-redux';
 
 type AuthFormProps = {
-  type: string,
-  form: FormType,
-  onChange: React.ChangeEventHandler<HTMLInputElement>,
-  onSubmit: React.FormEventHandler<HTMLFormElement>,
-}
+  type: string;
+  form: FormType;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
+};
 
 type styleProps = {
-  error?: boolean,
-}
+  error?: boolean;
+};
 
 const textMap = {
   login: '로그인',
   register: '회원가입',
 };
 
-const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
+const AuthForm = ({ type, form, onChange, onSubmit }: AuthFormProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const text = textMap[type];
   const isRegister = type === 'register';
 
-  const kakaoSuccess = res => {
-    axios.get(`${REDIRECT_URI}`, {
-      headers: {
-        Authorization: res.response.access_token,
-      },
-    })
-      .then(res => {
+  const kakaoSuccess = (res) => {
+    axios
+      .get(`${REDIRECT_URI}`, {
+        headers: {
+          Authorization: res.response.access_token,
+        },
+      })
+      .then((res) => {
         localStorage.setItem('Authorization', res.headers['Authorization']);
         localStorage.setItem('user', JSON.stringify(res.data));
         dispatch(tempSetUser({ user: res.data }));
         history.push('/');
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
       });
   };
 
-  const correctName = (form) => verifyName(form.nickName)
-  const correctEmail = (form) => verifyEmail(form.userId)
-  const correctPassword = (form) => verifyPassword(form.password)
-  const correctPasswordConfirm = (form) => (
-    form.password === form.passwordConfirm && form.password !== ''
-  )
-  
+  const correctName = (form) => verifyName(form.nickName);
+  const correctEmail = (form) => verifyEmail(form.userId);
+  const correctPassword = (form) => verifyPassword(form.password);
+  const correctPasswordConfirm = (form) =>
+    form.password === form.passwordConfirm && form.password !== '';
+
   const preventSubmit = () => {
     if (isRegister) {
       if (
@@ -67,12 +71,13 @@ const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
         correctPassword(form) &&
         correctPasswordConfirm(form) &&
         correctName(form)
-      ) return false;
-      return true
+      )
+        return false;
+      return true;
     }
     if (correctEmail(form) && correctPassword(form)) return false;
-    return true
-  }
+    return true;
+  };
 
   return (
     <AuthFormBlock>
@@ -106,7 +111,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
           value={form.userId}
         />
         <StyledLabel>{'비밀번호'}</StyledLabel>
-        <StyledInput 
+        <StyledInput
           error={!correctPassword(form)}
           autoComplete="password"
           name="password"
@@ -132,12 +137,14 @@ const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
         )}
 
         <ButtonBlock>
-          <Button type='submit' disabled={preventSubmit()}>{text}</Button>
+          <Button type="submit" disabled={preventSubmit()}>
+            {text}
+          </Button>
         </ButtonBlock>
         {!isRegister && (
           <APILoginBlock>
             <KakaoLogin
-              token={JAVASCRIPT_KEY}
+              token={JAVASCRIPT_KEY || ''}
               onSuccess={kakaoSuccess}
               onFail={console.error}
               onLogout={console.info}
@@ -150,8 +157,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }:AuthFormProps) => {
               <KakaoImg src={klogin} alt="klogin" />
             </KakaoLogin>
           </APILoginBlock>
-          )
-        }
+        )}
       </Form>
 
       <Footer>
@@ -229,8 +235,7 @@ const StyledInput = styled.input<styleProps>`
     props.error &&
     css`
       border: 1px solid #c00404;
-    `
-  }
+    `}
   @media (max-width: ${media.mobileL}px) {
     width: 94%;
     height: 40px;
