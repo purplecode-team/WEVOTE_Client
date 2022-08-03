@@ -18,7 +18,7 @@ type CandidateArticleProps = {
 };
 
 type styleProps = {
-  isCurrent?: boolean,
+  isCurrent?: boolean;
   mobileMargin?: number;
   laptopMargin?: number;
   MobileBoxSize?: number;
@@ -27,38 +27,47 @@ type styleProps = {
 const BoxSize = 360;
 const MobileBoxSize = 80;
 
-const CandidateSection = ({ title, teamArr, current, setCurrent }: CandidateArticleProps) => {
+const CandidateSection = ({
+  title,
+  teamArr,
+  current,
+  setCurrent,
+}: CandidateArticleProps) => {
   const [count, setCount] = useState(0);
 
-  const laptopMargin = (media.laptop-BoxSize*3)/6;
-  const mobileMargin = (window.innerWidth - window.innerWidth*0.75) / 2
+  const laptopMargin = (media.laptop - BoxSize * 3) / 6;
+  const mobileMargin = (window.innerWidth - window.innerWidth * 0.75) / 2;
 
   const onMoveRight = () => {
-    if (count+2 >= teamArr.length-1) return;
-    const cal = count+1; // 3*Math.floor(count/3)+3;
+    if (count + 2 >= teamArr.length - 1) return;
+    const cal = count + 1; // 3*Math.floor(count/3)+3;
     setCount(cal);
     setCurrent(cal);
   };
 
   const onMoveLeft = () => {
     if (count === 0) return;
-    const cal = count-1; //3*Math.floor(count/3)-1;
+    const cal = count - 1; //3*Math.floor(count/3)-1;
     setCount(cal);
     setCurrent(cal);
   };
 
   const showTeamCard = () => {
-    return teamArr.map((obj, index) => (
-      <Box
-        key={index}
-        isCurrent={current === index}
-        onClick={()=>setCurrent(index)}
-        MobileBoxSize={MobileBoxSize}
-        laptopMargin={laptopMargin}
-        mobileMargin={mobileMargin}>
-        <CandidateCard teamData={obj} />
-      </Box>
-    ));
+    return (
+      teamArr &&
+      teamArr.map((obj, index) => (
+        <Box
+          key={index}
+          isCurrent={current === index}
+          onClick={() => setCurrent(index)}
+          MobileBoxSize={MobileBoxSize}
+          laptopMargin={laptopMargin}
+          mobileMargin={mobileMargin}
+        >
+          <CandidateCard teamData={obj} />
+        </Box>
+      ))
+    );
   };
 
   return (
@@ -67,7 +76,7 @@ const CandidateSection = ({ title, teamArr, current, setCurrent }: CandidateArti
         <BarIcon>l</BarIcon>
         <CandidateTitle>{title} 후보</CandidateTitle>
         <InnerArticle>
-          <Carousel 
+          <Carousel
             isCentralize={teamArr.length < 3}
             count={count}
             setCount={setCount}
@@ -119,7 +128,7 @@ const Box = styled.div`
     css`
       opacity: 0.5;
       box-shadow: 0px 0px 0px 0px ${theme.BackgroundWhite};
-      &:hover{
+      &:hover {
         opacity: 1;
         cursor: pointer;
       }
@@ -167,7 +176,7 @@ const LeftIcon = styled(BsChevronLeft)`
   opacity: 0.5;
   &:hover {
     opacity: 1;
-    color: ${theme.DarkBlue}
+    color: ${theme.DarkBlue};
   }
   @media (max-width: ${media.mobileL}px) {
     display: none;
