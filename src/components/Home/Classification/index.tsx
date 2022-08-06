@@ -1,30 +1,23 @@
 import * as React from 'react';
 
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import {
   HasBottomType,
   HasMiddleType,
   Team,
 } from '../../../types/candidateType';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import {
-  useCandidateDispatch,
-  useCandidateState,
-} from '../../../context/CandidateProvider';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import Candidate from './Candidate';
 import CandidateRegister from '../../Admin/Candidate/Register';
 import Category from './Category';
 import { Modal } from 'react-responsive-modal';
+import { rootState } from '../../../modules';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { toggleCandidateEditor } from '../../../modules/toggle';
 import useFetch from '../../../lib/hooks/useFetch';
 import useGetCategory from '../../../lib/hooks/useGetCategory';
-
-const initialData = {
-  central: [{ id: 1, organizationName: '총학생회', Teams: [] }],
-  college: [{ id: 1, organizationName: '', Teams: [] }],
-  major: [{ id: 1, organizationName: '', Majors: [] }],
-};
 
 const topCategory = {
   central: '중앙자치기구',
@@ -48,9 +41,12 @@ const Classification = (props) => {
   const [{ loading, data, error }, fetchData] = useFetch('/api/v1/main/all');
   const [organizationId, setOrganizationId] = useState<number>();
   const [teamData, setTeamData] = useState<Team[]>([]);
-  const { isOpenEdit, id } = useCandidateState();
-  const setEditState = useCandidateDispatch();
-
+  const { toggleEditor, candidateId } = useSelector(({ toggle }:rootState)=>({
+    toggleEditor : toggle.toggleEditor,
+    candidateId : toggle.candidateId
+  }));
+  const dispatch = useDispatch();
+  
   // key에서 현재 index에 위치한 데이터셋을 가져온다
   const getCurrentDataSet = () => {
     const keys = Object.keys(topCategory);
@@ -94,7 +90,6 @@ const Classification = (props) => {
     handleBottomTeamData();
     return () => handleBottomTeamData();
   }, [data, currentIndex]);
-
   return (
     <section>
       {categoryState.loading ? (
@@ -133,13 +128,14 @@ const Classification = (props) => {
         refetch={fetchData}
       />
       <Modal
-        open={isOpenEdit}
+        open={toggleEditor}
         onClose={() => {
-          setEditState({
-            type: 'TOGGLE_EDIT_CANDIDATE',
-            isOpenEdit: false,
-            id: 0,
-          });
+          dispatch(
+            toggleCandidateEditor({
+              toggleEditor: false,
+              candidateId: candidateId,
+            })
+          );
         }}
         center
         classNames={{

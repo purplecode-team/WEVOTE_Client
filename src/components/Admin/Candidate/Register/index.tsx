@@ -1,20 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  useCandidateDispatch,
-  useCandidateState,
-} from '../../../../context/CandidateProvider';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { AxiosResponse } from 'axios';
 import Button from '@material-ui/core/Button';
 import CandidateForm from './Candidate';
 import { CandidateType } from '../../../../types/candidateType';
+import client from '../../../../lib/api/client';
 import Grid from '@material-ui/core/Grid';
 import Loader from '../../../Common/Loader';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import PledgeForm from './Pledge';
+import { rootState } from '../../../../modules';
 import TeamForm from './Team';
-import client from '../../../../lib/api/client';
-import { makeStyles } from '@material-ui/core/styles';
+import { toggleCandidateEditor } from '../../../../modules/toggle';
 import { useAlert } from 'react-alert';
 
 export type TeamType = {
@@ -41,8 +40,11 @@ export default function Register(props) {
   const [teamData, setTeamData] = useState<TeamType>(initialTeamData);
   const [editData, setEditData] = useState<CandidateType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { isOpenEdit, id } = useCandidateState();
-  const dispatch = useCandidateDispatch();
+  const { toggleEditor, candidateId } = useSelector(({ toggle }:rootState)=>({
+    toggleEditor : toggle.toggleEditor,
+    candidateId : toggle.candidateId
+  }));
+  const dispatch = useDispatch();
   const alert = useAlert();
 
   const handleCandidateData = (data) => {
@@ -81,10 +83,10 @@ export default function Register(props) {
   };
 
   const updateData = async () => {
-    if (!editData || !id) return;
+    if (!editData || !candidateId) return;
     setIsLoading(true);
     const data = {
-      id: id,
+      id: candidateId,
       order: teamData.teamNumber,
       slogan: teamData.slogan,
       categoryName: teamData.currentTop,
@@ -96,13 +98,15 @@ export default function Register(props) {
     };
     try {
       await client
-        .patch(`/api/v1/admin/candidate/${id}`, data)
+        .patch(`/api/v1/admin/candidate/${candidateId}`, data)
         .then((res) => {
           if (res.status !== 200) alert.error('후보 정보 업데이트 실패');
           else alert.success('후보 정보 업데이트 성공');
         })
         .catch((e) => alert.error('후보 정보 업데이트 실패'));
-      dispatch({ type: 'TOGGLE_EDIT_CANDIDATE', isOpenEdit: false, id: 0 });
+        dispatch(
+          toggleCandidateEditor({toggleEditor: false, candidateId: candidateId })
+        );
       refetch();
     } catch (e) {
       alert.error('후보 정보 업데이트 실패');
@@ -119,9 +123,9 @@ export default function Register(props) {
   }, []);
 
   useEffect(() => {
-    if (!isOpenEdit) return;
-    fetchData(`/api/v1/admin/candidate/${id}`);
-  }, [id]);
+    if (!toggleEditor) return;
+    fetchData(`/api/v1/admin/candidate/${candidateId}`);
+  }, [candidateId]);
 
   return (
     <>
