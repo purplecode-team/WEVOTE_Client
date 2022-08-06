@@ -15,90 +15,112 @@ import styled from 'styled-components';
 import { theme } from '../../../Admin/style';
 
 type CandidateArticleProps = {
-  organizationId?: number,
-  loading: boolean,
-  title: string,
-  teamArr: Team[],
+  organizationId?: number;
+  loading: boolean;
+  title: string;
+  teamArr: Team[];
   refetch?: () => void;
 };
 
 const emptyCardArr = [Img1, Img2, Img3];
 const emptyDescription = '후보가 등록되어 있지 않습니다.';
 
-export default function CandidateArticle (props: CandidateArticleProps) {
+export default function CandidateArticle(props: CandidateArticleProps) {
   const { loading, title, teamArr, organizationId, refetch } = props;
   const classes = useStyles();
   const [count, setCount] = useState(0);
 
-  const isEmptyTeamArr = 
-    typeof teamArr === 'undefined' ||
-    teamArr === null ||
-    teamArr.length === 0;
-  
-  useEffect(()=>{
+  const isEmptyTeamArr =
+    typeof teamArr === 'undefined' || teamArr === null || teamArr.length === 0;
+
+  useEffect(() => {
     setCount(0);
-    return ()=>setCount(0);
-  },[teamArr])
+    return () => setCount(0);
+  }, [teamArr]);
 
   return (
     <Article>
-      {loading 
-      ? <Skeleton animation="wave" variant="rect" className={classes.title}/>
-      : <CandidateTitle>{title} 후보</CandidateTitle>
-      }
+      {loading ? (
+        <Skeleton animation="wave" variant="rect" className={classes.title} />
+      ) : (
+        <CandidateTitle>{title} 후보</CandidateTitle>
+      )}
       <CarouselWrapper>
-        <Carousel 
+        <Carousel
           isLineBreak
           count={count}
           setCount={setCount}
           maxCount={teamArr.length}
         >
-          {loading ?
-          (<>
-            <Skeleton animation="wave" variant="rect" className={classes.card}/>
-            <Skeleton animation="wave" variant="rect" className={classes.card}/>
-            <Skeleton animation="wave" variant="rect" className={classes.card}/>
-          </>)
-          :
-          (isEmptyTeamArr
-            ? <CardList dataArr={emptyCardArr} alt={'empty card'} description={emptyDescription}/>
-            : <CardList isLink refetch={refetch} dataArr={teamArr} title={title} organizationId={organizationId} alt={'team card'} />
-          )
-          }
+          {loading ? (
+            <>
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                className={classes.card}
+              />
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                className={classes.card}
+              />
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                className={classes.card}
+              />
+            </>
+          ) : isEmptyTeamArr ? (
+            <CardList
+              dataArr={emptyCardArr}
+              alt={'empty card'}
+              description={emptyDescription}
+            />
+          ) : (
+            <CardList
+              isLink
+              refetch={refetch}
+              dataArr={teamArr}
+              title={title}
+              organizationId={organizationId}
+              alt={'team card'}
+            />
+          )}
         </Carousel>
       </CarouselWrapper>
     </Article>
   );
-};
+}
 
-const useStyles = makeStyles(() => (
+const useStyles = makeStyles(() =>
   createStyles({
-  title:{
-    width: '80px',
-    height: '30px',
-    borderRadius: '20px',
-    margin: '20px 0px 40px 20px',
-    [theme.breakpoints.up('mobile')] : {
-      width: '100px',
-      height: '40px',
-    }
-  },
-  card: {
-    borderRadius: '25px',
-    overflow: 'hidden',
-    boxSizing: 'border-box',
-    padding: '20px',
-    position: 'relative',
-    minWidth: '80vw',
-    maxWidth: '80vw',
-    height: '406px',
-    margin: '20px 5vw 20px 2.5vw',
-    [theme.breakpoints.up('mobile')] : {
-      minWidth: '360px',
-      margin: '20px 30px',
-    }
-  }
-})));
+    title: {
+      width: '80px',
+      height: '30px',
+      borderRadius: '20px',
+      margin: '20px 0px 40px 20px',
+      [theme.breakpoints.up('mobile')]: {
+        width: '100px',
+        height: '40px',
+      },
+    },
+    card: {
+      borderRadius: '25px',
+      overflow: 'hidden',
+      boxSizing: 'border-box',
+      padding: '20px',
+      position: 'relative',
+      minWidth: '80vw',
+      maxWidth: '80vw',
+      height: '406px',
+      margin: '20px 5vw 20px 2.5vw',
+      [theme.breakpoints.up('mobile')]: {
+        minWidth: '360px',
+        margin: '20px 30px',
+      },
+    },
+  })
+);
 
 const CandidateTitle = styled.h2`
   font-size: 2.4rem;
@@ -123,4 +145,3 @@ const Article = styled.article`
 const CarouselWrapper = styled.div`
   overflow: hidden;
 `;
-

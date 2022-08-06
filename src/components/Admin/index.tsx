@@ -1,10 +1,8 @@
 import { MenuData, menuType, smallMenuType } from './MenuData';
 import { theme, useStyles } from './style';
 
-import Calender from './Calender';
+import Calendar from './Calendar';
 import Candidate from './Candidate';
-import { cloneDeep } from 'lodash';
-import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -18,9 +16,11 @@ import Notice from './Notice';
 import PledgeBoard from './PledgeBoard';
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { cloneDeep } from 'lodash';
+import clsx from 'clsx';
 import { useState } from 'react';
 
-function AdminSection () {
+function AdminSection() {
   const classes = useStyles();
   const [menus, setMenus] = useState<menuType[]>(MenuData);
   const [currentMenuId, setCurrentMenuId] = useState<number>(1);
@@ -33,7 +33,7 @@ function AdminSection () {
 
   const Contents = [
     { id: 1, component: <Notice /> },
-    { id: 2, component: <Calender /> },
+    { id: 2, component: <Calendar /> },
     { id: 3, component: <Candidate currentSmallMenuId={currentSmallMenuId} /> },
     { id: 4, component: <Information /> },
     { id: 5, component: <PledgeBoard /> },
@@ -41,9 +41,9 @@ function AdminSection () {
 
   // 클릭한 메뉴를 active true로 변경, 나머지는 false
   // active 상태의 소메뉴 id 세팅
-  const handleMenus = e => {
+  const handleMenus = (e) => {
     const copyMenus = cloneDeep(menus);
-    const newMenus = copyMenus.map(obj => {
+    const newMenus = copyMenus.map((obj) => {
       if (e.target.innerText === obj.name) {
         obj.active = true;
         setCurrentMenuId(obj.id);
@@ -56,8 +56,8 @@ function AdminSection () {
     setMenus(newMenus);
   };
 
-  const handleCurrentSmallMenu = e => {
-    const newSmallMenu = currentSmallMenu.map(obj => {
+  const handleCurrentSmallMenu = (e) => {
+    const newSmallMenu = currentSmallMenu.map((obj) => {
       if (e.target.innerText === obj.name) {
         obj.active = true;
         setCurrentSmallMenuId(obj.id);
@@ -69,20 +69,15 @@ function AdminSection () {
     setCurrentSmallMenu(newSmallMenu);
   };
 
-  const renderMenu = () => (
+  const renderMenu = () =>
     menus.map(({ id, name, icon, active, smallMenu }) => (
       <div key={id}>
         <ListItem
           button
-          className={clsx(
-            classes.item,
-            active && classes.itemActiveItem
-          )}
+          className={clsx(classes.item, active && classes.itemActiveItem)}
           onClick={handleMenus}
         >
-          <ListItemIcon className={classes.itemIcon}>
-            {icon}
-          </ListItemIcon>
+          <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
           <ListItemText
             classes={{
               primary: classes.itemPrimary,
@@ -93,38 +88,34 @@ function AdminSection () {
         </ListItem>
         {active && renderSmallMenu(smallMenu)}
       </div>
-    ))
-  )
+    ));
 
-  const renderSmallMenu = small => (
+  const renderSmallMenu = (small) =>
     small.map((obj) => (
       <ListItem
         key={obj.id}
-        className={clsx(
-          classes.smallItem,
-          obj.active && classes.activeItem
-        )}
+        className={clsx(classes.smallItem, obj.active && classes.activeItem)}
         button
         onClick={handleCurrentSmallMenu}
       >
         <ListItemText primary={obj.name} />
       </ListItem>
-    ))
-  )
+    ));
 
-  const renderContent = () => (
-    Contents.filter(component => component.id === currentMenuId)[0].component
-  )
-  
+  const renderContent = () =>
+    Contents.filter((component) => component.id === currentMenuId)[0].component;
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
         <nav className={classes.drawer}>
-          <Hidden xsDown implementation='css'>
-            <Drawer variant='permanent' className={classes.drawer}>
+          <Hidden xsDown implementation="css">
+            <Drawer variant="permanent" className={classes.drawer}>
               <List className={classes.paper} disablePadding>
-                <ListItem className={clsx(classes.firebase, classes.itemCategory)}>
+                <ListItem
+                  className={clsx(classes.firebase, classes.itemCategory)}
+                >
                   {GreetingMessage}
                 </ListItem>
                 {menus && renderMenu()}
@@ -134,9 +125,7 @@ function AdminSection () {
           </Hidden>
         </nav>
         <main className={classes.app}>
-          <section className={classes.main}>
-            {renderContent()}
-          </section>
+          <section className={classes.main}>{renderContent()}</section>
         </main>
       </div>
     </ThemeProvider>

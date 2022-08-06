@@ -3,11 +3,11 @@ import Editor from './Editor';
 import React from 'react';
 import Register from './Register';
 
-type Props ={
-  currentSmallMenuId: number,
-}
+type Props = {
+  currentSmallMenuId: number;
+};
 
-export default function Candidate ({ currentSmallMenuId}:Props) {
+export default function Candidate({ currentSmallMenuId }: Props) {
   const Content = [
     { id: 1, component: <Category /> },
     { id: 2, component: <Register /> },
@@ -17,9 +17,9 @@ export default function Candidate ({ currentSmallMenuId}:Props) {
   return (
     <>
       {
-        Content.filter(component => component.id === currentSmallMenuId)[0]
+        Content.filter((component) => component.id === currentSmallMenuId)[0]
           .component
       }
     </>
   );
-};
+}

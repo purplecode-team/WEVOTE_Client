@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 type Data = {
-  name: String;
-  numOfTeam: Number;
-  type: String;
-  startDate: String;
-  endDate: String;
+  name: string;
+  numOfTeam: number;
+  type: string;
+  startDate: string;
+  endDate: string;
 };
 
 type SlideProps = {

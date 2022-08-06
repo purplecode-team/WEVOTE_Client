@@ -16,12 +16,12 @@ import useGetCategory from '../../../../../lib/hooks/useGetCategory';
 import { useStyles } from '../RegisterStyle';
 
 type TeamFormProps = {
-  handleTeamData: (data:TeamType) => void,
-  editData: CandidateType|null,
-}
+  setTeamData: React.Dispatch<React.SetStateAction<TeamType>>;
+  editData: CandidateType | null;
+};
 
-export default function TeamForm (props:TeamFormProps) {
-  const { handleTeamData, editData } = props;
+export default function TeamForm(props: TeamFormProps) {
+  const { setTeamData, editData } = props;
   const classes = useStyles();
   const {
     categoryState,
@@ -50,43 +50,43 @@ export default function TeamForm (props:TeamFormProps) {
     Boolean(teamNumber);
 
   // 후보 팀 공통 정보 등록
-  const handleSlogan = e => {
+  const handleSlogan = (e) => {
     setSlogan(e.target.value);
   };
 
-  const handleClassificationTop = e => {
+  const handleClassificationTop = (e) => {
     setCurrentTop(e.target.value);
-    getNewMiddleList(e.target.value)();
+    getNewMiddleList(e.target.value);
   };
 
-  const handleClassificationMiddle = e => {
+  const handleClassificationMiddle = (e) => {
     setCurrentMiddle(e.target.value);
-    getNewBottomList(e.target.value)();
+    getNewBottomList(e.target.value);
   };
 
-  const handleClassificationBottom = e => {
+  const handleClassificationBottom = (e) => {
     setCurrentBottom(e.target.value);
   };
 
-  const handleTeamNumber = e => {
+  const handleTeamNumber = (e) => {
     setTeamNumber(e.target.value);
   };
 
   const overwriteEditData = () => {
-    if(!editData) return;
+    if (!editData) return;
     setSlogan(editData.slogan);
     setTeamNumber(editData.order);
     if (editData.majorName) setCurrentBottom(editData.majorName);
 
     const currentTopIndex = topList.indexOf(editData.categoryName);
     const midList = categoryState.data[currentTopIndex].middle.map(
-      mid => mid.organizationName
+      (mid) => mid.organizationName
     );
     const currentMidIndex = midList.indexOf(editData.categoryDetail);
     setMiddleList(midList);
     const botList = hasBottom
       ? categoryState.data[currentTopIndex].middle[currentMidIndex].Majors.map(
-          mid => mid.organizationName
+          (mid) => mid.organizationName
         )
       : [];
     const currentBotIndex = hasBottom ? botList.indexOf(editData.majorName) : 0;
@@ -101,7 +101,7 @@ export default function TeamForm (props:TeamFormProps) {
   const renderMenuItem = () => {
     const maxMenuCount = 6;
     const menuArr = Array.from({ length: maxMenuCount }, (_, i) => i + 1);
-    return menuArr.map(m => (
+    return menuArr.map((m) => (
       <MenuItem key={m} value={m}>
         {m}
       </MenuItem>
@@ -145,14 +145,14 @@ export default function TeamForm (props:TeamFormProps) {
         currentBottom,
         teamNumber,
       };
-      handleTeamData(teamData);
+      setTeamData(teamData);
     }
   }, [slogan, currentMiddle, currentBottom, teamNumber]);
 
   return (
     <Grid container className={classes.section}>
       <Grid item className={classes.item}>
-        <Typography className={classes.sectionText} variant='h4' component='h4'>
+        <Typography className={classes.sectionText} variant="h4" component="h4">
           {TextData.sectionText.team}
         </Typography>
       </Grid>
@@ -162,23 +162,23 @@ export default function TeamForm (props:TeamFormProps) {
         </Grid>
       ) : (
         <Grid container>
-          <Grid container wrap='nowrap' >
+          <Grid container wrap="nowrap">
             <Grid item className={classes.gridInput}>
               <Typography
                 className={classes.titleText}
-                variant='h4'
-                component='h4'
+                variant="h4"
+                component="h4"
               >
                 {TextData.titleText.candidate.classificationTop}
               </Typography>
               <FormControl
                 required
-                variant='outlined'
+                variant="outlined"
                 className={classes.formControl}
               >
                 <Select
-                  labelId='label'
-                  id='select'
+                  labelId="label"
+                  id="select"
                   value={currentTop}
                   onChange={handleClassificationTop}
                 >
@@ -194,19 +194,19 @@ export default function TeamForm (props:TeamFormProps) {
             <Grid item className={classes.gridInput}>
               <Typography
                 className={classes.titleText}
-                variant='h4'
-                component='h4'
+                variant="h4"
+                component="h4"
               >
                 {TextData.titleText.candidate.classificationMiddle}
               </Typography>
               <FormControl
                 required
-                variant='outlined'
+                variant="outlined"
                 className={classes.formControl}
               >
                 <Select
-                  labelId='label2'
-                  id='select2'
+                  labelId="label2"
+                  id="select2"
                   value={currentMiddle}
                   onChange={handleClassificationMiddle}
                 >
@@ -223,19 +223,19 @@ export default function TeamForm (props:TeamFormProps) {
               <Grid item className={classes.gridInput}>
                 <Typography
                   className={classes.titleText}
-                  variant='h4'
-                  component='h4'
+                  variant="h4"
+                  component="h4"
                 >
                   {TextData.titleText.candidate.classificationBottom}
                 </Typography>
                 <FormControl
                   required
-                  variant='outlined'
+                  variant="outlined"
                   className={classes.formControl}
                 >
                   <Select
-                    labelId='label3'
-                    id='select3'
+                    labelId="label3"
+                    id="select3"
                     value={currentBottom}
                     onChange={handleClassificationBottom}
                   >
@@ -250,21 +250,21 @@ export default function TeamForm (props:TeamFormProps) {
               </Grid>
             )}
           </Grid>
-          <Grid container wrap='nowrap' >
+          <Grid container wrap="nowrap">
             <Grid item className={classes.gridInput}>
               <Typography
                 className={classes.titleText}
-                variant='h4'
-                component='h4'
+                variant="h4"
+                component="h4"
               >
                 {TextData.titleText.slogan}
               </Typography>
               <TextField
                 className={classes.textField}
-                id='outlined-basic'
-                placeholder='슬로건을 20자 내외로 입력하세요'
-                variant='outlined'
-                error={!Boolean(slogan)}
+                id="outlined-basic"
+                placeholder="슬로건을 20자 내외로 입력하세요"
+                variant="outlined"
+                error={!slogan}
                 value={slogan}
                 onChange={handleSlogan}
               />
@@ -272,19 +272,19 @@ export default function TeamForm (props:TeamFormProps) {
             <Grid item className={classes.gridInput}>
               <Typography
                 className={classes.titleText}
-                variant='h4'
-                component='h4'
+                variant="h4"
+                component="h4"
               >
                 {TextData.titleText.candidate.teamNumber}
               </Typography>
               <FormControl
                 required
-                variant='outlined'
+                variant="outlined"
                 className={classes.formControl}
               >
                 <Select
-                  labelId='demo-simple-select-required-label'
-                  id='demo-simple-select-required'
+                  labelId="demo-simple-select-required-label"
+                  id="demo-simple-select-required"
                   value={teamNumber}
                   onChange={handleTeamNumber}
                 >
@@ -297,4 +297,4 @@ export default function TeamForm (props:TeamFormProps) {
       )}
     </Grid>
   );
-};
+}

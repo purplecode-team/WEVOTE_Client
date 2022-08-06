@@ -1,9 +1,9 @@
-import Calender from './Calender';
+import Calendar from './Calendar';
 import InfoCard from './InfoCard';
-import media from '../../../lib/styles/media';
 import Notice from './Notice';
 import React from 'react';
 import Search from './Search';
+import media from '../../../lib/styles/media';
 import styled from 'styled-components';
 
 const HomeBoard = () => {
@@ -19,7 +19,7 @@ const HomeBoard = () => {
         <Notice />
       </NoticeBoard>
       <ImgArea>
-        <Calender />
+        <Calendar />
       </ImgArea>
     </Board>
   );

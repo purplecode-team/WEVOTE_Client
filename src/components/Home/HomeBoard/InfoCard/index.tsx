@@ -1,46 +1,49 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useRef, useState } from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
-import media from '../../../../lib/styles/media';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Slide from './Slide';
+import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
 import useFetch from '../../../../lib/hooks/useFetch';
 
-const initialData = [{
-  id: null,
-  name: '미등록',
-  numOfTeam: 0,
-  type: '미정',
-},{
-  id: null,
-  name: '미등록',
-  numOfTeam: 0,
-  type: '미정',
-},{
-  id: null,
-  name: '미등록',
-  numOfTeam: 0,
-  type: '미정',
-}]
+const initialData = [
+  {
+    id: null,
+    name: '미등록',
+    numOfTeam: 0,
+    type: '미정',
+  },
+  {
+    id: null,
+    name: '미등록',
+    numOfTeam: 0,
+    type: '미정',
+  },
+  {
+    id: null,
+    name: '미등록',
+    numOfTeam: 0,
+    type: '미정',
+  },
+];
 
 const slideSize = 204;
 const slidePerPage = 3;
 
 const InfoCard = () => {
   const classes = useStyles();
-  const [{loading, data, error}, fetchData] = useFetch({
-    initialUrl: '/api/v1/main/election',
-    initialData: initialData,
-  })
+  const [{ loading, data, error }, fetchData] = useFetch(
+    '/api/v1/main/election'
+  );
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const slideRef = useRef<any>();
 
-  const lastIndex = data.length;
+  const lastIndex = data ? data.length : 0;
 
   const nextSlide = () => {
-    if (currentSlide+(slidePerPage-1) >= lastIndex-1) {
+    if (currentSlide + (slidePerPage - 1) >= lastIndex - 1) {
       setCurrentSlide(0);
     } else {
       setCurrentSlide(currentSlide + 1);
@@ -48,7 +51,7 @@ const InfoCard = () => {
   };
   const prevSlide = () => {
     if (currentSlide === 0) {
-      setCurrentSlide(lastIndex-1-(slidePerPage-1));
+      setCurrentSlide(lastIndex - 1 - (slidePerPage - 1));
     } else {
       setCurrentSlide(currentSlide - 1);
     }
@@ -58,49 +61,56 @@ const InfoCard = () => {
     slideRef.current.style.transform = `translateX(-${
       currentSlide * slideSize
     }px)`; // 이동하는 애니메이션
-    return () => {null};
+    return () => {
+      null;
+    };
   }, [currentSlide]);
 
-  const renderCard = () => (
+  const renderCard = () =>
+    data &&
     data.map((obj, i) => {
       const uri = obj.id ? `/promise/promise-detail/${obj.id}` : '/';
       return (
         <Link key={i} to={uri}>
-          {loading
-          ? <Skeleton animation="wave" variant="rect" className={classes.card}/>
-          : <Slide data={data[i]} />
-          }
+          {loading ? (
+            <Skeleton
+              animation="wave"
+              variant="rect"
+              className={classes.card}
+            />
+          ) : (
+            <Slide data={data[i]} />
+          )}
         </Link>
-      )})
-  )
+      );
+    });
 
   return (
     <Container>
-      <SliderContainer ref={slideRef}>
-        {renderCard()}
-      </SliderContainer>
-      {!loading &&
-      <ButtonContainer>
-        <Button onClick={prevSlide}>Prev</Button>
-        <Button onClick={nextSlide}>Next</Button>
-      </ButtonContainer>}
+      <SliderContainer ref={slideRef}>{renderCard()}</SliderContainer>
+      {!loading && (
+        <ButtonContainer>
+          <Button onClick={prevSlide}>Prev</Button>
+          <Button onClick={nextSlide}>Next</Button>
+        </ButtonContainer>
+      )}
     </Container>
   );
 };
 
 export default InfoCard;
 
-const useStyles = makeStyles((theme: Theme) => (
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-  card: {
-    display: 'inline-block',
-    width: '170px',
-    height: '224px',
-    marginRight: '34px',
-    borderRadius: '2rem',
-  }})
-));
-
+    card: {
+      display: 'inline-block',
+      width: '170px',
+      height: '224px',
+      marginRight: '34px',
+      borderRadius: '2rem',
+    },
+  })
+);
 
 const Container = styled.div`
   @media (max-width: ${media.mobileL}px) {

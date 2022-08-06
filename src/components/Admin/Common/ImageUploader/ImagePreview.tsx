@@ -5,14 +5,14 @@ import defaultImg from '../../../../../public/img/noimg.jpg';
 import styled from 'styled-components';
 
 type PreviewProps = {
-  fileUrl: any[],
-  alt: string,
-  resetImg: () => void,
-  width: number | string,
-  height: number | string,
-}
+  fileUrl: any[];
+  alt: string;
+  resetImg: () => void;
+  width: number | string;
+  height: number | string;
+};
 
-export default function ImagePreview (props:PreviewProps) {
+export default function ImagePreview(props: PreviewProps) {
   const { fileUrl, alt, resetImg, width, height } = props;
   const [urls, setUrls] = useState<any>([]);
 
@@ -36,7 +36,7 @@ export default function ImagePreview (props:PreviewProps) {
       return;
     }
     // 이미지 최대 9개
-    let temp:any = [];
+    const temp: any = [];
     for (let i = 0; i < fileUrl.length; i++) {
       if (i >= MaxFileSize) break;
       temp.push(fileUrl[i]);
@@ -56,7 +56,7 @@ export default function ImagePreview (props:PreviewProps) {
               onError={handleImgError}
             />
             ;
-            <Button type='button' onClick={resetImg}>
+            <Button type="button" onClick={resetImg}>
               <CloseIcon />
             </Button>
           </ImageBlock>

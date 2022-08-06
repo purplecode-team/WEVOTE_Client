@@ -7,18 +7,18 @@ import createRequestSaga, {
 } from '../lib/saga/createRequestSaga';
 
 export type userType = {
-  userId: String,
-  password: String,
-  nickName: String,
-  status: String,
-}
+  userId: string;
+  password: string;
+  nickName: string;
+  status: string;
+};
 
 export type userState = {
-  user?: userType | null,
-  checkError?: any
-}
+  user?: userType | null;
+  checkError?: any;
+};
 
- // 새로고침 이후 임시 로그인 처리
+// 새로고침 이후 임시 로그인 처리
 const TEMP_SET_USER = 'user/TEMP_SET_USER';
 // 회원 정보 확인
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
@@ -26,13 +26,13 @@ const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
 );
 const LOGOUT = 'user/LOGOUT';
 
-export const tempSetUser = createAction(TEMP_SET_USER, user => user);
+export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 export const check = createAction(CHECK);
 export const logoutAction = createAction(LOGOUT);
 
 // const checkSaga = createRequestSaga(CHECK, authAPI.check);
 
-function checkFailureSaga () {
+function checkFailureSaga() {
   try {
     localStorage.removeItem('user'); // localStorage 에서 user 제거하고
   } catch (e) {
@@ -40,7 +40,7 @@ function checkFailureSaga () {
   }
 }
 
-function * logoutSaga () {
+function* logoutSaga() {
   try {
     yield call(authAPI.logout); // logout API 호출
     localStorage.removeItem('user'); // localStorage 에서 user 제거
@@ -49,7 +49,7 @@ function * logoutSaga () {
   }
 }
 
-export function * userSaga () {
+export function* userSaga() {
   // yield takeLatest(CHECK, checkSaga);
   yield takeLatest(CHECK_FAILURE, checkFailureSaga);
   yield takeLatest(LOGOUT, logoutSaga);
@@ -76,7 +76,7 @@ export default handleActions(
       user: null,
       checkError: error,
     }),
-    [LOGOUT]: state => ({
+    [LOGOUT]: (state) => ({
       ...state,
       user: null,
     }),

@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-export default function Register (props) {
+export default function Register(props) {
   const {
     submitData,
     data,
@@ -28,11 +28,11 @@ export default function Register (props) {
 
   const buttonText = '입력';
 
-  const handleMiddleInputValue = e => {
+  const handleMiddleInputValue = (e) => {
     setMiddleValue(e.target.value);
   };
 
-  const handleBottomInputValue = e => {
+  const handleBottomInputValue = (e) => {
     setBottomValue(e.target.value);
   };
 
@@ -44,7 +44,7 @@ export default function Register (props) {
   useEffect(() => {
     const currentTop = data[currentIndex.top].top;
     let currentMiddle = middleValue;
-    let currentBottom = bottomValue;
+    const currentBottom = bottomValue;
     if (!middleValue && data[currentIndex.top].middle.length !== 0) {
       currentMiddle = middleList[currentIndex.middle];
     }
@@ -57,7 +57,7 @@ export default function Register (props) {
 
   return (
     <form className={classes.contentWrapper} onSubmit={submitData}>
-      <Grid container spacing={2} justify='center' className={classes.root}>
+      <Grid container spacing={2} justify="center" className={classes.root}>
         <Grid item className={classes.card}>
           {customList('top', '대분류', topList)(getNewMiddleList)}
         </Grid>
@@ -66,20 +66,20 @@ export default function Register (props) {
           {!hasBottom && (
             <Grid item className={classes.item}>
               <TextField
-                id='outlined-basic'
+                id="outlined-basic"
                 className={classes.inputText}
-                placeholder='입력하세요.'
-                variant='outlined'
+                placeholder="입력하세요."
+                variant="outlined"
                 autoFocus
                 value={middleValue}
                 onChange={handleMiddleInputValue}
               />
 
               <Button
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 className={classes.button}
-                type='submit'
+                type="submit"
               >
                 {buttonText}
               </Button>
@@ -96,18 +96,18 @@ export default function Register (props) {
             <Divider />
             <Grid item className={classes.item}>
               <TextField
-                id='outlined-basic'
+                id="outlined-basic"
                 className={classes.inputText}
-                placeholder='입력하세요.'
-                variant='outlined'
+                placeholder="입력하세요."
+                variant="outlined"
                 autoFocus
                 value={bottomValue}
                 onChange={handleBottomInputValue}
               />
               <Button
-                variant='contained'
-                color='primary'
-                type='submit'
+                variant="contained"
+                color="primary"
+                type="submit"
                 className={classes.button}
               >
                 {buttonText}
@@ -120,7 +120,7 @@ export default function Register (props) {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     margin: 'auto',
   },

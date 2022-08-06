@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import {useEffect, useRef} from 'react';
+import { useEffect, useRef } from 'react';
 
 import CategoryItem from './CategoryItem';
 import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
 
 type ClassificationProps = {
-  getNewMiddleList: (HTMLInputElement: any) => () => void;
-  getNewBottomList: (HTMLInputElement: any) => () => void;
+  getNewMiddleList: (HTMLInputElement: any) => void;
+  getNewBottomList: (HTMLInputElement: any) => void;
   handleBottomCurrentIndex: (HTMLInputElement: any) => () => void;
   topList: string[];
   middleList: string[];
@@ -28,27 +28,35 @@ const ClassificationCategory = ({
   const middleScrollRef = useRef<HTMLDivElement>(null);
   const bottomScrollRef = useRef<HTMLDivElement>(null);
 
-  const handleMiddleList = e => {
-    getNewMiddleList(e.target.innerText)();
-  }
+  const handleMiddleList = (e) => {
+    getNewMiddleList(e.target.innerText);
+  };
 
-  const handleBottomList = e => {
-    getNewBottomList(e.target.innerText)();
-  }
+  const handleBottomList = (e) => {
+    getNewBottomList(e.target.innerText);
+  };
 
-  const handleBottomIndex = e => {
+  const handleBottomIndex = (e) => {
     handleBottomCurrentIndex(e.target.innerText)();
-  }
+  };
 
-  useEffect(()=>{
-    if (bottomScrollRef.current === null) return
-    bottomScrollRef.current.scrollTo({top:bottomScrollRef.current.scrollTop, left: 0, behavior:'auto'})
-  },[bottomList])
-  
-  useEffect(()=>{
-    if (middleScrollRef.current === null) return
-    middleScrollRef.current.scrollTo({top:middleScrollRef.current.scrollTop, left: 0, behavior:'auto'})
-  },[middleList])
+  useEffect(() => {
+    if (bottomScrollRef.current === null) return;
+    bottomScrollRef.current.scrollTo({
+      top: bottomScrollRef.current.scrollTop,
+      left: 0,
+      behavior: 'auto',
+    });
+  }, [bottomList]);
+
+  useEffect(() => {
+    if (middleScrollRef.current === null) return;
+    middleScrollRef.current.scrollTo({
+      top: middleScrollRef.current.scrollTop,
+      left: 0,
+      behavior: 'auto',
+    });
+  }, [middleList]);
 
   return (
     <>
@@ -67,7 +75,7 @@ const ClassificationCategory = ({
         </TopCategoryList>
       </BackgroundBar>
       <BackgroundBar ref={middleScrollRef} color="#EAE3FF">
-        <CategoryList >
+        <CategoryList>
           {middleList.map((item, index) => {
             return (
               <CategoryItem
@@ -82,7 +90,7 @@ const ClassificationCategory = ({
       </BackgroundBar>
       {bottomList[currentIndex.bottom] && (
         <BackgroundBar ref={bottomScrollRef} color="#F1ECFF">
-          <CategoryList >
+          <CategoryList>
             {bottomList.map((item, index) => (
               <CategoryItem
                 key={index}
@@ -104,8 +112,8 @@ const BackgroundBar = styled.div`
   height: 100%;
   overflow-x: scroll;
   -ms-overflow-style: none;
-  &::-webkit-scrollbar{
-    display:none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 

@@ -4,9 +4,9 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 
 import Carousel from '../Common/Carousel';
-import defaultImg from '../../../public/img/noimg.jpg';
 import InformationIcon from '../../../public/img/InformationIcon.svg';
 import Loader from '../Common/Loader';
+import defaultImg from '../../../public/img/noimg.jpg';
 import media from '../../lib/styles/media';
 import styled from 'styled-components';
 import theme from '../../lib/styles/theme';
@@ -15,29 +15,28 @@ import useFetch from '../../lib/hooks/useFetch';
 type styleProps = {
   locationX?: number;
   mobileMargin?: number;
-  laptopMargin?:number;
+  laptopMargin?: number;
   MobileBoxSize?: number;
 };
 
 const LaptopBoxSize = 480;
 const MobileBoxSize = 80;
-let moveWidth = media.laptop;
+const moveWidth = media.laptop;
 
 const Information = () => {
-  const [{ loading, data, error }, fetchData] = useFetch({
-    initialUrl: '/api/v1/admin/info',
-    initialData: [{ id: 0, image: '' }],
-  });
+  const [{ loading, data, error }, fetchData] = useFetch('/api/v1/admin/info');
   const [count, setCount] = useState<number>(0);
   const [isLapTop, setIsLapTop] = useState<boolean>(false);
   const infoWrapRef = useRef<HTMLDivElement>(null);
-  
+
   const infoTitle = '선거 안내';
-  const laptopMargin = (moveWidth-LaptopBoxSize)/2;
-  const mobileMargin = (window.innerWidth - window.innerWidth*MobileBoxSize/100) / 2
+  const laptopMargin = (moveWidth - LaptopBoxSize) / 2;
+  const mobileMargin =
+    (window.innerWidth - (window.innerWidth * MobileBoxSize) / 100) / 2;
 
   const onMoveRight = () => {
-    if (count >= data.length -1) return;
+    if (!data) return;
+    if (count >= data.length - 1) return;
     setCount(count + 1);
   };
 
@@ -46,31 +45,35 @@ const Information = () => {
     setCount(count - 1);
   };
 
-  const handleImgError = e => {
+  const handleImgError = (e) => {
     e.target.src = defaultImg;
-  }
+  };
 
   useEffect(() => {
-    if(infoWrapRef.current === null) return;
-    if(infoWrapRef.current.clientWidth >= media.laptop){
+    if (infoWrapRef.current === null) return;
+    if (infoWrapRef.current.clientWidth >= media.laptop) {
       setIsLapTop(true);
-      const calculation = (count * 100)+'%';
-      infoWrapRef.current.style.transition = 'all 0.4s cubic-bezier(0.8, 0, 0.2, 1)';
+      const calculation = count * 100 + '%';
+      infoWrapRef.current.style.transition =
+        'all 0.4s cubic-bezier(0.8, 0, 0.2, 1)';
       infoWrapRef.current.style.transform = `translateX(-${calculation})`;
     }
   }, [count]);
 
   const showTeamCard = () => {
-    return data.map((obj, index) => (
-      <Box 
-        key={index}
-        laptopMargin={laptopMargin} 
-        mobileMargin={mobileMargin} 
-        MobileBoxSize={MobileBoxSize}
-      >
-        <Img src={obj.image} alt="information" onError={handleImgError}/>
-      </Box>
-    ));
+    return (
+      data &&
+      data.map((obj, index) => (
+        <Box
+          key={index}
+          laptopMargin={laptopMargin}
+          mobileMargin={mobileMargin}
+          MobileBoxSize={MobileBoxSize}
+        >
+          <Img src={obj.image} alt="information" onError={handleImgError} />
+        </Box>
+      ))
+    );
   };
 
   return (
@@ -83,10 +86,7 @@ const Information = () => {
         <Loader />
       ) : (
         <InfoWrapper ref={infoWrapRef}>
-          <Carousel
-            setCount={setCount}
-            count={isLapTop ? 0 : count}
-          >
+          <Carousel setCount={setCount} count={isLapTop ? 0 : count}>
             {showTeamCard()}
           </Carousel>
         </InfoWrapper>
@@ -160,7 +160,7 @@ const LeftIcon = styled(BsChevronLeft)`
   opacity: 0.5;
   &:hover {
     opacity: 1;
-    color: ${theme.Blue}
+    color: ${theme.Blue};
   }
   @media (max-width: ${media.mobileL}px) {
     display: none;

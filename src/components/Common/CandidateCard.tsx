@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { useCandidateDispatch, useCandidateState } from '../../context/CandidateProvider';
 import { useEffect, useState } from 'react';
 
 import client from '../../lib/api/client';
@@ -11,7 +10,9 @@ import media from '../../lib/styles/media';
 import styled from 'styled-components';
 import { Team } from '../../types/candidateType';
 import theme from '../../lib/styles/theme';
+import { toggleCandidateEditor } from '../../modules/toggle';
 import { useAlert } from 'react-alert';
+import { useDispatch } from 'react-redux';
 
 type TeamProps = {
   teamData: Team;
@@ -22,12 +23,12 @@ type TeamProps = {
 const CandidateCard = ({ teamData, title, refetch }: TeamProps) => {
   const [isAdminPage, setAdminPage] = useState(false);
   const alert = useAlert();
-  const dispatch = useCandidateDispatch();
+  const dispatch = useDispatch();
 
   const editCandidate = e => {
     e.stopPropagation();
     // delete 클릭 시, 이벤트
-    dispatch({type: 'TOGGLE_EDIT_CANDIDATE', isOpenEdit: true, id: teamData.id});
+    dispatch(toggleCandidateEditor({toggleEditor: true, candidateId: teamData.id}));
   }
 
   const deleteCandidate = async e => {
