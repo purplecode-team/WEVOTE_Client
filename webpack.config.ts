@@ -1,6 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const dotenv = require('dotenv');
+const webpack = require('webpack');
+dotenv.config();
 
 module.exports = {
   mode: 'development', // production(default) 모드는 배포용으로 압축, 난독화, 최적화 등의 작업
@@ -46,12 +49,15 @@ module.exports = {
       // HTML 파일에 번들링된 자바스크립트 파일을 삽입해주고 번들링된 결과가 저장되는 폴더에 옮김.
       template: './public/index.html',
     }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
   ],
   entry: './src/index.tsx',
   output: {
     // 웹팩의 결과물에 대한 정보
     path: path.resolve(__dirname, '/dist'),
-    filename: '[name].[chunkhash].js', 
+    filename: '[name].[chunkhash].js',
   },
   optimization: {
     runtimeChunk: {
@@ -61,6 +67,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
+    alias: {
+      '@img': path.resolve(__dirname, './public/img'),
+    },
   },
   devtool: 'eval-cheap-source-map', // 번들링된 파일에서 에러 위치 확인
   devServer: {
@@ -68,6 +77,6 @@ module.exports = {
     historyApiFallback: true,
     overlay: true,
     hot: true,
-    contentBase : '/public'
+    contentBase: '/public',
   },
 };
