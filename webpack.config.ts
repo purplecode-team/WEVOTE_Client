@@ -74,7 +74,19 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
     alias: {
-      '@img': path.resolve(__dirname, './public/img'),
+      '@': path.resolve(__dirname, 'src/'),
+      '@asset': path.resolve(__dirname, 'src/asset'),
+      '@icon': path.resolve(__dirname, 'src/asset/icon'),
+      '@img': path.resolve(__dirname, 'src/asset/img'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@module': path.resolve(__dirname, 'src/module'),
+      '@mock': path.resolve(__dirname, 'src/mock'),
+      '@util': path.resolve(__dirname, 'src/util'),
+      '@hook': path.resolve(__dirname, 'src/hook'),
+      '@type': path.resolve(__dirname, 'src/type'),
+      '@saga': path.resolve(__dirname, 'src/saga'),
+      '@api': path.resolve(__dirname, 'src/api'),
+      '@style': path.resolve(__dirname, 'src/style'),
     },
   },
   devtool: 'eval-cheap-source-map', // 번들링된 파일에서 에러 위치 확인
