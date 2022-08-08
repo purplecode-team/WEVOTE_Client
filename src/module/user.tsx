@@ -1,10 +1,10 @@
-import * as authAPI from '../lib/api/auth';
+import * as authAPI from '@api/auth';
 
 import { call, takeLatest } from 'redux-saga/effects';
 import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from '../lib/saga/createRequestSaga';
+} from '@saga/createRequestSaga';
 
 export type userType = {
   userId: string;

@@ -5,14 +5,14 @@ import { useEffect, useState } from 'react';
 
 import CardList from './CardList';
 import Carousel from '../../../Common/Carousel';
-import Img1 from '../../../../../public/img/CardImg1.svg';
-import Img2 from '../../../../../public/img/CardImg2.svg';
-import Img3 from '../../../../../public/img/CardImg3.svg';
+import Img1 from '@icon/card/CardImg1.svg';
+import Img2 from '@icon/card/CardImg2.svg';
+import Img3 from '@icon/card/CardImg3.svg';
+import media from '@style/media';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { Team } from '../../../../types/candidateType';
-import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
-import { theme } from '../../../Admin/style';
+import { Team } from '@type/candidateType';
+import { theme } from '../../../Admin/materialStyle';
 
 type CandidateArticleProps = {
   organizationId?: number;

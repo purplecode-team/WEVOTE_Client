@@ -1,41 +1,41 @@
 import Button from '@material-ui/core/Button';
+import client from '@api/client';
 import Grid from '@material-ui/core/Grid';
+import imageCompression from 'browser-image-compression';
 import ImageUploader from '../Common/ImageUploader';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
-import client from '../../../lib/api/client';
-import imageCompression from 'browser-image-compression';
-import { makeStyles } from '@material-ui/core/styles';
 import { useAlert } from 'react-alert';
 import { useState } from 'react';
 
 type FormProps = {
-  fetchData: () => void,
-  confirmDeletion: (value:string) => void,
-}
+  fetchData: () => void;
+  confirmDeletion: (value: string) => void;
+};
 
-export default function InformationForm (props:FormProps) {
+export default function InformationForm(props: FormProps) {
   const { fetchData, confirmDeletion } = props;
   const classes = useStyles();
-  const [files, setFiles] = useState<File[]|string[]>(['']);
+  const [files, setFiles] = useState<File[] | string[]>(['']);
   const [urls, setUrls] = useState<string[]>(['']);
   const alert = useAlert();
 
-  const processImage = async e => {
-    const imageFiles:File[] = Object.values(e.target.files);
+  const processImage = async (e) => {
+    const imageFiles: File[] = Object.values(e.target.files);
     const options = {
       maxSizeMB: 2,
       maxWidthOrHeight: 600,
       useWebWorker: true,
     };
     const compressedFiles = await Promise.all(
-      imageFiles.map((file:File) => {
+      imageFiles.map((file: File) => {
         return imageCompression(file, options);
       })
     );
     setFiles(compressedFiles);
     setUrls(
-      compressedFiles.map(file => {
+      compressedFiles.map((file) => {
         return URL.createObjectURL(file);
       })
     );
@@ -46,10 +46,10 @@ export default function InformationForm (props:FormProps) {
     setUrls(['']);
   };
 
-  const submitImg = async e => {
+  const submitImg = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    files.map(file => {
+    files.map((file) => {
       formData.append('img', file);
     });
     const config = {
@@ -60,7 +60,7 @@ export default function InformationForm (props:FormProps) {
     try {
       await client
         .post('/api/v1/admin/info', formData, config)
-        .then(response => {
+        .then((response) => {
           if (response.status !== 200) {
             alert.error('이미지 등록 실패');
             throw new Error('image upload failure');
@@ -69,7 +69,7 @@ export default function InformationForm (props:FormProps) {
           alert.success('이미지가 등록되었습니다');
         })
         .then(() => fetchData())
-        .catch(e => {
+        .catch((e) => {
           alert.error('이미지 등록 실패');
         });
     } catch (e) {
@@ -95,18 +95,18 @@ export default function InformationForm (props:FormProps) {
           <Grid item className={classes.buttonWrap}>
             <Button
               className={classes.button}
-              variant='contained'
-              color='primary'
-              type='button'
+              variant="contained"
+              color="primary"
+              type="button"
               onClick={() => confirmDeletion('all')}
             >
               {'전체 삭제'}
             </Button>
             <Button
               className={classes.button}
-              variant='contained'
-              color='primary'
-              type='submit'
+              variant="contained"
+              color="primary"
+              type="submit"
             >
               {'등록'}
             </Button>
@@ -117,7 +117,7 @@ export default function InformationForm (props:FormProps) {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     maxWidth: 936,
     margin: 'auto',

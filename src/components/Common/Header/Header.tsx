@@ -5,13 +5,13 @@ import * as React from 'react';
 import styled, { css } from 'styled-components';
 
 import { LoginMenu } from './LoginMenu';
+import logoIcon from '@icon/logo.svg';
+import media from '@style/media';
+import menuBackground from '@icon/background/menuBackground.svg';
 import { NavLink } from 'react-router-dom';
+import { rootState } from '@module';
 import { TextMenu } from './TextMenu';
-import logoIcon from '../../../../public/img/logo.svg';
-import media from '../../../lib/styles/media';
-import menuBackground from '../../../../public/img/menuBackground.svg';
-import { rootState } from '../../../modules';
-import theme from '../../../lib/styles/theme';
+import theme from '@style/theme';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';

@@ -1,4 +1,3 @@
-
 export type Major = {
   id: number;
   organizationName: string;
@@ -24,17 +23,16 @@ export type ClassificationDataType = {
 };
 
 export type CandidateType = {
-  id: number,
-  order: number,
-  slogan: string,
-  categoryName: string,
-  categoryDetail : string,
-  majorName: string,
-  Runners: Runner[],
-  Promises: PromiseType[],
-  organizationId : number,
-}
-
+  id: number;
+  order: number;
+  slogan: string;
+  categoryName: string;
+  categoryDetail: string;
+  majorName: string;
+  Runners: Runner[];
+  Promises: PromiseType[];
+  organizationId: number;
+};
 
 export type Runner = {
   id?: number;

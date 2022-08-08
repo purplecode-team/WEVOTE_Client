@@ -5,43 +5,43 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
+import client from '@api/client';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 import { NoticeData } from './index';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import client from '../../../lib/api/client';
-import { makeStyles } from '@material-ui/core/styles';
 import { useAlert } from 'react-alert';
 
 type FormProps = {
-  editData?: NoticeData,
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>,
-  fetchData: ()=>void,
-}
+  editData?: NoticeData;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  fetchData: () => void;
+};
 
-const DateOfToday = (new Date()).toString();
+const DateOfToday = new Date().toString();
 
-export default function NoticeForm (props:FormProps) {
+export default function NoticeForm(props: FormProps) {
   const { editData, setIsOpen, fetchData } = props;
   const classes = useStyles();
-  const [id, setId] = useState<number|null>(null);
+  const [id, setId] = useState<number | null>(null);
   const [content, setContent] = useState<string>('');
   const [startDate, setStartDate] = useState<string>(DateOfToday);
   const [endDate, setEndDate] = useState<string>(DateOfToday);
   const [disabled, setDisabled] = useState<boolean>(false);
   const alert = useAlert();
 
-  const handleContentInput = e => {
+  const handleContentInput = (e) => {
     setContent(e.target.value);
   };
 
-  const handleStartDateInput = date => {
+  const handleStartDateInput = (date) => {
     setStartDate(date);
   };
 
-  const handleEndDateInput = date => {
+  const handleEndDateInput = (date) => {
     setEndDate(date);
   };
 
@@ -58,9 +58,9 @@ export default function NoticeForm (props:FormProps) {
         alert.success('수정 완료');
         setContent('');
         fetchData();
-        if(setIsOpen) setIsOpen(false);
+        if (setIsOpen) setIsOpen(false);
       })
-      .catch(e => alert.error('업데이트 실패'));
+      .catch((e) => alert.error('업데이트 실패'));
   };
 
   const submitForm = () => {
@@ -76,7 +76,7 @@ export default function NoticeForm (props:FormProps) {
         alert.success('배너 등록 완료');
         setContent('');
       })
-      .catch(e => alert.error('배너 등록 실패'))
+      .catch((e) => alert.error('배너 등록 실패'))
       .then(() => {
         setDisabled(false);
         fetchData();
@@ -89,47 +89,47 @@ export default function NoticeForm (props:FormProps) {
     setContent(editData.content);
     setStartDate(editData.startDate);
     setEndDate(editData.endDate);
-    return ()=> {
+    return () => {
       setId(null);
       setContent('');
       setStartDate(DateOfToday);
       setEndDate(DateOfToday);
-    }
+    };
   }, [editData]);
 
   return (
     <>
       <Paper className={classes.paper}>
         <div className={classes.contentWrapper}>
-          <form noValidate autoComplete='off'>
-            <Typography className={classes.title} variant='h4' component='h4'>
+          <form noValidate autoComplete="off">
+            <Typography className={classes.title} variant="h4" component="h4">
               배너 입력
             </Typography>
             <TextField
-              id='outlined-full-width'
+              id="outlined-full-width"
               className={classes.input}
-              placeholder='ex. 총학생회 선거 D-day입니다.'
+              placeholder="ex. 총학생회 선거 D-day입니다."
               InputLabelProps={{
                 shrink: true,
               }}
               InputProps={{ classes: { input: classes.resize } }}
-              variant='outlined'
+              variant="outlined"
               value={content}
               onChange={handleContentInput}
             />
-            <Typography className={classes.title} variant='h4' component='h4'>
+            <Typography className={classes.title} variant="h4" component="h4">
               선거 날짜
             </Typography>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container justify='flex-start' className={classes.dateGrid}>
+              <Grid container justify="flex-start" className={classes.dateGrid}>
                 <KeyboardDatePicker
                   className={classes.dateSelector}
                   disableToolbar
-                  variant='inline'
-                  format='MM/dd/yyyy'
-                  margin='normal'
-                  id='date-picker-inline'
-                  label='시작일'
+                  variant="inline"
+                  format="MM/dd/yyyy"
+                  margin="normal"
+                  id="date-picker-inline"
+                  label="시작일"
                   InputProps={{ classes: { input: classes.resize } }}
                   value={startDate}
                   onChange={handleStartDateInput}
@@ -140,11 +140,11 @@ export default function NoticeForm (props:FormProps) {
                 <KeyboardDatePicker
                   className={classes.dateSelector}
                   disableToolbar
-                  variant='inline'
-                  format='MM/dd/yyyy'
-                  margin='normal'
-                  id='date-picker-dialog'
-                  label='종료일'
+                  variant="inline"
+                  format="MM/dd/yyyy"
+                  margin="normal"
+                  id="date-picker-dialog"
+                  label="종료일"
                   InputProps={{ classes: { input: classes.resize } }}
                   value={endDate}
                   onChange={handleEndDateInput}
@@ -156,8 +156,8 @@ export default function NoticeForm (props:FormProps) {
             </MuiPickersUtilsProvider>
             <Grid className={classes.buttonBlock}>
               <Button
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 className={classes.colorButton}
                 onClick={editData ? onUpdate : submitForm}
                 disabled={disabled}
@@ -172,7 +172,7 @@ export default function NoticeForm (props:FormProps) {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     maxWidth: 936,
     margin: '20px auto',
@@ -202,7 +202,7 @@ const useStyles = makeStyles(theme => ({
   input: {
     width: '100%',
   },
-  buttonBlock:{
+  buttonBlock: {
     display: 'flex',
     justifyContent: 'flex-end',
   },
@@ -212,6 +212,5 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: theme.palette.primary.dark,
     },
-  }
-
+  },
 }));

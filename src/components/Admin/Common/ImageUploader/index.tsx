@@ -4,16 +4,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 type UploaderProps = {
-  fileUrl: any,
-  alt:string,
-  processImage: React.ChangeEventHandler<HTMLInputElement>,
-  resetImg: ()=>void,
-  multiple?: boolean,
-  width:number | string,
-  height:number | string,
-}
+  fileUrl: any;
+  alt: string;
+  processImage: React.ChangeEventHandler<HTMLInputElement>;
+  resetImg: () => void;
+  multiple?: boolean;
+  width: number | string;
+  height: number | string;
+};
 
-const ImageUploader = (props:UploaderProps) => {
+const ImageUploader = (props: UploaderProps) => {
   const {
     fileUrl,
     alt,
@@ -42,8 +42,8 @@ const ImageUploader = (props:UploaderProps) => {
         </Label>
         <Input
           id={`input-file-${alt}`}
-          type='file'
-          accept='image/*'
+          type="file"
+          accept="image/*"
           multiple={multiple}
           onChange={processImage}
         />

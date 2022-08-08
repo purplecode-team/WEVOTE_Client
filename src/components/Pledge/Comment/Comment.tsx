@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import styled, { css } from 'styled-components';
 
-import adminProfile from '../../../../public/img/AdminProfile.svg';
-import media from '../../../lib/styles/media';
-import { qnaInfo } from '../../../types/candidateType';
-import theme from '../../../lib/styles/theme';
-import userProfile from '../../../../public/img/UserProfile.svg';
+import adminProfile from '@icon/profile/AdminProfile.svg';
+import media from '@style/media';
+import { qnaInfo } from '@type/candidateType';
+import theme from '@style/theme';
+import userProfile from '@icon/profile/UserProfile.svg';
 
 type styleProps = {
   answer?: boolean;

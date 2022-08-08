@@ -1,45 +1,46 @@
 import * as React from 'react';
 
-import client from '../../../lib/api/client';
-import media from '../../../lib/styles/media';
-import { rootState } from '../../../modules'
+import client from '@api/client';
+import media from '@style/media';
+import { rootState } from '@module';
 import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
+import theme from '@style/theme';
 import { useAlert } from 'react-alert';
-import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 const CommentInput = ({ teamId, fetchData }) => {
   const [text, setText] = useState('');
   const alert = useAlert();
-  const { user } = useSelector((state:rootState) => ({user: state.user.user}));
-  
+  const { user } = useSelector((state: rootState) => ({
+    user: state.user.user,
+  }));
+
   const type = user?.status === 'admin' ? 'answer' : 'question';
 
   const handleInputChange = (e) => {
     setText(e.target.value);
   };
 
-  const submitComment = e => {
+  const submitComment = (e) => {
     e.preventDefault();
     if (!user) {
       alert.info('로그인이 필요한 기능입니다.');
       return;
     }
     const result = {
-      comment : text,
-      teamId : teamId,
-      type: type
-    }
+      comment: text,
+      teamId: teamId,
+      type: type,
+    };
     client
       .post('/api/v1/promise/promise-detail/qna', result)
-      .then(res => {
+      .then((res) => {
         fetchData();
-        alert.success('QnA 등록 완료')
+        alert.success('QnA 등록 완료');
       })
-      .catch(e => alert.error('QnA 등록 실패'))
-  }
+      .catch((e) => alert.error('QnA 등록 실패'));
+  };
 
   return (
     <InputForm onSubmit={submitComment}>

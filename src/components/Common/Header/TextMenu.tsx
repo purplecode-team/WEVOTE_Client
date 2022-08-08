@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import media from '../../../lib/styles/media';
+import media from '@style/media';
 import { MenuData } from './MenuData';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
+import theme from '@style/theme';
 
 type TextMenuProps = {
   changeActiveMenu: () => void;

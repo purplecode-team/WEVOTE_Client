@@ -1,19 +1,19 @@
 import ImagePreview from '../Common/ImageUploader/ImagePreview';
 import Loader from '../../Common/Loader';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
+import theme from '@style/theme';
 
 type ListProps = {
-  loading?: boolean,
-  data?: any,
-  error?: boolean,
-  confirmDeletion: (value:string) => void,
-}
+  loading?: boolean;
+  data?: any;
+  error?: boolean;
+  confirmDeletion: (value: string) => void;
+};
 
-export default function InformationList (props:ListProps) {
+export default function InformationList(props: ListProps) {
   const { loading, data, error, confirmDeletion } = props;
   const classes = useStyles();
   const title = '현재 안내 이미지';
@@ -87,5 +87,3 @@ const useStyles = makeStyles(() => ({
     },
   },
 }));
-
-

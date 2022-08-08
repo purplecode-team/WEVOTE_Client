@@ -5,9 +5,9 @@ import styled, { css } from 'styled-components';
 
 import CandidateCard from '../../Common/CandidateCard';
 import Carousel from '../../Common/Carousel';
-import media from '../../../lib/styles/media';
-import { Team } from '../../../types/candidateType';
-import theme from '../../../lib/styles/theme';
+import media from '@style/media';
+import { Team } from '@type/candidateType';
+import theme from '@style/theme';
 import { useState } from 'react';
 
 type CandidateArticleProps = {

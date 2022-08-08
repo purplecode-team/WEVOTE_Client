@@ -1,8 +1,8 @@
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
+import { theme } from '../materialStyle';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { theme } from '../style';
 
 export default function PledgeBoard() {
   const classes = useStyles();

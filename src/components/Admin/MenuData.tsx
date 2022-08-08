@@ -5,18 +5,18 @@ import React from 'react';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 
 export type smallMenuType = {
-  id: number,
-  name: string,
-  active: boolean,
-}
+  id: number;
+  name: string;
+  active: boolean;
+};
 
 export type menuType = {
-  id: number,
-  name: string,
-  icon: JSX.Element,
-  active: boolean,
-  smallMenu: smallMenuType[],
-}
+  id: number;
+  name: string;
+  icon: JSX.Element;
+  active: boolean;
+  smallMenu: smallMenuType[];
+};
 
 export const MenuData = [
   {

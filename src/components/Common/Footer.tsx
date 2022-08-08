@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import logo from '../../../public/img/logoWhite.svg';
-import media from '../../lib/styles/media';
+import logo from '@icon/logoWhite.svg';
+import media from '@style/media';
 import styled from 'styled-components';
-import theme from '../../lib/styles/theme';
+import theme from '@style/theme';
 
 const footerText = {
-  title : '대학 온라인 선거 정보 관리 서비스',
-  eng : 'University Online Election Information and Management Service',
-  email : 'wevote.manager@gmail.com',
-}
+  title: '대학 온라인 선거 정보 관리 서비스',
+  eng: 'University Online Election Information and Management Service',
+  email: 'wevote.manager@gmail.com',
+};
 
 const Footer = () => {
   return (

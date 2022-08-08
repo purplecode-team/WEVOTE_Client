@@ -1,11 +1,7 @@
 import * as React from 'react';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import {
-  HasBottomType,
-  HasMiddleType,
-  Team,
-} from '../../../types/candidateType';
+import { HasBottomType, HasMiddleType, Team } from '@type/candidateType';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
@@ -13,11 +9,11 @@ import Candidate from './Candidate';
 import CandidateRegister from '../../Admin/Candidate/Register';
 import Category from './Category';
 import { Modal } from 'react-responsive-modal';
-import { rootState } from '../../../modules';
+import { rootState } from '@module';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { toggleCandidateEditor } from '../../../modules/toggle';
-import useFetch from '../../../lib/hooks/useFetch';
-import useGetCategory from '../../../lib/hooks/useGetCategory';
+import { toggleCandidateEditor } from '@module/toggle';
+import useFetch from '@hook/useFetch';
+import useGetCategory from '@hook/useGetCategory';
 
 const topCategory = {
   central: '중앙자치기구',
@@ -41,12 +37,14 @@ const Classification = (props) => {
   const [{ loading, data, error }, fetchData] = useFetch('/api/v1/main/all');
   const [organizationId, setOrganizationId] = useState<number>();
   const [teamData, setTeamData] = useState<Team[]>([]);
-  const { toggleEditor, candidateId } = useSelector(({ toggle }:rootState)=>({
-    toggleEditor : toggle.toggleEditor,
-    candidateId : toggle.candidateId
-  }));
+  const { toggleEditor, candidateId } = useSelector(
+    ({ toggle }: rootState) => ({
+      toggleEditor: toggle.toggleEditor,
+      candidateId: toggle.candidateId,
+    })
+  );
   const dispatch = useDispatch();
-  
+
   // key에서 현재 index에 위치한 데이터셋을 가져온다
   const getCurrentDataSet = () => {
     const keys = Object.keys(topCategory);

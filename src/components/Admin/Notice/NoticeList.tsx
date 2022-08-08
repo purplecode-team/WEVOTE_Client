@@ -2,6 +2,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { getFormatDate } from '@util/getFunction';
 import IconButton from '@material-ui/core/IconButton';
 import Loader from '../../Common/Loader';
 import { Modal } from 'react-responsive-modal';
@@ -15,21 +16,20 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { getFormatDate } from '../../../utils/getFunction';
 
 type ListProps = {
-  loading: boolean,
-  rows: NoticeData[],
-  editData?: NoticeData,
-  isOpen: boolean,
-  setIsOpen :React.Dispatch<React.SetStateAction<boolean>>,
-  fetchData : () => void,
-  onCloseModal : () => void,
-  onUpdate : (id:number) => void,
-  confirmDeletion : (id:number) => void,
-}
+  loading: boolean;
+  rows: NoticeData[];
+  editData?: NoticeData;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  fetchData: () => void;
+  onCloseModal: () => void;
+  onUpdate: (id: number) => void;
+  confirmDeletion: (id: number) => void;
+};
 
-export default function NoticeList (props:ListProps) {
+export default function NoticeList(props: ListProps) {
   const {
     loading,
     rows,
@@ -43,8 +43,8 @@ export default function NoticeList (props:ListProps) {
   } = props;
   const classes = useStyles();
 
-  const showNoticeList = data => {
-    return data.map(row => (
+  const showNoticeList = (data) => {
+    return data.map((row) => (
       <StyledTableRow key={row.id}>
         <StyledTableCell>{row.content}</StyledTableCell>
         <StyledTableCell>
@@ -56,13 +56,13 @@ export default function NoticeList (props:ListProps) {
           {row.endDate ? getFormatDate(new Date(row.endDate)) : row.endDate}
         </StyledTableCell>
         <StyledTableCell>
-          <IconButton aria-label='update' onClick={() => onUpdate(row.id)}>
+          <IconButton aria-label="update" onClick={() => onUpdate(row.id)}>
             <EditIcon />
           </IconButton>
         </StyledTableCell>
         <StyledTableCell>
           <IconButton
-            aria-label='delete'
+            aria-label="delete"
             onClick={() => confirmDeletion(row.id)}
           >
             <DeleteIcon />
@@ -80,7 +80,7 @@ export default function NoticeList (props:ListProps) {
         </>
       ) : (
         <TableContainer className={classes.root} component={Paper}>
-          <Table className={classes.table} aria-label='customized table'>
+          <Table className={classes.table} aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell className={classes.notice}>
@@ -118,7 +118,7 @@ export default function NoticeList (props:ListProps) {
   );
 }
 
-const StyledTableCell = withStyles(theme => ({
+const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.primary.dark,
     color: theme.palette.common.white,
@@ -128,7 +128,7 @@ const StyledTableCell = withStyles(theme => ({
   },
 }))(TableCell);
 
-const StyledTableRow = withStyles(theme => ({
+const StyledTableRow = withStyles((theme) => ({
   root: {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,

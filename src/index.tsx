@@ -1,18 +1,18 @@
-import './index.css';
-
 import * as React from 'react';
 
 import { Provider as AlertProvider, positions, transitions } from 'react-alert';
 import { applyMiddleware, createStore } from 'redux';
-import rootReducer, { rootSaga } from './modules';
+import rootReducer, { rootSaga } from './module';
 
 import AlertTemplate from 'react-alert-template-basic';
 import App from './App';
-import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import { tempSetUser } from './modules/user';
+import { tempSetUser } from './module/user';
+
+import './style/index.css';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -43,7 +43,7 @@ const options = {
 };
 
 if (process.env.NODE_ENV === 'development') {
-  const { worker } = require('./mocks/browser');
+  const { worker } = require('./mock/browser');
   worker.start();
 }
 

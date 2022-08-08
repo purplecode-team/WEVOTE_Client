@@ -9,9 +9,9 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import GlobalStyle from './lib/styles/GlobalStyle';
+import GlobalStyle from '@style/GlobalStyle';
 import Layout from './components/Common/Layout';
-import { rootState } from './modules';
+import { rootState } from '@module';
 import { useSelector } from 'react-redux';
 
 const Pledge = lazy(() => import('./pages/Pledge'));

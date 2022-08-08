@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { css } from '@emotion/react';
 import RingLoader from 'react-spinners/RingLoader';
-import theme from '../../lib/styles/theme';
+import theme from '@style/theme';
 
 type loaderType = {
   margin?: number;
@@ -12,7 +12,7 @@ type loaderType = {
 const color = theme.Blue;
 function Loader({ margin, size }: loaderType) {
   return (
-    <div style={{margin:margin+'px'}}>
+    <div style={{ margin: margin + 'px' }}>
       <RingLoader color={color} css={override} size={size} />
     </div>
   );

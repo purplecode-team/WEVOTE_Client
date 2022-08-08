@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import AddForm from '../Common/AddForm';
+import client from '@api/client';
 import NoticeForm from './NoticeForm';
 import NoticeList from './NoticeList';
-import client from '../../../lib/api/client';
 import { useAlert } from 'react-alert';
-import useFetch from '../../../lib/hooks/useFetch';
+import useFetch from '@hook/useFetch';
 
 export type NoticeData = {
   id: number;

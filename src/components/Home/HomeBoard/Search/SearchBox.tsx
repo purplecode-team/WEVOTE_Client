@@ -7,7 +7,7 @@ import {
 import React, { useState } from 'react';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import media from '../../../../lib/styles/media';
+import media from '@style/media';
 import Popper from '@material-ui/core/Popper';
 import SearchIcon from '@material-ui/icons/Search';
 import styled from 'styled-components';

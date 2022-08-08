@@ -4,13 +4,13 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 
 import Carousel from '../Common/Carousel';
-import InformationIcon from '../../../public/img/InformationIcon.svg';
+import defaultImg from '@img/errorImage.jpg';
+import InformationIcon from '@icon/InformationIcon.svg';
 import Loader from '../Common/Loader';
-import defaultImg from '../../../public/img/noimg.jpg';
-import media from '../../lib/styles/media';
+import media from '@style/media';
 import styled from 'styled-components';
-import theme from '../../lib/styles/theme';
-import useFetch from '../../lib/hooks/useFetch';
+import theme from '@style/theme';
+import useFetch from '@hook/useFetch';
 
 type styleProps = {
   locationX?: number;

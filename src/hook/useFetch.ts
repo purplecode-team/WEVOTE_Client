@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import client from '../api/client';
+import client from '@api/client';
 
 type stateTypes = {
   loading: boolean;

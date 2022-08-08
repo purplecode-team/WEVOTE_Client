@@ -1,13 +1,13 @@
 import * as React from 'react';
 
+import loginIcon from '@icon/login/login.svg';
+import { logout } from '@api/auth';
+import { logoutAction } from '@module/user';
+import logoutIcon from '@icon/login/logout.svg';
+import media from '@style/media';
 import PropTypes from 'prop-types';
-import loginIcon from '../../../../public/img/login.svg';
-import { logout } from '../../../lib/api/auth';
-import { logoutAction } from '../../../modules/user';
-import logoutIcon from '../../../../public/img/logout.svg';
-import media from '../../../lib/styles/media';
 import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
+import theme from '@style/theme';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -72,7 +72,7 @@ const MenuItem = styled.li`
 
 const LoginImg = styled.img.attrs({
   src: loginIcon,
-  alt: 'login icon',
+  alt: 'icon',
 })`
   border-radius: 30px;
   box-shadow: 0px 2px 4px ${theme.Blue};
@@ -83,7 +83,7 @@ const LoginImg = styled.img.attrs({
 
 const LogoutImg = styled.img.attrs({
   src: logoutIcon,
-  alt: 'logout icon',
+  alt: 'licon',
 })`
   border-radius: 30px;
   box-shadow: 0px 2px 4px ${theme.DarkBlue};

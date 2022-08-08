@@ -1,9 +1,9 @@
-import * as authAPI from '../lib/api/auth';
+import * as authAPI from '@api/auth';
 
 import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from '../lib/saga/createRequestSaga';
+} from '@saga/createRequestSaga';
 
 import produce from 'immer';
 import { takeLatest } from 'redux-saga/effects';
@@ -13,15 +13,14 @@ export type FormType = {
   userId?: string;
   password?: string;
   passwordConfirm?: string;
-}
+};
 
 export type authState = {
-  register: FormType,
-  login: FormType,
-  auth?: any | null,
-  authError?: any | null,
-}
-
+  register: FormType;
+  login: FormType;
+  auth?: any | null;
+  authError?: any | null;
+};
 
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
@@ -42,7 +41,7 @@ export const changeField = createAction(
     value, // 실제 바꾸려는 값
   })
 );
-export const initializeForm = createAction(INITIALIZE_FORM, form => form); // register / login
+export const initializeForm = createAction(INITIALIZE_FORM, (form) => form); // register / login
 export const register = createAction(
   REGISTER,
   ({ nickName, userId, password }) => ({
@@ -64,7 +63,7 @@ export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
 }
 
-const initialState:authState = {
+const initialState: authState = {
   register: {
     nickName: '',
     userId: '',
@@ -82,7 +81,7 @@ const initialState:authState = {
 const auth = handleActions(
   {
     [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft[form][key] = value; // 예: state.register.username을 바꾼다
       }),
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
