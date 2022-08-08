@@ -12,7 +12,9 @@ module.exports = {
       {
         test: /\.(js|jsx)$/, // test : 어떤 파일에 적용할지 확장자 작성
         exclude: '/node_modules/', // exclude : 로더에서 제외할 파일 설정
-        loader: 'babel-loader', // loader : 적용할 로더가 1개라면 loader로 설정
+        use: {
+          loader: 'babel-loader', // loader : 적용할 로더가 1개라면 loader로 설정
+        },
       },
       {
         test: /\.css$/,
@@ -23,7 +25,9 @@ module.exports = {
       },
       {
         test: /\.(ttf|gif|jpe?g|png)$/,
-        loader: 'file-loader',
+        use: {
+          loader: 'file-loader',
+        },
       },
       {
         test: /\.(svg)$/,
@@ -39,7 +43,9 @@ module.exports = {
       },
       {
         test: /\.ts|tsx?$/,
-        loader: 'ts-loader',
+        use: {
+          loader: 'ts-loader',
+        },
       },
     ],
   },
@@ -73,10 +79,16 @@ module.exports = {
   },
   devtool: 'eval-cheap-source-map', // 번들링된 파일에서 에러 위치 확인
   devServer: {
-    publicPath: '/',
+    devMiddleware: {
+      publicPath: '/',
+    },
+    static: {
+      directory: path.resolve(__dirname, '/public'),
+    },
+    client: {
+      overlay: true,
+    },
     historyApiFallback: true,
-    overlay: true,
     hot: true,
-    contentBase: '/public',
   },
 };
