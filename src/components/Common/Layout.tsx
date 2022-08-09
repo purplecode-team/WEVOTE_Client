@@ -3,7 +3,7 @@ import * as React from 'react';
 import backgroundIcon from '@icon/background/backgroundIcon.svg';
 import backgroundIcon2 from '@icon/background/backgroundIcon2.svg';
 import Footer from './Footer';
-import Header from './Header/Header';
+import Header from './Header';
 import media from '@style/media';
 import styled from 'styled-components';
 

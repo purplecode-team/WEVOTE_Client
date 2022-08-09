@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import client from '@api/client';
 import media from '@style/media';
-import { rootState } from '@module';
+import { rootState } from '@module/root';
 import styled from 'styled-components';
 import theme from '@style/theme';
 import { useAlert } from 'react-alert';

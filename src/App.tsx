@@ -11,7 +11,7 @@ import {
 
 import GlobalStyle from '@style/GlobalStyle';
 import Layout from './components/Common/Layout';
-import { rootState } from '@module';
+import { rootState } from '@module/root';
 import { useSelector } from 'react-redux';
 
 const Pledge = lazy(() => import('./pages/Pledge'));

@@ -9,7 +9,7 @@ import logoIcon from '@icon/logo.svg';
 import media from '@style/media';
 import menuBackground from '@icon/background/menuBackground.svg';
 import { NavLink } from 'react-router-dom';
-import { rootState } from '@module';
+import { rootState } from '@module/root';
 import { TextMenu } from './TextMenu';
 import theme from '@style/theme';
 import { useEffect } from 'react';
@@ -34,9 +34,7 @@ const Header = () => {
   const logoutText = '더 많은 이용을 위해 로그인/회원가입을 진행해주세요';
 
   useEffect(() => {
-    if (user) setIsLogin(true);
-    else setIsLogin(true);
-    return () => setIsLogin(false);
+    setIsLogin(Boolean(user));
   }, [user]);
 
   return (

@@ -1,27 +1,27 @@
-import { changeField, FormType, initializeForm } from '@module/auth';
+import { changeField, initializeForm } from '@module/auth';
+import { login, register } from '@api/auth';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import AuthForm from '../../components/auth/AuthForm';
-import { login } from '@api/auth';
-import { rootState } from '@module';
+import AuthForm from '@components/auth/AuthForm';
+import { rootState } from '@module/root';
 import { tempSetUser } from '@module/user';
 import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router-dom';
 
-const LoginForm = () => {
-  const history = useHistory();
+const RegisterForm = () => {
   const alert = useAlert();
+  const history = useHistory();
   const dispatch = useDispatch();
   const { form } = useSelector(({ auth }: rootState) => ({
-    form: auth.login,
+    form: auth.register,
   }));
   // 인풋 변경 이벤트 핸들러
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
       changeField({
-        form: 'login',
+        form: 'register',
         key: name,
         value,
       })
@@ -31,29 +31,33 @@ const LoginForm = () => {
   // 폼 등록 이벤트 핸들러
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!form) return;
+    const result = {
+      nickName: form.nickName,
+      userId: form.userId,
+      password: form.password,
+    };
     try {
+      const response = await register(result);
       const { nickName, status, userId } = await login({
-        userId: form.userId,
+        userId: response.userId,
         password: form.password,
       });
-      dispatch(tempSetUser({ nickName, status, userId }));
-      if (status === 'admin') history.push('/admin');
-      else history.push('/');
+      dispatch(tempSetUser({ user: { nickName, status, userId } }));
+      history.push('/');
     } catch {
-      alert.error('로그인 실패');
+      alert.error('회원가입 실패');
     }
   };
 
   // 컴포넌트가 처음 렌더링될 때 form을 초기화함
   useEffect(() => {
-    dispatch(initializeForm('login'));
-    return () => dispatch(initializeForm('login'));
+    dispatch(initializeForm('register'));
+    return () => dispatch(initializeForm('register'));
   }, [dispatch]);
 
   return (
     <AuthForm
-      type="login"
+      type="register"
       form={form}
       onChange={onChange}
       onSubmit={onSubmit}
@@ -61,4 +65,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

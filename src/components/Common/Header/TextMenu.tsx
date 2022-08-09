@@ -3,7 +3,6 @@ import * as React from 'react';
 import media from '@style/media';
 import { MenuData } from './MenuData';
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import theme from '@style/theme';
 
@@ -30,10 +29,6 @@ export const TextMenu = ({ changeActiveMenu }: TextMenuProps) => {
       })}
     </>
   );
-};
-
-TextMenu.propTypes = {
-  changeActiveMenu: PropTypes.func.isRequired,
 };
 
 const MenuItem = styled.li`

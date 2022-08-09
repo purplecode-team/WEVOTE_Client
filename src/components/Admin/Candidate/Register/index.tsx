@@ -11,7 +11,7 @@ import Loader from '../../../Common/Loader';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import PledgeForm from './Pledge';
-import { rootState } from '@module';
+import { rootState } from '@module/root';
 import TeamForm from './Team';
 import { toggleCandidateEditor } from '@module/toggle';
 import { useAlert } from 'react-alert';

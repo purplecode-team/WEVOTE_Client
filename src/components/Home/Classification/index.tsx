@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import Candidate from './Candidate';
-import CandidateRegister from '../../Admin/Candidate/Register';
+import CandidateRegister from '@components/Admin/Candidate/Register';
 import Category from './Category';
 import { Modal } from 'react-responsive-modal';
-import { rootState } from '@module';
+import { rootState } from '@module/root';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { toggleCandidateEditor } from '@module/toggle';
 import useFetch from '@hook/useFetch';
