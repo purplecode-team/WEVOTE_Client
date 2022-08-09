@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useEffect, useRef } from 'react';
 
 import CategoryItem from './CategoryItem';
-import media from '@style/media';
+import media from '@styles/media';
 import styled from 'styled-components';
 
 type ClassificationProps = {

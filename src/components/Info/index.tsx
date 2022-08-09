@@ -7,10 +7,10 @@ import Carousel from '../Common/Carousel';
 import defaultImg from '@img/errorImage.jpg';
 import InformationIcon from '@icon/InformationIcon.svg';
 import Loader from '../Common/Loader';
-import media from '@style/media';
+import media from '@styles/media';
 import styled from 'styled-components';
-import theme from '@style/theme';
-import useFetch from '@hook/useFetch';
+import theme from '@styles/theme';
+import useFetch from '@hooks/useFetch';
 
 type styleProps = {
   locationX?: number;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import AdminSection from '../components/Admin';
+import AdminSection from '@components/Admin';
 
 import 'react-responsive-modal/styles.css';
 

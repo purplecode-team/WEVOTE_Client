@@ -5,7 +5,7 @@ import client from '@api/client';
 import NoticeForm from './NoticeForm';
 import NoticeList from './NoticeList';
 import { useAlert } from 'react-alert';
-import useFetch from '@hook/useFetch';
+import useFetch from '@hooks/useFetch';
 
 export type NoticeData = {
   id: number;

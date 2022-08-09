@@ -4,7 +4,7 @@ import { call, takeLatest } from 'redux-saga/effects';
 import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from '@saga/createRequestSaga';
+} from '@modules/saga/createRequestSaga';
 
 export type userType = {
   userId: string;

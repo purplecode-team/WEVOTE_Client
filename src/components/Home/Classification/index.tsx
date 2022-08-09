@@ -1,19 +1,19 @@
 import * as React from 'react';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { HasBottomType, HasMiddleType, Team } from '@type/candidateType';
+import { HasBottomType, HasMiddleType, Team } from 'candidateType';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import Candidate from './Candidate';
-import CandidateRegister from '@components/Admin/Candidate/Register';
+import CandidateRegister from '@/components/Admin/Candidate/Register';
 import Category from './Category';
 import { Modal } from 'react-responsive-modal';
-import { rootState } from '@module/root';
+import { rootState } from '@modules/root';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { toggleCandidateEditor } from '@module/toggle';
-import useFetch from '@hook/useFetch';
-import useGetCategory from '@hook/useGetCategory';
+import { toggleCandidateEditor } from '@modules/toggle';
+import useFetch from '@hooks/useFetch';
+import useGetCategory from '@hooks/useGetCategory';
 
 const topCategory = {
   central: '중앙자치기구',

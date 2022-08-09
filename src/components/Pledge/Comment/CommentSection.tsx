@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import CommentArticle from './CommentArticle';
 import CommentInput from './CommentInput';
-import media from '@style/media';
-import { qnaInfo } from '@type/candidateType';
+import media from '@styles/media';
+import { qnaInfo } from 'candidateType';
 import styled from 'styled-components';
 
 type commentType = {

@@ -1,12 +1,12 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
-import media from '@style/media';
+import media from '@styles/media';
 import ModalSearchBox from './ModalSearchBox';
 import React from 'react';
 import SearchBox from './SearchBox';
 import Skeleton from '@material-ui/lab/Skeleton';
 import styled from 'styled-components';
-import useFetch from '@hook/useFetch';
+import useFetch from '@hooks/useFetch';
 
 const homeText = {
   title: '서울과학기술대학교 선거소식',

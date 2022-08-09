@@ -1,11 +1,11 @@
-import { changeField, initializeForm } from '@module/auth';
+import { changeField, initializeForm } from '@modules/auth';
 import { login, register } from '@api/auth';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AuthForm from '@components/auth/AuthForm';
-import { rootState } from '@module/root';
-import { tempSetUser } from '@module/user';
+import { rootState } from '@modules/root';
+import { tempSetUser } from '@modules/user';
 import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router-dom';
 

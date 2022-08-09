@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AxiosResponse } from 'axios';
 import Button from '@material-ui/core/Button';
 import CandidateForm from './Candidate';
-import { CandidateType } from '@type/candidateType';
+import { CandidateType } from 'candidateType';
 import client from '@api/client';
 import Grid from '@material-ui/core/Grid';
-import Loader from '../../../Common/Loader';
+import Loader from '@components/Common/Loader';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import PledgeForm from './Pledge';
-import { rootState } from '@module/root';
+import { rootState } from '@modules/root';
 import TeamForm from './Team';
-import { toggleCandidateEditor } from '@module/toggle';
+import { toggleCandidateEditor } from '@modules/toggle';
 import { useAlert } from 'react-alert';
 
 export type TeamType = {

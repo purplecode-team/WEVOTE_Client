@@ -3,9 +3,9 @@ import * as React from 'react';
 import styled, { css } from 'styled-components';
 
 import CandidateCard from '../../../Common/CandidateCard';
-import media from '@style/media';
-import { Team } from '@type/candidateType';
-import theme from '@style/theme';
+import media from '@styles/media';
+import { Team } from 'candidateType';
+import theme from '@styles/theme';
 import { useHistory } from 'react-router-dom';
 
 type imgTypes = {

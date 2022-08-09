@@ -12,7 +12,7 @@ import React from 'react';
 import { theme } from '../materialStyle';
 import Typography from '@material-ui/core/Typography';
 import { useAlert } from 'react-alert';
-import useFetch from '@hook/useFetch';
+import useFetch from '@hooks/useFetch';
 
 export default function Calendar() {
   const classes = useStyles();

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { css } from '@emotion/react';
 import RingLoader from 'react-spinners/RingLoader';
-import theme from '@style/theme';
+import theme from '@styles/theme';
 
 type loaderType = {
   margin?: number;

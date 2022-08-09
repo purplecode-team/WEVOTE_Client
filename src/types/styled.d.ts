@@ -1,5 +1,4 @@
 import 'styled-components';
-import { Palette } from '@material-ui/core/styles/createPalette';
 
 declare module '@material-ui/core/styles/createPalette' {
   interface Palette {
@@ -19,11 +18,6 @@ declare module '@material-ui/core/styles/createPalette' {
     main?: string;
     dark?: string;
     background?: string;
-  }
-}
-declare module 'styled-components' {
-  export interface DefaultTheme {
-    // 테마 적용 시, 타입 코드 작성
   }
 }
 declare module '@material-ui/core/styles/createBreakpoints' {

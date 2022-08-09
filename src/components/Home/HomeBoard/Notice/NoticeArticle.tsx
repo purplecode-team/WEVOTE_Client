@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import media from '@style/media';
+import media from '@styles/media';
 import styled from 'styled-components';
-import useFetch from '@hook/useFetch';
+import useFetch from '@hooks/useFetch';
 
 type dataType = {
   id: number;

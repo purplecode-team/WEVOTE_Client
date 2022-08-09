@@ -1,17 +1,17 @@
 import { JAVASCRIPT_KEY, LOCAL_REDIRECT_URI, REDIRECT_URI } from './auth';
 import { Link, useHistory } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { verifyEmail, verifyName, verifyPassword } from '@util/getFunction';
+import { verifyEmail, verifyName, verifyPassword } from '@utils/getFunction';
 
 import axios from 'axios';
 import Button from '../Common/Button';
-import { FormType } from '@module/auth';
+import { FormType } from '@modules/auth';
 import KakaoLogin from 'react-kakao-login';
 import klogin from '@img/login/kakaoLogin.png';
-import media from '@style/media';
+import media from '@styles/media';
 import React from 'react';
-import { tempSetUser } from '@module/user';
-import theme from '@style/theme';
+import { tempSetUser } from '@modules/user';
+import theme from '@styles/theme';
 import { useDispatch } from 'react-redux';
 
 type AuthFormProps = {

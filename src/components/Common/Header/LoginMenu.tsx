@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import loginIcon from '@icon/login/login.svg';
 import { logout } from '@api/auth';
-import { logoutAction } from '@module/user';
+import { logoutAction } from '@modules/user';
 import logoutIcon from '@icon/login/logout.svg';
-import media from '@style/media';
+import media from '@styles/media';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import theme from '@style/theme';
+import theme from '@styles/theme';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 

@@ -3,7 +3,7 @@ import * as authAPI from '@api/auth';
 import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from '@saga/createRequestSaga';
+} from '@modules/saga/createRequestSaga';
 
 import produce from 'immer';
 import { takeLatest } from 'redux-saga/effects';

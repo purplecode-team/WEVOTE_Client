@@ -2,12 +2,12 @@ import { createStyles, makeStyles } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 
 import initialCalendar from '@img/calendar.svg';
-import media from '@style/media';
+import media from '@styles/media';
 import React from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
 import styled from 'styled-components';
-import { theme } from '../../../Admin/materialStyle';
-import useFetch from '@hook/useFetch';
+import { theme } from '@components/Admin/materialStyle';
+import useFetch from '@hooks/useFetch';
 
 const ImgBoard = () => {
   const classes = useStyles();

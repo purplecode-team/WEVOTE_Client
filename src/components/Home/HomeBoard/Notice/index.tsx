@@ -2,11 +2,11 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 
 import bannerIcon from '@icon/bannerIcon.svg';
-import { getFormatDate } from '@util/getFunction';
-import media from '@style/media';
+import { getFormatDate } from '@utils/getFunction';
+import media from '@styles/media';
 import Skeleton from '@material-ui/lab/Skeleton';
 import styled from 'styled-components';
-import useFetch from '@hook/useFetch';
+import useFetch from '@hooks/useFetch';
 
 const initialData = [
   {

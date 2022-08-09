@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import logo from '@icon/logoWhite.svg';
-import media from '@style/media';
+import media from '@styles/media';
 import styled from 'styled-components';
-import theme from '@style/theme';
+import theme from '@styles/theme';
 
 const footerText = {
   title: '대학 온라인 선거 정보 관리 서비스',

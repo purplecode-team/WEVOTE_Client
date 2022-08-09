@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import media from '@style/media';
-import { PromiseType } from '@type/candidateType';
+import media from '@styles/media';
+import { PromiseType } from 'candidateType';
 import styled from 'styled-components';
-import theme from '@style/theme';
+import theme from '@styles/theme';
 
 const PledgeCard = ({
   promiseType,

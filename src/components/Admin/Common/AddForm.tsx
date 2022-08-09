@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import theme from '@style/theme';
+import theme from '@styles/theme';
 import { useState } from 'react';
 
 type AddFormProps = {

@@ -1,6 +1,6 @@
 import * as TextData from '../TextData';
 
-import { CandidateType, PromiseType } from '@type/candidateType';
+import { CandidateType, PromiseType } from 'candidateType';
 import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';

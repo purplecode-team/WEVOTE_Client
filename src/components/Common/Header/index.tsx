@@ -6,12 +6,12 @@ import styled, { css } from 'styled-components';
 
 import { LoginMenu } from './LoginMenu';
 import logoIcon from '@icon/logo.svg';
-import media from '@style/media';
+import media from '@styles/media';
 import menuBackground from '@icon/background/menuBackground.svg';
 import { NavLink } from 'react-router-dom';
-import { rootState } from '@module/root';
+import { rootState } from '@modules/root';
 import { TextMenu } from './TextMenu';
-import theme from '@style/theme';
+import theme from '@styles/theme';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';

@@ -1,6 +1,6 @@
 import Calendar from './Calendar';
 import InfoCard from './InfoCard';
-import media from '@style/media';
+import media from '@styles/media';
 import Notice from './Notice';
 import React from 'react';
 import Search from './Search';

@@ -3,9 +3,9 @@ import * as React from 'react';
 import styled, { css } from 'styled-components';
 
 import adminProfile from '@icon/profile/AdminProfile.svg';
-import media from '@style/media';
-import { qnaInfo } from '@type/candidateType';
-import theme from '@style/theme';
+import media from '@styles/media';
+import { qnaInfo } from 'candidateType';
+import theme from '@styles/theme';
 import userProfile from '@icon/profile/UserProfile.svg';
 
 type styleProps = {

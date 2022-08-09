@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import client from '@api/client';
-import media from '@style/media';
-import { rootState } from '@module/root';
+import media from '@styles/media';
+import { rootState } from '@modules/root';
 import styled from 'styled-components';
-import theme from '@style/theme';
+import theme from '@styles/theme';
 import { useAlert } from 'react-alert';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';

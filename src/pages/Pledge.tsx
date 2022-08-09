@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { useCallback, useEffect, useState } from 'react';
 
-import CandidateSection from '../components/Pledge/Candidate/CandidateSection';
-import CommentSection from '../components/Pledge/Comment/CommentSection';
-import Loader from '../components/Common/Loader';
-import PledgeSection from '../components/Pledge/PledgeDetail/PledgeSection';
-import useFetch from '@hook/useFetch';
+import CandidateSection from '@components/Pledge/Candidate/CandidateSection';
+import CommentSection from '@components/Pledge/Comment/CommentSection';
+import Loader from '@components/Common/Loader';
+import PledgeSection from '@components/Pledge/PledgeDetail/PledgeSection';
+import useFetch from '@hooks/useFetch';
 import { useParams } from 'react-router-dom';
 
 const Pledge = () => {

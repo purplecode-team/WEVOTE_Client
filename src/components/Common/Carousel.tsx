@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Children, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 
-import media from '@style/media';
+import media from '@styles/media';
 
 let start = 0;
 let diff = 0;

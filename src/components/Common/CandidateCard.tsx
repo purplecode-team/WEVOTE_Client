@@ -6,11 +6,11 @@ import client from '@api/client';
 import CloseIcon from '@material-ui/icons/Close';
 import defaultImg from '@img/errorImage.jpg';
 import EditIcon from '@material-ui/icons/Edit';
-import media from '@style/media';
+import media from '@styles/media';
 import styled from 'styled-components';
-import { Team } from '@type/candidateType';
-import theme from '@style/theme';
-import { toggleCandidateEditor } from '@module/toggle';
+import { Team } from 'candidateType';
+import theme from '@styles/theme';
+import { toggleCandidateEditor } from '@modules/toggle';
 import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 

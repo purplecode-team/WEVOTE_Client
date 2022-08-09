@@ -1,18 +1,18 @@
 import * as TextData from '../TextData';
 
-import { CandidateType, Team } from '@type/candidateType';
+import { CandidateType, Team } from 'candidateType';
 import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import { isEmptyArr } from '@util/getFunction';
+import { isEmptyArr } from '@utils/getFunction';
 import Loader from '../../../../Common/Loader';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { TeamType } from '../index';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import useGetCategory from '@hook/useGetCategory';
+import useGetCategory from '@hooks/useGetCategory';
 import { useStyles } from '../RegisterStyle';
 
 type TeamFormProps = {

@@ -54,21 +54,19 @@
     "baseUrl": "." /* Base directory to resolve non-absolute module names. */,
     "paths": {
       "@/*": ["./src/*"],
-      "@asset/*": ["./src/asset/*"],
-      "@icon/*": ["./src/asset/icon/*"],
-      "@img/*": ["./src/asset/img/*"],
-      "@components/*": ["./src/components/*"],
-      "@module/*": ["./src/module/*"],
-      "@mock/*": ["./src/mock/*"],
-      "@util/*": ["./src/util/*"],
-      "@hook/*": ["./src/hook/*"],
-      "@type/*": ["./src/type/*"],
-      "@saga/*": ["./src/saga/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@icon/*": ["./src/assets/icon/*"],
+      "@img/*": ["./src/assets/img/*"],
+      "@components/*": ["src/components/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@mocks/*": ["./src/mocks/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@api/*": ["./src/api/*"],
-      "@style/*": ["./src/style/*"]
+      "@styles/*": ["./src/styles/*"]
     },
-    // "rootDirs": [],                              /* List of root folders whose combined content represents the structure of the project at runtime. */
-    // "typeRoots": [],                             /* List of folders to include type definitions from. */
+    "typeRoots": ["./node_modules/@types", "./src/@types"],                             /* List of folders to include type definitions from. */
+    // "rootDir": "src",                              /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "types": [],                                 /* Type declaration files to be included in compilation. */
     // "allowSyntheticDefaultImports": true,        /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,

@@ -4,15 +4,15 @@ import { createStyles, makeStyles } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 
 import CardList from './CardList';
-import Carousel from '../../../Common/Carousel';
+import Carousel from '@components/Common/Carousel';
 import Img1 from '@icon/card/CardImg1.svg';
 import Img2 from '@icon/card/CardImg2.svg';
 import Img3 from '@icon/card/CardImg3.svg';
-import media from '@style/media';
+import media from '@styles/media';
 import Skeleton from '@material-ui/lab/Skeleton';
 import styled from 'styled-components';
-import { Team } from '@type/candidateType';
-import { theme } from '../../../Admin/materialStyle';
+import { Team } from 'candidateType';
+import { theme } from '@components/Admin/materialStyle';
 
 type CandidateArticleProps = {
   organizationId?: number;

@@ -1,6 +1,6 @@
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 
-import media from '@style/media';
+import media from '@styles/media';
 
 export let theme = createMuiTheme({
   breakpoints: {

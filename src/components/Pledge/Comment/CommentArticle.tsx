@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Comment from './Comment';
-import { qnaArr } from '@type/candidateType';
+import { qnaArr } from 'candidateType';
 import styled from 'styled-components';
 
 const CommentArticle = ({ qnaArr }: qnaArr) => {

@@ -1,4 +1,4 @@
-import media from '@style/media';
+import media from '@styles/media';
 import React from 'react';
 import styled from 'styled-components';
 

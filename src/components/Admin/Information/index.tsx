@@ -3,7 +3,7 @@ import InformationForm from './InformationForm';
 import InformationList from './InformationList';
 import React from 'react';
 import { useAlert } from 'react-alert';
-import useFetch from '@hook/useFetch';
+import useFetch from '@hooks/useFetch';
 
 const Information = () => {
   const [{ loading, data, error }, fetchData] = useFetch('/api/v1/admin/info');

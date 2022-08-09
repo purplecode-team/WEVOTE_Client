@@ -2,11 +2,11 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Link } from 'react-router-dom';
-import media from '@style/media';
+import media from '@styles/media';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Slide from './Slide';
 import styled from 'styled-components';
-import useFetch from '@hook/useFetch';
+import useFetch from '@hooks/useFetch';
 
 const initialData = [
   {

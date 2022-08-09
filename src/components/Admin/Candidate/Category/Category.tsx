@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Register from './Register';
 import { useAlert } from 'react-alert';
-import useGetCategory from '@hook/useGetCategory';
+import useGetCategory from '@hooks/useGetCategory';
 
 type postDataType = {
   top: string;

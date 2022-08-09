@@ -1,13 +1,13 @@
 import * as TextData from '../TextData';
 
-import { CandidateType, Runner } from '@type/candidateType';
+import { CandidateType, Runner } from 'candidateType';
 import React, { useEffect, useState } from 'react';
 
-import { getNewArrState } from '@util/getFunction';
+import { getNewArrState } from '@utils/getFunction';
 import Grid from '@material-ui/core/Grid';
 import IndividualCandidate from './IndividualCandidate';
 import Typography from '@material-ui/core/Typography';
-import useFetch from '@hook/useFetch';
+import useFetch from '@hooks/useFetch';
 import { useStyles } from '../RegisterStyle';
 
 type InitialType = string[];
