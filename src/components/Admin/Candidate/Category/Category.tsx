@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import client from '@api/client';
-import CloseIcon from '@material-ui/icons/Close';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Loader from '../../../Common/Loader';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -23,8 +16,11 @@ type postDataType = {
 
 const requestTopNames = ['central', 'college', 'major'];
 
-export default function Category(props) {
-  const { categoryIndex, setCategoryIndex, initialIndex } = props;
+export default function Category({
+  categoryIndex,
+  setCategoryIndex,
+  initialIndex,
+}) {
   const classes = useStyles();
   const {
     categoryState,
@@ -129,35 +125,6 @@ export default function Category(props) {
     setIsLoading(false);
   };
 
-  const customList = (section, title, items) => (handle) => (
-    <Card>
-      <CardHeader className={classes.cardHeader} title={title} />
-      <Divider />
-      <List className={classes.list} dense component="div" role="list">
-        {items &&
-          items.map((value, idx) => (
-            <ListItem
-              key={idx}
-              role="listitem"
-              button
-              onClick={handle(value)}
-              className={
-                currentIndex[section] === idx ? classes.active : 'none'
-              }
-            >
-              <ListItemText primary={`${value}`} />
-              {currentIndex[section] === idx &&
-                section !== 'top' &&
-                !(hasBottom && section === 'middle') && (
-                  <CloseIcon onClick={confirmDeletion(section, value)} />
-                )}
-            </ListItem>
-          ))}
-        <ListItem />
-      </List>
-    </Card>
-  );
-
   useEffect(() => {
     if (currentIndex === initialIndex) {
       setCurrentIndex({ ...categoryIndex });
@@ -188,7 +155,7 @@ export default function Category(props) {
           setPostData={setPostData}
           setCurrentIndex={setCurrentIndex}
           currentIndex={currentIndex}
-          customList={customList}
+          confirmDeletion={confirmDeletion}
           submitData={submitData}
           hasBottom={hasBottom}
         />
@@ -198,19 +165,6 @@ export default function Category(props) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  cardHeader: {
-    padding: theme.spacing(1, 2),
-  },
-  list: {
-    width: 200,
-    height: 230,
-    margin: '0 auto',
-    backgroundColor: theme.palette.background.paper,
-    overflow: 'auto',
-  },
-  active: {
-    backgroundColor: '#eae3ff',
-  },
   paper: {
     maxWidth: 936,
     margin: '30px auto',

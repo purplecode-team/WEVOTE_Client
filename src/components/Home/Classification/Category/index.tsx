@@ -9,7 +9,7 @@ import styled from 'styled-components';
 type ClassificationProps = {
   getNewMiddleList: (HTMLInputElement: any) => void;
   getNewBottomList: (HTMLInputElement: any) => void;
-  handleBottomCurrentIndex: (HTMLInputElement: any) => () => void;
+  handleBottomCurrentIndex: (HTMLInputElement: any) => void;
   topList: string[];
   middleList: string[];
   bottomList: string[];
@@ -37,7 +37,7 @@ const ClassificationCategory = ({
   };
 
   const handleBottomIndex = (e) => {
-    handleBottomCurrentIndex(e.target.innerText)();
+    handleBottomCurrentIndex(e.target.innerText);
   };
 
   useEffect(() => {
