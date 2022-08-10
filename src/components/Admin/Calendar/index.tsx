@@ -86,6 +86,7 @@ export default function Calendar() {
   };
 
   useEffect(() => {
+    if (!data) return;
     setFileUrl(data.image);
     return () => setFileUrl(data.image);
   }, [data]);
