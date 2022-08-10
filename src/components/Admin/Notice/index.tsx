@@ -24,7 +24,9 @@ const initialData = [
 ];
 
 const NoticeArticle = () => {
-  const [{ loading, data, error }, fetchData] = useFetch('/api/v1/main/banner');
+  const [{ loading, data, error }, fetchData] = useFetch(
+    '/api/v1/admin/banner'
+  );
   const [rows, setRows] = useState<NoticeData[]>([]);
   const [editData, setEditData] = useState<NoticeData>();
   const [isOpen, setIsOpen] = useState<boolean>(false);

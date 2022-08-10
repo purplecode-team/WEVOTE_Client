@@ -77,7 +77,7 @@ export const getBanner = rest.get('/api/v1/main/banner', (req, res, ctx) =>
         endDate: '2021-03-08T00:00:00.000Z',
       },
       {
-        id: 1,
+        id: 3,
         content: '총학생회 선거마감 D-Day',
         startDate: '2021-03-03T00:00:00.000Z',
         endDate: '2021-03-08T00:00:00.000Z',
