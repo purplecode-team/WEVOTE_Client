@@ -23,7 +23,7 @@ const App = () => {
     user: state.user.user,
   }));
   const isAdmin = true;
-  // const isAdmin = user && user.status === 'admin';
+  // const isAdmin = user && user.status === process.env.REACT_APP_ADMIN_CODE;
 
   return (
     <Router>
