@@ -8,7 +8,22 @@
 <img src="https://user-images.githubusercontent.com/62092665/171193631-beb00d4f-d4c2-4290-bf14-15e6a6392ebc.jpg" alt="architecture" style="max-width: 600px;" />
 
 ## 📼 Preview
-<img src="https://user-images.githubusercontent.com/62092665/168425642-b306328e-6c26-433f-ad6d-5258a9f72be4.png" alt="demo screenshot" style="max-width: 700px" />
+<img src="https://user-images.githubusercontent.com/62092665/184024366-62c6455d-7b6d-4ccd-9256-95a0fa915b91.png" alt="demo screenshot" style="max-width: 700px" />
+
+<details>
+<summary>후보 상세 페이지</summary>
+
+![후보 상세 페이지](https://user-images.githubusercontent.com/62092665/184024914-fd6b7d9f-d4b5-437d-be0b-e8cd7135823c.png)
+
+</details>
+
+<details>
+<summary>관리자 페이지</summary>
+
+![관리자 페이지](https://user-images.githubusercontent.com/62092665/184024377-b91420c6-3dc9-4bc1-b6b8-c4d6c42ccae4.png)
+
+</details>
+
 
 ## ✨ Features
 - 선거 단위별 검색 및 상세 페이지 이동
@@ -21,9 +36,9 @@
 
 
 ## 🌐 Supported Browsers
-|<img width="20" src="https://simpleicons.org/icons/internetexplorer.svg" alt="IE" />|<img width="20" src="https://simpleicons.org/icons/googlechrome.svg" alt="Chrome" />|<img width="20" src="https://simpleicons.org/icons/firefoxbrowser.svg" alt="Firefox" />|<img width="20" src="https://simpleicons.org/icons/safari.svg" alt="Safari" />|<img width="20" src="https://simpleicons.org/icons/apple.svg" alt="iOS" />|<img width="20" src="https://simpleicons.org/icons/android.svg" alt="Android" />|
+|<img width="20" src="https://simpleicons.org/icons/internetexplorer.svg" alt="IE" />|<img width="20" src="https://simpleicons.org/icons/googlechrome.svg" alt="Chrome" />|<img width="20" src="https://simpleicons.org/icons/firefoxbrowser.svg" alt="Firefox" />|<img width="20" src="https://simpleicons.org/icons/safari.svg" alt="Safari" />|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|9+(With polyfill), 11+ |Latest|Latest|Latest|7+|4+|
+|11+ |last 2 versions|last 2 versions|last 2 versions|
 
 
 ## 📝 Feedback
