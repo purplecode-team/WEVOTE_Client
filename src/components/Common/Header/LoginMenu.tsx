@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import loginIcon from '@icon/login/login.svg';
 import { logout } from '@api/auth';
-import { logoutAction } from '@modules/user';
 import logoutIcon from '@icon/login/logout.svg';
 import media from '@styles/media';
 import PropTypes from 'prop-types';
@@ -10,6 +9,7 @@ import styled from 'styled-components';
 import theme from '@styles/theme';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import userSlice from '@store/modules/userSlice';
 
 interface LoginMenuProps {
   changeActiveMenu: () => void;
@@ -25,7 +25,7 @@ export const LoginMenu = ({
 
   const handleLogout = () => {
     logout();
-    dispatch(logoutAction());
+    dispatch(userSlice.actions.logout());
     history.push('/');
   };
 

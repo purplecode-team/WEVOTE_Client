@@ -11,7 +11,7 @@ import {
 
 import GlobalStyle from '@styles/GlobalStyle';
 import Layout from './components/Common/Layout';
-import { rootState } from '@modules/root';
+import storeTypes from 'storeTypes';
 import { useSelector } from 'react-redux';
 
 const Pledge = lazy(() => import('./pages/Pledge'));
@@ -19,7 +19,7 @@ const Board = lazy(() => import('./pages/Board'));
 const Admin = lazy(() => import('./pages/Admin'));
 
 const App = () => {
-  const { user } = useSelector((state: rootState) => ({
+  const { user } = useSelector((state: storeTypes.sliceState) => ({
     user: state.user.user,
   }));
   const isAdmin = true;

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import client from '@api/client';
 import media from '@styles/media';
-import { rootState } from '@modules/root';
+import storeTypes from 'storeTypes';
 import styled from 'styled-components';
 import theme from '@styles/theme';
 import { useAlert } from 'react-alert';
@@ -12,7 +12,7 @@ import { useState } from 'react';
 const CommentInput = ({ teamId, fetchData }) => {
   const [text, setText] = useState('');
   const alert = useAlert();
-  const { user } = useSelector((state: rootState) => ({
+  const { user } = useSelector((state: storeTypes.sliceState) => ({
     user: state.user.user,
   }));
 

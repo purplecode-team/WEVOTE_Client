@@ -11,9 +11,9 @@ import Loader from '@components/Common/Loader';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import PledgeForm from './Pledge';
-import { rootState } from '@modules/root';
+import storeTypes from 'storeTypes';
 import TeamForm from './Team';
-import { toggleCandidateEditor } from '@modules/toggle';
+import toggleSlice from '@store/modules/toggleSlice';
 import { useAlert } from 'react-alert';
 
 export interface TeamType {
@@ -41,7 +41,7 @@ export default function Register(props) {
   const [editData, setEditData] = useState<CandidateType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { toggleEditor, candidateId } = useSelector(
-    ({ toggle }: rootState) => ({
+    ({ toggle }: storeTypes.sliceState) => ({
       toggleEditor: toggle.toggleEditor,
       candidateId: toggle.candidateId,
     })
@@ -107,7 +107,10 @@ export default function Register(props) {
         })
         .catch((e) => alert.error('후보 정보 업데이트 실패'));
       dispatch(
-        toggleCandidateEditor({ toggleEditor: false, candidateId: candidateId })
+        toggleSlice.actions.toggleCandidateEditor({
+          toggleEditor: false,
+          candidateId: candidateId,
+        })
       );
       refetch();
     } catch (e) {

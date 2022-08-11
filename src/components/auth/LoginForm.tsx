@@ -1,26 +1,26 @@
-import { changeField, initializeForm } from '@modules/auth';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AuthForm from './AuthForm';
+import authSlice from '@store/modules/authSlice';
 import { login } from '@api/auth';
-import { rootState } from '@modules/root';
-import { tempSetUser } from '@modules/user';
+import storeTypes from 'storeTypes';
 import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router-dom';
+import userSlice from '@store/modules/userSlice';
 
 const LoginForm = () => {
   const history = useHistory();
   const alert = useAlert();
   const dispatch = useDispatch();
-  const { form } = useSelector(({ auth }: rootState) => ({
+  const { form } = useSelector(({ auth }: storeTypes.sliceState) => ({
     form: auth.login,
   }));
   // 인풋 변경 이벤트 핸들러
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
-      changeField({
+      authSlice.actions.changeField({
         form: 'login',
         key: name,
         value,
@@ -37,7 +37,9 @@ const LoginForm = () => {
         userId: form.userId,
         password: form.password,
       });
-      dispatch(tempSetUser({ nickName, status, userId }));
+      dispatch(
+        userSlice.actions.tempSetUser({ user: { nickName, status, userId } })
+      );
       if (status === 'admin') history.push('/admin');
       else history.push('/');
     } catch {
@@ -47,8 +49,7 @@ const LoginForm = () => {
 
   // 컴포넌트가 처음 렌더링될 때 form을 초기화함
   useEffect(() => {
-    dispatch(initializeForm('login'));
-    return () => dispatch(initializeForm('login'));
+    dispatch(authSlice.actions.initializeForm('login'));
   }, [dispatch]);
 
   return (

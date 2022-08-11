@@ -5,14 +5,14 @@ import { verifyEmail, verifyName, verifyPassword } from '@utils/getFunction';
 
 import axios from 'axios';
 import Button from '../Common/Button';
-import { FormType } from '@modules/auth';
+import { FormType } from '@store/modules/authSlice';
 import KakaoLogin from 'react-kakao-login';
 import klogin from '@img/login/kakaoLogin.png';
 import media from '@styles/media';
 import React from 'react';
-import { tempSetUser } from '@modules/user';
 import theme from '@styles/theme';
 import { useDispatch } from 'react-redux';
+import userSlice from '@store/modules/userSlice';
 
 interface AuthFormProps {
   type: string;
@@ -46,7 +46,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }: AuthFormProps) => {
       .then((res) => {
         localStorage.setItem('Authorization', res.headers['Authorization']);
         localStorage.setItem('user', JSON.stringify(res.data));
-        dispatch(tempSetUser({ user: res.data }));
+        dispatch(userSlice.actions.tempSetUser({ user: res.data }));
         history.push('/');
       })
       .catch((e) => {

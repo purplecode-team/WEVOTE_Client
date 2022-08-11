@@ -10,7 +10,7 @@ import media from '@styles/media';
 import styled from 'styled-components';
 import { Team } from 'candidateType';
 import theme from '@styles/theme';
-import { toggleCandidateEditor } from '@modules/toggle';
+import toggleSlice from '@store/modules/toggleSlice';
 import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 
@@ -29,7 +29,10 @@ const CandidateCard = ({ teamData, title, refetch }: TeamProps) => {
     e.stopPropagation();
     // delete 클릭 시, 이벤트
     dispatch(
-      toggleCandidateEditor({ toggleEditor: true, candidateId: teamData.id })
+      toggleSlice.actions.toggleCandidateEditor({
+        toggleEditor: true,
+        candidateId: teamData.id,
+      })
     );
   };
 

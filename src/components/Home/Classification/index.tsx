@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import Candidate from './Candidate';
-import CandidateRegister from '@/components/Admin/Candidate/Register';
+import CandidateRegister from '@components/Admin/Candidate/Register';
 import Category from './Category';
 import { Modal } from 'react-responsive-modal';
-import { rootState } from '@modules/root';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { toggleCandidateEditor } from '@modules/toggle';
+import storeTypes from 'storeTypes';
+import toggleSlice from '@store/modules/toggleSlice';
 import useFetch from '@hooks/useFetch';
 import useGetCategory from '@hooks/useGetCategory';
 
@@ -38,7 +38,7 @@ const Classification = (props) => {
   const [organizationId, setOrganizationId] = useState<number>();
   const [teamData, setTeamData] = useState<Team[]>([]);
   const { toggleEditor, candidateId } = useSelector(
-    ({ toggle }: rootState) => ({
+    ({ toggle }: storeTypes.sliceState) => ({
       toggleEditor: toggle.toggleEditor,
       candidateId: toggle.candidateId,
     })
@@ -129,7 +129,7 @@ const Classification = (props) => {
         open={toggleEditor}
         onClose={() => {
           dispatch(
-            toggleCandidateEditor({
+            toggleSlice.actions.toggleCandidateEditor({
               toggleEditor: false,
               candidateId: candidateId,
             })

@@ -9,7 +9,7 @@ import logoIcon from '@icon/logo.svg';
 import media from '@styles/media';
 import menuBackground from '@icon/background/menuBackground.svg';
 import { NavLink } from 'react-router-dom';
-import { rootState } from '@modules/root';
+import storeTypes from 'storeTypes';
 import { TextMenu } from './TextMenu';
 import theme from '@styles/theme';
 import { useEffect } from 'react';
@@ -21,7 +21,7 @@ interface HeaderStyle {
 }
 
 const Header = () => {
-  const { user } = useSelector((state: rootState) => ({
+  const { user } = useSelector((state: storeTypes.sliceState) => ({
     user: state.user.user,
   }));
   const [isActive, setIsActive] = useState(false);
