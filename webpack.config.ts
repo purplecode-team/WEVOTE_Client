@@ -79,7 +79,7 @@ module.exports = {
       '@icon': path.resolve(__dirname, 'src/assets/icon'),
       '@img': path.resolve(__dirname, 'src/assets/img'),
       '@components': path.resolve(__dirname, 'src/components'),
-      '@modules': path.resolve(__dirname, 'src/modules'),
+      '@store': path.resolve(__dirname, 'src/store'),
       '@mocks': path.resolve(__dirname, 'src/mocks'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),
