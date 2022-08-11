@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from 'react';
 
 import CloseIcon from '@material-ui/icons/Close';
-import defaultImg from '../../../../../public/img/noimg.jpg';
+import errorImage from '@img/errorImage.jpg';
 import styled from 'styled-components';
 
-type PreviewProps = {
+interface PreviewProps {
   fileUrl: any[];
   alt: string;
   resetImg: () => void;
   width: number | string;
   height: number | string;
-};
+}
 
 export default function ImagePreview(props: PreviewProps) {
   const { fileUrl, alt, resetImg, width, height } = props;
   const [urls, setUrls] = useState<any>([]);
 
-  const isDefault = urls[0] === defaultImg;
+  const isDefault = urls[0] === errorImage;
   const hasUrlArray = urls.length > 0;
 
   const handleImgError = () => {
-    setUrls([defaultImg]);
+    setUrls([errorImage]);
   };
 
   const MaxFileSize = 9;
 
   useEffect(() => {
-    if (isDefault) setUrls([defaultImg]);
+    if (isDefault) setUrls([errorImage]);
   }, []);
 
   useEffect(() => {

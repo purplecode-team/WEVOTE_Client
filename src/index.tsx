@@ -1,55 +1,46 @@
-import './index.css';
-
 import * as React from 'react';
 
 import { Provider as AlertProvider, positions, transitions } from 'react-alert';
-import { applyMiddleware, createStore } from 'redux';
-import rootReducer, { rootSaga } from './modules';
 
 import AlertTemplate from 'react-alert-template-basic';
 import App from './App';
+import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import createSagaMiddleware from 'redux-saga';
 import { render } from 'react-dom';
-import { tempSetUser } from './modules/user';
+import rootReducer from '@store/root';
+import userSlice from '@store/modules/userSlice';
 
-const sagaMiddleware = createSagaMiddleware();
+import '@styles/index.css';
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
-);
+const store = configureStore({ reducer: rootReducer });
 
 function loadUser() {
   try {
     const user = localStorage.getItem('user');
     if (!user) return;
-    const parsedUser = JSON.parse(user);
-    store.dispatch(tempSetUser(parsedUser));
+    store.dispatch(userSlice.actions.tempSetUser(JSON.parse(user)));
   } catch (e) {
     console.log('localStorage is not working');
   }
 }
 
-sagaMiddleware.run(rootSaga);
 loadUser();
-
-const options = {
-  position: positions.BOTTOM_CENTER,
-  timeout: 3000,
-  offset: '50px',
-  transition: transitions.SCALE,
-};
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = require('./mocks/browser');
   worker.start();
 }
 
+const alertOptions = {
+  position: positions.BOTTOM_CENTER,
+  timeout: 3000,
+  offset: '50px',
+  transition: transitions.SCALE,
+};
+
 const Root = () => (
   <Provider store={store}>
-    <AlertProvider template={AlertTemplate} {...options}>
+    <AlertProvider template={AlertTemplate} {...alertOptions}>
       <App />
     </AlertProvider>
   </Provider>

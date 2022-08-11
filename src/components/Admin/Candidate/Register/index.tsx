@@ -4,25 +4,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AxiosResponse } from 'axios';
 import Button from '@material-ui/core/Button';
 import CandidateForm from './Candidate';
-import { CandidateType } from '../../../../types/candidateType';
-import client from '../../../../lib/api/client';
+import { CandidateType } from 'candidateType';
+import client from '@api/client';
 import Grid from '@material-ui/core/Grid';
-import Loader from '../../../Common/Loader';
+import Loader from '@components/Common/Loader';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import PledgeForm from './Pledge';
-import { rootState } from '../../../../modules';
+import storeTypes from 'storeTypes';
 import TeamForm from './Team';
-import { toggleCandidateEditor } from '../../../../modules/toggle';
+import toggleSlice from '@store/modules/toggleSlice';
 import { useAlert } from 'react-alert';
 
-export type TeamType = {
+export interface TeamType {
   teamNumber: number;
   slogan: string;
   currentTop: string;
   currentMiddle: string;
   currentBottom: string;
-};
+}
 
 const initialTeamData: TeamType = {
   teamNumber: 1,
@@ -40,10 +40,12 @@ export default function Register(props) {
   const [teamData, setTeamData] = useState<TeamType>(initialTeamData);
   const [editData, setEditData] = useState<CandidateType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { toggleEditor, candidateId } = useSelector(({ toggle }:rootState)=>({
-    toggleEditor : toggle.toggleEditor,
-    candidateId : toggle.candidateId
-  }));
+  const { toggleEditor, candidateId } = useSelector(
+    ({ toggle }: storeTypes.sliceState) => ({
+      toggleEditor: toggle.toggleEditor,
+      candidateId: toggle.candidateId,
+    })
+  );
   const dispatch = useDispatch();
   const alert = useAlert();
 
@@ -104,9 +106,12 @@ export default function Register(props) {
           else alert.success('후보 정보 업데이트 성공');
         })
         .catch((e) => alert.error('후보 정보 업데이트 실패'));
-        dispatch(
-          toggleCandidateEditor({toggleEditor: false, candidateId: candidateId })
-        );
+      dispatch(
+        toggleSlice.actions.toggleCandidateEditor({
+          toggleEditor: false,
+          candidateId: candidateId,
+        })
+      );
       refetch();
     } catch (e) {
       alert.error('후보 정보 업데이트 실패');

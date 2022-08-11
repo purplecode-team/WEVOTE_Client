@@ -1,9 +1,9 @@
+import client from '@api/client';
 import InformationForm from './InformationForm';
 import InformationList from './InformationList';
 import React from 'react';
-import client from '../../../lib/api/client';
 import { useAlert } from 'react-alert';
-import useFetch from '../../../lib/hooks/useFetch';
+import useFetch from '@hooks/useFetch';
 
 const Information = () => {
   const [{ loading, data, error }, fetchData] = useFetch('/api/v1/admin/info');

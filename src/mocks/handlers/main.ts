@@ -55,7 +55,8 @@ export const getCalendar = rest.get('/api/v1/main/calendar', (req, res, ctx) =>
   res(
     ctx.json({
       id: 1,
-      image: 'https://user-images.githubusercontent.com/62092665/182569431-7261a855-0bdc-43bb-9172-33c5b98b6946.svg',
+      image:
+        'https://user-images.githubusercontent.com/62092665/182569431-7261a855-0bdc-43bb-9172-33c5b98b6946.svg',
     })
   )
 );
@@ -76,7 +77,7 @@ export const getBanner = rest.get('/api/v1/main/banner', (req, res, ctx) =>
         endDate: '2021-03-08T00:00:00.000Z',
       },
       {
-        id: 1,
+        id: 3,
         content: '총학생회 선거마감 D-Day',
         startDate: '2021-03-03T00:00:00.000Z',
         endDate: '2021-03-08T00:00:00.000Z',
@@ -143,7 +144,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
                   teamId: 1,
                 },
                 {
@@ -152,7 +154,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
                   teamId: 1,
                 },
               ],
@@ -168,7 +171,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
                   teamId: 1,
                 },
                 {
@@ -177,7 +181,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
                   teamId: 1,
                 },
               ],
@@ -193,7 +198,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
                   teamId: 1,
                 },
                 {
@@ -202,7 +208,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
                   teamId: 1,
                 },
               ],
@@ -224,7 +231,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
                   teamId: 1,
                 },
                 {
@@ -233,7 +241,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
                   teamId: 1,
                 },
               ],
@@ -249,7 +258,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
                   teamId: 2,
                 },
                 {
@@ -258,7 +268,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
                   teamId: 2,
                 },
               ],
@@ -274,7 +285,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
                   teamId: 3,
                 },
                 {
@@ -283,7 +295,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
                   teamId: 3,
                 },
               ],
@@ -299,7 +312,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '사회학과',
                   studentNum: 2314223,
                   position: '정학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570019-ae5e329a-f4ea-4ea3-9f7d-5cdff6714f71.jpg',
                   teamId: 4,
                 },
                 {
@@ -308,7 +322,8 @@ export const getMain = rest.get('/api/v1/main/all', (req, res, ctx) =>
                   major: '통계학과',
                   studentNum: 2313241,
                   position: '부학생회장',
-                  picture: 'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
+                  picture:
+                    'https://user-images.githubusercontent.com/62092665/182570007-0560dddc-3def-44e0-b10e-419b3607633a.jpg',
                   teamId: 4,
                 },
               ],

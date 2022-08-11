@@ -3,18 +3,18 @@ import * as React from 'react';
 import { useEffect, useRef } from 'react';
 
 import CategoryItem from './CategoryItem';
-import media from '../../../../lib/styles/media';
+import media from '@styles/media';
 import styled from 'styled-components';
 
-type ClassificationProps = {
+interface ClassificationProps {
   getNewMiddleList: (HTMLInputElement: any) => void;
   getNewBottomList: (HTMLInputElement: any) => void;
-  handleBottomCurrentIndex: (HTMLInputElement: any) => () => void;
+  handleBottomCurrentIndex: (HTMLInputElement: any) => void;
   topList: string[];
   middleList: string[];
   bottomList: string[];
   currentIndex: { top: number; middle: number; bottom: number };
-};
+}
 
 const ClassificationCategory = ({
   getNewMiddleList,
@@ -37,7 +37,7 @@ const ClassificationCategory = ({
   };
 
   const handleBottomIndex = (e) => {
-    handleBottomCurrentIndex(e.target.innerText)();
+    handleBottomCurrentIndex(e.target.innerText);
   };
 
   useEffect(() => {

@@ -2,72 +2,81 @@ import * as React from 'react';
 
 import { useEffect, useState } from 'react';
 
-import client from '../../lib/api/client';
+import client from '@api/client';
 import CloseIcon from '@material-ui/icons/Close';
-import defaultImg from '../../../public/img/noimg.jpg';
+import defaultImg from '@img/errorImage.jpg';
 import EditIcon from '@material-ui/icons/Edit';
-import media from '../../lib/styles/media';
+import media from '@styles/media';
 import styled from 'styled-components';
-import { Team } from '../../types/candidateType';
-import theme from '../../lib/styles/theme';
-import { toggleCandidateEditor } from '../../modules/toggle';
+import { Team } from 'candidateType';
+import theme from '@styles/theme';
+import toggleSlice from '@store/modules/toggleSlice';
 import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 
-type TeamProps = {
+interface TeamProps {
   teamData: Team;
   title?: string;
   refetch?: () => void;
-};
+}
 
 const CandidateCard = ({ teamData, title, refetch }: TeamProps) => {
   const [isAdminPage, setAdminPage] = useState(false);
   const alert = useAlert();
   const dispatch = useDispatch();
 
-  const editCandidate = e => {
+  const editCandidate = (e) => {
     e.stopPropagation();
     // delete 클릭 시, 이벤트
-    dispatch(toggleCandidateEditor({toggleEditor: true, candidateId: teamData.id}));
-  }
-
-  const deleteCandidate = async e => {
-    e.stopPropagation();
-    if (!confirm(`${title} 기호${teamData.order}번 후보를 삭제하시겠습니까?`)) return;
-    try {
-      await client.delete(`/api/v1/admin/candidate/${teamData.id}`)
-      .then(res => {
-        if(res.status !== 200) throw new Error('Delete Failed');
-        alert.success('후보 삭제 성공');
+    dispatch(
+      toggleSlice.actions.toggleCandidateEditor({
+        toggleEditor: true,
+        candidateId: teamData.id,
       })
-      .then(()=> {if(refetch) refetch()})
-      .catch(e => alert.error('후보 삭제 실패'));
-    }catch(e) {
-      alert.error('후보 삭제 실패')
+    );
+  };
+
+  const deleteCandidate = async (e) => {
+    e.stopPropagation();
+    if (!confirm(`${title} 기호${teamData.order}번 후보를 삭제하시겠습니까?`))
+      return;
+    try {
+      await client
+        .delete(`/api/v1/admin/candidate/${teamData.id}`)
+        .then((res) => {
+          if (res.status !== 200) throw new Error('Delete Failed');
+          alert.success('후보 삭제 성공');
+        })
+        .then(() => {
+          if (refetch) refetch();
+        })
+        .catch((e) => alert.error('후보 삭제 실패'));
+    } catch (e) {
+      alert.error('후보 삭제 실패');
     }
-  }
+  };
 
   const handleImgError = (e) => {
     e.target.src = defaultImg;
-  }
+  };
 
   // admin일 경우, 상황에 따라 edit open, delete candidate 실행 함수 작성
-  useEffect(()=>{
-    const addressList = window.location.href.split('/')
-    if (addressList[addressList.length -1] === 'admin') {
+  useEffect(() => {
+    const addressList = window.location.href.split('/');
+    if (addressList[addressList.length - 1] === 'admin') {
       setAdminPage(true);
     }
     return () => setAdminPage(false);
-  },[])
+  }, []);
 
   return (
     <>
-      { isAdminPage && (
+      {isAdminPage && (
         <>
-          <EditButton type='button' onClick={editCandidate}>
+          <EditButton type="button" onClick={editCandidate}>
             <EditIcon fontSize={'large'} />
           </EditButton>
-          <DeleteButton type='button' onClick={deleteCandidate}>
+          <DeleteButton type="button" onClick={deleteCandidate}>
             <CloseIcon fontSize={'large'} />
           </DeleteButton>
         </>
@@ -75,10 +84,14 @@ const CandidateCard = ({ teamData, title, refetch }: TeamProps) => {
       <NumberBlock>기호 {teamData.order}번</NumberBlock>
       <SloganBlock>"{teamData.slogan}"</SloganBlock>
       <InnerBox>
-        {teamData.Runners.map(Runner => (
-          <Block key={Runner.id} >
+        {teamData.Runners.map((Runner) => (
+          <Block key={Runner.id}>
             <ImgBlock>
-              <Profile src={Runner.picture || ''} alt="profile" onError={handleImgError}/>
+              <Profile
+                src={Runner.picture || ''}
+                alt="profile"
+                onError={handleImgError}
+              />
             </ImgBlock>
             <RoleText>{Runner.position}</RoleText>
             <NameBlock>
@@ -156,7 +169,6 @@ const InnerBox = styled.div`
   justify-content: space-around;
 `;
 
-
 const Block = styled.div`
   display: inline-block;
   width: 160px;
@@ -231,6 +243,5 @@ const StudentNumberText = styled.p`
   text-align: center;
   margin: 10px auto;
 `;
-
 
 export default CandidateCard;

@@ -4,23 +4,23 @@ import { createStyles, makeStyles } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 
 import CardList from './CardList';
-import Carousel from '../../../Common/Carousel';
-import Img1 from '../../../../../public/img/CardImg1.svg';
-import Img2 from '../../../../../public/img/CardImg2.svg';
-import Img3 from '../../../../../public/img/CardImg3.svg';
+import Carousel from '@components/Common/Carousel';
+import Img1 from '@icon/card/CardImg1.svg';
+import Img2 from '@icon/card/CardImg2.svg';
+import Img3 from '@icon/card/CardImg3.svg';
+import media from '@styles/media';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { Team } from '../../../../types/candidateType';
-import media from '../../../../lib/styles/media';
 import styled from 'styled-components';
-import { theme } from '../../../Admin/style';
+import { Team } from 'candidateType';
+import { theme } from '@components/Admin/materialStyle';
 
-type CandidateArticleProps = {
+interface CandidateArticleProps {
   organizationId?: number;
   loading: boolean;
   title: string;
   teamArr: Team[];
   refetch?: () => void;
-};
+}
 
 const emptyCardArr = [Img1, Img2, Img3];
 const emptyDescription = '후보가 등록되어 있지 않습니다.';

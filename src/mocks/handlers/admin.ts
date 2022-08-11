@@ -60,6 +60,11 @@ export const getInfo = rest.get('/api/v1/admin/info', (req, res, ctx) =>
   )
 );
 
+export const postCategory = rest.post(
+  '/api/v1/admin/category',
+  (req, res, ctx) => res(ctx.status(200))
+);
+
 export const getCategory = rest.get('/api/v1/admin/category', (req, res, ctx) =>
   res(
     ctx.status(200),
@@ -122,5 +127,16 @@ export const getCategory = rest.get('/api/v1/admin/category', (req, res, ctx) =>
         ],
       },
     ])
+  )
+);
+
+export const getCalendar = rest.get('/api/v1/admin/calendar', (req, res, ctx) =>
+  res(
+    ctx.status(200),
+    ctx.json({
+      id: 1,
+      image:
+        'https://user-images.githubusercontent.com/62092665/183986264-364b3df9-7eb7-42b6-9dc4-dc7a5368c1b5.svg',
+    })
   )
 );

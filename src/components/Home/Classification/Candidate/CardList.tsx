@@ -3,74 +3,82 @@ import * as React from 'react';
 import styled, { css } from 'styled-components';
 
 import CandidateCard from '../../../Common/CandidateCard';
-import media from '../../../../lib/styles/media';
-import { Team } from '../../../../types/candidateType';
-import theme from '../../../../lib/styles/theme';
-import { useHistory } from "react-router-dom";
+import media from '@styles/media';
+import { Team } from 'candidateType';
+import theme from '@styles/theme';
+import { useHistory } from 'react-router-dom';
 
-type imgTypes = {
+interface imgTypes {
   isLink?: boolean;
   refetch?: () => void;
   dataArr: any[];
   title?: string;
   alt: string;
   description?: string;
-  isCurrent?: boolean
+  isCurrent?: boolean;
   organizationId?: number;
 }
 
-type styleProps = {
+interface styleProps {
   isCurrent?: boolean;
   mobileMargin?: number;
   MobileBoxSize?: number;
-  laptopMargin?:number;
-};
+  laptopMargin?: number;
+}
 
 const BoxSize = 360;
 const MobileBoxSize = 80;
 
-const CardList = (props:imgTypes) => {
-  const {isLink, refetch, dataArr, title, alt, isCurrent, description, organizationId} = props;
+const CardList = (props: imgTypes) => {
+  const {
+    isLink,
+    refetch,
+    dataArr,
+    title,
+    alt,
+    isCurrent,
+    description,
+    organizationId,
+  } = props;
   const history = useHistory();
-  
-  const mobileMargin = (window.innerWidth - window.innerWidth*MobileBoxSize/100) / 2
+
+  const mobileMargin =
+    (window.innerWidth - (window.innerWidth * MobileBoxSize) / 100) / 2;
 
   const routePledge = () => {
     history.push(`/promise/promise-detail/${organizationId}`);
-  }
+  };
 
   return (
     <>
-      {isLink ? 
-        dataArr.map((team: Team) => (
-          <Box 
-            key={team.id}
-            isCurrent={isCurrent} 
-            mobileMargin={mobileMargin} 
-            MobileBoxSize={MobileBoxSize}
-            onClick={routePledge}
-          >
-            <CandidateCard title={title} teamData={team} refetch={refetch}/>
-          </Box>
-        ))
-        : 
-        dataArr.map((img,index) => (
-          <Box 
-           key={index}
-           mobileMargin={mobileMargin}
-           MobileBoxSize={MobileBoxSize}
-         >
-           <Img src={img} alt={alt} />
-           {description && <Description>{description}</Description>}
-         </Box>
-       ))
-      }
+      {isLink
+        ? dataArr.map((team: Team) => (
+            <Box
+              key={team.id}
+              isCurrent={isCurrent}
+              mobileMargin={mobileMargin}
+              MobileBoxSize={MobileBoxSize}
+              onClick={routePledge}
+            >
+              <CandidateCard title={title} teamData={team} refetch={refetch} />
+            </Box>
+          ))
+        : dataArr.map((img, index) => (
+            <Box
+              key={index}
+              mobileMargin={mobileMargin}
+              MobileBoxSize={MobileBoxSize}
+            >
+              <Img src={img} alt={alt} />
+              {description && <Description>{description}</Description>}
+            </Box>
+          ))}
     </>
   );
 };
 
 CardList.defaultProps = {
-  isLink : false,
+  isLink: false,
   isCurrent: true,
 };
 
@@ -83,7 +91,7 @@ const Box = styled.div`
   box-sizing: border-box;
   padding: 20px;
   position: relative;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
   @media (min-width: ${media.mobileL + 1}px) {

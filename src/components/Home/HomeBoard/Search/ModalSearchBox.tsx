@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 
 import Button from '../../../Common/Button';
-import closeIcon from '../../../../../public/img/close.svg';
+import closeIcon from '@icon/close.svg';
 import Fab from '@material-ui/core/Fab';
 import SearchBox from './SearchBox';
 import SearchIcon from '@material-ui/icons/Search';
@@ -11,7 +11,7 @@ import styled from 'styled-components';
 
 const modalTitle = '검색하기';
 
-export default function ModalSearchBox({data}) {
+export default function ModalSearchBox({ data }) {
   const classes = useStyles();
   const [active, setActive] = useState(false);
 
@@ -29,7 +29,12 @@ export default function ModalSearchBox({data}) {
           <ModalTitle>{modalTitle}</ModalTitle>
           <SearchBox data={data} />
           <Recommendation>
-            <Button bgColor={theme.palette.primary.main} color={theme.palette.primary.background}>총학</Button>
+            <Button
+              bgColor={theme.palette.primary.main}
+              color={theme.palette.primary.background}
+            >
+              총학
+            </Button>
           </Recommendation>
         </ModalBox>
         <Fab
@@ -46,7 +51,7 @@ export default function ModalSearchBox({data}) {
   );
 }
 
-const useStyles = makeStyles((theme) =>({
+const useStyles = makeStyles((theme) => ({
   onButton: {
     display: 'none',
   },

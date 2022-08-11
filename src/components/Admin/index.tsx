@@ -1,8 +1,10 @@
 import { MenuData, menuType, smallMenuType } from './MenuData';
-import { theme, useStyles } from './style';
+import { theme, useStyles } from './materialStyle';
 
 import Calendar from './Calendar';
 import Candidate from './Candidate';
+import { cloneDeep } from 'lodash';
+import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -16,8 +18,6 @@ import Notice from './Notice';
 import PledgeBoard from './PledgeBoard';
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { cloneDeep } from 'lodash';
-import clsx from 'clsx';
 import { useState } from 'react';
 
 function AdminSection() {

@@ -1,22 +1,19 @@
 import * as TextData from '../TextData';
 
-import { CandidateType, Runner } from '../../../../../types/candidateType';
+import { CandidateType, Runner } from 'candidateType';
 import React, { useEffect, useState } from 'react';
 
+import { getNewArrState } from '@utils/getFunction';
 import Grid from '@material-ui/core/Grid';
 import IndividualCandidate from './IndividualCandidate';
 import Typography from '@material-ui/core/Typography';
-import { getNewArrState } from '../../../../../utils/getFunction';
-import { makeStyles } from '@material-ui/core/styles';
-import useFetch from '../../../../../lib/hooks/useFetch';
+import useFetch from '@hooks/useFetch';
 import { useStyles } from '../RegisterStyle';
 
-type InitialType = string[];
-
-type CandidateProps = {
+interface CandidateProps {
   handleCandidateData: (data: Runner[]) => void;
   editData: CandidateType | null;
-};
+}
 
 // 전체 등록된 학과 모은 데이터 받기
 const defualtMajor = ['없음'];
@@ -33,12 +30,12 @@ export default function CandidateForm({
   const classes = useStyles();
   const [{ loading, data, error }, fetchData] = useFetch('/api/v1/admin/major');
   // input 상태 관리
-  const [imageArr, setImageArr] = useState<InitialType>(initialData);
-  const [urlArr, setUrlArr] = useState<InitialType>(initialData);
-  const [nameArr, setNameArr] = useState<InitialType>(initialData);
-  const [majorArr, setMajorArr] = useState<InitialType>(initialData);
+  const [imageArr, setImageArr] = useState<string[]>(initialData);
+  const [urlArr, setUrlArr] = useState<string[]>(initialData);
+  const [nameArr, setNameArr] = useState<string[]>(initialData);
+  const [majorArr, setMajorArr] = useState<string[]>(initialData);
   const [studentNumArr, setStudentNumArr] = useState<number[]>([]);
-  const [positionArr, setPositionArr] = useState<InitialType>(initialData);
+  const [positionArr, setPositionArr] = useState<string[]>(initialData);
 
   // 후보 팀원 개별 정보 등록
   const handleImageArr = (index, value) => {

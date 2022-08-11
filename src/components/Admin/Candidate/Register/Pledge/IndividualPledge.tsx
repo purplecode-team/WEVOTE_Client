@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../RegisterStyle';
 
-type IndividualPledgeProps = {
+interface IndividualPledgeProps {
   index: number;
   editTitle: string;
   editSubTitle: string;
@@ -15,7 +15,7 @@ type IndividualPledgeProps = {
   handleTitleArr: (idx: number, value: string) => void;
   handleSubTitleArr: (idx: number, value: string) => void;
   handleDescriptionArr: (idx: number, value: string) => void;
-};
+}
 
 export default function IndividualPledge(props: IndividualPledgeProps) {
   const {

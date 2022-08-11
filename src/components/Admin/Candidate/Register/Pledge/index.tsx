@@ -1,6 +1,6 @@
 import * as TextData from '../TextData';
 
-import { CandidateType, PromiseType } from '../../../../../types/candidateType';
+import { CandidateType, PromiseType } from 'candidateType';
 import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
@@ -11,10 +11,10 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../RegisterStyle';
 
-type PledgeFormProps = {
+interface PledgeFormProps {
   handlePledgeData: (data: PromiseType[]) => void;
   editData: CandidateType | null;
-};
+}
 
 const MaxPledgeCount = 10;
 const countArr: number[] = Array.from({ length: MaxPledgeCount }, (v, i) => i);

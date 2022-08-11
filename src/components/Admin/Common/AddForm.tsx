@@ -1,16 +1,16 @@
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import { makeStyles } from '@material-ui/core/styles';
-import theme from '../../../lib/styles/theme';
+import theme from '@styles/theme';
 import { useState } from 'react';
 
-type AddFormProps = {
-  component: React.ReactNode,
+interface AddFormProps {
+  component: React.ReactNode;
 }
 
-export default function AddForm (props:AddFormProps) {
+export default function AddForm(props: AddFormProps) {
   const { component } = props;
   const classes = useStyles();
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -44,7 +44,7 @@ export default function AddForm (props:AddFormProps) {
   );
 }
 
-const useStyles = makeStyles(()=> ({
+const useStyles = makeStyles(() => ({
   paper: {
     maxWidth: 936,
     margin: '20px auto',

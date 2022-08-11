@@ -1,7 +1,7 @@
-import AuthTemplate from '../components/auth/AuthTemplate';
-import LoginForm from '../containers/auth/LoginForm';
+import AuthTemplate from '@components/auth/AuthTemplate';
+import LoginForm from '@components/auth/LoginForm';
 import React from 'react';
-import RegisterForm from '../containers/auth/RegisterForm';
+import RegisterForm from '@components/auth/RegisterForm';
 
 export function Login() {
   return (

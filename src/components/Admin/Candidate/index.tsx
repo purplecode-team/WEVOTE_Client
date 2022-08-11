@@ -3,9 +3,9 @@ import Editor from './Editor';
 import React from 'react';
 import Register from './Register';
 
-type Props = {
+interface Props {
   currentSmallMenuId: number;
-};
+}
 
 export default function Candidate({ currentSmallMenuId }: Props) {
   const Content = [

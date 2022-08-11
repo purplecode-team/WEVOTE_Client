@@ -2,22 +2,22 @@ import * as React from 'react';
 
 import styled, { css } from 'styled-components';
 
-import media from '../../../../lib/styles/media';
-import theme from '../../../../lib/styles/theme';
+import media from '@styles/media';
+import theme from '@styles/theme';
 
-type CategoryItemProps = {
+interface CategoryItemProps {
   title: string;
   onClick: any;
   isActive: boolean;
   isTopActive?: boolean;
   isTop?: boolean;
-};
+}
 
-type styleProps = {
+interface styleProps {
   isActive: boolean;
   isTopActive?: boolean;
   isTop?: boolean;
-};
+}
 
 const CategoryItem = ({
   title,

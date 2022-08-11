@@ -1,26 +1,26 @@
-import { changeField, initializeForm } from '../../modules/auth';
-import { login, register } from '../../lib/api/auth';
+import { login, register } from '@api/auth';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import AuthForm from '../../components/auth/AuthForm';
-import { rootState } from '../../modules';
-import { tempSetUser } from '../../modules/user';
+import AuthForm from '@components/auth/AuthForm';
+import authSlice from '@store/modules/authSlice';
+import storeTypes from 'storeTypes';
 import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router-dom';
+import userSlice from '@store/modules/userSlice';
 
 const RegisterForm = () => {
   const alert = useAlert();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { form } = useSelector(({ auth }:rootState) => ({
+  const { form } = useSelector(({ auth }: storeTypes.sliceState) => ({
     form: auth.register,
   }));
   // 인풋 변경 이벤트 핸들러
-  const onChange = e => {
+  const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
-      changeField({
+      authSlice.actions.changeField({
         form: 'register',
         key: name,
         value,
@@ -29,7 +29,7 @@ const RegisterForm = () => {
   };
 
   // 폼 등록 이벤트 핸들러
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const result = {
       nickName: form.nickName,
@@ -42,7 +42,9 @@ const RegisterForm = () => {
         userId: response.userId,
         password: form.password,
       });
-      dispatch(tempSetUser({ user: { nickName, status, userId } }));
+      dispatch(
+        userSlice.actions.tempSetUser({ user: { nickName, status, userId } })
+      );
       history.push('/');
     } catch {
       alert.error('회원가입 실패');
@@ -51,13 +53,12 @@ const RegisterForm = () => {
 
   // 컴포넌트가 처음 렌더링될 때 form을 초기화함
   useEffect(() => {
-    dispatch(initializeForm('register'));
-    return () => dispatch(initializeForm('register'));
-  }, [dispatch]);
+    dispatch(authSlice.actions.initializeForm('register'));
+  }, []);
 
   return (
     <AuthForm
-      type='register'
+      type="register"
       form={form}
       onChange={onChange}
       onSubmit={onSubmit}

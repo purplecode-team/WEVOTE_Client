@@ -1,6 +1,6 @@
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 
-import media from '../../lib/styles/media';
+import media from '@styles/media';
 
 export let theme = createMuiTheme({
   breakpoints: {
@@ -53,11 +53,11 @@ theme = {
         lineHeight: '20px',
       },
     },
-    MuiMenuItem:{
-      root:{
+    MuiMenuItem: {
+      root: {
         fontSize: '1.2rem',
-      }
-    }
+      },
+    },
   },
 };
 
@@ -148,4 +148,3 @@ export const useStyles = makeStyles({
     },
   },
 });
-

@@ -5,14 +5,14 @@ declare module '*.svg' {
   export default src;
 }
 
-declare module "*.ttf"
+declare module '*.ttf';
 
-declare module "*.png" {
+declare module '*.png' {
   const value: any;
   export = value;
 }
 
-declare module "*.jpg" {
+declare module '*.jpg' {
   const value: any;
   export = value;
 }

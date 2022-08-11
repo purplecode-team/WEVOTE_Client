@@ -12,7 +12,9 @@ module.exports = {
       {
         test: /\.(js|jsx)$/, // test : 어떤 파일에 적용할지 확장자 작성
         exclude: '/node_modules/', // exclude : 로더에서 제외할 파일 설정
-        loader: 'babel-loader', // loader : 적용할 로더가 1개라면 loader로 설정
+        use: {
+          loader: 'babel-loader', // loader : 적용할 로더가 1개라면 loader로 설정
+        },
       },
       {
         test: /\.css$/,
@@ -23,7 +25,9 @@ module.exports = {
       },
       {
         test: /\.(ttf|gif|jpe?g|png)$/,
-        loader: 'file-loader',
+        use: {
+          loader: 'file-loader',
+        },
       },
       {
         test: /\.(svg)$/,
@@ -39,7 +43,9 @@ module.exports = {
       },
       {
         test: /\.ts|tsx?$/,
-        loader: 'ts-loader',
+        use: {
+          loader: 'ts-loader',
+        },
       },
     ],
   },
@@ -68,15 +74,31 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
     alias: {
-      '@img': path.resolve(__dirname, './public/img'),
+      '@': path.resolve(__dirname, 'src/'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
+      '@icon': path.resolve(__dirname, 'src/assets/icon'),
+      '@img': path.resolve(__dirname, 'src/assets/img'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@store': path.resolve(__dirname, 'src/store'),
+      '@mocks': path.resolve(__dirname, 'src/mocks'),
+      '@utils': path.resolve(__dirname, 'src/utils'),
+      '@hooks': path.resolve(__dirname, 'src/hooks'),
+      '@api': path.resolve(__dirname, 'src/api'),
+      '@styles': path.resolve(__dirname, 'src/styles'),
     },
   },
   devtool: 'eval-cheap-source-map', // 번들링된 파일에서 에러 위치 확인
   devServer: {
-    publicPath: '/',
+    devMiddleware: {
+      publicPath: '/',
+    },
+    static: {
+      directory: path.resolve(__dirname, '/public'),
+    },
+    client: {
+      overlay: true,
+    },
     historyApiFallback: true,
-    overlay: true,
     hot: true,
-    contentBase: '/public',
   },
 };

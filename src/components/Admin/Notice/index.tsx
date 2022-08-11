@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
 import AddForm from '../Common/AddForm';
+import client from '@api/client';
 import NoticeForm from './NoticeForm';
 import NoticeList from './NoticeList';
-import client from '../../../lib/api/client';
 import { useAlert } from 'react-alert';
-import useFetch from '../../../lib/hooks/useFetch';
+import useFetch from '@hooks/useFetch';
 
-export type NoticeData = {
+export interface NoticeData {
   id: number;
   content: string;
   startDate: string;
   endDate: string;
-};
+}
 
 const initialData = [
   {
@@ -24,7 +24,9 @@ const initialData = [
 ];
 
 const NoticeArticle = () => {
-  const [{ loading, data, error }, fetchData] = useFetch('/api/v1/main/banner');
+  const [{ loading, data, error }, fetchData] = useFetch(
+    '/api/v1/admin/banner'
+  );
   const [rows, setRows] = useState<NoticeData[]>([]);
   const [editData, setEditData] = useState<NoticeData>();
   const [isOpen, setIsOpen] = useState<boolean>(false);

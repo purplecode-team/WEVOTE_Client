@@ -3,13 +3,13 @@ import * as React from 'react';
 import { Children, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 
-import media from '../../lib/styles/media';
+import media from '@styles/media';
 
 let start = 0;
 let diff = 0;
 let now = 0;
 
-type CarouselProps = {
+interface CarouselProps {
   children: React.ReactNode;
   isLineBreak?: boolean;
   isCentralize?: boolean;
@@ -17,12 +17,12 @@ type CarouselProps = {
   setCount: (num: number) => void;
   maxCount?: number;
   setCurrent?: (count: number) => void;
-};
+}
 
-type styleProps = {
+interface styleProps {
   isLineBreak?: boolean;
   isCentralize?: boolean;
-};
+}
 
 const Carousel = ({
   children,
@@ -31,7 +31,7 @@ const Carousel = ({
   count,
   setCount,
   setCurrent,
-  maxCount
+  maxCount,
 }: CarouselProps) => {
   const carouselRef = useRef<HTMLInputElement>(null);
 
@@ -51,30 +51,34 @@ const Carousel = ({
     if (diff < -swipePoint) {
       // 오른쪽 -> 왼쪽 swipe
       if (count >= itemLength - 1) return;
-      const nextCount = count += 1
+      const nextCount = (count += 1);
       setCount(nextCount);
     } else if (diff > swipePoint) {
       // 왼쪽 -> 오른쪽 swipe
       if (count === 0) return;
-      const nextCount = count -= 1
+      const nextCount = (count -= 1);
       setCount(nextCount);
     }
     diff = 0;
   };
 
   useEffect(() => {
-    if(carouselRef.current === null) return;
-    let calculation = (count * 87.5)+'vw';
-    if(carouselRef.current.clientWidth === media.laptop) calculation = (count * 33.33)+'%';
-    carouselRef.current.style.transition = 'all 0.4s cubic-bezier(0.8, 0, 0.2, 1)';
+    if (carouselRef.current === null) return;
+    let calculation = count * 87.5 + 'vw';
+    if (carouselRef.current.clientWidth === media.laptop)
+      calculation = count * 33.33 + '%';
+    carouselRef.current.style.transition =
+      'all 0.4s cubic-bezier(0.8, 0, 0.2, 1)';
     carouselRef.current.style.transform = `translateX(-${calculation})`;
   }, [count]);
 
-  useEffect(()=>{
-    if (!setCurrent) return
+  useEffect(() => {
+    if (!setCurrent) return;
     setCurrent(count);
-    return () => {if (setCurrent) setCurrent(count)}
-  },[count])
+    return () => {
+      if (setCurrent) setCurrent(count);
+    };
+  }, [count]);
 
   return (
     <Wrapper
@@ -93,7 +97,7 @@ const Carousel = ({
 Carousel.defaultProps = {
   isLineBreak: false,
   isCentralize: false,
-  maxCount:0
+  maxCount: 0,
 };
 
 export default Carousel;

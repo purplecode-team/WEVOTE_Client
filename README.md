@@ -1,14 +1,45 @@
-<img width="500" alt="WEVOTE Logo" src="https://user-images.githubusercontent.com/62092665/168424827-0c92529c-58f9-4df8-9740-272dd1354394.png" style="max-width: 100%;" /><br/>
 
------
 
-![Generic badge](https://img.shields.io/badge/version-0.1.0-green.svg)
+<div align=left> 
+
+<h1>WEVOTE, 대학 온라인 선거 관리 서비스 </h1>
+
+<img width="500" alt="WEVOTE Logo" src="https://user-images.githubusercontent.com/62092665/168424827-0c92529c-58f9-4df8-9740-272dd1354394.png" style="max-width: 80%;" /><br/>
+
+</div>
+
+<br/>
+
+<div align=left> 
+ <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+ <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+ <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+ <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
+ <img src="https://img.shields.io/badge/typescript-0769AD?style=for-the-badge&logo=typescript&logoColor=black"> 
+</div>
 
 ## 📼 Architecture
-<img src="https://user-images.githubusercontent.com/62092665/171193631-beb00d4f-d4c2-4290-bf14-15e6a6392ebc.jpg" alt="architecture" style="max-width: 600px;" />
+  <img src="https://user-images.githubusercontent.com/62092665/171193631-beb00d4f-d4c2-4290-bf14-15e6a6392ebc.jpg" alt="architecture" style="width: 500px;" />
+
 
 ## 📼 Preview
-<img src="https://user-images.githubusercontent.com/62092665/168425642-b306328e-6c26-433f-ad6d-5258a9f72be4.png" alt="demo screenshot" style="max-width: 700px" />
+<img src="https://user-images.githubusercontent.com/62092665/184024366-62c6455d-7b6d-4ccd-9256-95a0fa915b91.png" alt="demo screenshot" style="width: 400px" />
+
+<details>
+<summary>후보 상세 페이지</summary>
+
+<img src="https://user-images.githubusercontent.com/62092665/184024914-fd6b7d9f-d4b5-437d-be0b-e8cd7135823c.png" alt="demo screenshot" style="width: 400px" />
+
+</details>
+
+<details>
+<summary>관리자 페이지</summary>
+
+<img src="https://user-images.githubusercontent.com/62092665/184024377-b91420c6-3dc9-4bc1-b6b8-c4d6c42ccae4.png" alt="demo screenshot" style="width: 600px" />
+
+
+</details>
+
 
 ## ✨ Features
 - 선거 단위별 검색 및 상세 페이지 이동
@@ -21,9 +52,9 @@
 
 
 ## 🌐 Supported Browsers
-|<img width="20" src="https://simpleicons.org/icons/internetexplorer.svg" alt="IE" />|<img width="20" src="https://simpleicons.org/icons/googlechrome.svg" alt="Chrome" />|<img width="20" src="https://simpleicons.org/icons/firefoxbrowser.svg" alt="Firefox" />|<img width="20" src="https://simpleicons.org/icons/safari.svg" alt="Safari" />|<img width="20" src="https://simpleicons.org/icons/apple.svg" alt="iOS" />|<img width="20" src="https://simpleicons.org/icons/android.svg" alt="Android" />|
-|:---:|:---:|:---:|:---:|:---:|:---:|
-|9+(With polyfill), 11+ |Latest|Latest|Latest|7+|4+|
+|<img width="20" src="https://simpleicons.org/icons/internetexplorer.svg" alt="IE" />|<img width="20" src="https://simpleicons.org/icons/googlechrome.svg" alt="Chrome" />|<img width="20" src="https://simpleicons.org/icons/firefoxbrowser.svg" alt="Firefox" />|<img width="20" src="https://simpleicons.org/icons/safari.svg" alt="Safari" />|
+|:---:|:---:|:---:|:---:|
+|11+ |last 2 versions|last 2 versions|last 2 versions|
 
 
 ## 📝 Feedback

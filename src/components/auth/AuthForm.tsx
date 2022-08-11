@@ -1,33 +1,29 @@
 import { JAVASCRIPT_KEY, LOCAL_REDIRECT_URI, REDIRECT_URI } from './auth';
 import { Link, useHistory } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import {
-  verifyEmail,
-  verifyName,
-  verifyPassword,
-} from '../../utils/getFunction';
+import { verifyEmail, verifyName, verifyPassword } from '@utils/getFunction';
 
 import axios from 'axios';
 import Button from '../Common/Button';
-import { FormType } from '../../modules/auth';
+import { FormType } from '@store/modules/authSlice';
 import KakaoLogin from 'react-kakao-login';
-import klogin from '../../../public/img/login/kakaoLogin.png';
-import media from '../../lib/styles/media';
+import klogin from '@img/login/kakaoLogin.png';
+import media from '@styles/media';
 import React from 'react';
-import { tempSetUser } from '../../modules/user';
-import theme from '../../lib/styles/theme';
+import theme from '@styles/theme';
 import { useDispatch } from 'react-redux';
+import userSlice from '@store/modules/userSlice';
 
-type AuthFormProps = {
+interface AuthFormProps {
   type: string;
   form: FormType;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
-};
+}
 
-type styleProps = {
+interface styleProps {
   error?: boolean;
-};
+}
 
 const textMap = {
   login: '로그인',
@@ -50,7 +46,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }: AuthFormProps) => {
       .then((res) => {
         localStorage.setItem('Authorization', res.headers['Authorization']);
         localStorage.setItem('user', JSON.stringify(res.data));
-        dispatch(tempSetUser({ user: res.data }));
+        dispatch(userSlice.actions.tempSetUser({ user: res.data }));
         history.push('/');
       })
       .catch((e) => {

@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from 'react';
 
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import client from '../../../../lib/api/client';
-import CloseIcon from '@material-ui/icons/Close';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import client from '@api/client';
 import Loader from '../../../Common/Loader';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Register from './Register';
 import { useAlert } from 'react-alert';
-import useGetCategory from '../../../../lib/hooks/useGetCategory';
+import useGetCategory from '@hooks/useGetCategory';
 
-type postDataType = {
-  top: string,
-  middle: string,
-  bottom: string,
+interface postDataType {
+  top: string;
+  middle: string;
+  bottom: string;
 }
 
 const requestTopNames = ['central', 'college', 'major'];
 
-export default function Category (props) {
-  const { categoryIndex, setCategoryIndex, initialIndex } = props;
+export default function Category({
+  categoryIndex,
+  setCategoryIndex,
+  initialIndex,
+}) {
   const classes = useStyles();
   const {
     categoryState,
@@ -54,7 +50,7 @@ export default function Category (props) {
       onDelete(section);
   };
 
-  const deleteItem = section => {
+  const deleteItem = (section) => {
     const deleteIndex = currentIndex[section] > 0 ? currentIndex[section] : 0;
     const nextIndex = deleteIndex - 1 >= 0 ? deleteIndex - 1 : 0;
 
@@ -79,18 +75,18 @@ export default function Category (props) {
     setIsLoading(true);
     await client
       .delete(`/api/v1/admin/category/${top}/${id}`)
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) alert.success('카테고리 삭제 완료');
         else alert.error('데이터 삭제 실패');
         deleteItem(section);
       })
-      .catch(e => {
+      .catch((e) => {
         alert.error('데이터 삭제 실패');
       });
     fetchData();
   };
 
-  const onDelete = section => {
+  const onDelete = (section) => {
     const value = { top: requestTopNames[currentIndex.top], id: 0 };
     const currentMiddleData =
       categoryState.data[currentIndex.top].middle[currentIndex.middle];
@@ -103,7 +99,7 @@ export default function Category (props) {
     requestDelete(section, value.top, value.id);
   };
 
-  const requestPost = data => {
+  const requestPost = (data) => {
     if (hasBottom) {
       setBottomList([...bottomList, data.bottom]);
     } else {
@@ -111,53 +107,23 @@ export default function Category (props) {
     }
   };
 
-  const submitData = async e => {
+  const submitData = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     if (!hasBottom) postData.bottom = '';
     await client
       .post('/api/v1/admin/category', postData)
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) alert.success('카테고리 등록 완료');
         else alert.error('데이터 등록 실패');
         requestPost(postData);
       })
       .then(() => fetchData())
-      .catch(e => {
+      .catch((e) => {
         alert.error('데이터를 등록할 수 없습니다.');
       });
     setIsLoading(false);
   };
-
-  const customList = (section, title, items) => handle => (
-    <Card>
-      <CardHeader className={classes.cardHeader} title={title} />
-      <Divider />
-      <List className={classes.list} dense component='div' role='list'>
-        {items &&
-          items.map((value, idx) => (
-            <ListItem
-              key={idx}
-              role='listitem'
-              button
-              onClick={handle(value)}
-              className={
-                currentIndex[section] === idx ? classes.active : 'none'
-              }
-            >
-              <ListItemText primary={`${value}`} />
-              {
-                (currentIndex[section] === idx) &&
-                (section !== 'top') &&
-                (!(hasBottom && section === 'middle')) &&
-                <CloseIcon onClick={confirmDeletion(section, value)} />
-              }
-            </ListItem>
-          ))}
-        <ListItem />
-      </List>
-    </Card>
-  );
 
   useEffect(() => {
     if (currentIndex === initialIndex) {
@@ -189,7 +155,7 @@ export default function Category (props) {
           setPostData={setPostData}
           setCurrentIndex={setCurrentIndex}
           currentIndex={currentIndex}
-          customList={customList}
+          confirmDeletion={confirmDeletion}
           submitData={submitData}
           hasBottom={hasBottom}
         />
@@ -198,20 +164,7 @@ export default function Category (props) {
   );
 }
 
-const useStyles = makeStyles(theme => ({
-  cardHeader: {
-    padding: theme.spacing(1, 2),
-  },
-  list: {
-    width: 200,
-    height: 230,
-    margin: '0 auto',
-    backgroundColor: theme.palette.background.paper,
-    overflow: 'auto',
-  },
-  active: {
-    backgroundColor: '#eae3ff',
-  },
+const useStyles = makeStyles((theme) => ({
   paper: {
     maxWidth: 936,
     margin: '30px auto',

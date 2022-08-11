@@ -4,15 +4,15 @@ import React, { useEffect, useState } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
+import imageCompression from 'browser-image-compression';
 import ImageUploader from '../../../Common/ImageUploader';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import imageCompression from 'browser-image-compression';
 import { useStyles } from '../RegisterStyle';
 
-type IndividualProps = {
+interface IndividualProps {
   index: number;
   candidateMajor: string;
   candidateName: string;
@@ -27,7 +27,7 @@ type IndividualProps = {
   majorData: string[];
   loading: boolean;
   url: string;
-};
+}
 
 export default function IndividualCandidate(props: IndividualProps) {
   const {

@@ -1,19 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type ButtonProps = {
+interface ButtonProps {
   type?: 'button' | 'submit' | 'reset' | undefined;
   bgColor?: string;
   color?: string;
   disabled?: boolean;
   onClick?: () => void;
   children?: string;
-};
+}
 
-type buttonStyleProps = {
+interface buttonStyleProps {
   bgColor?: string;
   color?: string;
-};
+}
 
 export default function StyledButton(props: ButtonProps) {
   const { type, bgColor, color, disabled, onClick, children } = props;

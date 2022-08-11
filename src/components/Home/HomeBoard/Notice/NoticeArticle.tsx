@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-import media from '../../../../lib/styles/media';
+import media from '@styles/media';
 import styled from 'styled-components';
-import useFetch from '../../../../lib/hooks/useFetch';
+import useFetch from '@hooks/useFetch';
 
-type dataType = {
+interface dataType {
   id: number;
   content: string;
   startDate: string;
   endDate: string;
-};
+}
 
 const NoticeArticle = () => {
   const [{ loading, data, error }, fetchData] = useFetch('/api/v1/main/banner');

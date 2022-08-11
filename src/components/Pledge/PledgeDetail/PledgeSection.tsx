@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import media from '../../../lib/styles/media';
+import media from '@styles/media';
 import PledgeCard from './PledgeCard';
-import { PromiseArr } from '../../../types/candidateType';
+import { PromiseArr } from 'candidateType';
 import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
+import theme from '@styles/theme';
 
 const PledgeSection = ({ pledgeArr, slogan }: PromiseArr) => {
   return (

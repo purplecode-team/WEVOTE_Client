@@ -1,15 +1,14 @@
 import * as React from 'react';
 
-import media from '../../../lib/styles/media';
+import media from '@styles/media';
 import { MenuData } from './MenuData';
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import theme from '../../../lib/styles/theme';
+import theme from '@styles/theme';
 
-type TextMenuProps = {
+interface TextMenuProps {
   changeActiveMenu: () => void;
-};
+}
 
 export const TextMenu = ({ changeActiveMenu }: TextMenuProps) => {
   return (
@@ -30,10 +29,6 @@ export const TextMenu = ({ changeActiveMenu }: TextMenuProps) => {
       })}
     </>
   );
-};
-
-TextMenu.propTypes = {
-  changeActiveMenu: PropTypes.func.isRequired,
 };
 
 const MenuItem = styled.li`

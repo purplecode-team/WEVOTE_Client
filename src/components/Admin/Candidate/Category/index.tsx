@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 import Category from './Category';
 
-type indexType = {
+interface indexType {
   top: number;
   middle: number;
   bottom: number;
-};
+}
 
 const initialIndex = {
   top: 0,

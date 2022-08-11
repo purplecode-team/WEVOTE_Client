@@ -5,23 +5,23 @@ import * as React from 'react';
 import styled, { css } from 'styled-components';
 
 import { LoginMenu } from './LoginMenu';
+import logoIcon from '@icon/logo.svg';
+import media from '@styles/media';
+import menuBackground from '@icon/background/menuBackground.svg';
 import { NavLink } from 'react-router-dom';
+import storeTypes from 'storeTypes';
 import { TextMenu } from './TextMenu';
-import logoIcon from '../../../../public/img/logo.svg';
-import media from '../../../lib/styles/media';
-import menuBackground from '../../../../public/img/menuBackground.svg';
-import { rootState } from '../../../modules';
-import theme from '../../../lib/styles/theme';
+import theme from '@styles/theme';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-type HeaderStyle = {
+interface HeaderStyle {
   isActive: boolean;
-};
+}
 
 const Header = () => {
-  const { user } = useSelector((state: rootState) => ({
+  const { user } = useSelector((state: storeTypes.sliceState) => ({
     user: state.user.user,
   }));
   const [isActive, setIsActive] = useState(false);
@@ -34,9 +34,7 @@ const Header = () => {
   const logoutText = '더 많은 이용을 위해 로그인/회원가입을 진행해주세요';
 
   useEffect(() => {
-    if (user) setIsLogin(true);
-    else setIsLogin(true);
-    return () => setIsLogin(false);
+    setIsLogin(Boolean(user));
   }, [user]);
 
   return (

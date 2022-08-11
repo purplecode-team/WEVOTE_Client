@@ -5,24 +5,24 @@ import styled, { css } from 'styled-components';
 
 import CandidateCard from '../../Common/CandidateCard';
 import Carousel from '../../Common/Carousel';
-import media from '../../../lib/styles/media';
-import { Team } from '../../../types/candidateType';
-import theme from '../../../lib/styles/theme';
+import media from '@styles/media';
+import { Team } from 'candidateType';
+import theme from '@styles/theme';
 import { useState } from 'react';
 
-type CandidateArticleProps = {
+interface CandidateArticleProps {
   title: string;
   teamArr: Team[];
   current: number;
   setCurrent: (id: number) => void;
-};
+}
 
-type styleProps = {
+interface styleProps {
   isCurrent?: boolean;
   mobileMargin?: number;
   laptopMargin?: number;
   MobileBoxSize?: number;
-};
+}
 
 const BoxSize = 360;
 const MobileBoxSize = 80;
