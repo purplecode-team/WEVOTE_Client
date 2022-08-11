@@ -4,13 +4,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import errorImage from '@img/errorImage.jpg';
 import styled from 'styled-components';
 
-type PreviewProps = {
+interface PreviewProps {
   fileUrl: any[];
   alt: string;
   resetImg: () => void;
   width: number | string;
   height: number | string;
-};
+}
 
 export default function ImagePreview(props: PreviewProps) {
   const { fileUrl, alt, resetImg, width, height } = props;

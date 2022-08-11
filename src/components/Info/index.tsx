@@ -12,12 +12,12 @@ import styled from 'styled-components';
 import theme from '@styles/theme';
 import useFetch from '@hooks/useFetch';
 
-type styleProps = {
+interface styleProps {
   locationX?: number;
   mobileMargin?: number;
   laptopMargin?: number;
   MobileBoxSize?: number;
-};
+}
 
 const LaptopBoxSize = 480;
 const MobileBoxSize = 80;

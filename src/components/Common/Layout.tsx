@@ -7,9 +7,9 @@ import Header from './Header';
 import media from '@styles/media';
 import styled from 'styled-components';
 
-type LayoutProps = {
+interface LayoutProps {
   children: React.ReactNode;
-};
+}
 
 const Layout = ({ children }: LayoutProps) => (
   <>

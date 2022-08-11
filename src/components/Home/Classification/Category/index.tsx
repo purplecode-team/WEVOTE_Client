@@ -6,7 +6,7 @@ import CategoryItem from './CategoryItem';
 import media from '@styles/media';
 import styled from 'styled-components';
 
-type ClassificationProps = {
+interface ClassificationProps {
   getNewMiddleList: (HTMLInputElement: any) => void;
   getNewBottomList: (HTMLInputElement: any) => void;
   handleBottomCurrentIndex: (HTMLInputElement: any) => void;
@@ -14,7 +14,7 @@ type ClassificationProps = {
   middleList: string[];
   bottomList: string[];
   currentIndex: { top: number; middle: number; bottom: number };
-};
+}
 
 const ClassificationCategory = ({
   getNewMiddleList,

@@ -1,8 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 
-export type loadingState = {
+export interface loadingState {
   loading?: boolean;
-};
+}
 
 const START_LOADING = 'loading/START_LOADING';
 const FINISH_LOADING = 'loading/FINISH_LOADING';

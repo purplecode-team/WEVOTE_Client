@@ -4,11 +4,11 @@ import useFetch from './useFetch';
 
 const initialIndex = { top: 0, middle: 0, bottom: 0 };
 
-type indexType = {
+interface indexType {
   top: number;
   middle: number;
   bottom: number;
-};
+}
 
 const useGetCategory = () => {
   const [{ loading, data, error }, fetchData] = useFetch(

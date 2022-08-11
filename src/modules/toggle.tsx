@@ -1,9 +1,9 @@
 import { createAction, handleActions } from 'redux-actions';
 
-export type toggleState = {
+export interface toggleState {
   toggleEditor: boolean;
   candidateId: number;
-};
+}
 
 export const TOGGLE_CANDIDATE_EDITOR = 'editor/TOGGLE_CANDIDATE_EDITOR';
 

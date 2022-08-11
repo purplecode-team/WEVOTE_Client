@@ -14,11 +14,11 @@ import { toggleCandidateEditor } from '@modules/toggle';
 import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 
-type TeamProps = {
+interface TeamProps {
   teamData: Team;
   title?: string;
   refetch?: () => void;
-};
+}
 
 const CandidateCard = ({ teamData, title, refetch }: TeamProps) => {
   const [isAdminPage, setAdminPage] = useState(false);

@@ -6,11 +6,11 @@ import media from '@styles/media';
 import { qnaInfo } from 'candidateType';
 import styled from 'styled-components';
 
-type commentType = {
+interface commentType {
   qnaArr: qnaInfo[];
   teamId: number;
   fetchData: () => void;
-};
+}
 
 const CommentSection = ({ qnaArr, teamId, fetchData }: commentType) => {
   return (

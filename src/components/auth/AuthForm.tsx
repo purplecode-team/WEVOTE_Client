@@ -14,16 +14,16 @@ import { tempSetUser } from '@modules/user';
 import theme from '@styles/theme';
 import { useDispatch } from 'react-redux';
 
-type AuthFormProps = {
+interface AuthFormProps {
   type: string;
   form: FormType;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
-};
+}
 
-type styleProps = {
+interface styleProps {
   error?: boolean;
-};
+}
 
 const textMap = {
   login: '로그인',

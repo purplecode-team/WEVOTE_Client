@@ -8,19 +8,19 @@ import createRequestSaga, {
 import produce from 'immer';
 import { takeLatest } from 'redux-saga/effects';
 
-export type FormType = {
+export interface FormType {
   nickName?: string;
   userId?: string;
   password?: string;
   passwordConfirm?: string;
-};
+}
 
-export type authState = {
+export interface authState {
   register: FormType;
   login: FormType;
   auth?: any | null;
   authError?: any | null;
-};
+}
 
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';

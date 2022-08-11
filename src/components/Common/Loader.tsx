@@ -4,10 +4,10 @@ import { css } from '@emotion/react';
 import RingLoader from 'react-spinners/RingLoader';
 import theme from '@styles/theme';
 
-type loaderType = {
+interface loaderType {
   margin?: number;
   size?: number;
-};
+}
 
 const color = theme.Blue;
 function Loader({ margin, size }: loaderType) {

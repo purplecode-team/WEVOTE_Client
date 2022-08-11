@@ -4,12 +4,12 @@ import media from '@styles/media';
 import styled from 'styled-components';
 import useFetch from '@hooks/useFetch';
 
-type dataType = {
+interface dataType {
   id: number;
   content: string;
   startDate: string;
   endDate: string;
-};
+}
 
 const NoticeArticle = () => {
   const [{ loading, data, error }, fetchData] = useFetch('/api/v1/main/banner');

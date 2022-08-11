@@ -6,9 +6,9 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import theme from '@styles/theme';
 import { useState } from 'react';
 
-type AddFormProps = {
+interface AddFormProps {
   component: React.ReactNode;
-};
+}
 
 export default function AddForm(props: AddFormProps) {
   const { component } = props;

@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type Data = {
+interface Data {
   name: string;
   numOfTeam: number;
   type: string;
   startDate: string;
   endDate: string;
-};
+}
 
-type SlideProps = {
+interface SlideProps {
   data: Data;
-};
+}
 
 const Slide = ({ data }: SlideProps) => {
   const { name, numOfTeam, type } = data;

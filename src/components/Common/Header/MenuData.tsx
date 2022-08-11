@@ -9,13 +9,13 @@ export const MenuData = [
     path: '/info',
     icon: <AiIcons.AiOutlineFile />,
   },
-  {
-    id: 2,
-    type: 'text',
-    title: '공약게시판',
-    path: '/board',
-    icon: <AiIcons.AiOutlineOrderedList />,
-  },
+  // {
+  //   id: 2,
+  //   type: 'text',
+  //   title: '공약게시판',
+  //   path: '/board',
+  //   icon: <AiIcons.AiOutlineOrderedList />,
+  // },
   {
     id: 3,
     type: 'space',

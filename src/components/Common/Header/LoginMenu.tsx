@@ -11,10 +11,10 @@ import theme from '@styles/theme';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-type LoginMenuProps = {
+interface LoginMenuProps {
   changeActiveMenu: () => void;
   isLogin: boolean;
-};
+}
 
 export const LoginMenu = ({
   changeActiveMenu,

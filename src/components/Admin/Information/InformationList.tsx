@@ -6,12 +6,12 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '@styles/theme';
 
-type ListProps = {
+interface ListProps {
   loading?: boolean;
   data?: any;
   error?: boolean;
   confirmDeletion: (value: string) => void;
-};
+}
 
 export default function InformationList(props: ListProps) {
   const { loading, data, error, confirmDeletion } = props;

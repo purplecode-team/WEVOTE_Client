@@ -10,19 +10,19 @@ import { Team } from 'candidateType';
 import theme from '@styles/theme';
 import { useState } from 'react';
 
-type CandidateArticleProps = {
+interface CandidateArticleProps {
   title: string;
   teamArr: Team[];
   current: number;
   setCurrent: (id: number) => void;
-};
+}
 
-type styleProps = {
+interface styleProps {
   isCurrent?: boolean;
   mobileMargin?: number;
   laptopMargin?: number;
   MobileBoxSize?: number;
-};
+}
 
 const BoxSize = 360;
 const MobileBoxSize = 80;

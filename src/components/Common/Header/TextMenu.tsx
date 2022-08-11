@@ -6,9 +6,9 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '@styles/theme';
 
-type TextMenuProps = {
+interface TextMenuProps {
   changeActiveMenu: () => void;
-};
+}
 
 export const TextMenu = ({ changeActiveMenu }: TextMenuProps) => {
   return (

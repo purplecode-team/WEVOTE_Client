@@ -8,11 +8,11 @@ import Register from './Register';
 import { useAlert } from 'react-alert';
 import useGetCategory from '@hooks/useGetCategory';
 
-type postDataType = {
+interface postDataType {
   top: string;
   middle: string;
   bottom: string;
-};
+}
 
 const requestTopNames = ['central', 'college', 'major'];
 

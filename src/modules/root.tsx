@@ -19,11 +19,9 @@ export function* rootSaga() {
 
 export default rootReducer;
 
-export type RootState = ReturnType<typeof rootReducer>;
-
-export type rootState = {
+export interface rootState {
   auth: authState;
   loading: loadingState;
   user: userState;
   toggle: toggleState;
-};
+}

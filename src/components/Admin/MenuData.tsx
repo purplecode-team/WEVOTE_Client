@@ -4,19 +4,19 @@ import PublicIcon from '@material-ui/icons/Public';
 import React from 'react';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 
-export type smallMenuType = {
+export interface smallMenuType {
   id: number;
   name: string;
   active: boolean;
-};
+}
 
-export type menuType = {
+export interface menuType {
   id: number;
   name: string;
   icon: JSX.Element;
   active: boolean;
   smallMenu: smallMenuType[];
-};
+}
 
 export const MenuData = [
   {

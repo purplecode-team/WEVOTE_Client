@@ -16,9 +16,9 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-type HeaderStyle = {
+interface HeaderStyle {
   isActive: boolean;
-};
+}
 
 const Header = () => {
   const { user } = useSelector((state: rootState) => ({

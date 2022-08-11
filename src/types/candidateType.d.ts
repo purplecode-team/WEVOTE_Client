@@ -1,29 +1,29 @@
 declare module 'candidateType' {
-  export type Major = {
+  export interface Major {
     id: number;
     organizationName: string;
     Teams: Team[];
-  };
+  }
 
-  export type HasBottomType = {
+  export interface HasBottomType {
     id: number;
     organizationName: string;
     Majors: Major[];
-  };
+  }
 
-  export type HasMiddleType = {
+  export interface HasMiddleType {
     id: number;
     organizationName: string;
     Teams: Team[];
-  };
+  }
 
-  export type ClassificationDataType = {
+  export interface ClassificationDataType {
     central: HasMiddleType[];
     college: HasMiddleType[];
     major: HasBottomType[];
-  };
+  }
 
-  export type CandidateType = {
+  export interface CandidateType {
     id: number;
     order: number;
     slogan: string;
@@ -33,9 +33,9 @@ declare module 'candidateType' {
     Runners: Runner[];
     Promises: PromiseType[];
     organizationId: number;
-  };
+  }
 
-  export type Runner = {
+  export interface Runner {
     id?: number;
     name: string;
     major: string;
@@ -43,50 +43,50 @@ declare module 'candidateType' {
     position: string;
     picture: string;
     teamId?: number;
-  };
+  }
 
-  export type PromiseType = {
+  export interface PromiseType {
     id?: number;
     promiseType: string;
     promiseTitle: string;
     promiseDetail: string;
     teamId?: number;
-  };
+  }
 
-  export type PromiseArr = {
+  export interface PromiseArr {
     pledgeArr: PromiseType[];
     slogan: string;
-  };
+  }
 
-  export type comment = {
+  export interface comment {
     comment?: string;
     time?: number;
-  };
+  }
 
-  export type question = {
+  export interface question {
     id?: number;
     question?: string;
     time?: number;
     answer?: comment[];
-  };
+  }
 
-  export type qnaInfo = {
+  export interface qnaInfo {
     id: number;
     type: string;
     comment: string;
     time: number;
-  };
+  }
 
-  export type qnaArr = {
+  export interface qnaArr {
     qnaArr: qnaInfo[];
-  };
+  }
 
-  export type Team = {
+  export interface Team {
     id: number;
     order: number;
     slogan: string;
     Runners: Runner[];
     Promises?: PromiseType[];
     qna?: question[];
-  };
+  }
 }

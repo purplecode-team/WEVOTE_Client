@@ -14,13 +14,13 @@ import styled from 'styled-components';
 import { Team } from 'candidateType';
 import { theme } from '@components/Admin/materialStyle';
 
-type CandidateArticleProps = {
+interface CandidateArticleProps {
   organizationId?: number;
   loading: boolean;
   title: string;
   teamArr: Team[];
   refetch?: () => void;
-};
+}
 
 const emptyCardArr = [Img1, Img2, Img3];
 const emptyDescription = '후보가 등록되어 있지 않습니다.';

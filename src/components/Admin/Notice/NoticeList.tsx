@@ -17,7 +17,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-type ListProps = {
+interface ListProps {
   loading: boolean;
   rows: NoticeData[];
   editData?: NoticeData;
@@ -27,7 +27,7 @@ type ListProps = {
   onCloseModal: () => void;
   onUpdate: (id: number) => void;
   confirmDeletion: (id: number) => void;
-};
+}
 
 export default function NoticeList(props: ListProps) {
   const {

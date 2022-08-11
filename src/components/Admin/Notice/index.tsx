@@ -7,12 +7,12 @@ import NoticeList from './NoticeList';
 import { useAlert } from 'react-alert';
 import useFetch from '@hooks/useFetch';
 
-export type NoticeData = {
+export interface NoticeData {
   id: number;
   content: string;
   startDate: string;
   endDate: string;
-};
+}
 
 const initialData = [
   {

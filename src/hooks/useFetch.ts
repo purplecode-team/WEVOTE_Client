@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react';
 
 import client from '@api/client';
 
-type stateTypes = {
+interface stateTypes {
   loading: boolean;
   data: any;
   error: boolean;
-};
+}
 
-type ReturnTypes = [stateTypes, () => void];
+interface ReturnTypes {
+  type: [stateTypes, () => void];
+}
 
-export default function useFetch(url: string): ReturnTypes {
+export default function useFetch(url: string): ReturnTypes['type'] {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);

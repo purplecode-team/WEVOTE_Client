@@ -8,7 +8,7 @@ import { Team } from 'candidateType';
 import theme from '@styles/theme';
 import { useHistory } from 'react-router-dom';
 
-type imgTypes = {
+interface imgTypes {
   isLink?: boolean;
   refetch?: () => void;
   dataArr: any[];
@@ -17,14 +17,14 @@ type imgTypes = {
   description?: string;
   isCurrent?: boolean;
   organizationId?: number;
-};
+}
 
-type styleProps = {
+interface styleProps {
   isCurrent?: boolean;
   mobileMargin?: number;
   MobileBoxSize?: number;
   laptopMargin?: number;
-};
+}
 
 const BoxSize = 360;
 const MobileBoxSize = 80;

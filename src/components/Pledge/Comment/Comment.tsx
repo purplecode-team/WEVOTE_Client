@@ -8,14 +8,14 @@ import { qnaInfo } from 'candidateType';
 import theme from '@styles/theme';
 import userProfile from '@icon/profile/UserProfile.svg';
 
-type styleProps = {
+interface styleProps {
   answer?: boolean;
-};
+}
 
-type qnaType = {
+interface qnaType {
   qna: qnaInfo;
   answer?: boolean;
-};
+}
 
 const Comment = ({ qna, answer }: qnaType) => {
   const image = answer ? adminProfile : userProfile;

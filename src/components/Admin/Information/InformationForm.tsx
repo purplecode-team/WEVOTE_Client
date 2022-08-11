@@ -9,10 +9,10 @@ import React from 'react';
 import { useAlert } from 'react-alert';
 import { useState } from 'react';
 
-type FormProps = {
+interface FormProps {
   fetchData: () => void;
   confirmDeletion: (value: string) => void;
-};
+}
 
 export default function InformationForm(props: FormProps) {
   const { fetchData, confirmDeletion } = props;

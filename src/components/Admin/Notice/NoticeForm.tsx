@@ -15,11 +15,11 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { useAlert } from 'react-alert';
 
-type FormProps = {
+interface FormProps {
   editData?: NoticeData;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   fetchData: () => void;
-};
+}
 
 const DateOfToday = new Date().toString();
 

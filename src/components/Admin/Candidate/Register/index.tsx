@@ -16,13 +16,13 @@ import TeamForm from './Team';
 import { toggleCandidateEditor } from '@modules/toggle';
 import { useAlert } from 'react-alert';
 
-export type TeamType = {
+export interface TeamType {
   teamNumber: number;
   slogan: string;
   currentTop: string;
   currentMiddle: string;
   currentBottom: string;
-};
+}
 
 const initialTeamData: TeamType = {
   teamNumber: 1,

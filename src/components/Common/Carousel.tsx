@@ -9,7 +9,7 @@ let start = 0;
 let diff = 0;
 let now = 0;
 
-type CarouselProps = {
+interface CarouselProps {
   children: React.ReactNode;
   isLineBreak?: boolean;
   isCentralize?: boolean;
@@ -17,12 +17,12 @@ type CarouselProps = {
   setCount: (num: number) => void;
   maxCount?: number;
   setCurrent?: (count: number) => void;
-};
+}
 
-type styleProps = {
+interface styleProps {
   isLineBreak?: boolean;
   isCentralize?: boolean;
-};
+}
 
 const Carousel = ({
   children,

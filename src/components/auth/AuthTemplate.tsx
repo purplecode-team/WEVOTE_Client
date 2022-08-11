@@ -2,9 +2,9 @@ import media from '@styles/media';
 import React from 'react';
 import styled from 'styled-components';
 
-type TemplateProps = {
+interface TemplateProps {
   children: React.ReactNode;
-};
+}
 
 const AuthTemplate = ({ children }: TemplateProps) => {
   return (

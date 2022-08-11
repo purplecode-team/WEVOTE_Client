@@ -15,10 +15,10 @@ import Typography from '@material-ui/core/Typography';
 import useGetCategory from '@hooks/useGetCategory';
 import { useStyles } from '../RegisterStyle';
 
-type TeamFormProps = {
+interface TeamFormProps {
   setTeamData: React.Dispatch<React.SetStateAction<TeamType>>;
   editData: CandidateType | null;
-};
+}
 
 export default function TeamForm(props: TeamFormProps) {
   const { setTeamData, editData } = props;
